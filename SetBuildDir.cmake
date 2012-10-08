@@ -1,7 +1,7 @@
 #
-# Determine a build directory to store all relevant downloads and builds for a
-# given OS/architecure.  The build directory can be fixed by setting BUILD_DIR
-# prior to including this module.
+# Ensure a build directory to store all relevant downloads and builds for a
+# given OS/architecure.   Also provides a macro for creating package variables
+# for package source directories.
 #
 # This module defines:
 # FLYEM_BUILD_DIR -- the OS/architecture-specific directory for all FlyEM downloads & builds.
@@ -10,7 +10,7 @@
 set (FLYEM_BUILD_DIR "None" CACHE TYPE STRING)
 
 if (${FLYEM_BUILD_DIR} STREQUAL "None")
-    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DFLYEM_BUILD_DIR=<path>")
+    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DFLYEM_BUILD_DIR=<path> on cmake command line.")
 endif ()
 message ("FlyEM downloads and builds will be placed here: ${FLYEM_BUILD_DIR}")
 

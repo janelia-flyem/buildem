@@ -48,6 +48,9 @@ ExternalProject_Add(${jsoncpp_NAME}
 add_custom_command (TARGET ${jsoncpp_NAME}
                     POST_BUILD
                     COMMAND mkdir -p ${FLYEM_BUILD_DIR}/lib
+                    COMMAND mkdir -p ${FLYEM_BUILD_DIR}/include
                     COMMAND cp ${jsoncpp_SRC_DIR}/libs/linux-gcc-*/libjson_linux-gcc-*_libmt.so ${FLYEM_BUILD_DIR}/lib/libjsoncpp.so
-                    COMMENT "Copied jsoncpp library to ${FLYEM_BUILD_DIR}/lib")
+                    COMMAND python ${COPY_SCRIPT} "${jsoncpp_SRC_DIR}/include/*" ${FLYEM_BUILD_DIR}/include
+                    COMMENT "Copied jsoncpp library and include files to ${FLYEM_BUILD_DIR}")
 set (json_LIB ${FLYEM_BUILD_DIR}/lib/libjsoncpp.so)
+set (json_INCLUDES ${FLYEM_BUILD_DIR}/include)

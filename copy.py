@@ -103,10 +103,13 @@ def dir_exists_in_path_list(dirname, path_list):
 
 
 HELP_USAGE = """
-%prog will recursively copy files from src to dst.
+%prog will recursively copy files from a source pattern string to dst directory.
 
     %prog <src> <dst>
 
+Example:
+
+    %prog "/my/src/dir/*" /my/dst/dir
 """
 
 def main():
