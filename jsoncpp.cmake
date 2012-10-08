@@ -33,7 +33,7 @@ set_src_dir(jsoncpp ${jsoncpp_NAME})
 
 ExternalProject_Add(${jsoncpp_NAME}
     PREFIX ${FLYEM_BUILD_DIR}
-    DEPENDS flyem-build scons-local-1.2.0
+    DEPENDS scons-local-1.2.0
     URL http://downloads.sourceforge.net/project/jsoncpp/jsoncpp/0.5.0/jsoncpp-src-0.5.0.tar.gz
     UPDATE_COMMAND ""
     PATCH_COMMAND python ${COPY_SCRIPT} "${FLYEM_BUILD_DIR}/src/scons-local-1.2.0/*" ${jsoncpp_SRC_DIR}

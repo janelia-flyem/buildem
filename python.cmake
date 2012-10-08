@@ -1,5 +1,5 @@
 #
-# Install the JsonCpp program into an OS-specific build directory
+# Install python from source
 #
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
@@ -20,5 +20,6 @@ ExternalProject_Add(${python_NAME}
     BUILD_COMMAND make
     INSTALL_COMMAND make install
 )
+set (PYTHON_INCLUDE_PATH ${FLYEM_BUILD_DIR}/include/python2.7)
 
-message ("Will use python ${python_RELEASE} for build.")
+message ("Using python ${python_RELEASE} for build.")

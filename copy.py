@@ -70,11 +70,15 @@ def copy_file_or_dir_to_dir(src, dstdir, raise_error=True):
     try:
         shutil.copytree(src, os.path.join(dstdir, os.path.basename(src)))
     except OSError as exc:
-        if exc.errno == errno.ENOTDIR:
+        if exc.errno == errno.EEXIST:
+            print("*** %s already exists, skipping ***")
+        elif exc.errno == errno.ENOTDIR:
             try:
                 shutil.copy(src, dstdir)
             except OSError as exc:
-                if raise_error:
+                if exc.errno == errno.EEXIST:
+                    print("*** %s already exists, skipping ***")
+                elif raise_error:
                     raise
                 else:
                     print("*** Could not copy %s to %s" % (src, dstdir))
