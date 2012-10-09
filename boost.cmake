@@ -10,6 +10,9 @@ include (ExternalProject)
 include (ExternalSource)
 
 include (python)
+include (zlib)
+
+include_directories (${FLYEM_BUILD_DIR}/include)
 
 external_source (boost
     1_51_0
@@ -18,13 +21,13 @@ external_source (boost
 
 message ("Installing ${boost_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${boost_NAME}
-    DEPENDS ${python_NAME}
+    DEPENDS ${python_NAME} ${zlib_NAME}
     PREFIX ${FLYEM_BUILD_DIR}
     URL ${boost_URL}
     UPDATE_COMMAND ""
     PATCH_COMMAND ""
     CONFIGURE_COMMAND ./bootstrap.sh --with-python=${PYTHON_EXE} --prefix=${FLYEM_BUILD_DIR}
-    BUILD_COMMAND ./b2 install
+    BUILD_COMMAND ./b2 -sNO_BZIP2=1 -sZLIB_INCLUDE=${FLYEM_BUILD_DIR}/include -sZLIB_SOURCE=${zlib_SRC_DIR} install
     BUILD_IN_SOURCE 1
     INSTALL_COMMAND ""
 )
