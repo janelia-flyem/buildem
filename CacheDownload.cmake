@@ -15,10 +15,11 @@ endif ()
 if (TEST_DOWNLOAD_CACHE_DIR)
 	message ("Will cache downloads for ${${ABBREV}_NAME}.")
 	add_custom_command (
-	    TARGET ${${ABBREV}_NAME}
-	    POST_BUILD
+	    OUTPUT ${TEST_DOWNLOAD_CACHE_DIR}/${BASEFILE}
+	    DEPENDS ${FLYEM_BUILD_DIR}/src/${BASEFILE} ${${ABBREV}_NAME}
 	    COMMAND ${CMAKE_COMMAND} -E make_directory ${TEST_DOWNLOAD_CACHE_DIR}
 	    COMMAND ${CMAKE_COMMAND} -E copy ${FLYEM_BUILD_DIR}/src/${BASEFILE} ${TEST_DOWNLOAD_CACHE_DIR})
+		COMMENT "Copied ${FLYEM_BUILD_DIR}/src/${BASEFILE} to ${TEST_DOWNLOAD_CACHE_DIR}"
 endif ()
 
 endmacro (cache_download)
