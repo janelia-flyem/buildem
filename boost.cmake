@@ -10,10 +10,7 @@ include (ExternalProject)
 include (SetBuildDir)
 include (CacheDownload)
 
-# Make sure we've done "include (python)" to download/build python before boost
-if (NOT python_NAME)
-    message (FATAL_ERROR "Before including boost, you must include python!")
-endif ()
+include (python)
 
 set (boost_RELEASE  1_51_0)
 set (boost_NAME     "boost_${boost_RELEASE}")
@@ -23,6 +20,7 @@ message ("Installing ${boost_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...
 set_src_dir (boost ${boost_NAME})
 
 ExternalProject_Add(${boost_NAME}
+    DEPENDS ${python_NAME}
     PREFIX ${FLYEM_BUILD_DIR}
     URL ${boost_URL}
     UPDATE_COMMAND ""
