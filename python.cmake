@@ -6,9 +6,14 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
 include (SetBuildDir)
+include (CacheDownload)
 
 set (python_RELEASE  2.7.3)
 set (python_NAME     "Python-${python_RELEASE}")
+
+cache_download (python ${python_NAME}.tgz http://www.python.org/ftp/python/2.7.3)
+
+message ("Installing ${python_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 set_src_dir (python ${python_NAME})
 
 ExternalProject_Add(${python_NAME}
@@ -22,4 +27,3 @@ ExternalProject_Add(${python_NAME}
 )
 set (PYTHON_INCLUDE_PATH ${FLYEM_BUILD_DIR}/include/python2.7)
 
-message ("Using python ${python_RELEASE} for build.")
