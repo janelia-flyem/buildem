@@ -12,7 +12,7 @@ include (ExternalSource)
 external_source (scons 
     1.2.0 
     scons-local-1.2.0.tar.gz
-    http://downloads.sourceforge.net/project/scons/scons-local)
+    http://downloads.sourceforge.net/project/scons/scons-local/1.2.0)
 
 external_source (jsoncpp
     0.5.0
