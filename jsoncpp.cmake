@@ -7,17 +7,17 @@ if (NOT jsoncpp_NAME)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
-include (SetBuildDir)
-include (CacheDownload)
+include (ExternalSource)
 
-set (scons_RELEASE  1.2.0)
-set (scons_NAME     "scons-local-${scons_RELEASE}")
+external_source (scons 
+    1.2.0 
+    scons-local-1.2.0.tar.gz
+    http://downloads.sourceforge.net/project/scons/scons-local)
 
-set (jsoncpp_RELEASE  0.5.0)
-set (jsoncpp_NAME     "jsoncpp-src-${jsoncpp_RELEASE}")
-
-cache_init (scons ${scons_NAME}.tar.gz http://downloads.sourceforge.net/project/scons/scons-local/1.2.0)
-cache_init (jsoncpp ${jsoncpp_NAME}.tar.gz http://downloads.sourceforge.net/project/jsoncpp/jsoncpp/0.5.0)
+external_source (jsoncpp
+    0.5.0
+    jsoncpp-src-0.5.0.tar.gz
+    http://downloads.sourceforge.net/project/jsoncpp/jsoncpp/0.5.0)
 
 # Copy script will take a string pattern and copy all matches into a destination directory.
 # Surprisingly, this is hard to do within ExternalProject_Add due to lack of wildcard expansion?
@@ -26,8 +26,6 @@ set (COPY_SCRIPT ${FLYEM_BUILD_REPO_DIR}/copy.py)
 
 # Download required scons local package
 message ("Installing scons-local 1.2.0 needed to build jsoncpp...")
-set_src_dir(scons ${scons_NAME})
-
 ExternalProject_Add(${scons_NAME}
     PREFIX ${FLYEM_BUILD_DIR}
     URL ${scons_URL}
@@ -37,12 +35,9 @@ ExternalProject_Add(${scons_NAME}
     BUILD_COMMAND ""
     INSTALL_COMMAND ""
 )
-cache_download (scons)
 
 # Download jsoncpp and build it.
 message ("Installing ${jsoncpp_NAME} ...")
-set_src_dir(jsoncpp ${jsoncpp_NAME})
-
 ExternalProject_Add(${jsoncpp_NAME}
     PREFIX ${FLYEM_BUILD_DIR}
     DEPENDS ${scons_NAME}
@@ -54,7 +49,6 @@ ExternalProject_Add(${jsoncpp_NAME}
     BUILD_IN_SOURCE 1
     INSTALL_COMMAND ""
 )
-cache_download (jsoncpp)
 
 add_custom_command (TARGET ${jsoncpp_NAME}
                     POST_BUILD

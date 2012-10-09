@@ -7,18 +7,16 @@ if (NOT boost_NAME)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
-include (SetBuildDir)
-include (CacheDownload)
+include (ExternalSource)
 
 include (python)
 
-set (boost_RELEASE  1_51_0)
-set (boost_NAME     "boost_${boost_RELEASE}")
-cache_init (boost ${boost_NAME}.tar.gz http://downloads.sourceforge.net/project/boost/boost/1.51.0)
+external_source (boost
+    1_51_0
+    boost_1_51_0.tar.gz
+    http://downloads.sourceforge.net/project/boost/boost/1.51.0)
 
 message ("Installing ${boost_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
-set_src_dir (boost ${boost_NAME})
-
 ExternalProject_Add(${boost_NAME}
     DEPENDS ${python_NAME}
     PREFIX ${FLYEM_BUILD_DIR}
@@ -30,6 +28,5 @@ ExternalProject_Add(${boost_NAME}
     BUILD_IN_SOURCE 1
     INSTALL_COMMAND ""
 )
-cache_download (boost)
 
 endif (NOT boost_NAME)
