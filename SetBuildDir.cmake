@@ -1,3 +1,5 @@
+if (NOT set_src_dir)
+
 if (NOT FLYEM_BUILD_DIR)
     message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DFLYEM_BUILD_DIR=<path> on cmake command line.")
 endif ()
@@ -8,3 +10,4 @@ set (${TARGET_NAME}_SRC_DIR   "${FLYEM_BUILD_DIR}/src/${TARGET_NAME}")
 set (${TARGET_ABBREV}_SRC_DIR "${FLYEM_BUILD_DIR}/src/${TARGET_NAME}")
 endmacro (set_src_dir)
 
+endif (NOT set_src_dir)

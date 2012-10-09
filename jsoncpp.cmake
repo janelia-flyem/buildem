@@ -2,6 +2,8 @@
 # Install the JsonCpp program into an OS-specific build directory
 #
 
+if (NOT jsoncpp_NAME)
+
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
@@ -16,34 +18,6 @@ set (jsoncpp_NAME     "jsoncpp-src-${jsoncpp_RELEASE}")
 
 cache_init (scons ${scons_NAME}.tar.gz http://downloads.sourceforge.net/project/scons/scons-local/1.2.0)
 cache_init (jsoncpp ${jsoncpp_NAME}.tar.gz http://downloads.sourceforge.net/project/jsoncpp/jsoncpp/0.5.0)
-
-# ################################
-# # Allow testing with local files
-# set (scons_FILE ${scons_NAME}.tar.gz)
-# if (TEST_DOWNLOAD_CACHE_DIR AND EXISTS ${TEST_DOWNLOAD_CACHE_DIR}/${scons_FILE})
-#     set (scons_URL ${TEST_DOWNLOAD_CACHE_DIR}/${scons_FILE})
-# else ()
-#     set (scons_URL http://downloads.sourceforge.net/project/scons/scons-local/1.2.0/${scons_FILE})
-# endif ()
-
-# set (jsoncpp_FILE ${jsoncpp_NAME}.tar.gz)
-# if (TEST_DOWNLOAD_CACHE_DIR AND EXISTS ${TEST_DOWNLOAD_CACHE_DIR}/${jsoncpp_FILE})
-#     set (jsoncpp_URL ${TEST_DOWNLOAD_CACHE_DIR}/${jsoncpp_FILE})
-# else ()
-#     set (jsoncpp_URL http://downloads.sourceforge.net/project/jsoncpp/jsoncpp/0.5.0/${jsoncpp_FILE})
-# endif ()
-# ################################
-
-# ################################
-# # Allow testing with local files
-# if (NOT TEST_DOWNLOAD_CACHE_DIR)
-#     set (scons_URL http://downloads.sourceforge.net/project/scons/scons-local/1.2.0/${scons_NAME}.tar.gz)
-#     set (jsoncpp_URL http://downloads.sourceforge.net/project/jsoncpp/jsoncpp/0.5.0/${jsoncpp_NAME}.tar.gz)
-# else ()
-#     set (scons_URL ${TEST_DOWNLOAD_CACHE_DIR}/${scons_NAME}.tar.gz)
-#     set (jsoncpp_URL ${TEST_DOWNLOAD_CACHE_DIR}/${jsoncpp_NAME}.tar.gz)
-# endif ()
-# ################################
 
 # Copy script will take a string pattern and copy all matches into a destination directory.
 # Surprisingly, this is hard to do within ExternalProject_Add due to lack of wildcard expansion?
@@ -93,3 +67,5 @@ set (json_LIB ${FLYEM_BUILD_DIR}/lib/libjsoncpp.so)
 set (json_INCLUDES ${FLYEM_BUILD_DIR}/include)
 
 message ("Including JSON include files from here: ${json_INCLUDES}")
+
+endif (NOT jsoncpp_NAME)

@@ -2,6 +2,8 @@
 # Install python from source
 #
 
+if (NOT python_NAME)
+
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
@@ -28,4 +30,6 @@ ExternalProject_Add(${python_NAME}
 cache_download (python)
 
 set (PYTHON_INCLUDE_PATH ${FLYEM_BUILD_DIR}/include/python2.7)
+set (PYTHON_EXE ${FLYEM_BUILD_DIR}/bin/python2.7)
 
+endif (NOT python_NAME)
