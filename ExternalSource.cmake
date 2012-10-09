@@ -23,7 +23,7 @@ set (${ABBREV}_NAME     ${ABBREV}-${SRC_VERSION})
 set (${ABBREV}_FILE     ${FILENAME})
 set (${ABBREV}_RELEASE  ${SRC_VERSION})
 set (${ABBREV}_URL      ${PREFIX_URL}/${FILENAME})
-set (${ABBREV}_SRC_DIR  ${FLYEM_BUILD_DIR}/src/${ABBREV}_NAME)
+set (${ABBREV}_SRC_DIR  ${FLYEM_BUILD_DIR}/src/${${ABBREV}_NAME})
 
 endmacro (external_source)
 
