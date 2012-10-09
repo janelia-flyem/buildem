@@ -14,8 +14,8 @@ set (scons_NAME     "scons-local-${scons_RELEASE}")
 set (jsoncpp_RELEASE  0.5.0)
 set (jsoncpp_NAME     "jsoncpp-src-${jsoncpp_RELEASE}")
 
-cache_download (scons ${scons_NAME}.tar.gz http://downloads.sourceforge.net/project/scons/scons-local/1.2.0)
-cache_download (jsoncpp ${jsoncpp_NAME}.tar.gz http://downloads.sourceforge.net/project/jsoncpp/jsoncpp/0.5.0)
+cache_init (scons ${scons_NAME}.tar.gz http://downloads.sourceforge.net/project/scons/scons-local/1.2.0)
+cache_init (jsoncpp ${jsoncpp_NAME}.tar.gz http://downloads.sourceforge.net/project/jsoncpp/jsoncpp/0.5.0)
 
 # ################################
 # # Allow testing with local files
@@ -63,6 +63,7 @@ ExternalProject_Add(${scons_NAME}
     BUILD_COMMAND ""
     INSTALL_COMMAND ""
 )
+cache_download (scons)
 
 # Download jsoncpp and build it.
 message ("Installing ${jsoncpp_NAME} ...")
@@ -79,6 +80,7 @@ ExternalProject_Add(${jsoncpp_NAME}
     BUILD_IN_SOURCE 1
     INSTALL_COMMAND ""
 )
+cache_download (jsoncpp)
 
 add_custom_command (TARGET ${jsoncpp_NAME}
                     POST_BUILD
