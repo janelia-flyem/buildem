@@ -9,10 +9,12 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 
+# TODO -- The download URL might only be valid for most recent release.
+#   Find better mirror that has steady download URL or cache it at janelia.
 external_source (libpng
-    1.5.12
-    libpng-1.5.12.tar.gz
-    http://downloads.sourceforge.net/project/libpng/libpng15/1.5.12)
+    1.5.13
+    libpng-1.5.13.tar.gz
+    http://downloads.sourceforge.net/project/libpng/libpng15/1.5.13)
 
 message ("Installing ${libpng_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${libpng_NAME}
