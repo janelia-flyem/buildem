@@ -26,6 +26,7 @@ ExternalProject_Add(${libtiff_NAME}
     CONFIGURE_COMMAND ./configure 
         --prefix=${FLYEM_BUILD_DIR}
         LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
+        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND     make
     BUILD_IN_SOURCE   1
     INSTALL_COMMAND   make install

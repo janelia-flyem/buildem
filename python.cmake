@@ -23,7 +23,10 @@ ExternalProject_Add(${python_NAME}
     URL ${python_URL}
     UPDATE_COMMAND ""
     PATCH_COMMAND ""
-    CONFIGURE_COMMAND ${python_SRC_DIR}/configure --prefix=${FLYEM_BUILD_DIR}
+    CONFIGURE_COMMAND ${python_SRC_DIR}/configure 
+        --prefix=${FLYEM_BUILD_DIR}
+        LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
+        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND make
     INSTALL_COMMAND make install
 )

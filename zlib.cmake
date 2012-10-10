@@ -22,6 +22,7 @@ ExternalProject_Add(${zlib_NAME}
     PATCH_COMMAND     ""
     CONFIGURE_COMMAND ${CMAKE_COMMAND} ${zlib_SRC_DIR} 
         -DCMAKE_INSTALL_PREFIX:string=${FLYEM_BUILD_DIR}
+        -DCMAKE_FIND_ROOT_PATH=${FLYEM_BUILD_DIR}
     BUILD_COMMAND     make
     INSTALL_COMMAND   make install
 )

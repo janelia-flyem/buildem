@@ -37,7 +37,13 @@ ExternalProject_Add(${atlas_NAME}
     URL                 ${atlas_URL}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${atlas_SRC_DIR}/configure -b 64 --shared --prefix=${FLYEM_BUILD_DIR} --with-netlib-lapack-tarfile=${lapack_FILE}
+    CONFIGURE_COMMAND   ${atlas_SRC_DIR}/configure 
+        -b 64 
+        --shared 
+        --prefix=${FLYEM_BUILD_DIR} 
+        --with-netlib-lapack-tarfile=${lapack_FILE}
+        LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
+        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       make
     TEST_COMMAND        make check
     INSTALL_COMMAND     make install

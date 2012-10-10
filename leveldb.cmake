@@ -29,14 +29,16 @@ ExternalProject_Add(${leveldb_NAME}
 ExternalProject_add_step(${leveldb_NAME} install_includes
     DEPENDEES   build
     COMMAND     ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/include
-    COMMAND     ${CMAKE_COMMAND} -E copy_directory ${leveldb_SRC_DIR}/include/leveldb ${FLYEM_BUILD_DIR}/include/leveldb
+    COMMAND     ${CMAKE_COMMAND} -E copy_directory 
+        ${leveldb_SRC_DIR}/include/leveldb ${FLYEM_BUILD_DIR}/include/leveldb
     COMMENT     "Placed leveldb include files in ${FLYEM_BUILD_DIR}include"
 )
 
 ExternalProject_add_step(${leveldb_NAME} install_library
     DEPENDEES   install_includes
     COMMAND     ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/lib
-    COMMAND     ${CMAKE_COMMAND} -E copy ${leveldb_SRC_DIR}/libleveldb.a ${FLYEM_BUILD_DIR}/lib
+    COMMAND     ${CMAKE_COMMAND} -E copy 
+        ${leveldb_SRC_DIR}/libleveldb.a ${FLYEM_BUILD_DIR}/lib
     COMMENT     "Placed libleveldb.a in ${FLYEM_BUILD_DIR}/lib"
 )
 

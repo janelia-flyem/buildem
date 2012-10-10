@@ -26,8 +26,15 @@ ExternalProject_Add(${boost_NAME}
     URL ${boost_URL}
     UPDATE_COMMAND ""
     PATCH_COMMAND ""
-    CONFIGURE_COMMAND ./bootstrap.sh --with-python=${PYTHON_EXE} --prefix=${FLYEM_BUILD_DIR}
-    BUILD_COMMAND ./b2 -sNO_BZIP2=1 -sZLIB_INCLUDE=${FLYEM_BUILD_DIR}/include -sZLIB_SOURCE=${zlib_SRC_DIR} install
+    CONFIGURE_COMMAND ./bootstrap.sh 
+        --with-python=${PYTHON_EXE} 
+        --prefix=${FLYEM_BUILD_DIR}
+        LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
+        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
+    BUILD_COMMAND ./b2 
+        -sNO_BZIP2=1 
+        -sZLIB_INCLUDE=${FLYEM_BUILD_DIR}/include 
+        -sZLIB_SOURCE=${zlib_SRC_DIR} install
     BUILD_IN_SOURCE 1
     INSTALL_COMMAND ""
 )

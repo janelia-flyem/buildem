@@ -28,6 +28,7 @@ ExternalProject_Add(${ilmbase_NAME}
     CONFIGURE_COMMAND   ${ilmbase_SRC_DIR}/configure 
         --prefix=${FLYEM_BUILD_DIR}
         LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
+        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       make
     INSTALL_COMMAND     make install
 )

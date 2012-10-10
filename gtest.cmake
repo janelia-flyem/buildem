@@ -20,7 +20,9 @@ ExternalProject_Add(${gtest_NAME}
     URL ${gtest_URL}
     UPDATE_COMMAND    ""
     PATCH_COMMAND     ""
-    CONFIGURE_COMMAND ${CMAKE_COMMAND} ${gtest_SRC_DIR} -DCMAKE_INSTALL_PREFIX:string=${FLYEM_BUILD_DIR}
+    CONFIGURE_COMMAND ${CMAKE_COMMAND} ${gtest_SRC_DIR} 
+        -DCMAKE_INSTALL_PREFIX:string=${FLYEM_BUILD_DIR}
+        -DCMAKE_FIND_ROOT_PATH=${FLYEM_BUILD_DIR}
     BUILD_COMMAND     make
     BUILD_IN_SOURCE   1
     INSTALL_COMMAND   "" 
@@ -29,7 +31,8 @@ ExternalProject_Add(${gtest_NAME}
 ExternalProject_add_step(${gtest_NAME} install_includes
     DEPENDEES   build
     COMMAND     ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/include
-    COMMAND     ${CMAKE_COMMAND} -E copy_directory ${gtest_SRC_DIR}/include/gtest ${FLYEM_BUILD_DIR}/include/gtest
+    COMMAND     ${CMAKE_COMMAND} -E copy_directory 
+        ${gtest_SRC_DIR}/include/gtest ${FLYEM_BUILD_DIR}/include/gtest
     COMMENT     "Placed gtest include files in ${FLYEM_BUILD_DIR}include"
 )
 
