@@ -33,6 +33,7 @@ ExternalProject_Add(${openexr_NAME}
         PKG_CONFIG_PATH=${FLYEM_PKGCONFIG_DIR}
         LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
+    BUILD_COMMAND     make
     INSTALL_COMMAND   make install
 )
 
