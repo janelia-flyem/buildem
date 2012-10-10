@@ -3,7 +3,7 @@
 # 
 # Sets the following variables:
 #    ${ABBREV}_URL      The URL used for external project downloads.
-#    ${ABBREV}_FILE     The base filename of the download
+#    ${ABBREV}_FILE     The full path to the downloaded compressed file
 #    ${ABBREV}_RELEASE  The release identifier
 #    ${ABBREV}_NAME     A simple identifier with just the name + version
 #    ${ABBREV}_SRC_DIR  The directory containing the downloaded source code
@@ -20,7 +20,7 @@ endif ()
 macro (external_source ABBREV SRC_VERSION FILENAME PREFIX_URL)
 
 set (${ABBREV}_NAME     ${ABBREV}-${SRC_VERSION})
-set (${ABBREV}_FILE     ${FILENAME})
+set (${ABBREV}_FILE     ${FLYEM_BUILD_DIR}/src/${FILENAME})
 set (${ABBREV}_RELEASE  ${SRC_VERSION})
 set (${ABBREV}_URL      ${PREFIX_URL}/${FILENAME})
 set (${ABBREV}_SRC_DIR  ${FLYEM_BUILD_DIR}/src/${${ABBREV}_NAME})
