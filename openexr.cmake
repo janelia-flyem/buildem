@@ -31,6 +31,7 @@ ExternalProject_Add(${openexr_NAME}
         --prefix=${FLYEM_BUILD_DIR}
         --disable-ilmbasetest
         PKG_CONFIG_PATH=${FLYEM_PKGCONFIG_DIR}
+        LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
     INSTALL_COMMAND   make install
 )
 
