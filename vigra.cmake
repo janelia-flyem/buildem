@@ -21,8 +21,7 @@ include (boost)
 external_source (vigra
     1.8.0
     vigra-1.8.0-src.tar.gz
-    /tmp)
-#    http://hci.iwr.uni-heidelberg.de/vigra)
+    http://hci.iwr.uni-heidelberg.de/vigra)
 
 # Note the number of forced -D CMake variable sets in the configure.
 # There is trouble making vigra find the libraries given priority in 
@@ -45,9 +44,12 @@ ExternalProject_Add(${vigra_NAME}
         -DHDF5_CORE_LIBRARY=${FLYEM_BUILD_DIR}/lib/libhdf5.so
         -DHDF5_HL_LIBRARY=${FLYEM_BUILD_DIR}/lib/libhdf5_hl.so
         -DHDF5_INCLUDE_DIR=${FLYEM_BUILD_DIR}/include
+        -DCMAKE_CXX_FLAGS=-pthread
+        -DCMAKE_CXX_LINK_FLAGS=-pthread
     BUILD_COMMAND     make
     TEST_COMMAND      make check
     INSTALL_COMMAND   make install
 )
 
 endif (NOT vigra_NAME)
+
