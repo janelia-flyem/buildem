@@ -13,6 +13,7 @@ include (libjpeg)
 include (libtiff)
 include (libpng)
 include (openexr)
+include (libfftw)
 include (hdf5)
 include (python)
 include (boost)
@@ -44,6 +45,10 @@ ExternalProject_Add(${vigra_NAME}
         -DHDF5_CORE_LIBRARY=${FLYEM_BUILD_DIR}/lib/libhdf5.so
         -DHDF5_HL_LIBRARY=${FLYEM_BUILD_DIR}/lib/libhdf5_hl.so
         -DHDF5_INCLUDE_DIR=${FLYEM_BUILD_DIR}/include
+        -DFFTW3F_INCLUDE_DIR=
+        -DFFTW3F_LIBRARY=
+        -DFFTW3_INCLUDE_DIR=${FLYEM_BUILD_DIR}/include
+        -DFFTW3_LIBRARY=${FLYEM_BUILD_DIR}/lib/libfftw3.so
         -DCMAKE_CXX_FLAGS=-pthread
         -DCMAKE_CXX_LINK_FLAGS=-pthread
     BUILD_COMMAND     make
