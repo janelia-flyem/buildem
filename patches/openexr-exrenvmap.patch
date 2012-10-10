@@ -1,0 +1,12 @@
+*** main.cpp	2007-04-24 21:07:51.000000000 -0400
+--- main2.cpp	2012-05-14 16:02:25.904584003 -0400
+***************
+*** 45,50 ****
+--- 45,51 ----
+  #include <iostream>
+  #include <exception>
+  #include <stdlib.h>
++ #include <string.h>
+  
+  using namespace Imf;
+  using namespace std;

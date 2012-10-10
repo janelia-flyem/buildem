@@ -1,0 +1,12 @@
+*** ImathMatrix.h	2010-07-16 18:48:40.000000000 -0400
+--- ImathMatrix2.h	2012-05-14 14:46:43.870280100 -0400
+***************
+*** 51,56 ****
+--- 51,57 ----
+  
+  #include <iostream>
+  #include <iomanip>
++ #include <string.h>
+  
+  #if (defined _WIN32 || defined _WIN64) && defined _MSC_VER
+  // suppress exception specification warnings
