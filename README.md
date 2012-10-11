@@ -1,7 +1,7 @@
 FlyEM Build System
 ==================
 
-The [flyem-build](https://github.com/janelia-flyem/flyem-build) repo, together with [flyem-mirror](https://github.com/janelia-flyem/flyem-mirror), constitute a CMake-based build system that attempts to simplify and automate a complex build process.  
+The [flyem-build](https://github.com/janelia-flyem/flyem-build) repo is part of a CMake-based build system that attempts to simplify and automate a complex build process.  
 
 Previously, each software component was installed by manually downloading packages, either via yum/apt-get in sudo mode or by compiling source tarballs.  Target executables and libraries were symbolically linked or copied to standard locations.  While this process allowed great latitude in reusing software already available on computers, it has a number of issues:
 
@@ -37,7 +37,7 @@ The build process for a FlyEM application at /path/to/foo/code:
 If this is the first time a FlyEM application was compiled for this FBD, the build script will download the flyem-build repo into the FBD and the user will be prompted to re-run the cmake and make steps as above.
 
 That's it.  The build scripts will automatically download the source for all dependencies and compile it using the standard compilers for the build computer.  Source tarballs can be downloaded from either a FlyEM-controlled
-cache on Github or the original project download site.  You can specify exactly which packages should use original project URLs via the following command-line option:
+cache on Github (http://janelia-flyem.github.com/downloads) or the original project download site.  You can specify exactly which packages should use original project URLs via the following command-line option:
 
     % cmake -DUSE_PROJECT_DOWNLOAD="libtiff;vigra" -DFLYEM_BUILD_DIR=/path/to/FBD  /path/to/foo/code
 
