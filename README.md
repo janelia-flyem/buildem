@@ -16,7 +16,7 @@ The FlyEM build system is predicated on some basic assertions:
 * Disk space is cheap and plentiful.
 * Each application build process should be easily specified and automated.
 * Required components should be easily shared on network drives among networked computers that can share software, i.e., the computers have compatible operating systems, because intranets have excellent bandwidth.
-* Required components can be automatically built from source.
+* Required components can be automatically built from source, and CMake is a sufficiently flexible and cross-platform tool on which to base our system.
 * Builds of all components should be OS and compiler-specific to minimize conflicts in compiler versions, and we are not sure that pre-compiled components (e.g., RPMs) are available for all target machines/compilers.
 * Third-party pre-built packages, like Enthought Python Distribution, are not viable due to licensing costs for cluster operation as well as inability to easily adapt to new dependencies.
 
