@@ -37,7 +37,7 @@ The build process for a FlyEM application at /path/to/foo/code:
 If this is the first time a FlyEM application was compiled for this FBD, the build script will download the flyem-build repo into the FBD and the user will be prompted to re-run the cmake and make steps as above.
 
 That's it.  The build scripts will automatically download the source for all dependencies and compile it using the standard compilers for the build computer.  Source tarballs can be downloaded from either a FlyEM-controlled
-cache on Github (http://janelia-flyem.github.com/downloads) or the original project download site.  You can specify exactly which packages should use original project URLs via the following command-line option:
+cache on Github or the original project download site.  You can specify exactly which packages should use original project URLs via the following command-line option:
 
     % cmake -DUSE_PROJECT_DOWNLOAD="libtiff;vigra" -DFLYEM_BUILD_DIR=/path/to/FBD  /path/to/foo/code
 
