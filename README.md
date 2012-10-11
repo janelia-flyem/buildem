@@ -36,7 +36,14 @@ The build process for a FlyEM application at /path/to/foo/code:
 
 If this is the first time a FlyEM application was compiled for this FBD, the build script will download the flyem-build repo into the FBD and the user will be prompted to re-run the cmake and make steps as above.
 
-That's it.  The build scripts will automatically download the source for all dependencies and compile it using the standard compilers for the build computer.  Alternative compilers can be specified by modifying CMake variables:
+That's it.  The build scripts will automatically download the source for all dependencies and compile it using the standard compilers for the build computer.  Source tarballs can be downloaded from either a FlyEM-controlled
+cache on Github (http://janelia-flyem.github.com/downloads) or the original project download site.  You can specify exactly which packages should use original project URLs via the following command-line option:
+
+    % cmake -DUSE_PROJECT_DOWNLOAD="libtiff;vigra" -DFLYEM_BUILD_DIR=/path/to/FBD  /path/to/foo/code
+
+The above `USE_PROJECT_DOWNLOAD` setting asks that the libtiff and vigra packages be downloaded from the original project websites.
+
+Alternative compilers can be specified by modifying CMake variables:
 
     % cmake -DCMAKE_C_COMPILER=gcc-4.2 -DCMAKE_CXX_COMPILER=g++-4.2 -DFLYEM_BUILD_DIR=/path/to/FBD  /path/to/foo/code
     
@@ -51,7 +58,6 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 project (Foo)
 
 include (ExternalProject)
-
 
 ############################################################################
 # Check if FLYEM_BUILD_DIR has already been assigned.  If not, create a default.
@@ -103,3 +109,45 @@ else ()
         ############################################################################
 endif()
 ```
+
+If a required package is not available, it is very easy to add your own to the collection of .cmake files in the flyem-build repository.  Let's look at the build file for libtiff:
+
+```cmake
+if (NOT libtiff_NAME)
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+include (ExternalProject)
+include (ExternalSource)
+
+include (libjpeg)
+
+external_source (libtiff
+    4.0.3
+    tiff-4.0.3.tar.gz
+    ftp://ftp.remotesensing.org/pub/libtiff)
+
+message ("Installing ${libtiff_NAME} into ${FLYEM_BUILD_DIR} ...")
+ExternalProject_Add(${libtiff_NAME}
+    DEPENDS           ${libjpeg_NAME}
+    PREFIX            ${FLYEM_BUILD_DIR}
+    URL               ${libtiff_URL}
+    UPDATE_COMMAND    ""
+    PATCH_COMMAND     ""
+    CONFIGURE_COMMAND ./configure 
+        --prefix=${FLYEM_BUILD_DIR}
+        LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
+        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
+    BUILD_COMMAND     make
+    BUILD_IN_SOURCE   1
+    INSTALL_COMMAND   make install
+)
+
+endif (NOT libtiff_NAME)
+```
+
+We `include` a number of required cmake files -- `ExternalProject` gets us CMake's standard ExternalProject_Add, and `ExternalSource` is our support script that sets appropriate variables for the given project abbreviation.
+
+Each external package dependency is specified via a simple statement like `include (foo)`.  Package builds should be separated -- one package per .cmake in the flyem-build repo.  For every included package, you should add `${foo_NAME}` on the `DEPENDS` line of the `ExternalProject_Add` function.
+
+Note that `${foo_URL}` is set by the `external_source()` macro to an appropriate download URL.  It can be modified by the `-DUSE_PROJECT_DOWNLOAD` command-line cmake option as mentioned above.
