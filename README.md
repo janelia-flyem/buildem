@@ -1,7 +1,7 @@
 FlyEM Build System
 ==================
 
-The flyem-build repo, together with flyem-mirror, constitute a CMake-based build system that attempts to simplify and automate a complex build process.  
+The flyem-build repo, together with [flyem-mirror](https://github.com/janelia-flyem/flyem-), constitute a CMake-based build system that attempts to simplify and automate a complex build process.  
 
 Previously, each software component was installed by manually downloading packages, either via yum/apt-get in sudo mode or by compiling source tarballs.  Target executables and libraries were symbolically linked or copied to standard locations.  While this process allowed great latitude in reusing software already available on computers, it has a number of issues:
 
