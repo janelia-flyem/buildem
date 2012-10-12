@@ -28,7 +28,7 @@ macro (external_source ABBREV SRC_VERSION FILENAME MD5 PREFIX_URL)
 
 set (${ABBREV}_NAME     ${ABBREV}-${SRC_VERSION})
 set (${ABBREV}_FILE     ${FLYEM_BUILD_DIR}/src/${FILENAME})
-set (${ABBREV}_FILE_MD5 ${MD5})
+set (${ABBREV}_MD5      ${MD5})
 set (${ABBREV}_RELEASE  ${SRC_VERSION})
 set (${ABBREV}_SRC_DIR  ${FLYEM_BUILD_DIR}/src/${${ABBREV}_NAME})
 
