@@ -23,7 +23,7 @@ external_source (setuptools
 message ("Installing ${setuptools_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 
 ExternalProject_Add(${setuptools_NAME}
-    DEPENDS             ${python_NAME}
+    DEPENDS             ${APP_DEPENDENCIES}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${setuptools_URL}
     URL_MD5             ${setuptools_MD5}

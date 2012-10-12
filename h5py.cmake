@@ -22,7 +22,7 @@ external_source (h5py
 
 message ("Installing ${h5py_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${h5py_NAME}
-    DEPENDS             ${python_NAME} ${hdf5_NAME} ${numpy_NAME}
+    DEPENDS             ${APP_DEPENDENCIES}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${h5py_URL}
     URL_MD5             ${h5py_MD5}

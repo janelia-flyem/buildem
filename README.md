@@ -49,7 +49,9 @@ Alternative compilers can be specified by modifying CMake variables:
     
 ## Specifying the build for your application
 
-Application builds are specified through one or more CMake files.  You must create a CMakeLists.txt at the root of your application source that sets the required FBD path and auto-downloads the flyem-build repo.  This CMake script can include any number of required components.  Most of these components should be in the flyem-repo, e.g., a libpng dependency is fulfilled by simply using `include (libpng)` and then adding `${libpng_NAME}` as a dependency.
+Application builds are specified through one or more CMake files.  You must create a CMakeLists.txt at the root of your application source that sets the required FBD path and auto-downloads the flyem-build repo.  This CMake script can include any number of required components.  Most of these components should be in the flyem-repo, e.g., a libpng dependency is fulfilled by simply using `include (libpng)`.
+
+### Your application CMakeLists.txt
 
 Your application CMakeLists.txt can use the following template:
 
@@ -103,12 +105,14 @@ else ()
 
     # Install Foo -- we use below just as placeholder
     add_custom_target (Foo ALL
-        DEPENDS ${python_NAME} ${libpng_NAME}
+        DEPENDS ${APP_DEPENDENCIES}
         COMMENT "Foo built")
 
         ############################################################################
 endif()
 ```
+
+### Adding packages to build process
 
 If a required package is not available, it is very easy to add your own to the collection of .cmake files in the flyem-build repository. Let's look at libpng as an example of a standard configure/make/make install build:
 
@@ -169,7 +173,7 @@ include (python)
 include (setuptools)
 
 add_custom_target (nose ALL 
-    DEPENDS ${python_NAME} ${setuptools_NAME}
+    DEPENDS ${APP_DEPENDENCIES}
     COMMAND ${FLYEM_ENV_STRING}  easy_install nose
     COMMENT "Installing nose via easy_install")
 

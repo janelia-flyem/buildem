@@ -32,8 +32,7 @@ external_source (vigra
 # Therefore, the problem libraries are set specifically.
 message ("Installing ${vigra_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${vigra_NAME}
-    DEPENDS             ${libjpeg_NAME} ${libtiff_NAME} ${libpng_NAME} ${openexr_NAME} ${hdf5_NAME}
-                        ${python_NAME} ${boost_NAME} ${numpy_NAME}
+    DEPENDS             ${APP_DEPENDENCIES}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${vigra_URL}
     URL_MD5             ${vigra_MD5}

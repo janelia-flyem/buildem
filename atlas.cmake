@@ -37,7 +37,7 @@ external_source (atlas
 
 message ("Installing ${atlas_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${atlas_NAME}
-    DEPENDS             ${lapack_NAME}
+    DEPENDS             ${APP_DEPENDENCIES}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${atlas_URL}
     URL_MD5             ${atlas_MD5}

@@ -20,7 +20,7 @@ external_source (libtiff
 
 message ("Installing ${libtiff_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${libtiff_NAME}
-    DEPENDS             ${libjpeg_NAME}
+    DEPENDS             ${APP_DEPENDENCIES}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${libtiff_URL}
     URL_MD5             ${libtiff_MD5}

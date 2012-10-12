@@ -20,7 +20,7 @@ external_source (cython
 
 message ("Installing ${cython_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${cython_NAME}
-    DEPENDS             ${python_NAME} ${setuptools_NAME}
+    DEPENDS             ${APP_DEPENDENCIES}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${cython_URL}
     URL_MD5             ${cython_MD5}

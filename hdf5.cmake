@@ -21,7 +21,7 @@ external_source (hdf5
 
 message ("Installing ${hdf5_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${hdf5_NAME}
-    DEPENDS                 ${zlib_NAME}
+    DEPENDS                 ${APP_DEPENDENCIES}
     PREFIX                  ${FLYEM_BUILD_DIR}
     URL                     ${hdf5_URL}
     URL_MD5                 ${hdf5_MD5}
