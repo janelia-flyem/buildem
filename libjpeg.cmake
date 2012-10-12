@@ -22,7 +22,7 @@ ExternalProject_Add(${libjpeg_NAME}
     URL                 ${libjpeg_URL}
     URL_MD5             ${libjpeg_MD5}
     UPDATE_COMMAND      ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/man/man1
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} configure 
+    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
         --prefix=${FLYEM_BUILD_DIR} 
         --enable-shared
         LDFLAGS=-L${FLYEM_BUILD_DIR}/lib

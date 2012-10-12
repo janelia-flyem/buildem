@@ -26,7 +26,7 @@ ExternalProject_Add(${libtiff_NAME}
     URL_MD5             ${libtiff_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} configure 
+    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
         --prefix=${FLYEM_BUILD_DIR}
         LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include

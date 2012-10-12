@@ -23,7 +23,7 @@ ExternalProject_Add(${thrift_NAME}
     URL_MD5             ${thrift_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} configure 
+    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
         --prefix=${FLYEM_BUILD_DIR} 
         --with-boost=${FLYEM_BUILD_DIR} 
         PY_PREFIX=${FLYEM_BUILD_DIR}
