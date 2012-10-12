@@ -26,7 +26,7 @@ In future versions of the build system, we will allow developers to easily speci
 
 ## The build process
 
-An empty directory is chosen as the *FlyEM build directory (FBD)* that is specific to OS, compilers' versions, and chosen component versions.  The FBD can be thought of as a version-specific /usr/local and will contain bin, lib, include, and other standard directories.  All automatically downloaded and compiled code will reside in the FBD's src directory.  Note that the FBD should not be confused with any component's *build directory*, which can be either in the component's source directory or some user-chosen directory as in standard CMake use.
+An empty directory is chosen as the *FlyEM build directory (FBD)* that is specific to OS, compiler versions, and component versions.  The FBD can be thought of as a version-specific /usr/local and will contain bin, lib, include, and other standard directories.  All automatically downloaded and compiled code will reside in the FBD's src directory.  Note that the FBD should not be confused with any component's *build directory*, which can be either in the component's source directory or some user-chosen directory as in standard CMake use.
 
 The build process for a FlyEM application at /path/to/foo/code:
 
@@ -37,7 +37,7 @@ The build process for a FlyEM application at /path/to/foo/code:
 If this is the first time a FlyEM application was compiled for this FBD, the build script will download the flyem-build repo into the FBD and the user will be prompted to re-run the cmake and make steps as above.
 
 That's it.  The build scripts will automatically download the source for all dependencies and compile it using the standard compilers for the build computer.  Source tarballs can be downloaded from either a FlyEM-controlled
-cache on Github (http://janelia-flyem.github.com/downloads) or the original project download site.  You can specify exactly which packages should use original project URLs via the following command-line option:
+cache on Github (the default) or the original project download site.  You can specify exactly which packages should use original project URLs via the following command-line option:
 
     % cmake -DUSE_PROJECT_DOWNLOAD="libtiff;vigra" -DFLYEM_BUILD_DIR=/path/to/FBD  /path/to/foo/code
 

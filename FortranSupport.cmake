@@ -4,7 +4,7 @@
 # The following is mostly pulled from the CMakeForFortranExample found here:
 # http://www.vtk.org/Wiki/CMakeForFortranExample
 
-if (NOT CMAKE_Fortran_COMPILER OR NOT CMAKE_Fortran_FLAGS_RELEASE)
+if (NOT Fortran_COMPILER_NAME)
 
 enable_language (Fortran)
 
@@ -31,9 +31,9 @@ else (Fortran_COMPILER_NAME STREQUAL "gfortran")
   set (CMAKE_Fortran_FLAGS_DEBUG   "-O0 -g")
 endif (Fortran_COMPILER_NAME STREQUAL "gfortran")
 
-message ("Fortran support enabled.")
+message ("Fortran support enabled using ${Fortran_COMPILER_NAME}")
 message ("Fortran compiler: ${CMAKE_Fortran_COMPILER}")
 message ("Fortran compile flags: ${CMAKE_Fortran_FLAGS_RELEASE}")
 
-endif (NOT CMAKE_Fortran_COMPILER OR NOT CMAKE_Fortran_FLAGS_RELEASE)
+endif (NOT Fortran_COMPILER_NAME)
 

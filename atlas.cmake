@@ -8,6 +8,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
 include (ExternalSource)
+include (FortranSupport)
 
 external_source (lapack
     3.4.2
@@ -37,13 +38,15 @@ ExternalProject_Add(${atlas_NAME}
     URL                 ${atlas_URL}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${atlas_SRC_DIR}/configure 
+    CONFIGURE_COMMAND   ${atlas_SRC_DIR}/configure
+        -C if ${CMAKE_Fortran_COMPILER}
+        -F if ${CMAKE_Fortran_FLAGS_RELEASE}
         -b 64 
         --shared 
         --prefix=${FLYEM_BUILD_DIR} 
         --with-netlib-lapack-tarfile=${lapack_FILE}
-        LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
-        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
+#        LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
+#        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       make
     TEST_COMMAND        make check
     INSTALL_COMMAND     make install
