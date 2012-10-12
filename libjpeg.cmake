@@ -8,31 +8,29 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
 include (ExternalSource)
-
-# Need dos2unix because libjpeg source has dos lines that break under unix.
-# include (dos2unix)
+include (BuildSupport)
 
 external_source (libjpeg
     8d
     jpegsrc.v8d.tar.gz
+    52654eb3b2e60c35731ea8fc87f1bd29
     http://www.ijg.org/files)
 
 message ("Installing ${libjpeg_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${libjpeg_NAME}
-    DEPENDS           ${dos2unix_NAME}
-    PREFIX            ${FLYEM_BUILD_DIR}
-    URL               ${libjpeg_URL}
-    UPDATE_COMMAND    ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/man/man1
-#    PATCH_COMMAND     ${FLYEM_BUILD_DIR}/bin/dos2unix ${libjpeg_SRC_DIR}/configure
-    CONFIGURE_COMMAND ./configure 
+    PREFIX              ${FLYEM_BUILD_DIR}
+    URL                 ${libjpeg_URL}
+    URL_MD5             ${libjpeg_MD5}
+    UPDATE_COMMAND      ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/man/man1
+    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} configure 
         --prefix=${FLYEM_BUILD_DIR} 
         --enable-shared
         LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
-    BUILD_COMMAND     make LIBTOOL=libtool
-    BUILD_IN_SOURCE   1
-    TEST_COMMAND      make check
-    INSTALL_COMMAND   make LIBTOOL=libtool install
+    BUILD_COMMAND       ${FLYEM_ENV_STRING} make LIBTOOL=libtool
+    BUILD_IN_SOURCE     1
+    TEST_COMMAND        ${FLYEM_ENV_STRING} make check
+    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make LIBTOOL=libtool install
 )
 
 endif (NOT libjpeg_NAME)

@@ -11,24 +11,27 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
 include (ExternalSource)
+include (BuildSupport)
 
 external_source (python
     2.7.3
     Python-2.7.3.tgz
+    2cf641732ac23b18d139be077bd906cd
     http://www.python.org/ftp/python/2.7.3)
 
 message ("Installing ${python_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${python_NAME}
-    PREFIX ${FLYEM_BUILD_DIR}
-    URL ${python_URL}
-    UPDATE_COMMAND ""
-    PATCH_COMMAND ""
-    CONFIGURE_COMMAND ${python_SRC_DIR}/configure 
+    PREFIX              ${FLYEM_BUILD_DIR}
+    URL                 ${python_URL}
+    URL_MD5             ${python_MD5}
+    UPDATE_COMMAND      ""
+    PATCH_COMMAND       ""
+    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${python_SRC_DIR}/configure 
         --prefix=${FLYEM_BUILD_DIR}
         LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
-    BUILD_COMMAND make
-    INSTALL_COMMAND make install
+    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
+    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
 )
 
 set (PYTHON_INCLUDE_PATH ${FLYEM_BUILD_DIR}/include/python2.7)

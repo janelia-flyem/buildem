@@ -9,6 +9,7 @@
 #    DEFAULT_DOWNLOAD_SITE  URL of cache for required software tarballs
 #    ${ABBREV}_URL          URL used for external project downloads.
 #    ${ABBREV}_FILE         The full path to the downloaded compressed file
+#    ${ABBREV}_FILE_MD5     The MD5 checksum of the compressed file
 #    ${ABBREV}_RELEASE      The release identifier
 #    ${ABBREV}_NAME         A simple identifier with just the name + version
 #    ${ABBREV}_SRC_DIR      The directory containing the downloaded source code
@@ -23,10 +24,11 @@ endif ()
 set (DEFAULT_DOWNLOAD_SITE http://janelia-flyem.github.com/downloads)
 
 # Define macro to set a number of variables per external project source
-macro (external_source ABBREV SRC_VERSION FILENAME PREFIX_URL)
+macro (external_source ABBREV SRC_VERSION FILENAME MD5 PREFIX_URL)
 
 set (${ABBREV}_NAME     ${ABBREV}-${SRC_VERSION})
 set (${ABBREV}_FILE     ${FLYEM_BUILD_DIR}/src/${FILENAME})
+set (${ABBREV}_FILE_MD5 ${MD5})
 set (${ABBREV}_RELEASE  ${SRC_VERSION})
 set (${ABBREV}_SRC_DIR  ${FLYEM_BUILD_DIR}/src/${${ABBREV}_NAME})
 

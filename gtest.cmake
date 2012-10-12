@@ -8,24 +8,27 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
 include (ExternalSource)
+include (BuildSupport)
 
 external_source (gtest
     1.6.0
     gtest-1.6.0.zip
+    4577b49f2973c90bf9ba69aa8166b786
     http://googletest.googlecode.com/files)
 
 message ("Installing ${gtest_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${gtest_NAME}
-    PREFIX ${FLYEM_BUILD_DIR}
-    URL ${gtest_URL}
-    UPDATE_COMMAND    ""
-    PATCH_COMMAND     ""
-    CONFIGURE_COMMAND ${CMAKE_COMMAND} ${gtest_SRC_DIR} 
+    PREFIX              ${FLYEM_BUILD_DIR}
+    URL                 ${gtest_URL}
+    URL_MD5             ${gtest_MD5}
+    UPDATE_COMMAND      ""
+    PATCH_COMMAND       ""
+    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND} ${gtest_SRC_DIR} 
         -DCMAKE_INSTALL_PREFIX:string=${FLYEM_BUILD_DIR}
         -DCMAKE_FIND_ROOT_PATH=${FLYEM_BUILD_DIR}
-    BUILD_COMMAND     make
-    BUILD_IN_SOURCE   1
-    INSTALL_COMMAND   "" 
+    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
+    BUILD_IN_SOURCE     1
+    INSTALL_COMMAND     "" 
 )
 
 ExternalProject_add_step(${gtest_NAME} install_includes

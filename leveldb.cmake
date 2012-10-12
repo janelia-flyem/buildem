@@ -8,22 +8,25 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
 include (ExternalSource)
+include (BuildSupport)
 
 external_source (leveldb
-    1.4.0
-    leveldb-1.4.0.zip
-    http://googletest.googlecode.com/files)
+    1.6.0
+    leveldb-1.6.0.tar.gz
+    d0b73edbb86996d58b073bba6b206295
+    http://leveldb.googlecode.com/files)
 
 message ("Installing ${leveldb_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${leveldb_NAME}
     PREFIX            ${FLYEM_BUILD_DIR}
     URL               ${leveldb_URL}
+    URL_MD5           ${leveldb_MD5}
     UPDATE_COMMAND    ""
     PATCH_COMMAND     ""
     CONFIGURE_COMMAND ""
-    BUILD_COMMAND     make
+    BUILD_COMMAND     ${FLYEM_ENV_STRING} make
     BUILD_IN_SOURCE   1
-    INSTALL_COMMAND   
+    INSTALL_COMMAND   ""
 )
 
 ExternalProject_add_step(${leveldb_NAME} install_includes
