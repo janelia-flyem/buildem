@@ -33,7 +33,6 @@ ExternalProject_Add(${gtest_NAME}
 
 ExternalProject_add_step(${gtest_NAME} install_includes
     DEPENDEES   build
-    COMMAND     ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/include
     COMMAND     ${CMAKE_COMMAND} -E copy_directory 
         ${gtest_SRC_DIR}/include/gtest ${FLYEM_BUILD_DIR}/include/gtest
     COMMENT     "Placed gtest include files in ${FLYEM_BUILD_DIR}include"
@@ -41,7 +40,6 @@ ExternalProject_add_step(${gtest_NAME} install_includes
 
 ExternalProject_add_step(${gtest_NAME} install_library
     DEPENDEES   install_includes
-    COMMAND     ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/lib
     COMMAND     ${CMAKE_COMMAND} -E copy ${gtest_SRC_DIR}/libgtest.a ${FLYEM_BUILD_DIR}/lib
     COMMENT     "Placed libgtest.a in ${FLYEM_BUILD_DIR}/lib"
 )

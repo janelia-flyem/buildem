@@ -60,8 +60,6 @@ ExternalProject_Add(${jsoncpp_NAME}
 
 add_custom_command (TARGET ${jsoncpp_NAME}
                     POST_BUILD
-                    COMMAND ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/lib
-                    COMMAND ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/include
                     COMMAND ${CMAKE_COMMAND} -E copy 
                         ${jsoncpp_SRC_DIR}/libs/linux-gcc-*/libjson_linux-gcc-*_libmt.so 
                         ${FLYEM_BUILD_DIR}/lib/libjsoncpp.so
