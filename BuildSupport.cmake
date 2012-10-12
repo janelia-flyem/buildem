@@ -16,19 +16,19 @@ endif ()
 # Make sure the main directories for FlyEM build directory are already 
 # created so paths won't error out.
 if (NOT EXISTS ${FLYEM_BUILD_DIR}/bin)
-    ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/bin
+    file (MAKE_DIRECTORY ${FLYEM_BUILD_DIR}/bin)
 endif ()
 
 if (NOT EXISTS ${FLYEM_BUILD_DIR}/lib)
-    ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/lib
+    file (MAKE_DIRECTORY ${FLYEM_BUILD_DIR}/lib)
 endif ()
 
 if (NOT EXISTS ${FLYEM_BUILD_DIR}/include)
-    ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/include
+    file (MAKE_DIRECTORY ${FLYEM_BUILD_DIR}/include)
 endif ()
 
 if (NOT EXISTS ${FLYEM_BUILD_DIR}/src)
-    ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/src
+    file (MAKE_DIRECTORY ${FLYEM_BUILD_DIR}/src)
 endif ()
 
 
