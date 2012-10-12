@@ -173,6 +173,7 @@ add_custom_target (nose ALL
     COMMAND ${FLYEM_ENV_STRING}  easy_install nose
     COMMENT "Installing nose via easy_install")
 
-endif (NOT nose)```
+endif (NOT nose)
+```
 
 Since we have built python from source and installed it into the *FBD*, we can install python packages into that distribution instead of the build computer's standard python install.
