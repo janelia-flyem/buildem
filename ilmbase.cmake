@@ -21,7 +21,7 @@ external_source (ilmbase
 
 message ("Installing ${ilmbase_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${ilmbase_NAME}
-    DEPENDS             ${APP_DEPENDENCIES}
+    DEPENDS             ${zlib_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${ilmbase_URL}
     URL_MD5             ${ilmbase_MD5}

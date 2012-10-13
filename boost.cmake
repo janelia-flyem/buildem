@@ -23,7 +23,7 @@ external_source (boost
 
 message ("Installing ${boost_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${boost_NAME}
-    DEPENDS             ${APP_DEPENDENCIES}
+    DEPENDS             ${python_NAME} ${zlib_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${boost_URL}
     URL_MD5             ${boost_MD5}

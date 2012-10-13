@@ -37,7 +37,7 @@ set (ENV{ATLAS} ${FLYEM_BUILD_DIR}/lib/libtatlas.so:${FLYEM_BUILD_DIR}/lib/libsa
 # Download and install scipy
 message ("Installing ${scipy_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${scipy_NAME}
-    DEPENDS             ${APP_DEPENDENCIES}
+    DEPENDS             ${python_NAME} ${atlas_NAME} python-nose
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${scipy_URL}
     URL_MD5             ${scipy_MD5}

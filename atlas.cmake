@@ -18,6 +18,7 @@ external_source (lapack
     http://www.netlib.org/lapack)
 
 message ("Downloading ${lapack_NAME} tarball into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+
 ExternalProject_Add(${lapack_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${lapack_URL}
@@ -37,7 +38,7 @@ external_source (atlas
 
 message ("Installing ${atlas_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${atlas_NAME}
-    DEPENDS             ${APP_DEPENDENCIES}
+    DEPENDS             ${lapack_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${atlas_URL}
     URL_MD5             ${atlas_MD5}

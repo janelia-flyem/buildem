@@ -46,7 +46,7 @@ ExternalProject_Add(${scons_NAME}
 message ("Installing ${jsoncpp_NAME} ...")
 ExternalProject_Add(${jsoncpp_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
-    DEPENDS             ${APP_DEPENDENCIES}
+    DEPENDS             ${scons_NAME} ${python_NAME}
     URL                 ${jsoncpp_URL}
     URL_MD5             ${jsoncpp_MD5}
     UPDATE_COMMAND      ""

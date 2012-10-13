@@ -119,12 +119,12 @@ endif()
 
 ### Adding packages to build process
 
-If a required package is not available, it is very easy to add your own to the collection of .cmake files in the flyem-build repository. Let's look at libpng as an example of a standard configure/make/make install build:
+If a required package is not available, it is very easy to add your own to the collection of .cmake files in the flyem-build repository. Let's look at libtiff as an example of a standard configure/make/make install build:
 
 ```cmake
-# Install libpng from source
+# Install libtiff from source
 
-if (NOT libpng_NAME)
+if (NOT libtiff_NAME)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
@@ -132,34 +132,36 @@ include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 
-# TODO -- The download URL might only be valid for most recent release.
-#   Find better mirror that has steady download URL or cache it at janelia.
-external_source (libpng
-    1.5.13
-    libpng-1.5.13.tar.gz
-    9c5a584d4eb5fe40d0f1bc2090112c65
-    http://downloads.sourceforge.net/project/libpng/libpng15/1.5.13)
+include (libjpeg)
 
-message ("Installing ${libpng_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
-ExternalProject_Add(${libpng_NAME}
+external_source (libtiff
+    4.0.3
+    tiff-4.0.3.tar.gz
+    051c1068e6a0627f461948c365290410
+    ftp://ftp.remotesensing.org/pub/libtiff)
+
+message ("Installing ${libtiff_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+ExternalProject_Add(${libtiff_NAME}
+    DEPENDS             ${libjpeg_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
-    URL                 ${libpng_URL}
-    URL_MD5             ${libpng_MD5}
+    URL                 ${libtiff_URL}
+    URL_MD5             ${libtiff_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND} ${libpng_SRC_DIR} 
-        -DCMAKE_INSTALL_PREFIX:string=${FLYEM_BUILD_DIR}
-        -DCMAKE_FIND_ROOT_PATH=${FLYEM_BUILD_DIR}
+    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
+        --prefix=${FLYEM_BUILD_DIR}
+        LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
+        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
+    BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
 )
 
-endif (NOT libpng_NAME)
-```
+endif (NOT libtiff_NAME)```
 
 We `include` a number of required cmake files -- `ExternalProject` gets us CMake's standard ExternalProject_Add, and `ExternalSource` is our support script that sets appropriate variables for the given project abbreviation.  The `include (BuildSupport)` sets a number of variables that let us explicitly prioritize command and library path order, moving *FBD*/bin and *FBD*/lib to the front of PATH and LD_LIBRARY_PATH.
 
-Each external package dependency is specified via a simple statement like `include (foo)`.  Package builds should be separated -- one package per .cmake in the flyem-build repo.  For every included package, you should add `${foo_NAME}` on the `DEPENDS` line of the `ExternalProject_Add` function.
+Each external package dependency is specified via a simple statement like `include (foo)` or in the case of python packages `easy_install (foo)`.  Package builds should be separated -- one package per .cmake in the flyem-build repo.  For every `include (foo)`, you should add `${foo_NAME}` on the `DEPENDS` line of the `ExternalProject_Add` function.  If you used `easy_install (foo)`, then add `python-foo` to the DEPENDS line.
 
 Note that `${foo_URL}` is set by the `external_source()` macro to an appropriate download URL.  It can be modified by the `-DUSE_PROJECT_DOWNLOAD` command-line cmake option as mentioned above.
 

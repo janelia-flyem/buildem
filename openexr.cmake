@@ -22,7 +22,7 @@ external_source (openexr
 
 message ("Installing ${openexr_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${openexr_NAME}
-    DEPENDS             ${APP_DEPENDENCIES}
+    DEPENDS             ${ilmbase_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${openexr_URL}
     URL_MD5             ${openexr_MD5}
