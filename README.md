@@ -49,7 +49,9 @@ Alternative compilers can be specified by modifying CMake variables:
     
 ## Specifying the build for your application
 
-Application builds are specified through one or more CMake files.  You must create a CMakeLists.txt at the root of your application source that sets the required FBD path and auto-downloads the flyem-build repo.  This CMake script can include any number of required components.  Most of these components should be in the flyem-repo, e.g., a libpng dependency is fulfilled by simply using `include (libpng)`.
+Application builds are specified through one or more CMake files.  You must create a CMakeLists.txt at the root of your application source that sets the required FBD path and auto-downloads the flyem-build repo.  This CMake script can include any number of required components.  Most of these components should be in the flyem-repo, e.g., a libpng dependency is fulfilled by simply using `include (libpng)`.  
+
+Python packages that can be installed via easy_install are even easier to build.  Simply add `include (EasyInstall)` and then use `easy_install (foo)` to install python package *foo*.  Since we have built python from source and installed it into the *FBD*, we can install python packages into that distribution instead of the build computer's standard python install.
 
 ### Your application CMakeLists.txt
 
@@ -79,14 +81,14 @@ set (FLYEM_BUILD_REPO_DIR ${FLYEM_BUILD_DIR}/src/flyem-build)
 if (NOT EXISTS ${FLYEM_BUILD_REPO_DIR}/python.cmake)
     message ("Installing flyem-build repo...")
     ExternalProject_Add(flyem-build
-        PREFIX ${FLYEM_BUILD_DIR}
-        GIT_REPOSITORY https://github.com/janelia-flyem/flyem-build.git
-        UPDATE_COMMAND ""
-        PATCH_COMMAND ""
-        CONFIGURE_COMMAND ""
-        BUILD_COMMAND ""
-        BUILD_IN_SOURCE 1
-        INSTALL_COMMAND ""
+        PREFIX              ${FLYEM_BUILD_DIR}
+        GIT_REPOSITORY      https://github.com/janelia-flyem/flyem-build.git
+        UPDATE_COMMAND      ""
+        PATCH_COMMAND       ""
+        CONFIGURE_COMMAND   "" 
+        BUILD_COMMAND       ""
+        BUILD_IN_SOURCE     1
+        INSTALL_COMMAND     ""
     )
     message ("\n**********************************************************\n")
     message ("\nAfter running make, you must re-run the cmake command once")
@@ -103,12 +105,15 @@ else ()
     include (python)
     include (libpng)
 
+    include (EasyInstall)
+    easy_install (networkx)
+
     # Install Foo -- we use below just as placeholder
     add_custom_target (Foo ALL
         DEPENDS ${APP_DEPENDENCIES}
         COMMENT "Foo built")
 
-        ############################################################################
+    ############################################################################
 endif()
 ```
 
@@ -158,26 +163,3 @@ Each external package dependency is specified via a simple statement like `inclu
 
 Note that `${foo_URL}` is set by the `external_source()` macro to an appropriate download URL.  It can be modified by the `-DUSE_PROJECT_DOWNLOAD` command-line cmake option as mentioned above.
 
-The simplest installs are python-based `easy_install` modules.  The python nose package can be installed with this simple CMake include file:
-
-```cmake
-# Install nose from source
-
-if (NOT nose)
-
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
-
-include (BuildSupport)
-
-include (python)
-include (setuptools)
-
-add_custom_target (nose ALL 
-    DEPENDS ${APP_DEPENDENCIES}
-    COMMAND ${FLYEM_ENV_STRING}  easy_install nose
-    COMMENT "Installing nose via easy_install")
-
-endif (NOT nose)
-```
-
-Since we have built python from source and installed it into the *FBD*, we can install python packages into that distribution instead of the build computer's standard python install.

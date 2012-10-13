@@ -10,10 +10,12 @@ include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 include (FortranSupport)
+include (EasyInstall)
 
 include (python)
 include (atlas)
-include (nose)
+
+easy_install (nose)
 
 external_source (numpy
     1.6.2
