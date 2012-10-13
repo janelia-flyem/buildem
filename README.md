@@ -157,7 +157,8 @@ ExternalProject_Add(${libtiff_NAME}
     INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
 )
 
-endif (NOT libtiff_NAME)```
+endif (NOT libtiff_NAME)
+```
 
 We `include` a number of required cmake files -- `ExternalProject` gets us CMake's standard ExternalProject_Add, and `ExternalSource` is our support script that sets appropriate variables for the given project abbreviation.  The `include (BuildSupport)` sets a number of variables that let us explicitly prioritize command and library path order, moving *FBD*/bin and *FBD*/lib to the front of PATH and LD_LIBRARY_PATH.
 
