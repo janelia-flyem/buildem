@@ -13,6 +13,8 @@ include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 
+include (zlib)
+
 external_source (python
     2.7.3
     Python-2.7.3.tgz
@@ -21,6 +23,7 @@ external_source (python
 
 message ("Installing ${python_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${python_NAME}
+    DEPENDS             ${zlib_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${python_URL}
     URL_MD5             ${python_MD5}
