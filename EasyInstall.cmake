@@ -15,17 +15,10 @@ macro (easy_install PKG_NAME)
     if (NOT python-${PKG_NAME})
 
         set (python-${PKG_NAME} TRUE)
-        add_custom_target (${PKG_NAME} 
+        add_custom_target (${PKG_NAME} ALL 
             DEPENDS ${python_NAME} ${setuptools_NAME}
             COMMAND ${FLYEM_ENV_STRING}  easy_install ${PKG_NAME}
             COMMENT "Installing ${PKG_NAME} via easy_install")
-
-        # Append this package to our list of dependencies
-        if (NOT APP_DEPENDENCIES)
-            set (APP_DEPENDENCIES ${PKG_NAME})
-        else ()
-            set (APP_DEPENDENCIES ${APP_DEPENDENCIES} ${PKG_NAME})
-        endif ()
 
     endif ()
 

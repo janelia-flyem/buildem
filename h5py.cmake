@@ -30,6 +30,7 @@ ExternalProject_Add(${h5py_NAME}
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py build --hdf5=${hdf5_SRC_DIR}
+    BUILD_IN_SOURCE     1
     TEST_COMMAND        ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py test
     INSTALL_COMMAND     ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install
 )

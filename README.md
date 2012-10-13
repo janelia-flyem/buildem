@@ -162,7 +162,7 @@ endif (NOT libtiff_NAME)
 
 We `include` a number of required cmake files -- `ExternalProject` gets us CMake's standard ExternalProject_Add, and `ExternalSource` is our support script that sets appropriate variables for the given project abbreviation.  The `include (BuildSupport)` sets a number of variables that let us explicitly prioritize command and library path order, moving *FBD*/bin and *FBD*/lib to the front of PATH and LD_LIBRARY_PATH.
 
-Each external package dependency is specified via a simple statement like `include (foo)` or in the case of python packages `easy_install (foo)`.  Package builds should be separated -- one package per .cmake in the flyem-build repo.  For every `include (foo)`, you should add `${foo_NAME}` on the `DEPENDS` line of the `ExternalProject_Add` function.  If you used `easy_install (foo)`, then add `foo` to the DEPENDS line.
+Each external package dependency is specified via a simple statement like `include (foo)` or in the case of python packages `easy_install (foo)`.  Package builds should be separated -- one package per .cmake in the flyem-build repo.  For every `include (foo)`, you should add `${foo_NAME}` on the `DEPENDS` line of the `ExternalProject_Add` function.
 
 Note that `${foo_URL}` is set by the `external_source()` macro to an appropriate download URL.  It can be modified by the `-DUSE_PROJECT_DOWNLOAD` command-line cmake option as mentioned above.
 
