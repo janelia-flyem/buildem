@@ -1,6 +1,7 @@
-#
 # Install PIL (python imaging library) from source
 #
+# Note: tkinter, freetype2, and littlecms support has not been added.
+#       jpeg and zlib support is active.
 
 if (NOT pil_NAME)
 
