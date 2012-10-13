@@ -31,6 +31,7 @@ ExternalProject_Add(${python_NAME}
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${python_SRC_DIR}/configure 
         --prefix=${FLYEM_BUILD_DIR}
+        --enable-shared
         LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
