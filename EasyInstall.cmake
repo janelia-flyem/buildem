@@ -16,7 +16,7 @@ macro (easy_install PKG_NAME)
 
         set (python-${PKG_NAME} TRUE)
         add_custom_target (${PKG_NAME} 
-            DEPENDS ${APP_DEPENDENCIES}
+            DEPENDS ${python_NAME} ${setuptools_NAME}
             COMMAND ${FLYEM_ENV_STRING}  easy_install ${PKG_NAME}
             COMMENT "Installing ${PKG_NAME} via easy_install")
 
