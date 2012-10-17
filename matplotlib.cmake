@@ -18,7 +18,7 @@ include (freetype2)
 external_source (matplotlib
     1.1.1
     matplotlib-1.1.1.tar.gz
-    80eb9862fa09c7e06eda6e2a9fc4042f
+    8cbeaae8ba9da703d926e74c3e7c8a57
     http://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.1.1)
 
 message ("Installing ${matplotlib_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
