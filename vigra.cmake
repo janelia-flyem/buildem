@@ -47,7 +47,13 @@ ExternalProject_Add(${vigra_NAME}
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND} ${vigra_SRC_DIR} 
         -DCMAKE_INSTALL_PREFIX:string=${FLYEM_BUILD_DIR}
         -DCMAKE_FIND_ROOT_PATH=${FLYEM_BUILD_DIR}
+        -DCMAKE_EXE_LINKER_FLAGS=-L${FLYEM_BUILD_DIR}/lib,-Wl,-rpath=${FLYEM_BUILD_DIR}/lib
         -DDEPENDENCY_SEARCH_PREFIX=${FLYEM_BUILD_DIR}
+        -DBoost_LIBRARY_DIRS=${FLYEM_BUILD_DIR}/lib
+        -DBoost_PYTHON_LIBRARY=${FLYEM_BUILD_DIR}/lib/libboost_python.so
+        -DBoost_PYTHON_LIBRARY_RELEASE=${FLYEM_BUILD_DIR}/lib/libboost_python.so
+        -DBoost_PYTHON_LIBRARY_DEBUG=${FLYEM_BUILD_DIR}/lib/libboost_python.so
+        -DVIGRANUMPY_LIBRARIES=${FLYEM_BUILD_DIR}/lib/libpython2.7.so:${FLYEM_BUILD_DIR}/lib/libboost_python.so
         -DJPEG_INCLUDE_DIR=${FLYEM_BUILD_DIR}/include
         -DJPEG_LIBRARY=${FLYEM_BUILD_DIR}/lib/libjpeg.so
         -DHDF5_CORE_LIBRARY=${FLYEM_BUILD_DIR}/lib/libhdf5.so
