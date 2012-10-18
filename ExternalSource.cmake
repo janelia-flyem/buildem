@@ -46,7 +46,7 @@ macro (external_source ABBREV SRC_VERSION FILENAME MD5 PREFIX_URL)
     set (${ABBREV}_SRC_DIR  ${FLYEM_BUILD_DIR}/src/${${ABBREV}_NAME})
 
     set (use_default TRUE)
-    if (USE_PROJECT_DOWNLOAD)
+    if (USE_PROJECT_DOWNLOAD AND PREFIX_URL)
         foreach (proj ${USE_PROJECT_DOWNLOAD})
             if (proj STREQUAL ${ABBREV})
                 set (use_default FALSE)

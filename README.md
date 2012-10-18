@@ -20,7 +20,14 @@ The FlyEM build system is predicated on some basic assertions:
 * Builds of all components should be OS and compiler-specific to minimize conflicts in compiler versions, and we are not sure that pre-compiled components (e.g., RPMs) are available for all target machines/compilers.
 * Third-party pre-built packages, like Enthought Python Distribution, are not viable due to licensing costs for cluster operation as well as inability to easily adapt to new dependencies.
 
-Except for C/C++ and fortran compilers, the FlyEM build system does *not* try to minimize overall build time by reusing pre-compiled packages.  The presence of multiple compiler versions across the different Fedora/RHEL versions and our very heterogeneous workstation environment requires developer attention and tracking of installs across multiple machines.  
+The FlyEM build system requires only a few installed components to be available, preferably in this order:
+
+* C/C++ and fortran compilers
+* libcurl, https support (note that these components are usually present in standard OS builds but may need to be install explicitly)
+* git
+* CMake 2.8+
+
+Note that python is built from source as well as all dependencies except for the above.  The FlyEM build system does *not* try to minimize overall build time by reusing pre-compiled packages.  The presence of multiple compiler versions across the different Fedora/RHEL versions and our very heterogeneous workstation environment requires developer attention and tracking of installs across multiple machines.  
 
 In future versions of the build system, we will allow developers to easily specify which components can be reused from outside the FlyEM build.  These specified components will be found via the traditional CMake FIND_PACKAGE approach and only built from source if the component is absent.
 
@@ -34,7 +41,7 @@ The build process for a FlyEM application at /path/to/foo/code:
     % cmake -DFLYEM_BUILD_DIR=/path/to/FBD  /path/to/foo/code
     % make
 
-If this is the first time a FlyEM application was compiled for this FBD, the build script will download the flyem-build repo into the FBD and the user will be prompted to re-run the cmake and make steps as above.
+_Note: If this is the first time a FlyEM application was compiled for this FBD, the build script will download the flyem-build repo into the FBD and the user will be prompted to re-run the cmake and make steps as above._
 
 That's it.  The build scripts will automatically download the source for all dependencies, verify MD5 checksums, optionally patch/configure the code, and then compile it using the standard compilers for the build computer.  Source tarballs can be downloaded from either a FlyEM-controlled
 cache on Github (the default) or the original project download site.  You can specify exactly which packages should use original project URLs via the following command-line option:
@@ -166,3 +173,28 @@ Each external package dependency is specified via a simple statement like `inclu
 
 Note that `${foo_URL}` is set by the `external_source()` macro to an appropriate download URL.  It can be modified by the `-DUSE_PROJECT_DOWNLOAD` command-line cmake option as mentioned above.
 
+
+### Build notes for Janelia Farm cluster
+
+The Janelia Farm cluster is an atypical deployment platform that provides one edge case for how to use the FlyEM build system.
+
+#### The cluster executable and library layout
+
+The base cluster OS is a fairly old Linux distribution.  Newer packages, like gcc 4.40 or CMake 2.8.8, are installed independently under /usr/local with the executables in /usr/local/<package>/bin.
+
+We suggest having as clean an environment as possible, i.e., you should not have PATH or LD_LIBRARY_PATH set to a large number of directories.  It's best to start with empty environment variables, determine which libraries or executables cannot be found, and then add the appropriate paths as needed.  This way, you are less likely to have library conflicts due to default paths taking precedence over the libraries you intend to be used.
+
+To build on the cluster, login to a compute node and set the environment variables like so:
+
+```bash
+export FLYEMCLUSTER=/groups/flyem/proj/builds/cluster
+export PATH=/usr/local/cmake-2.8.8/bin:/usr/local/gcc/bin:/usr/local/git/bin:$FLYEMCLUSTER/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/gcc/lib64:/usr/local/gcc/lib:$FLYEMCLUSTER/lib:/usr/local/mpfr/lib:/usr/local/gmp/lib:$LD_LIBRARY_PATH
+export PYTHONPATH=$FLYEMCLUSTER/lib/python2.7:$FLYEMCLUSTER/lib/python2.7/site-packages
+```
+
+Note that the PATH is set to automatically use the more recent CMake, gcc, and git builds.
+
+After setting the appropriate environment variables, simply run the standard installation cmake/make (with possible second cmake/make invokation) to build the system.
+
+Issue: Some original source repositories or tarballs require https, which may be a problem for operating systems like Scientific Linux due to absent certificates.  This issue can be sidestepped by using default non-https downloads, e.g., all downloads from janelia-flyem cache.
