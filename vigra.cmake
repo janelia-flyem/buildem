@@ -29,7 +29,7 @@ include (numpy)
 external_source (vigra
     flyem-1.7.1
     vigra-flyem-1.7.1.tar.gz
-    bfde830cb70e6c3216e04c2f1e3f13f6)
+    7325a6fed78383807fd553fc5ee30190)
 
 # Note the number of forced -D CMake variable sets in the configure.
 # There is trouble making vigra find the libraries given priority in 
