@@ -13,9 +13,8 @@ include (FortranSupport)
 include (EasyInstall)
 
 include (python)
+include (nose)
 include (atlas)
-
-easy_install (nose)
 
 external_source (numpy
     1.6.2
@@ -37,7 +36,7 @@ set (ENV{ATLAS} ${FLYEM_BUILD_DIR}/lib/libtatlas.so:${FLYEM_BUILD_DIR}/lib/libsa
 # Download and install numpy
 message ("Installing ${numpy_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${numpy_NAME}
-    DEPENDS             ${python_NAME} ${atlas_NAME} 
+    DEPENDS             ${python_NAME} ${nose_NAME} ${atlas_NAME} 
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${numpy_URL}
     URL_MD5             ${numpy_MD5}

@@ -10,12 +10,10 @@ include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 include (FortranSupport)
-include (EasyInstall)
 
 include (python)
+include (nose)
 include (atlas)
-
-easy_install (nose)
 
 external_source (scipy
     0.11.0
@@ -37,7 +35,7 @@ set (ENV{ATLAS} ${FLYEM_BUILD_DIR}/lib/libtatlas.so:${FLYEM_BUILD_DIR}/lib/libsa
 # Download and install scipy
 message ("Installing ${scipy_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${scipy_NAME}
-    DEPENDS             ${python_NAME} ${atlas_NAME} 
+    DEPENDS             ${python_NAME} ${nose_NAME} ${atlas_NAME} 
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${scipy_URL}
     URL_MD5             ${scipy_MD5}
