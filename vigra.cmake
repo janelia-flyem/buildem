@@ -20,10 +20,16 @@ include (python)
 include (boost)
 include (numpy)
 
+#external_source (vigra
+#    1.8.0
+#    vigra-1.8.0-src.tar.gz
+#    15c5544448e529ee60020758ab6be264
+#    http://hci.iwr.uni-heidelberg.de/vigra)
+
 external_source (vigra
-    1.8.0
-    vigra-1.8.0-src.tar.gz
-    15c5544448e529ee60020758ab6be264
+    1.7.1
+    vigra-1.7.1-src.tar.gz
+    2bde208e0fd7626770169dd4fa097282
     http://hci.iwr.uni-heidelberg.de/vigra)
 
 # Note the number of forced -D CMake variable sets in the configure.
