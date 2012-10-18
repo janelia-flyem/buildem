@@ -212,7 +212,7 @@ The Janelia Farm cluster is an atypical deployment platform that provides one ed
 
 #### The cluster executable and library layout
 
-The base cluster OS is a fairly old Linux distribution.  Newer packages, like gcc 4.40 or CMake 2.8.8, are installed independently under /usr/local with the executables in /usr/local/<package>/bin.
+The base cluster OS is a fairly old Linux distribution.  Newer packages, like gcc 4.40 or CMake 2.8.8, are installed independently under /usr/local with the executables in /usr/local/some-package/bin.
 
 We suggest having as clean an environment as possible, i.e., you should not have PATH or LD_LIBRARY_PATH set to a large number of directories.  It's best to start with empty environment variables, determine which libraries or executables cannot be found, and then add the appropriate paths as needed.  This way, you are less likely to have library conflicts due to default paths taking precedence over the libraries you intend to be used.
 
