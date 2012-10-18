@@ -1,6 +1,10 @@
 # Macro support for downloading and installing components.  This reduces
 # the boilerplate for each component to its minimum.
 #
+# A 5th optional parameter is an external download URL.  If this is provided
+# and the 6th optional parameter is "FORCE", only this external download URL
+# will be used and the default FlyEM cache will be ignored.
+#
 # The output ${ABBREV}_URL is dependent on the variable USE_PROJECT_DOWNLOAD,
 # which contains a list of project abbreviations that should use original
 # project download links instead of our cached FlyEM downloads.
@@ -27,7 +31,7 @@ endif ()
 set (DEFAULT_DOWNLOAD_SITE http://janelia-flyem.github.com/downloads)
 
 # Define macro to set a number of variables per external project source
-macro (external_source ABBREV SRC_VERSION FILENAME MD5 PREFIX_URL)
+macro (external_source ABBREV SRC_VERSION FILENAME MD5)
 
     set (external_source_name  ${ABBREV}-${SRC_VERSION})
     # Append this external source name to our list of dependencies
@@ -45,14 +49,26 @@ macro (external_source ABBREV SRC_VERSION FILENAME MD5 PREFIX_URL)
     set (${ABBREV}_RELEASE  ${SRC_VERSION})
     set (${ABBREV}_SRC_DIR  ${FLYEM_BUILD_DIR}/src/${${ABBREV}_NAME})
 
+    if (${ARGC} GREATER 4)
+        set (PREFIX_URL ${ARGV4})
+    endif ()
+
     set (use_default TRUE)
+    if (${ARGC} EQUAL 6)
+        if (${ARGV5} STREQUAL "FORCE")
+            set (use_default FALSE)
+        else ()
+            message (FATAL_ERROR "Syntax error on calling external_source(): 6th parameter can only be FORCE")
+        endif ()
+    endif ()
+
     if (USE_PROJECT_DOWNLOAD AND PREFIX_URL)
         foreach (proj ${USE_PROJECT_DOWNLOAD})
             if (proj STREQUAL ${ABBREV})
                 set (use_default FALSE)
             endif ()
         endforeach (proj)
-    endif (USE_PROJECT_DOWNLOAD)
+    endif (USE_PROJECT_DOWNLOAD AND PREFIX_URL)
 
     if (${use_default})
         set (${ABBREV}_URL  ${DEFAULT_DOWNLOAD_SITE}/${FILENAME})

@@ -171,7 +171,39 @@ We `include` a number of required cmake files -- `ExternalProject` gets us CMake
 
 Each external package dependency is specified via a simple statement like `include (foo)` or in the case of python packages `easy_install (foo)`.  Package builds should be separated -- one package per .cmake in the flyem-build repo.  For every `include (foo)`, you should add `${foo_NAME}` on the `DEPENDS` line of the `ExternalProject_Add` function.
 
-Note that `${foo_URL}` is set by the `external_source()` macro to an appropriate download URL.  It can be modified by the `-DUSE_PROJECT_DOWNLOAD` command-line cmake option as mentioned above.
+The `external_source()` macro allows you to specify an external URL, typically the project's public download URL.  The macro can be used in three ways.  The standard way is to specify an external URL but by default, download from the FlyEM cache:
+
+```cmake
+external_source (libtiff
+    4.0.3
+    tiff-4.0.3.tar.gz
+    051c1068e6a0627f461948c365290410
+    ftp://ftp.remotesensing.org/pub/libtiff)
+```
+
+With the above standard declaration, you can optionally force a download from the specified external URL by use of the `-DUSE_PROJECT_DOWNLOAD` command-line cmake option as mentioned above.
+
+To force downloads from the external URL, follow the URL parameter with the keyword "FORCE":
+
+```cmake
+external_source (libtiff
+    4.0.3
+    tiff-4.0.3.tar.gz
+    051c1068e6a0627f461948c365290410
+    ftp://ftp.remotesensing.org/pub/libtiff
+    FORCE)
+```
+
+The above will force the download from the external URL `ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.3.tar.gz` regardless of command-line options.  Finally, if you do not specify an external URL, the download will always be from the FlyEM cache:
+
+```cmake
+external_source (libtiff
+    4.0.3
+    tiff-4.0.3.tar.gz
+    051c1068e6a0627f461948c365290410)
+```
+
+In each case, the variable `${foo_URL}` is set by the `external_source()` macro to an appropriate download URL.  
 
 
 ### Build notes for Janelia Farm cluster
