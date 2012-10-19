@@ -28,7 +28,8 @@ ExternalProject_Add(${matplotlib_NAME}
     URL                 ${matplotlib_URL}
     URL_MD5             ${matplotlib_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ""
+    PATCH_COMMAND       ${CMAKE_COMMAND} -E 
+	echo -e "[directories]\nbasedirlist = ${FLYEM_BUILD_DIR}" > setup.cfg
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py build
     BUILD_IN_SOURCE     1
