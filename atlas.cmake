@@ -36,7 +36,10 @@ external_source (atlas
     2030aa079b8d040b93de7018eae90e2b
     http://downloads.sourceforge.net/project/math-atlas/Stable/3.10.0)
 
-if (NOT EXISTS ${FLYEM_BUILD_DIR}/lib/libtatlas.so)
+if (EXISTS ${FLYEM_BUILD_DIR}/lib/libtatlas.so)
+    add_custom_target (${atlas_NAME}
+	DEPENDS	${lapack_NAME})
+else ()
     message ("Installing ${atlas_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
     ExternalProject_Add(${atlas_NAME}
         DEPENDS             ${lapack_NAME}

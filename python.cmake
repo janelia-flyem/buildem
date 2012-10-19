@@ -21,7 +21,10 @@ external_source (python
     2cf641732ac23b18d139be077bd906cd
     http://www.python.org/ftp/python/2.7.3)
 
-if (NOT EXISTS ${FLYEM_BUILD_DIR}/lib/libpython2.7.so.1.0)
+if (EXISTS ${FLYEM_BUILD_DIR}/lib/libpython2.7.so.1.0)
+    add_custom_target(${python_NAME}
+	DEPENDS ${zlib_NAME})
+else ()
     message ("Installing ${python_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
     ExternalProject_Add(${python_NAME}
         DEPENDS             ${zlib_NAME}

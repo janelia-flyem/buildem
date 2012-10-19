@@ -21,7 +21,10 @@ external_source (boost
     6a1f32d902203ac70fbec78af95b3cf8
     http://downloads.sourceforge.net/project/boost/boost/1.51.0)
 
-if (NOT EXISTS ${FLYEM_BUILD_DIR}/lib/libboost_python.so.1.51.0)
+if (EXISTS ${FLYEM_BUILD_DIR}/lib/libboost_python.so.1.51.0)
+    add_custom_target (${boost_NAME}
+        DEPENDS ${python_NAME} ${zlib_NAME})
+else ()
     message ("Installing ${boost_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
     ExternalProject_Add(${boost_NAME}
         DEPENDS             ${python_NAME} ${zlib_NAME}
