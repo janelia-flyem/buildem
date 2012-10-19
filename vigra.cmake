@@ -20,16 +20,22 @@ include (python)
 include (boost)
 include (numpy)
 
+# Use FlyEM-packaged vigra based off 1.8.0 github
+external_source (vigra
+    1.8.0
+    vigra-flyem-1.8.0.tar.gz
+    587d49c4e04dbf63535c970b4e681df7)
+
 #external_source (vigra
 #    1.8.0
 #    vigra-1.8.0-src.tar.gz
 #    15c5544448e529ee60020758ab6be264
 #    http://hci.iwr.uni-heidelberg.de/vigra)
 
-external_source (vigra
-    flyem-1.7.1
-    vigra-flyem-1.7.1.tar.gz
-    7325a6fed78383807fd553fc5ee30190)
+#external_source (vigra
+#    flyem-1.7.1
+#    vigra-flyem-1.7.1.tar.gz
+#    7325a6fed78383807fd553fc5ee30190)
 
 # Note the number of forced -D CMake variable sets in the configure.
 # There is trouble making vigra find the libraries given priority in 
