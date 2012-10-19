@@ -21,22 +21,24 @@ external_source (python
     2cf641732ac23b18d139be077bd906cd
     http://www.python.org/ftp/python/2.7.3)
 
-message ("Installing ${python_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
-ExternalProject_Add(${python_NAME}
-    DEPENDS             ${zlib_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
-    URL                 ${python_URL}
-    URL_MD5             ${python_MD5}
-    UPDATE_COMMAND      ""
-    PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${python_SRC_DIR}/configure 
-        --prefix=${FLYEM_BUILD_DIR}
-        --enable-shared
-        LDFLAGS=-L${FLYEM_BUILD_DIR}/lib,-Wl,-rpath=${FLYEM_BUILD_DIR}/lib
-        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
-)
+if (NOT EXISTS ${FLYEM_BUILD_DIR}/lib/libpython2.7.so.1.0)
+    message ("Installing ${python_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+    ExternalProject_Add(${python_NAME}
+        DEPENDS             ${zlib_NAME}
+        PREFIX              ${FLYEM_BUILD_DIR}
+        URL                 ${python_URL}
+        URL_MD5             ${python_MD5}
+        UPDATE_COMMAND      ""
+        PATCH_COMMAND       ""
+        CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${python_SRC_DIR}/configure 
+            --prefix=${FLYEM_BUILD_DIR}
+            --enable-shared
+            LDFLAGS=-L${FLYEM_BUILD_DIR}/lib,-Wl,-rpath=${FLYEM_BUILD_DIR}/lib
+            CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
+        BUILD_COMMAND       ${FLYEM_ENV_STRING} make
+        INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
+    )
+endif ()
 
 set (PYTHON_INCLUDE_PATH ${FLYEM_BUILD_DIR}/include/python2.7)
 set (PYTHON_EXE ${FLYEM_BUILD_DIR}/bin/python2.7)
