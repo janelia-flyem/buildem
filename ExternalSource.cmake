@@ -5,12 +5,14 @@
 # and the 6th optional parameter is "FORCE", only this external download URL
 # will be used and the default FlyEM cache will be ignored.
 #
-# The output ${ABBREV}_URL is dependent on the variable USE_PROJECT_DOWNLOAD,
-# which contains a list of project abbreviations that should use original
-# project download links instead of our cached FlyEM downloads.
+# Uses the following CMake variables:
 #
-# Sets the following variables:
-#    DEFAULT_DOWNLOAD_SITE  URL of cache for required software tarballs
+#    USE_PROJECT_DOWNLOAD   A list of project abbreviations that should use
+#                               original project links instead of our cached
+#                               FlyEM downloads.
+#
+# Sets the following variable if not already set:
+#    DEFAULT_CACHE_URL      URL of cache for required software tarballs
 
 # The macro external_source(ABBREV) modifies/sets the following variables:
 #    APP_DEPENDENCIES       A list of all targets included (i.e., necessary)
@@ -28,7 +30,7 @@ if (NOT FLYEM_BUILD_DIR)
 endif ()
 
 # URL of cache for required software tarballs
-set (DEFAULT_DOWNLOAD_SITE http://janelia-flyem.github.com/downloads)
+set (DEFAULT_CACHE_URL "http://janelia-flyem.github.com/downloads" CACHE TYPE STRING)
 
 # Define macro to set a number of variables per external project source
 macro (external_source ABBREV SRC_VERSION FILENAME MD5)
@@ -49,12 +51,12 @@ macro (external_source ABBREV SRC_VERSION FILENAME MD5)
     set (${ABBREV}_RELEASE  ${SRC_VERSION})
     set (${ABBREV}_SRC_DIR  ${FLYEM_BUILD_DIR}/src/${${ABBREV}_NAME})
 
+    set (use_default TRUE)
     if (${ARGC} GREATER 4)
         set (PREFIX_URL ${ARGV4})
     endif ()
 
-    set (use_default TRUE)
-    if (${ARGC} EQUAL 6)
+    if (${ARGC} GREATER 5)
         if (${ARGV5} STREQUAL "FORCE")
             set (use_default FALSE)
         else ()
@@ -71,7 +73,7 @@ macro (external_source ABBREV SRC_VERSION FILENAME MD5)
     endif (USE_PROJECT_DOWNLOAD AND PREFIX_URL)
 
     if (${use_default})
-        set (${ABBREV}_URL  ${DEFAULT_DOWNLOAD_SITE}/${FILENAME})
+        set (${ABBREV}_URL  ${DEFAULT_CACHE_URL}/${FILENAME})
     else ()
         set (${ABBREV}_URL  ${PREFIX_URL}/${FILENAME})
     endif ()
