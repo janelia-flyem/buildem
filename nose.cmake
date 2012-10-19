@@ -22,7 +22,7 @@ external_source (nose
 
 message ("Installing ${nose_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${nose_NAME}
-    DEPENDS             ${python_NAME}
+    DEPENDS             ${python_NAME} ${setuptools_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${nose_URL}
     URL_MD5             ${nose_MD5}
