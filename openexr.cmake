@@ -26,7 +26,7 @@ ExternalProject_Add(${openexr_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${openexr_URL}
     URL_MD5             ${openexr_MD5}
-    LINE_SEPARATOR      ^^
+    LIST_SEPARATOR      ^^
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${FLYEM_ENV_STRING} ${PATCH_EXE}
         ${openexr_SRC_DIR}/exrmaketiled/main.cpp ${PATCH_DIR}/openexr-exrmaketiled.patch

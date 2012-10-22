@@ -27,7 +27,7 @@ ExternalProject_Add(${python_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${python_URL}
     URL_MD5             ${python_MD5}
-    LINE_SEPARATOR      ^^
+    LIST_SEPARATOR      ^^
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${python_SRC_DIR}/configure 

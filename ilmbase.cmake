@@ -25,7 +25,7 @@ ExternalProject_Add(${ilmbase_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${ilmbase_URL}
     URL_MD5             ${ilmbase_MD5}
-    LINE_SEPARATOR      ^^
+    LIST_SEPARATOR      ^^
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${PATCH_EXE}
         ${ilmbase_SRC_DIR}/Imath/ImathMatrix.h ${PATCH_DIR}/ilmbase-1.patch

@@ -21,7 +21,7 @@ ExternalProject_Add(${libjpeg_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${libjpeg_URL}
     URL_MD5             ${libjpeg_MD5}
-    LINE_SEPARATOR      ^^
+    LIST_SEPARATOR      ^^
     UPDATE_COMMAND      ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/man/man1
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
         --prefix=${FLYEM_BUILD_DIR} 

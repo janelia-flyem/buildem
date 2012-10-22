@@ -21,7 +21,7 @@ ExternalProject_Add(${libfftw_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${libfftw_URL}
     URL_MD5             ${libfftw_MD5}
-    LINE_SEPARATOR      ^^
+    LIST_SEPARATOR      ^^
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${libfftw_SRC_DIR}/configure 
