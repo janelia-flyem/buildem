@@ -27,7 +27,7 @@ external_source (jsoncpp
 # Copy script will take a string pattern and copy all matches into a destination directory.
 # Surprisingly, this is hard to do within ExternalProject_Add due to lack of wildcard expansion?
 # TODO -- Find some CMake equivalent although initial attempts have been unsuccessful.
-set (COPY_SCRIPT ${FLYEM_BUILD_REPO_DIR}/copy.py)
+set (COPY_SCRIPT ${FLYEM_BUILD_REPO_DIR}/scripts/copy.py)
 
 # Download required scons local package
 message ("Installing scons-local 1.2.0 needed to build jsoncpp...")
