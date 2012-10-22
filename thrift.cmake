@@ -27,7 +27,7 @@ ExternalProject_Add(${thrift_NAME}
         --prefix=${FLYEM_BUILD_DIR} 
         --with-boost=${FLYEM_BUILD_DIR} 
         PY_PREFIX=${FLYEM_BUILD_DIR}
-        LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
+        LDFLAGS=-Wl,-rpath,${FLYEM_BUILD_DIR}/lib
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
     BUILD_IN_SOURCE     1

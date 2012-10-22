@@ -32,7 +32,7 @@ ExternalProject_Add(${boost_NAME}
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./bootstrap.sh 
         --with-python=${PYTHON_EXE} 
         --prefix=${FLYEM_BUILD_DIR}
-        LDFLAGS=-L${FLYEM_BUILD_DIR}/lib,-Wl,-rpath=${FLYEM_BUILD_DIR}/lib
+        LDFLAGS=-Wl,-rpath,${FLYEM_BUILD_DIR}/lib
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} ./b2 
         -sNO_BZIP2=1 

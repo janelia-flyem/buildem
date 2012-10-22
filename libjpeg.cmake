@@ -25,7 +25,7 @@ ExternalProject_Add(${libjpeg_NAME}
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
         --prefix=${FLYEM_BUILD_DIR} 
         --enable-shared
-        LDFLAGS=-L${FLYEM_BUILD_DIR}/lib
+        LDFLAGS=-Wl,-rpath,${FLYEM_BUILD_DIR}/lib
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make LIBTOOL=libtool
     BUILD_IN_SOURCE     1
