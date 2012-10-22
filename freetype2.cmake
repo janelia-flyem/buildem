@@ -23,13 +23,12 @@ ExternalProject_Add(${freetype2_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${freetype2_URL}
     URL_MD5             ${freetype2_MD5}
-    LIST_SEPARATOR      ^^
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
         --prefix=${FLYEM_BUILD_DIR} 
         --enable-shared
-        LDFLAGS=-Wl,-rpath,${FLYEM_BUILD_DIR}/lib^^-L${FLYEM_BUILD_DIR}/lib
+        LDFLAGS=${FLYEM_LDFLAGS}
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
     BUILD_IN_SOURCE     1

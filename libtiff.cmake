@@ -24,12 +24,11 @@ ExternalProject_Add(${libtiff_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${libtiff_URL}
     URL_MD5             ${libtiff_MD5}
-    LIST_SEPARATOR      ^^
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
         --prefix=${FLYEM_BUILD_DIR}
-        LDFLAGS=-Wl,-rpath,${FLYEM_BUILD_DIR}/lib^^-L${FLYEM_BUILD_DIR}/lib
+        LDFLAGS=${FLYEM_LDFLAGS}
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
     BUILD_IN_SOURCE     1

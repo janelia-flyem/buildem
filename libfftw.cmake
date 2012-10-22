@@ -21,14 +21,13 @@ ExternalProject_Add(${libfftw_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${libfftw_URL}
     URL_MD5             ${libfftw_MD5}
-    LIST_SEPARATOR      ^^
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${libfftw_SRC_DIR}/configure 
         --prefix=${FLYEM_BUILD_DIR}
         --enable-shared
 #        --enable-float  # This creates libfftw3f single-precision libraries
-        LDFLAGS=-Wl,-rpath,${FLYEM_BUILD_DIR}/lib^^-L${FLYEM_BUILD_DIR}/lib
+        LDFLAGS=${FLYEM_LDFLAGS}
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
     INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install

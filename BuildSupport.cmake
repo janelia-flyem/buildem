@@ -36,6 +36,7 @@ endif ()
 set (FLYEM_BIN_PATH     ${FLYEM_BUILD_DIR}/bin:$ENV{PATH})
 set (FLYEM_LIB_PATH     ${FLYEM_BUILD_DIR}/lib:$ENV{LD_LIBRARY_PATH})
 set (FLYEM_ENV_STRING   env PATH=${FLYEM_BIN_PATH} LD_LIBRARY_PATH=${FLYEM_LIB_PATH})
+set (FLYEM_LDFLAGS      "-Wl,-rpath,${FLYEM_BUILD_DIR}/lib -L${FLYEM_BUILD_DIR}/lib")
 
 # Set standard include directories.
 include_directories (BEFORE ${FLYEM_BUILD_DIR}/include)

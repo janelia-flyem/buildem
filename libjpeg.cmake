@@ -21,12 +21,11 @@ ExternalProject_Add(${libjpeg_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${libjpeg_URL}
     URL_MD5             ${libjpeg_MD5}
-    LIST_SEPARATOR      ^^
     UPDATE_COMMAND      ${CMAKE_COMMAND} -E make_directory ${FLYEM_BUILD_DIR}/man/man1
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
         --prefix=${FLYEM_BUILD_DIR} 
         --enable-shared
-        LDFLAGS=-Wl,-rpath,${FLYEM_BUILD_DIR}/lib^^-L${FLYEM_BUILD_DIR}/lib
+        LDFLAGS=${FLYEM_LDFLAGS}
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make LIBTOOL=libtool
     BUILD_IN_SOURCE     1

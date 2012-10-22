@@ -27,13 +27,12 @@ ExternalProject_Add(${python_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${python_URL}
     URL_MD5             ${python_MD5}
-    LIST_SEPARATOR      ^^
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${python_SRC_DIR}/configure 
         --prefix=${FLYEM_BUILD_DIR}
         --enable-shared
-        LDFLAGS=-Wl,-rpath,${FLYEM_BUILD_DIR}/lib^^-L${FLYEM_BUILD_DIR}/lib
+        LDFLAGS=${FLYEM_LDFLAGS}
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
     INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
