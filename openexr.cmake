@@ -26,6 +26,7 @@ ExternalProject_Add(${openexr_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${openexr_URL}
     URL_MD5             ${openexr_MD5}
+    LINE_SEPARATOR      ^^
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${FLYEM_ENV_STRING} ${PATCH_EXE}
         ${openexr_SRC_DIR}/exrmaketiled/main.cpp ${PATCH_DIR}/openexr-exrmaketiled.patch
@@ -34,7 +35,7 @@ ExternalProject_Add(${openexr_NAME}
         --prefix=${FLYEM_BUILD_DIR}
         --disable-ilmbasetest
         PKG_CONFIG_PATH=${FLYEM_PKGCONFIG_DIR}
-        LDFLAGS=-Wl,-rpath,${FLYEM_BUILD_DIR}/lib
+        LDFLAGS=-Wl,-rpath,${FLYEM_BUILD_DIR}/lib^^-L${FLYEM_BUILD_DIR}/lib
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
     INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install

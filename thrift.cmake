@@ -21,13 +21,14 @@ ExternalProject_Add(${thrift_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${thrift_URL}
     URL_MD5             ${thrift_MD5}
+    LINE_SEPARATOR      ^^
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
         --prefix=${FLYEM_BUILD_DIR} 
         --with-boost=${FLYEM_BUILD_DIR} 
         PY_PREFIX=${FLYEM_BUILD_DIR}
-        LDFLAGS=-Wl,-rpath,${FLYEM_BUILD_DIR}/lib
+        LDFLAGS=-Wl,-rpath,${FLYEM_BUILD_DIR}/lib^^-L${FLYEM_BUILD_DIR}/lib
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
     BUILD_IN_SOURCE     1
