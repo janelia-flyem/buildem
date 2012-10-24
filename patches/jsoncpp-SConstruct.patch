@@ -1,0 +1,11 @@
+--- /groups/flyem/proj/builds/fedora16/src/jsoncpp-0.5.0/SConstruct	2010-03-12 02:31:04.000000000 -0500
++++ /groups/flyem/proj/builds/cluster/src/jsoncpp-0.5.0/SConstruct	2012-10-24 11:01:41.046456640 -0400
+@@ -58,7 +58,7 @@
+ 	# PATH is required to find the compiler
+ 	# TEMP is required for at least mingw
+ 	vars = {}
+-	for name in ('PATH', 'TEMP', 'TMP'):
++	for name in ('PATH', 'TEMP', 'TMP', 'LD_LIBRARY_PATH', 'LIBRARY_PATH'):
+ 		if name in os.environ:
+ 			vars[name] = os.environ[name]
+ 	return vars

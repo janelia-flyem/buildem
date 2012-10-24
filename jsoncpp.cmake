@@ -9,6 +9,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
+include (PatchSupport)
 
 include (python)
 
@@ -49,9 +50,10 @@ ExternalProject_Add(${jsoncpp_NAME}
     DEPENDS             ${scons_NAME} ${python_NAME}
     URL                 ${jsoncpp_URL}
     URL_MD5             ${jsoncpp_MD5}
-    UPDATE_COMMAND      ""
-    PATCH_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} 
+    UPDATE_COMMAND      ${FLYEM_ENV_STRING} ${PYTHON_EXE} 
         ${COPY_SCRIPT} "${scons_SRC_DIR}/*" ${jsoncpp_SRC_DIR}
+    PATCH_COMMAND       ${FLYEM_ENV_STRING} ${PATCH_EXE}
+        ${scons_SRC_DIR}/SConstruct ${PATCH_DIR}/jsoncpp-SConstruct.patch
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} scons.py platform=linux-gcc
     BUILD_IN_SOURCE     1
