@@ -62,7 +62,7 @@ def main():
     sys.path.append(pwd)
     for i in range(num_patches):
         cmd = "patch " + args[i*2] + " " + os.path.join(pwd, args[i*2+1])
-        print("Applying patch " + cmd)
+        print("Applying " + cmd)
         os.system(cmd)
 
 if __name__ == '__main__':
