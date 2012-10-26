@@ -1,5 +1,5 @@
 #
-# Install boost libraries from source
+# Install vigra libraries from source
 #
 
 if (NOT vigra_NAME)
@@ -25,6 +25,8 @@ external_source (vigra
     1.8.0
     vigra-flyem-1.8.0.tar.gz
     587d49c4e04dbf63535c970b4e681df7)
+
+# Don't use the released tarball since it needs additional patching that's in git HEAD
 
 #external_source (vigra
 #    1.8.0

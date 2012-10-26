@@ -1,0 +1,12 @@
+#!/bin/bash
+FLYEM_BUILD_DIR={0}
+ILASTIK_PATH={1}
+
+export LD_LIBRARY_PATH=$FLYEM_BUILD_DIR/lib/python2.7/site-packages/vigra:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$FLYEM_BUILD_DIR/lib/python2.7/site-packages:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$FLYEM_BUILD_DIR/lib:$LD_LIBRARY_PATH
+
+export PYTHONPATH=$ILASTIK_PATH/applet-workflows:$ILASIK_PATH/lazyflow:$ILASIK_PATH/volumina:$PYTHONPATH
+export PYTHONPATH=$ILASTIK_PATH/lib/python2.7/site-packages:$PYTHONPATH
+
+$FLYEM_BUILD_DIR/bin/python2.7 $ILASTIK_PATH/applet-workflows/workflows/pixelClassification/pixelClassificationWorkflowMainGui.py

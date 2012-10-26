@@ -9,6 +9,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
+include (TemplateSupport)
 
 include (python)
 include (numpy)
@@ -28,8 +29,8 @@ ExternalProject_Add(${matplotlib_NAME}
     URL                 ${matplotlib_URL}
     URL_MD5             ${matplotlib_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ${FLYEM_BUILD_REPO_DIR}/patches/do_template.py
-        ${FLYEM_BUILD_REPO_DIR}/patches/matplotlib-setup-cfg.template
+    PATCH_COMMAND       ${TEMPLATE_EXE}
+        ${TEMPLATE_DIR}/matplotlib-setup-cfg.template
         ${matplotlib_SRC_DIR}/setup.cfg 
         ${FLYEM_BUILD_DIR}
     CONFIGURE_COMMAND   ""

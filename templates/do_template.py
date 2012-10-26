@@ -43,6 +43,7 @@ from __future__ import with_statement
 import sys
 import os
 import os.path
+import stat
 
 from optparse import OptionParser
 
@@ -50,12 +51,14 @@ HELP_USAGE = """
 %prog applies a series of parameters on the command-line to a template
 and stores the result into a file
 
-    %prog template dst [params ...]
+    %prog [options] template dst [params ...]
 
 """
 
 def main():
     parser = OptionParser(usage=HELP_USAGE)
+    parser.add_option("--exe", dest="set_exe", default=False,
+                      action="store_true", help="set executable bits")
     (options, args) = parser.parse_args()
 
     pwd = os.path.dirname(__file__)
@@ -71,8 +74,12 @@ def main():
                 f.write(text)
             print("Wrote file %s after applying parameters to template %s." % \
                 (args[1], template_path))
+            if options.set_exe:
+                perm_bits = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH |
+                            stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH
+                os.chmod(args[1], perm_bits)
         except IOError:
-            print("Could not write file %s ... aborting program" % args[1])
+            print("Could not write or set permissions on file %s ... aborting program" % args[1])
             sys.exit(2)
     except IOError:
         print("Could not open template %s ... aborting program" % template_path)
