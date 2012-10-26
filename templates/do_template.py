@@ -75,7 +75,7 @@ def main():
             print("Wrote file %s after applying parameters to template %s." % \
                 (args[1], template_path))
             if options.set_exe:
-                perm_bits = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH |
+                perm_bits = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH | \
                             stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH
                 os.chmod(args[1], perm_bits)
         except IOError:
