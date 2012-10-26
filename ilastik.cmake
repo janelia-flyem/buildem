@@ -22,12 +22,12 @@ include (vigra)
 include (blist)
 include (greenlet)
 
-message ("Installing ilastik-flyem into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
-external_git_repo (ilastik-flyem
+external_git_repo (ilastik
     HEAD
     http://github.com/janelia-flyem/ilastik-flyem)
 
-ExternalProject_Add(${ilasik_NAME}
+message ("Installing ${ilastik_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+ExternalProject_Add(${ilastik_NAME}
     DEPENDS             ${vigra_NAME} ${blist_NAME} ${greenlet_NAME} 
     PREFIX              ${FLYEM_BUILD_DIR}
     GIT_REPOSITORY      ${ilastik_URL}
@@ -42,7 +42,7 @@ ExternalProject_Add(${ilasik_NAME}
 )
 
 # Create script files
-ExternalProject_add_step(ilastik-flyem  install_ilastik_gui
+ExternalProject_add_step(${ilastik_NAME}  install_ilastik_gui
     DEPENDEES   download
     COMMAND     ${TEMPLATE_EXE}
         --exe
@@ -53,7 +53,7 @@ ExternalProject_add_step(ilastik-flyem  install_ilastik_gui
     COMMENT     "Added ilastik gui command to bin directory"
 )
 
-ExternalProject_add_step(ilastik-flyem  install_ilastik_headless
+ExternalProject_add_step(${ilastik_NAME}  install_ilastik_headless
     DEPENDEES   download
     COMMAND     ${TEMPLATE_EXE}
         --exe
