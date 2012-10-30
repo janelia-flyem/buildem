@@ -34,9 +34,12 @@ ExternalProject_Add(${ilastik_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     LIST_SEPARATOR      ^^
-    CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} ${CMAKE_COMMAND} 
-        {ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
+    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND}
+        -DCMAKE_PREFIX_PATH=${FLYEM_BUILD_DIR}
+        -DVIGRA_ROOT=${FLYEM_BUILD_DIR}
+        ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
+    BUILD_COMMAND       ${FLYEM_ENV_STRING}  
+        ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile/make
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy drtile.so ${FLYEM_BUILD_DIR}/lib
 )

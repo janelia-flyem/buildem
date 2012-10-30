@@ -35,6 +35,7 @@ ExternalProject_Add(${boost_NAME}
         LDFLAGS=${FLYEM_LDFLAGS}
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} ./b2 
+        --layout=tagged
         -sNO_BZIP2=1 
         -sZLIB_INCLUDE=${FLYEM_BUILD_DIR}/include 
         -sZLIB_SOURCE=${zlib_SRC_DIR} install
