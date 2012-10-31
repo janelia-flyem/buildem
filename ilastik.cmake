@@ -19,6 +19,8 @@ include (BuildSupport)
 include (TemplateSupport)
 
 include (vigra)
+include (h5py)
+include (psutil)
 include (blist)
 include (greenlet)
 
