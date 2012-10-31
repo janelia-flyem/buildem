@@ -21,6 +21,9 @@ external_source (boost
     6a1f32d902203ac70fbec78af95b3cf8
     http://downloads.sourceforge.net/project/boost/boost/1.51.0)
 
+# Add layout=tagged param to first boost install to explicitly create -mt libraries
+# some libraries require.  TODO: Possibly shore up all library find paths to only
+# allow use of built libs.
 message ("Installing ${boost_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${boost_NAME}
     DEPENDS             ${python_NAME} ${zlib_NAME}
@@ -40,7 +43,10 @@ ExternalProject_Add(${boost_NAME}
         -sZLIB_INCLUDE=${FLYEM_BUILD_DIR}/include 
         -sZLIB_SOURCE=${zlib_SRC_DIR} install
     BUILD_IN_SOURCE     1
-    INSTALL_COMMAND     ""
+    INSTALL_COMMAND     ${FLYEM_ENV_STRING} ./b2 
+        -sNO_BZIP2=1 
+        -sZLIB_INCLUDE=${FLYEM_BUILD_DIR}/include 
+        -sZLIB_SOURCE=${zlib_SRC_DIR} install
 )
 
 endif (NOT boost_NAME)
