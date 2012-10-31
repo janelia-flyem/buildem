@@ -28,7 +28,7 @@ include (greenlet)
 
 external_git_repo (ilastik
     HEAD
-    http://github.com/janelia-flyem/ilastik-flyem)
+    http://github.com/janelia-flyem/flyem-ilastik)
 
 message ("Installing ${ilastik_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${ilastik_NAME}

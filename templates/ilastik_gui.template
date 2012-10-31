@@ -7,7 +7,7 @@ export LD_LIBRARY_PATH=$FLYEM_BUILD_DIR/lib/python2.7/site-packages:$LD_LIBRARY_
 export LD_LIBRARY_PATH=$FLYEM_BUILD_DIR/lib/python2.7/site-packages/vigra:$LD_LIBRARY_PATH
 
 export PYTHONPATH=$ILASTIK_PATH/lib/python2.7/site-packages:$PYTHONPATH
-export PYTHONPATH=$ILASTIK_PATH/applet-workflows:$PYTHONPATH
+export PYTHONPATH=$ILASTIK_PATH/ilastik:$PYTHONPATH
 export PYTHONPATH=$ILASTIK_PATH/volumina:$PYTHONPATH
 export PYTHONPATH=$ILASTIK_PATH/lazyflow:$ILASTIK_PATH/lazyflow/drtile:$PYTHONPATH
 
