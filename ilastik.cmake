@@ -44,7 +44,7 @@ ExternalProject_Add(${ilastik_NAME}
         -DVIGRA_ROOT=${FLYEM_BUILD_DIR}
         ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-    INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy drtile.so ${FLYEM_BUILD_DIR}/lib
+    INSTALL_COMMAND     ""
 )
 
 # Create script files
