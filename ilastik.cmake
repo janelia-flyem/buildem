@@ -8,6 +8,8 @@
 # volumina (for gui builds)
 #
 # Also, you must build lazyflow/lazyflow/drtile with CMake to produce drtile.so shared library.
+# This is done in the CONFIGURE_COMMAND below and the shared library is saved in the
+# drtile source directory.
 
 if (NOT ilastik_NAME)
 
@@ -37,11 +39,11 @@ ExternalProject_Add(${ilastik_NAME}
     PATCH_COMMAND       ""
     LIST_SEPARATOR      ^^
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND}
+        -DLIBRARY_OUTPUT_PATH=${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
         -DCMAKE_PREFIX_PATH=${FLYEM_BUILD_DIR}
         -DVIGRA_ROOT=${FLYEM_BUILD_DIR}
         ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-    BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy drtile.so ${FLYEM_BUILD_DIR}/lib
 )
 
