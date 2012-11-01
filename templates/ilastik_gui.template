@@ -11,4 +11,4 @@ export PYTHONPATH=$ILASTIK_PATH/ilastik:$PYTHONPATH
 export PYTHONPATH=$ILASTIK_PATH/volumina:$PYTHONPATH
 export PYTHONPATH=$ILASTIK_PATH/lazyflow:$ILASTIK_PATH/lazyflow/drtile:$PYTHONPATH
 
-$FLYEM_BUILD_DIR/bin/python2.7 $ILASTIK_PATH/applet-workflows/workflows/pixelClassification/pixelClassificationWorkflowMainGui.py
+$FLYEM_BUILD_DIR/bin/python2.7 $ILASTIK_PATH/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainGui.py

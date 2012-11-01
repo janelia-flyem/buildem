@@ -10,4 +10,4 @@ export PYTHONPATH=$ILASTIK_PATH/lib/python2.7/site-packages:$PYTHONPATH
 export PYTHONPATH=$ILASTIK_PATH/ilastik:$PYTHONPATH
 export PYTHONPATH=$ILASTIK_PATH/lazyflow:$ILASTIK_PATH/lazyflow/drtile:$PYTHONPATH
 
-$FLYEM_BUILD_DIR/bin/python2.7 $ILASTIK_PATH/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py "$@"
+$FLYEM_BUILD_DIR/bin/python2.7 $ILASTIK_PATH/ilastik/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py
