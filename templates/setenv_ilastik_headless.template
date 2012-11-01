@@ -1,6 +1,6 @@
 #!/bin/bash
-FLYEM_BUILD_DIR={0}
-ILASTIK_PATH={1}
+export FLYEM_BUILD_DIR={0}
+export ILASTIK_PATH={1}
 
 export LD_LIBRARY_PATH=$FLYEM_BUILD_DIR/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$FLYEM_BUILD_DIR/lib/python2.7/site-packages:$LD_LIBRARY_PATH
@@ -9,5 +9,3 @@ export LD_LIBRARY_PATH=$FLYEM_BUILD_DIR/lib/python2.7/site-packages/vigra:$LD_LI
 export PYTHONPATH=$ILASTIK_PATH/lib/python2.7/site-packages:$PYTHONPATH
 export PYTHONPATH=$ILASTIK_PATH/ilastik:$PYTHONPATH
 export PYTHONPATH=$ILASTIK_PATH/lazyflow:$ILASTIK_PATH/lazyflow/drtile:$PYTHONPATH
-
-$FLYEM_BUILD_DIR/bin/python2.7 $ILASTIK_PATH/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py "$@"

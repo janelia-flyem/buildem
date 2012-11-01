@@ -1,5 +1,5 @@
 #
-# Install ilastik from source
+# Install ilastik headless (non-GUI) from source
 #
 # Ilastik is composed of 3 git repos, 2 of which are necessary for headless mode.
 #
@@ -37,39 +37,50 @@ ExternalProject_Add(${ilastik_NAME}
     GIT_REPOSITORY      ${ilastik_URL}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    LIST_SEPARATOR      ^^
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND}
         -DLIBRARY_OUTPUT_PATH=${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
         -DCMAKE_PREFIX_PATH=${FLYEM_BUILD_DIR}
         -DVIGRA_ROOT=${FLYEM_BUILD_DIR}
         ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
+    TEST_COMMAND        ${FLYEM_BUILD_DIR}/bin/ilastik_headless_test
     INSTALL_COMMAND     ""
 )
 
-# Create script files
-ExternalProject_add_step(${ilastik_NAME}  install_ilastik_gui
+# Add environment setting script
+ExternalProject_add_step(${ilastik_NAME}  install_env_script
     DEPENDEES   download
     COMMAND     ${TEMPLATE_EXE}
         --exe
-        ${TEMPLATE_DIR}/ilastik_gui.template
-        ${FLYEM_BUILD_DIR}/bin/ilastik_gui
+        ${TEMPLATE_DIR}/setenv_ilastik_headless.template
+        ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_headless.sh
         ${FLYEM_BUILD_DIR}
         ${ilastik_SRC_DIR}
-    COMMENT     "Added ilastik gui command to bin directory"
+    COMMENT     "Added ilastik headless environment script to bin directory"
 )
 
-ExternalProject_add_step(${ilastik_NAME}  install_ilastik_headless
+# Add headless launch and test scripts
+ExternalProject_add_step(${ilastik_NAME}  install_launch
     DEPENDEES   download
     COMMAND     ${TEMPLATE_EXE}
         --exe
-        ${TEMPLATE_DIR}/ilastik_headless.template
+        ${TEMPLATE_DIR}/ilastik_script.template
         ${FLYEM_BUILD_DIR}/bin/ilastik_headless
-        ${FLYEM_BUILD_DIR}
-        ${ilastik_SRC_DIR}
+        ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_headless.sh
+        ${ilastik_SRC_DIR}/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py
     COMMENT     "Added ilastik headless command to bin directory"
 )
 
+ExternalProject_add_step(${ilastik_NAME}  install_test
+    DEPENDEES   download
+    COMMAND     ${TEMPLATE_EXE}
+        --exe
+        ${TEMPLATE_DIR}/ilastik_script.template
+        ${FLYEM_BUILD_DIR}/bin/ilastik_headless_test
+        ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_headless.sh
+        ${ilastik_SRC_DIR}/ilastik/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py
+    COMMENT     "Added ilastik headless test command to bin directory"
+)
 
 endif (NOT ilastik_NAME)
 
