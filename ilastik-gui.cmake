@@ -44,7 +44,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_env_script
 
 # Add headless launch and test scripts
 ExternalProject_add_step(${ilastik_NAME}  install_gui_launch
-    DEPENDEES   download
+    DEPENDEES   install_gui_env_script
     COMMAND     ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/ilastik_script.template
@@ -55,7 +55,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_launch
 )
 
 ExternalProject_add_step(${ilastik_NAME}  install_gui_test
-    DEPENDEES   download
+    DEPENDEES   install_gui_launch
     COMMAND     ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/ilastik_script.template

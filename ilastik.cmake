@@ -32,7 +32,8 @@ external_git_repo (ilastik
 
 message ("Installing ${ilastik_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${ilastik_NAME}
-    DEPENDS             ${vigra_NAME} ${blist_NAME} ${greenlet_NAME} 
+    DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
+                        ${blist_NAME} ${greenlet_NAME} 
     PREFIX              ${FLYEM_BUILD_DIR}
     GIT_REPOSITORY      ${ilastik_URL}
     UPDATE_COMMAND      ""
@@ -56,30 +57,30 @@ ExternalProject_add_step(${ilastik_NAME}  install_env_script
         ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_headless.sh
         ${FLYEM_BUILD_DIR}
         ${ilastik_SRC_DIR}
-    COMMENT     "Added ilastik headless environment script to bin directory"
+    COMMENT     "Adding ilastik headless environment script to bin directory"
 )
 
 # Add headless launch and test scripts
 ExternalProject_add_step(${ilastik_NAME}  install_launch
-    DEPENDEES   download
+    DEPENDEES   install_env_script
     COMMAND     ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/ilastik_script.template
         ${FLYEM_BUILD_DIR}/bin/ilastik_headless
         ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_headless.sh
         ${ilastik_SRC_DIR}/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py
-    COMMENT     "Added ilastik headless command to bin directory"
+    COMMENT     "Adding ilastik headless command to bin directory"
 )
 
 ExternalProject_add_step(${ilastik_NAME}  install_test
-    DEPENDEES   download
+    DEPENDEES   install_launch
     COMMAND     ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/ilastik_script.template
         ${FLYEM_BUILD_DIR}/bin/ilastik_headless_test
         ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_headless.sh
         ${ilastik_SRC_DIR}/ilastik/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py
-    COMMENT     "Added ilastik headless test command to bin directory"
+    COMMENT     "Adding ilastik headless test command to bin directory"
 )
 
 endif (NOT ilastik_NAME)
