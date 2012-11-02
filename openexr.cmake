@@ -13,6 +13,7 @@ include (BuildSupport)
 include (PatchSupport)
 
 include (ilmbase)
+include (zlib)
 
 external_source (openexr
     1.6.1
@@ -22,7 +23,7 @@ external_source (openexr
 
 message ("Installing ${openexr_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${openexr_NAME}
-    DEPENDS             ${ilmbase_NAME}
+    DEPENDS             ${ilmbase_NAME} ${zlib_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
     URL                 ${openexr_URL}
     URL_MD5             ${openexr_MD5}
