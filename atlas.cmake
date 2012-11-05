@@ -2,6 +2,22 @@
 # Install atlas from source
 #
 
+#
+# Note: The ATLAS build process uses timing tests to determine the best implementation to build for your system.
+#       These timing tests cannot function properly if CPU throttling is enabled on your machine.
+#       If the ATLAS build script detects CPU throttling on your machine, it will fail with an error like this:
+#         
+#         It appears you have cpu throttling enabled, which makes timings
+#         unreliable and an ATLAS install nonsensical. Aborting.
+#
+#       If you get this error, you must temporarily disable CPU throttling (or "Turbo Boost") while ATLAS is built.
+#       On Fedora 16, this can be done via the cpupower command:
+#
+#         $ cpupower frequency-info # Check current settings...
+#         $ sudo cpupower frequency-set -g performance
+#
+#         See cpupower help frequency-set for more info.
+
 if (NOT atlas_NAME)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
