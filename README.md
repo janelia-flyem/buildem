@@ -229,4 +229,8 @@ Note that the PATH is set to automatically use the more recent CMake, gcc, and g
 
 After setting the appropriate environment variables, simply run the standard installation cmake/make (with possible second cmake/make invokation) to build the system.
 
-Issue: Some original source repositories or tarballs require https, which may be a problem for operating systems like Scientific Linux due to absent certificates.  This issue can be sidestepped by using default non-https downloads, e.g., all downloads from janelia-flyem cache.
+### Troubleshooting
+
+* Some original source repositories or tarballs require https, which may be a problem for operating systems like Scientific Linux due to absent certificates.  This issue can be sidestepped by using default non-https downloads, e.g., all downloads from janelia-flyem cache.
+
+* Common build problems for individual components in the FlyEM Build System are documented in each component's CMake file (e.g. atlas.cmake).  If you see an error, check that file's comments.
