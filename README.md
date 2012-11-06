@@ -200,18 +200,12 @@ external_source (libtiff
 
 In each case, the variable `${foo_URL}` is set by the `external_source()` macro to an appropriate download URL.  
 
-## Easy Install (discouraged)
+### Easy Install (discouraged)
 
 Python packages that can be installed via easy_install are easy to build but are discouraged because they may install dependencies outside this modular CMake build system.  If you just want to test a component using easy_install, you can add `include (EasyInstall)` and then use `easy_install (foo)` to install python package *foo*.  Since we have built python from source and installed it into the *FBD*, we can install python packages into that distribution instead of the build computer's standard python install.
 
 If the easy_install works, it is recommended to create a separate .cmake file similar to networkx.cmake and progressbar.cmake in this repo.
  
-### Roadmap
-
-Currently all builds generate shared libraries with the hope that a future version of the build system will allow easy specification of different versions of each dependency _at run-time_ via environment variables or a script.
-
-This future version of the build system would require reorganization of the main build directory so that each component and each version of that component has its own prefix-like directory.  Specific version components can then be selected as needed by modifying LD_LIBRARY_PATH and PATH environment variables.
-
 ### Build notes for Janelia Farm cluster
 
 The Janelia Farm cluster is an atypical deployment platform that provides one edge case for how to use the FlyEM build system.
@@ -240,3 +234,11 @@ After setting the appropriate environment variables, simply run the standard ins
 * Some original source repositories or tarballs require https, which may be a problem for operating systems like Scientific Linux due to absent certificates.  This issue can be sidestepped by using default non-https downloads, e.g., all downloads from janelia-flyem cache.
 
 * Common build problems for individual components in the FlyEM Build System are documented in each component's CMake file (e.g. atlas.cmake).  If you see an error, check that file's comments.
+
+### Roadmap
+
+Currently all builds generate shared libraries with the hope that a future version of the build system will allow easy specification of different versions of each dependency _at run-time_ via environment variables or a script.
+
+This future version of the build system would require reorganization of the main build directory so that each component and each version of that component has its own prefix-like directory.  Specific version components can then be selected as needed by modifying LD_LIBRARY_PATH and PATH environment variables.
+
+
