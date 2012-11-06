@@ -58,8 +58,6 @@ Alternative compilers can be specified by modifying CMake variables:
 
 Application builds are specified through one or more CMake files.  You must create a CMakeLists.txt at the root of your application source that sets the required FBD path and auto-downloads the flyem-build repo.  This CMake script can include any number of required components.  Most of these components should be in the flyem-repo, e.g., a libpng dependency is fulfilled by simply using `include (libpng)`.  
 
-Python packages that can be installed via easy_install are even easier to build.  Simply add `include (EasyInstall)` and then use `easy_install (foo)` to install python package *foo*.  Since we have built python from source and installed it into the *FBD*, we can install python packages into that distribution instead of the build computer's standard python install.
-
 ### Your application CMakeLists.txt
 
 Your application CMakeLists.txt can use the following template:
@@ -112,15 +110,12 @@ else ()
     include (python)
     include (libpng)
 
-    include (EasyInstall)
-    easy_install (networkx)
-
     # Install Foo -- we use below just as placeholder
     add_custom_target (Foo ALL
         DEPENDS ${APP_DEPENDENCIES}
         COMMENT "Foo built")
 
-    ############################################################################
+############################################################################
 endif()
 ```
 
@@ -205,6 +200,17 @@ external_source (libtiff
 
 In each case, the variable `${foo_URL}` is set by the `external_source()` macro to an appropriate download URL.  
 
+## Easy Install (discouraged)
+
+Python packages that can be installed via easy_install are easy to build but are discouraged because they may install dependencies outside this modular CMake build system.  If you just want to test a component using easy_install, you can add `include (EasyInstall)` and then use `easy_install (foo)` to install python package *foo*.  Since we have built python from source and installed it into the *FBD*, we can install python packages into that distribution instead of the build computer's standard python install.
+
+If the easy_install works, it is recommended to create a separate .cmake file similar to networkx.cmake and progressbar.cmake in this repo.
+ 
+### Roadmap
+
+Currently all builds generate shared libraries with the hope that a future version of the build system will allow easy specification of different versions of each dependency _at run-time_ via environment variables or a script.
+
+This future version of the build system would require reorganization of the main build directory so that each component and each version of that component has its own prefix-like directory.  Specific version components can then be selected as needed by modifying LD_LIBRARY_PATH and PATH environment variables.
 
 ### Build notes for Janelia Farm cluster
 
