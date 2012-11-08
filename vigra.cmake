@@ -55,23 +55,23 @@ ExternalProject_Add(${vigra_NAME}
         -DCMAKE_EXE_LINKER_FLAGS=${FLYEM_LDFLAGS}
         -DDEPENDENCY_SEARCH_PREFIX=${FLYEM_BUILD_DIR}
         -DBoost_LIBRARY_DIRS=${FLYEM_BUILD_DIR}/lib
- #       -DBoost_PYTHON_LIBRARY=${FLYEM_BUILD_DIR}/lib/libboost_python-mt.so
- #       -DBoost_PYTHON_LIBRARY_RELEASE=${FLYEM_BUILD_DIR}/lib/libboost_python-mt.so
- #       -DBoost_PYTHON_LIBRARY_DEBUG=${FLYEM_BUILD_DIR}/lib/libboost_python-mt.so
- #       -DVIGRANUMPY_LIBRARIES=${FLYEM_BUILD_DIR}/lib/libpython2.7.so^^${FLYEM_BUILD_DIR}/lib/libboost_python.so
+ #       -DBoost_PYTHON_LIBRARY=${FLYEM_BUILD_DIR}/lib/libboost_python-mt.dylib
+ #       -DBoost_PYTHON_LIBRARY_RELEASE=${FLYEM_BUILD_DIR}/lib/libboost_python-mt.dylib
+ #       -DBoost_PYTHON_LIBRARY_DEBUG=${FLYEM_BUILD_DIR}/lib/libboost_python-mt.dylib
+ #       -DVIGRANUMPY_LIBRARIES=${FLYEM_BUILD_DIR}/lib/libpython2.7.dylib^^${FLYEM_BUILD_DIR}/lib/libboost_python.dylib
         -DJPEG_INCLUDE_DIR=${FLYEM_BUILD_DIR}/include
-        -DJPEG_LIBRARY=${FLYEM_BUILD_DIR}/lib/libjpeg.so
-        -DHDF5_CORE_LIBRARY=${FLYEM_BUILD_DIR}/lib/libhdf5.so
-        -DHDF5_HL_LIBRARY=${FLYEM_BUILD_DIR}/lib/libhdf5_hl.so
+        -DJPEG_LIBRARY=${FLYEM_BUILD_DIR}/lib/libjpeg.dylib
+        -DHDF5_CORE_LIBRARY=${FLYEM_BUILD_DIR}/lib/libhdf5.dylib
+        -DHDF5_HL_LIBRARY=${FLYEM_BUILD_DIR}/lib/libhdf5_hl.dylib
         -DHDF5_INCLUDE_DIR=${FLYEM_BUILD_DIR}/include
         -DFFTW3F_INCLUDE_DIR=
         -DFFTW3F_LIBRARY=
         -DFFTW3_INCLUDE_DIR=${FLYEM_BUILD_DIR}/include
-        -DFFTW3_LIBRARY=${FLYEM_BUILD_DIR}/lib/libfftw3.so
+        -DFFTW3_LIBRARY=${FLYEM_BUILD_DIR}/lib/libfftw3.dylib
         -DCMAKE_CXX_FLAGS=-pthread
         -DCMAKE_CXX_LINK_FLAGS=-pthread
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-    TEST_COMMAND        ${FLYEM_ENV_STRING} make check
+    #TEST_COMMAND        ${FLYEM_ENV_STRING} make check
     INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
 )
 
