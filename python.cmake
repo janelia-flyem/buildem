@@ -40,6 +40,7 @@ ExternalProject_Add(${python_NAME}
     BUILD_IN_SOURCE 1
 )
 
+set (PYTHON_PREFIX ${FLYEM_BUILD_DIR}/Frameworks/Python.framework/Versions/2.7)
 set (PYTHON_INCLUDE_PATH ${FLYEM_BUILD_DIR}/Frameworks/Python.framework/Versions/2.7/include/python2.7)
 set (PYTHON_EXE ${FLYEM_BUILD_DIR}/Frameworks/Python.framework/Versions/2.7/bin/python)
 

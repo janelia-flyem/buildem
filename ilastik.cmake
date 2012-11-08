@@ -41,7 +41,11 @@ ExternalProject_Add(${ilastik_NAME}
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND}
         -DLIBRARY_OUTPUT_PATH=${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
         -DCMAKE_PREFIX_PATH=${FLYEM_BUILD_DIR}
-        -DVIGRA_ROOT=${FLYEM_BUILD_DIR}
+        -DPYTHON_EXECUTABLE=${PYTHON_EXE}
+        -DPYTHON_INCLUDE_DIR=${PYTHON_PREFIX}/include/python2.7
+        -DPYTHON_LIBRARY=${PYTHON_PREFIX}/lib/libpython2.7.dylib
+        -DPYTHON_NUMPY_INCLUDE_DIR=${PYTHON_PREFIX}/lib/python2.7/site-packages/numpy/core/include
+        -DVIGRA_NUMPY_CORE_LIBRARY=${PYTHON_PREFIX}/lib/python2.7/site-packages/vigra/vigranumpycore.so
         ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
     TEST_COMMAND        ${FLYEM_BUILD_DIR}/bin/ilastik_headless_test
@@ -57,6 +61,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_env_script
         ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_headless.sh
         ${FLYEM_BUILD_DIR}
         ${ilastik_SRC_DIR}
+        ${PYTHON_PREFIX}
     COMMENT     "Adding ilastik headless environment script to bin directory"
 )
 
@@ -74,7 +79,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_launch
 
 ExternalProject_add_step(${ilastik_NAME}  install_test
     DEPENDEES   install_launch
-    COMMAND     ${TEMPLATE_EXE}
+    COMMAND     ${FLYEM_ENV_STRING} ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/ilastik_script.template
         ${FLYEM_BUILD_DIR}/bin/ilastik_headless_test
