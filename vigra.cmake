@@ -21,10 +21,16 @@ include (boost)
 include (numpy)
 
 # Use FlyEM-packaged vigra based off 1.8.0 github
+#external_source (vigra
+#    1.8.0
+#    vigra-flyem-1.8.0.tar.gz
+#    587d49c4e04dbf63535c970b4e681df7)
+
 external_source (vigra
-    1.8.0
-    vigra-flyem-1.8.0.tar.gz
-    587d49c4e04dbf63535c970b4e681df7)
+    1.9.0
+    vigra-1.9.0-src.tar.gz
+    b6155afe1ea967917d2be16d98a85404
+    http://hci.iwr.uni-heidelberg.de/vigra)
 
 # Don't use the released tarball since it needs additional patching that's in git HEAD
 
@@ -47,7 +53,8 @@ ExternalProject_Add(${vigra_NAME}
     URL                 ${vigra_URL}
     URL_MD5             ${vigra_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ""
+    PATCH_COMMAND       ${FLYEM_ENV_STRING} ${PATCH_EXE}
+        ${vigra_SRC_DIR}/config/FindVIGRANUMPY_DEPENDENCIES.cmake ${PATCH_DIR}/vigra.patch
     LIST_SEPARATOR      ^^
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND} ${vigra_SRC_DIR} 
         -DCMAKE_INSTALL_PREFIX=${FLYEM_BUILD_DIR}
