@@ -32,7 +32,7 @@ ExternalProject_Add(${python_NAME}
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${python_SRC_DIR}/configure 
         --prefix=${FLYEM_BUILD_DIR}
-        --enable-shared
+        --enable-framework=${FLYEM_BUILD_DIR}/Frameworks
         LDFLAGS=${FLYEM_LDFLAGS}
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
@@ -40,7 +40,7 @@ ExternalProject_Add(${python_NAME}
     BUILD_IN_SOURCE 1
 )
 
-set (PYTHON_INCLUDE_PATH ${FLYEM_BUILD_DIR}/include/python2.7)
-set (PYTHON_EXE ${FLYEM_BUILD_DIR}/bin/python2.7)
+set (PYTHON_INCLUDE_PATH ${FLYEM_BUILD_DIR}/Frameworks/Python.framework/Versions/2.7/include/python2.7)
+set (PYTHON_EXE ${FLYEM_BUILD_DIR}/Frameworks/Python.framework/Versions/2.7/bin/python)
 
 endif (NOT python_NAME)
