@@ -31,6 +31,7 @@ ExternalProject_Add(${openexr_NAME}
     PATCH_COMMAND       ${FLYEM_ENV_STRING} ${PATCH_EXE}
         ${openexr_SRC_DIR}/exrmaketiled/main.cpp ${PATCH_DIR}/openexr-exrmaketiled.patch
         ${openexr_SRC_DIR}/exrenvmap/main.cpp ${PATCH_DIR}/openexr-exrenvmap.patch
+        ${openexr_SRC_DIR}/configure ${PATCH_DIR}/openexr-clang.patch
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${openexr_SRC_DIR}/configure
         --prefix=${FLYEM_BUILD_DIR}
         --disable-ilmbasetest

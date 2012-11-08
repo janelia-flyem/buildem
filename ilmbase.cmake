@@ -28,6 +28,7 @@ ExternalProject_Add(${ilmbase_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${PATCH_EXE}
         ${ilmbase_SRC_DIR}/Imath/ImathMatrix.h ${PATCH_DIR}/ilmbase-1.patch
+        ${ilmbase_SRC_DIR}/configure ${PATCH_DIR}/ilmbase-clang.patch
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${ilmbase_SRC_DIR}/configure 
         --prefix=${FLYEM_BUILD_DIR}
         LDFLAGS=${FLYEM_LDFLAGS}
