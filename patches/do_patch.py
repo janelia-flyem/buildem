@@ -63,8 +63,12 @@ def main():
     for i in range(num_patches):
         cmd = "patch -N " + args[i*2] + " " + os.path.join(pwd, args[i*2+1])
         print("Applying " + cmd)
-        os.system(cmd)
+        retcode = os.system(cmd)
+        if retcode != 0:
+            sys.stderr.write( "Failed patch command #{}: {}".format(i*2+1, cmd) )
+            return retcode
+    return 0
 
 if __name__ == '__main__':
-    main()
+    sys.exit( main() )
 
