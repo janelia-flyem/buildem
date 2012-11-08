@@ -22,6 +22,7 @@ external_source (python
     http://www.python.org/ftp/python/2.7.3)
 
 message ("Installing ${python_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+
 ExternalProject_Add(${python_NAME}
     DEPENDS             ${zlib_NAME}
     PREFIX              ${FLYEM_BUILD_DIR}
@@ -36,6 +37,7 @@ ExternalProject_Add(${python_NAME}
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
     INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
+    BUILD_IN_SOURCE 1
 )
 
 set (PYTHON_INCLUDE_PATH ${FLYEM_BUILD_DIR}/include/python2.7)
