@@ -34,8 +34,8 @@ endif ()
 
 # Initialize environment variables string to use for commands.
 set (FLYEM_BIN_PATH     ${FLYEM_BUILD_DIR}/bin:$ENV{PATH})
-set (FLYEM_LIB_PATH     ${FLYEM_BUILD_DIR}/lib:$ENV{LD_LIBRARY_PATH})
-set (FLYEM_ENV_STRING   env PATH=${FLYEM_BIN_PATH} LD_LIBRARY_PATH=${FLYEM_LIB_PATH})
+set (FLYEM_LIB_PATH     ${FLYEM_BUILD_DIR}/lib:$ENV{DYLD_LIBRARY_PATH})
+set (FLYEM_ENV_STRING   env PATH=${FLYEM_BIN_PATH} DYLD_LIBRARY_PATH=${FLYEM_LIB_PATH} MACOSX_DEPLOYMENT_TARGET=10.5)
 set (FLYEM_LDFLAGS      "-Wl,-rpath,${FLYEM_BUILD_DIR}/lib -L${FLYEM_BUILD_DIR}/lib")
 
 # Set standard include directories.
