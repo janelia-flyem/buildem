@@ -31,11 +31,22 @@ if (NOT EXISTS ${FLYEM_BUILD_DIR}/src)
     file (MAKE_DIRECTORY ${FLYEM_BUILD_DIR}/src)
 endif ()
 
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    # Important to use FALLBACK variable.
+    # https://developer.apple.com/library/mac/#documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/DynamicLibraryUsageGuidelines.html
+    set (FLYEM_LD_LIBRARY_VAR "DYLD_FALLBACK_LIBRARY_PATH")
+    set (FLYEM_PLATFORM_SPECIFIC_ENV "MACOSX_DEPLOYMENT_TARGET=10.5")
+    set (FLYEM_PLATFORM_DYLIB_EXTENSION "dylib")
+else()
+    set (FLYEM_LD_LIBRARY_VAR "LD_LIBRARYPATH")
+    set (FLYEM_PLATFORM_SPECIFIC_ENV "")
+    set (FLYEM_PLATFORM_DYLIB_EXTENSION "so")
+endif()
 
 # Initialize environment variables string to use for commands.
 set (FLYEM_BIN_PATH     ${FLYEM_BUILD_DIR}/bin:$ENV{PATH})
-set (FLYEM_LIB_PATH     ${FLYEM_BUILD_DIR}/lib:$ENV{DYLD_FALLBACK_LIBRARY_PATH})
-set (FLYEM_ENV_STRING   env PATH=${FLYEM_BIN_PATH} DYLD_FALLBACK_LIBRARY_PATH=${FLYEM_LIB_PATH} MACOSX_DEPLOYMENT_TARGET=10.5)
+set (FLYEM_LIB_PATH     ${FLYEM_BUILD_DIR}/lib:$ENV{${FLYEM_LD_LIBRARY_VAR}})
+set (FLYEM_ENV_STRING   env PATH=${FLYEM_BIN_PATH} ${FLYEM_LD_LIBRARY_VAR}=${FLYEM_LIB_PATH} ${FLYEM_PLATFORM_SPECIFIC_ENV})
 set (FLYEM_LDFLAGS      "-Wl,-rpath,${FLYEM_BUILD_DIR}/lib -L${FLYEM_BUILD_DIR}/lib")
 
 # Set standard include directories.
