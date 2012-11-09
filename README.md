@@ -1,7 +1,7 @@
 FlyEM Build System
 ==================
 
-The [flyem-build](https://github.com/janelia-flyem/flyem-build) repo is a modular CMake-based system that leverages [CMake's ExternalProject](http://www.kitware.com/media/html/BuildingExternalProjectsWithCMake2.8.html) to simplify and automate a complex build process.
+The [flyem-build](https://github.com/janelia-flyem/flyem-build) repo is a modular CMake-based system that leverages [CMake's ExternalProject](http://www.kitware.com/media/html/BuildingExternalProjectsWithCMake2.8.html) to simplify and automate a complex build process.  Its goal is to allow *simple*, *modular* specification of software dependencies and automate the download/patch/configure/build/install process.
 
 Previously, each software dependency was installed by manually downloading packages, either via yum/apt-get in sudo mode or by compiling source tarballs.  Target executables and libraries were symbolically linked or copied to standard locations.  While this process allowed great latitude in reusing software already available on computers, it has a number of issues:
 
@@ -203,7 +203,19 @@ external_source (libtiff
     051c1068e6a0627f461948c365290410)
 ```
 
-In each case, the variable `${foo_URL}` is set by the `external_source()` macro to an appropriate download URL.  
+In each case, the variable `${foo_URL}` is set by the `external_source()` macro to an appropriate download URL.
+
+### Utilities
+
+#### Patching
+
+See the `do_patch.py` utility under the `patches` directory.  This script lets you specify a number of patches to be applied to files and execute them in one step suitable for the `PATCH` directive in `ExternalProject_Add` commands.
+
+Actual patches are kept in the `patches` directory and preserved as part of the build repo.
+
+#### Generation of files/scripts using templates
+
+See the `do_template.py` utility under the `templates` directory.  This script will create files by applying command-line arguments to templates in that directory.  This allows you to generate customized scripts that can set environment variables before calling installed executables.  It can also be used to create configuration files, e.g., the matplotlib setup.cfg file, before actually building a component.
 
 ### Easy Install (discouraged)
 
