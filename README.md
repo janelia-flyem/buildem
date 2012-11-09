@@ -29,8 +29,6 @@ The FlyEM build system requires only a few installed components to be available,
 
 Note that python is built from source as well as all dependencies except for the above.  The FlyEM build system does *not* try to minimize overall build time by reusing pre-compiled packages.  The presence of multiple compiler versions across the different Fedora/RHEL versions and our very heterogeneous workstation environment requires developer attention and tracking of installs across multiple machines.  
 
-In future versions of the build system, we will allow developers to easily specify which components can be reused from outside the FlyEM build.  These specified components will be found via the traditional CMake FIND_PACKAGE approach and only built from source if the component is absent.
-
 ## The build process
 
 An empty directory is chosen as the *FlyEM build directory (FBD)* that is specific to OS, compiler versions, and component versions.  The FBD can be thought of as a version-specific /usr/local and will contain bin, lib, include, and other standard directories.  All automatically downloaded and compiled code will reside in the FBD's src directory.  Note that the FBD should not be confused with any component's *build directory*, which can be either in the component's source directory or some user-chosen directory as in standard CMake use.
@@ -234,6 +232,7 @@ If the easy_install works, it is recommended to create a separate .cmake file si
 This build system could be improved in a number of ways, not all of which adhere to the goal of a simple, easily-specified build process.
 
 * Improve triggers so download, patch, configure, and compilation times are decreased.
+* Allow developers to easily specify components that can be used from outside the FlyEM build.  These specified components will be found via the traditional CMake FIND_PACKAGE approach and only built from source if the component is absent.  The burden of specifying compatible shared libraries will rest with the developer in exchange for time savings.
 * Allow run-time specification of different component versions.  This would require reorganization of the target build directory so each component version would have its own build directory.  Scripts could then modify environment variables like `LD_LIBRARY_PATH` to select chosen versions.  While helpful during debugging builds and considering new component versions, we don't want to lose the simplicity of having a tagged build repo represent a known working version of all software dependencies.
 
 ## Build notes for Janelia Farm cluster
