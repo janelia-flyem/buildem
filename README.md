@@ -1,9 +1,9 @@
 FlyEM Build System
 ==================
 
-The [flyem-build](https://github.com/janelia-flyem/flyem-build) repo is part of a CMake-based build system that attempts to simplify and automate a complex build process.  
+The [flyem-build](https://github.com/janelia-flyem/flyem-build) repo is a modular CMake-based system that leverages [CMake's ExternalProject](http://www.kitware.com/media/html/BuildingExternalProjectsWithCMake2.8.html) to simplify and automate a complex build process.
 
-Previously, each software component was installed by manually downloading packages, either via yum/apt-get in sudo mode or by compiling source tarballs.  Target executables and libraries were symbolically linked or copied to standard locations.  While this process allowed great latitude in reusing software already available on computers, it has a number of issues:
+Previously, each software dependency was installed by manually downloading packages, either via yum/apt-get in sudo mode or by compiling source tarballs.  Target executables and libraries were symbolically linked or copied to standard locations.  While this process allowed great latitude in reusing software already available on computers, it has a number of issues:
 
 * The process is tedious and must be replicated for each target computer.
 * As the number of required components grows, we encounter [Dependency Hell](http://en.wikipedia.org/wiki/Dependency_hell), particularly when some components are on network drives and shared among heterogeneous workstations.
@@ -17,13 +17,13 @@ The FlyEM build system is predicated on some basic assertions:
 * Each application build process should be easily specified and automated.
 * Required components should be easily shared on network drives among networked computers that can share software, i.e., the computers have compatible operating systems, because intranets have excellent bandwidth.
 * Required components can be automatically built from source, and CMake is a sufficiently flexible and cross-platform tool on which to base our system.
-* Builds of all components should be OS and compiler-specific to minimize conflicts in compiler versions, and we are not sure that pre-compiled components (e.g., RPMs) are available for all target machines/compilers.
+* Builds of all components should be specific to OS, compiler, and compiler version to minimize conflicts in [ABI](http://en.wikipedia.org/wiki/Application_binary_interface), and we are not sure that pre-compiled components (e.g., RPMs) are available for all target machines/compilers.
 * Third-party pre-built packages, like Enthought Python Distribution, are not viable due to licensing costs for cluster operation as well as inability to easily adapt to new dependencies.
 
 The FlyEM build system requires only a few installed components to be available, preferably in this order:
 
 * C/C++ and fortran compilers
-* libcurl, https support (note that these components are usually present in standard OS builds but may need to be install explicitly)
+* libcurl and https support (note that these components are usually present in standard OS builds but may need to be install explicitly)
 * git
 * CMake 2.8+
 
@@ -88,6 +88,7 @@ if (NOT EXISTS ${FLYEM_BUILD_REPO_DIR}/python.cmake)
     ExternalProject_Add(flyem-build
         PREFIX              ${FLYEM_BUILD_DIR}
         GIT_REPOSITORY      https://github.com/janelia-flyem/flyem-build.git
+        #GIT_TAG            python3  # Example of tagged branch (see doc)
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
         CONFIGURE_COMMAND   "" 
@@ -110,7 +111,9 @@ else ()
     include (python)
     include (libpng)
 
-    # Install Foo -- we use below just as placeholder
+    # Install Foo -- actual build commands would replace the placeholder
+    # below.  Note the auto-generated APP_DEPENDENCIES variable that
+    # holds all required targets.
     add_custom_target (Foo ALL
         DEPENDS ${APP_DEPENDENCIES}
         COMMENT "Foo built")
@@ -118,6 +121,8 @@ else ()
 ############################################################################
 endif()
 ```
+
+The two-step process is clear from the CMake code above.  If a flyem-build repo has not been cloned yet, the first part downloads the build repo into the specified `FLYEM_BUILD_DIR`.  Note the commented-out `GIT_TAG` when retrieving the build repo.  You can use tagged branches of the build repo to create different software environments as long as each tagged branch uses a *different* `FLYEM_BUILD_DIR`.  For example, one application might require python 3 instead of the default python 2.7, which may cause cascading version changes for other requirements.  All of these changes can be made to a branch of the build repo's .cmake files and snapshotted using a tag.
 
 ### Adding packages to build process
 
@@ -206,7 +211,20 @@ Python packages that can be installed via easy_install are easy to build but are
 
 If the easy_install works, it is recommended to create a separate .cmake file similar to networkx.cmake and progressbar.cmake in this repo.
  
-### Build notes for Janelia Farm cluster
+## Troubleshooting
+
+* Some original source repositories or tarballs require https, which may be a problem for operating systems like Scientific Linux due to absent certificates.  This issue can be sidestepped by using default non-https downloads, e.g., all downloads from janelia-flyem cache.
+
+* Common build problems for individual components in the FlyEM Build System are documented in each component's CMake file (e.g. atlas.cmake).  If you see an error, check that file's comments.
+
+## Roadmap
+
+This build system could be improved in a number of ways, not all of which adhere to the goal of a simple, easily-specified build process.
+
+* Improve triggers so download, patch, configure, and compilation times are decreased.
+* Allow run-time specification of different component versions.  This would require reorganization of the target build directory so each component version would have its own build directory.  Scripts could then modify environment variables like `LD_LIBRARY_PATH` to select chosen versions.  While helpful during debugging builds and considering new component versions, we don't want to lose the simplicity of having a tagged build repo represent a known working version of all software dependencies.
+
+## Build notes for Janelia Farm cluster
 
 The Janelia Farm cluster is an atypical deployment platform that provides one edge case for how to use the FlyEM build system.
 
@@ -228,17 +246,5 @@ export PYTHONPATH=$FLYEMCLUSTER/lib/python2.7:$FLYEMCLUSTER/lib/python2.7/site-p
 Note that the PATH is set to automatically use the more recent CMake, gcc, and git builds.
 
 After setting the appropriate environment variables, simply run the standard installation cmake/make (with possible second cmake/make invokation) to build the system.
-
-### Troubleshooting
-
-* Some original source repositories or tarballs require https, which may be a problem for operating systems like Scientific Linux due to absent certificates.  This issue can be sidestepped by using default non-https downloads, e.g., all downloads from janelia-flyem cache.
-
-* Common build problems for individual components in the FlyEM Build System are documented in each component's CMake file (e.g. atlas.cmake).  If you see an error, check that file's comments.
-
-### Roadmap
-
-Currently all builds generate shared libraries with the hope that a future version of the build system will allow easy specification of different versions of each dependency _at run-time_ via environment variables or a script.
-
-This future version of the build system would require reorganization of the main build directory so that each component and each version of that component has its own prefix-like directory.  Specific version components can then be selected as needed by modifying LD_LIBRARY_PATH and PATH environment variables.
 
 
