@@ -1,0 +1,36 @@
+--- config/FindVIGRANUMPY_DEPENDENCIES.cmake	2012-11-09 10:06:24.000000000 -0500
++++ config/FindVIGRANUMPY_DEPENDENCIES.cmake.patched	2012-11-09 10:11:39.000000000 -0500
+@@ -28,13 +28,11 @@
+ #    FIND_PACKAGE(PythonLibs)
+ 
+     # find Python library
+-    IF(APPLE)
+-        execute_process(COMMAND ${PYTHON_EXECUTABLE} -c
+-                         "import sys; print sys.exec_prefix"
+-                          OUTPUT_VARIABLE PYTHON_PREFIX OUTPUT_STRIP_TRAILING_WHITESPACE)
+-        SET(PYTHON_LIBRARY "${PYTHON_PREFIX}/Python"
+-            CACHE FILEPATH "Python library"
+-            FORCE)
++    execute_process(COMMAND ${PYTHON_EXECUTABLE} -c
++                     "import sys; print sys.exec_prefix"
++                      OUTPUT_VARIABLE PYTHON_PREFIX OUTPUT_STRIP_TRAILING_WHITESPACE)
++
++    IF(APPLE AND ${PYTHON_PREFIX} MATCHES ".*framework.*")
+         SET(PYTHON_LIBRARIES "${PYTHON_PREFIX}/Python"
+             CACHE FILEPATH "Python libraries"
+             FORCE)
+@@ -42,13 +40,9 @@
+         execute_process(COMMAND ${PYTHON_EXECUTABLE} -c
+                          "import sys; skip = 2 if sys.platform.startswith('win') else 1; print 'python' + sys.version[0:3:skip]"
+                           OUTPUT_VARIABLE PYTHON_LIBRARY_NAME OUTPUT_STRIP_TRAILING_WHITESPACE)
+-        execute_process(COMMAND ${PYTHON_EXECUTABLE} -c
+-                         "import sys; print sys.exec_prefix"
+-                          OUTPUT_VARIABLE PYTHON_PREFIX OUTPUT_STRIP_TRAILING_WHITESPACE)
+-        FIND_LIBRARY(PYTHON_LIBRARIES ${PYTHON_LIBRARY_NAME} "${PYTHON_PREFIX}/libs")
++        FIND_LIBRARY(PYTHON_LIBRARIES ${PYTHON_LIBRARY_NAME} "${PYTHON_PREFIX}")
+     ENDIF()
+ 
+-
+     # find Python includes
+     execute_process(COMMAND ${PYTHON_EXECUTABLE} -c
+                     "from distutils.sysconfig import *; print get_python_inc()"

@@ -33,6 +33,7 @@ ExternalProject_Add(${boost_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./bootstrap.sh 
+        --with-libraries=python
         --with-python=${PYTHON_EXE} 
         --prefix=${FLYEM_BUILD_DIR}
         LDFLAGS=${FLYEM_LDFLAGS}

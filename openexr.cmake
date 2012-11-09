@@ -21,6 +21,18 @@ external_source (openexr
     11951f164f9c872b183df75e66de145a
     http://download.savannah.nongnu.org/releases/openexr)
 
+if (${CMAKE_CXX_COMPILER_ID} MATCHES ".*Clang.*")
+    set(openexr_PATCH_COMMAND ${FLYEM_ENV_STRING} ${PATCH_EXE}
+        ${openexr_SRC_DIR}/exrmaketiled/main.cpp ${PATCH_DIR}/openexr-exrmaketiled.patch
+        ${openexr_SRC_DIR}/exrenvmap/main.cpp ${PATCH_DIR}/openexr-exrenvmap.patch
+        # Add extra patch for clang compatibility
+        ${openexr_SRC_DIR}/configure ${PATCH_DIR}/openexr-clang.patch )
+else()
+    set(openexr_PATCH_COMMAND ${FLYEM_ENV_STRING} ${PATCH_EXE}
+        ${openexr_SRC_DIR}/exrmaketiled/main.cpp ${PATCH_DIR}/openexr-exrmaketiled.patch
+        ${openexr_SRC_DIR}/exrenvmap/main.cpp ${PATCH_DIR}/openexr-exrenvmap.patch )
+endif()
+
 message ("Installing ${openexr_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 ExternalProject_Add(${openexr_NAME}
     DEPENDS             ${ilmbase_NAME} ${zlib_NAME}
@@ -28,9 +40,7 @@ ExternalProject_Add(${openexr_NAME}
     URL                 ${openexr_URL}
     URL_MD5             ${openexr_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ${FLYEM_ENV_STRING} ${PATCH_EXE}
-        ${openexr_SRC_DIR}/exrmaketiled/main.cpp ${PATCH_DIR}/openexr-exrmaketiled.patch
-        ${openexr_SRC_DIR}/exrenvmap/main.cpp ${PATCH_DIR}/openexr-exrenvmap.patch
+    PATCH_COMMAND       ${openexr_PATCH_COMMAND}
     CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${openexr_SRC_DIR}/configure
         --prefix=${FLYEM_BUILD_DIR}
         --disable-ilmbasetest
