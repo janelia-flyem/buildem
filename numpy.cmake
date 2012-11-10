@@ -45,7 +45,7 @@ ExternalProject_Add(${numpy_NAME}
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py build --fcompiler=${fortran_abi}
     BUILD_IN_SOURCE     1
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install --prefix=${FLYEM_BUILD_DIR}
+    INSTALL_COMMAND     ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install
 )
 
 endif (NOT numpy_NAME)

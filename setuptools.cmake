@@ -30,7 +30,7 @@ ExternalProject_Add(${setuptools_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install --prefix=${FLYEM_BUILD_DIR}
+    BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ""
 )

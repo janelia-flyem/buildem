@@ -27,10 +27,10 @@ ExternalProject_Add(${libjpeg_NAME}
         --enable-shared
         LDFLAGS=${FLYEM_LDFLAGS}
         CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make LIBTOOL=libtool
+    BUILD_COMMAND       ${FLYEM_ENV_STRING} make LIBTOOL=./libtool # Must use the libtool that is built in place by the libjpeg Makfile (not the system libtool!)
     BUILD_IN_SOURCE     1
     TEST_COMMAND        ${FLYEM_ENV_STRING} make check
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make LIBTOOL=libtool install
+    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make LIBTOOL=./libtool install
 )
 
 endif (NOT libjpeg_NAME)

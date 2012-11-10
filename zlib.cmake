@@ -23,10 +23,19 @@ ExternalProject_Add(${zlib_NAME}
     URL_MD5             ${zlib_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND} ${zlib_SRC_DIR} 
-        -DCMAKE_INSTALL_PREFIX=${FLYEM_BUILD_DIR}
-        -DCMAKE_PREFIX_PATH=${FLYEM_BUILD_DIR}
+
+    # zlib has a CMakeLists build, but it is broken on Mac OS X
+    # Must use the configure script.
+    CONFIGURE_COMMAND ${FLYEM_ENV_STRING} ./configure 
+        --prefix=${FLYEM_BUILD_DIR}
+        --64
+
+    #CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND} ${zlib_SRC_DIR} 
+    #    -DCMAKE_INSTALL_PREFIX=${FLYEM_BUILD_DIR}
+    #    -DCMAKE_PREFIX_PATH=${FLYEM_BUILD_DIR}
+
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
+    BUILD_IN_SOURCE     1 # Configure script reqiures BUILD_IN_SOURCE
     INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
 )
 

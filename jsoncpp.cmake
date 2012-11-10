@@ -43,6 +43,14 @@ ExternalProject_Add(${scons_NAME}
     INSTALL_COMMAND     ""
 )
 
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set (jsoncpp_PATCH ${FLYEM_ENV_STRING} ${PATCH_EXE} 
+        ${jsoncpp_SRC_DIR}/SConstruct ${PATCH_DIR}/jsoncpp-SConstruct-mac.patch )
+else()
+    set (jsoncpp_PATCH ${FLYEM_ENV_STRING} ${PATCH_EXE} 
+        ${jsoncpp_SRC_DIR}/SConstruct ${PATCH_DIR}/jsoncpp-SConstruct-linux.patch)
+endif()
+
 # Download jsoncpp and build it.
 message ("Installing ${jsoncpp_NAME} ...")
 ExternalProject_Add(${jsoncpp_NAME}
@@ -52,8 +60,7 @@ ExternalProject_Add(${jsoncpp_NAME}
     URL_MD5             ${jsoncpp_MD5}
     UPDATE_COMMAND      ${FLYEM_ENV_STRING} ${PYTHON_EXE} 
         ${COPY_SCRIPT} "${scons_SRC_DIR}/*" ${jsoncpp_SRC_DIR}
-    PATCH_COMMAND       ${FLYEM_ENV_STRING} ${PATCH_EXE}
-        ${jsoncpp_SRC_DIR}/SConstruct ${PATCH_DIR}/jsoncpp-SConstruct.patch
+    PATCH_COMMAND       ${jsoncpp_PATCH}
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} scons.py platform=linux-gcc
     BUILD_IN_SOURCE     1

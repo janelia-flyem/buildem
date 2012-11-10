@@ -1,12 +1,15 @@
 #!/bin/bash
-export FLYEM_BUILD_DIR={0}
-export ILASTIK_PATH={1}
+export FLYEM_LD_LIBRARY_VAR={0}
+export FLYEM_BUILD_DIR={1}
+export ILASTIK_PATH={2}
+export PYTHON_PREFIX={3}
 
-export LD_LIBRARY_PATH=$FLYEM_BUILD_DIR/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$FLYEM_BUILD_DIR/lib/python2.7/site-packages:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$FLYEM_BUILD_DIR/lib/python2.7/site-packages/vigra:$LD_LIBRARY_PATH
+export $FLYEM_LD_LIBRARY_VAR=$FLYEM_BUILD_DIR/lib:${0}
+export $FLYEM_LD_LIBRARY_VAR=$PYTHON_PREFIX/lib/python2.7/site-packages:${0}
+export $FLYEM_LD_LIBRARY_VAR=$PYTHON_PREFIX/lib/python2.7/site-packages/vigra:${0}
 
-export PYTHONPATH=$ILASTIK_PATH/lib/python2.7/site-packages:$PYTHONPATH
+export PYTHONPATH=$PYTHON_PREFIX/lib/python2.7/site-packages:$PYTHONPATH
 export PYTHONPATH=$ILASTIK_PATH/ilastik:$PYTHONPATH
 export PYTHONPATH=$ILASTIK_PATH/volumina:$PYTHONPATH
-export PYTHONPATH=$ILASTIK_PATH/lazyflow:$ILASTIK_PATH/lazyflow/drtile:$PYTHONPATH
+export PYTHONPATH=$ILASTIK_PATH/lazyflow:$PYTHONPATH
+export PYTHONPATH=$ILASTIK_PATH/lazyflow/drtile:$PYTHONPATH
