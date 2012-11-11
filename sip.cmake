@@ -21,6 +21,11 @@ external_source (sip
 
 message ("Installing ${sip_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set (EXTRA_SIP_CONFIG_FLAGS
+        --arch=x86_64 )
+endif()
+
 ExternalProject_Add(${sip_NAME}
     DEPENDS             ${python_NAME}             
     PREFIX              ${FLYEM_BUILD_DIR}
@@ -30,7 +35,7 @@ ExternalProject_Add(${sip_NAME}
     PATCH_COMMAND       ""
     LIST_SEPARATOR      ^^
     CONFIGURE_COMMAND   ${PYTHON_EXE} ${sip_SRC_DIR}/configure.py 
-        --arch=x86_64
+        ${EXTRA_SIP_CONFIG_FLAGS}
         #-b ${PYTHON_PREFIX}/bin
         #-d ${PYTHON_PREFIX}/lib/python2.7/site-packages
         #-e ${PYTHON_PREFIX}/include/python2.7
