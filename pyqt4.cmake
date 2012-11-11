@@ -23,7 +23,11 @@ external_source (pyqt4
 
 message ("Installing ${pyqt4_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
 
-# MAC OS X config flags!
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set (EXTRA_PYQT4_CONFIG_FLAGS
+        --use-arch=x86_64)
+endif()
+
 ExternalProject_Add(${pyqt4_NAME}
     DEPENDS             ${python_NAME} ${sip_NAME} ${qt4_NAME}             
     PREFIX              ${FLYEM_BUILD_DIR}
@@ -35,7 +39,7 @@ ExternalProject_Add(${pyqt4_NAME}
     CONFIGURE_COMMAND   ${PYTHON_EXE} ${pyqt4_SRC_DIR}/configure.py 
         --confirm-license
         -q "${FLYEM_BUILD_DIR}/bin/qmake"
-        --use-arch=x86_64
+        ${EXTRA_PYQT4_CONFIG_FLAGS}
     BUILD_COMMAND       ${FLYEM_ENV_STRING} make
     INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
     BUILD_IN_SOURCE 1
