@@ -24,11 +24,11 @@ include (qimage2ndarray)
 set (ilastik-gui_NAME ilastik-gui-HEAD)
 
 # Add a few dependencies to GUI ilastik build
+add_dependencies( ${ilastik_NAME} ${qt4_NAME} ${pyqt4_NAME} ${qimage2ndarray_NAME} ) #${vtk_NAME}) 
+
 add_custom_target (${ilastik-gui_NAME} ALL 
-    DEPENDS     ${ilastik_NAME} ${qt4_NAME} ${pyqt4_NAME} ${qimage2ndarray_NAME}
-                #${vtk_NAME}
+    DEPENDS     ${ilastik_NAME}
     COMMENT     "Building ilastik gui and all dependencies...")
-    
 
 # Add environment setting script
 ExternalProject_add_step(${ilastik_NAME}  install_gui_env_script
@@ -68,7 +68,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_test
 )
 
 # Run the gui test script
-ExternalProject_add_step(${ilastik_NAME}  test_ilastik_gui
+ExternalProject_add_step(${ilastik_NAME} test_ilastik_gui
     DEPENDEES   install_gui_test
     COMMAND     ${FLYEM_ENV_STRING} ${FLYEM_BUILD_DIR}/bin/ilastik_gui_test
     COMMENT     "Ran ilastik gui test"
