@@ -19,14 +19,14 @@ include (ilastik)
 include (qt4)
 include (pyqt4)
 include (qimage2ndarray)
-include (vtk)
+#include (vtk)
 
 set (ilastik-gui_NAME ilastik-gui-HEAD)
 
-# Add a few dependencies to headless ilastik build
+# Add a few dependencies to GUI ilastik build
 add_custom_target (${ilastik-gui_NAME} ALL 
-    DEPENDS     ${ilastik_NAME} ${qt4_NAME} ${pyqt4_NAME} {qimage2ndarray_NAME}
-                ${vtk_NAME}
+    DEPENDS     ${ilastik_NAME} ${qt4_NAME} ${pyqt4_NAME} ${qimage2ndarray_NAME}
+                #${vtk_NAME}
     COMMENT     "Building ilastik gui and all dependencies...")
     
 
@@ -37,12 +37,14 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_env_script
         --exe
         ${TEMPLATE_DIR}/setenv_ilastik_gui.template
         ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_gui.sh
+        ${FLYEM_LD_LIBRARY_VAR}
         ${FLYEM_BUILD_DIR}
         ${ilastik_SRC_DIR}
+        ${PYTHON_PREFIX}
     COMMENT     "Added ilastik gui environment script to bin directory"
 )
 
-# Add headless launch and test scripts
+# Add gui launch and test scripts
 ExternalProject_add_step(${ilastik_NAME}  install_gui_launch
     DEPENDEES   install_gui_env_script
     COMMAND     ${TEMPLATE_EXE}
@@ -63,6 +65,13 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_test
         ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_gui.sh
         ${ilastik_SRC_DIR}/ilastik/tests/test_applets/pixelClassification/testPixelClassificationGui.py
     COMMENT     "Added ilastik gui test command to bin directory"
+)
+
+# Run the gui test script
+ExternalProject_add_step(${ilastik_NAME}  test_ilastik_gui
+    DEPENDEES   install_gui_test
+    COMMAND     ${FLYEM_ENV_STRING} ${FLYEM_BUILD_DIR}/bin/ilastik_gui_test
+    COMMENT     "Ran ilastik gui test"
 )
 
 endif (NOT ilastik-gui_NAME)
