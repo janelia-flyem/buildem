@@ -20,10 +20,10 @@ The FlyEM build system is predicated on some basic assertions:
 * Builds of all components should be specific to OS, compiler, and compiler version to minimize conflicts in [ABI](http://en.wikipedia.org/wiki/Application_binary_interface), and we are not sure that pre-compiled components (e.g., RPMs) are available for all target machines/compilers.
 * Third-party pre-built packages, like Enthought Python Distribution, are not viable due to licensing costs for cluster operation as well as inability to easily adapt to new dependencies.
 
-The FlyEM build system requires only a few installed components to be available, preferably in this order:
+The FlyEM build system requires only a few installed components:
 
 * C/C++ and fortran compilers
-* libcurl and https support (note that these components are usually present in standard OS builds but may need to be install explicitly)
+* libcurl and https support (note that these components are usually present in standard OS builds but may need to be installed explicitly)
 * git
 * CMake 2.8+
 
@@ -41,8 +41,16 @@ The build process for a FlyEM application at /path/to/foo/code:
 
 _Note: If this is the first time a FlyEM application was compiled for this FBD, the build script will download the flyem-build repo into the FBD and the user will be prompted to re-run the cmake and make steps as above._
 
-That's it.  The build scripts will automatically download the source for all dependencies, verify MD5 checksums, optionally patch/configure the code, and then compile it using the standard compilers for the build computer.  Source tarballs can be downloaded from either a FlyEM-controlled
-cache on Github (the default) or the original project download site.  You can specify exactly which packages should use original project URLs via the following command-line option:
+That's it.  The build scripts will do the following steps (mostly following the ExternalProject_Add flow):
+
+* download the source for all dependencies, verify MD5 checksums
+* optionally patch the code
+* build from source
+* optionally test the build 
+* install built components into appropriate locations under the FBD (e.g., lib, include, bin)
+* possibly create customized scripts that handle environment variable setting and call executables in the FBD
+
+Source tarballs can be downloaded from either a FlyEM-controlled cache on Github (the default) or the original project download site.  You can specify exactly which packages should use original project URLs via the following command-line option:
 
     % cmake -DUSE_PROJECT_DOWNLOAD="libtiff;vigra" -DFLYEM_BUILD_DIR=/path/to/FBD  /path/to/foo/code
 
@@ -203,17 +211,19 @@ external_source (libtiff
 
 In each case, the variable `${foo_URL}` is set by the `external_source()` macro to an appropriate download URL.
 
-### Utilities
-
-#### Patching
+### Patching
 
 See the `do_patch.py` utility under the `patches` directory.  This script lets you specify a number of patches to be applied to files and execute them in one step suitable for the `PATCH` directive in `ExternalProject_Add` commands.
 
-Actual patches are kept in the `patches` directory and preserved as part of the build repo.
+Actual patches are kept in the `patches` directory and preserved as part of the build repo.  Add `include (PatchSupport)` to set two variables `PATCH_DIR`, where actual patch files are kept as well as the do_patch.py script, and `PATCH_EXE`, which contains the path to the do_patch.py script.
 
-#### Generation of files/scripts using templates
+
+### Generation of files/scripts using templates
 
 See the `do_template.py` utility under the `templates` directory.  This script will create files by applying command-line arguments to templates in that directory.  This allows you to generate customized scripts that can set environment variables before calling installed executables.  It can also be used to create configuration files, e.g., the matplotlib setup.cfg file, before actually building a component.
+
+Add `include (TemplateSupport)` to set two variables `TEMPLATE_DIR`, where actual template files are kept as well as the do_template.py script, and `TEMPLATE_EXE`, which contains the path to the do_template.py script.
+
 
 ### Easy Install (discouraged)
 
@@ -223,9 +233,9 @@ If the easy_install works, it is recommended to create a separate .cmake file si
  
 ## Troubleshooting
 
-* Some original source repositories or tarballs require https, which may be a problem for operating systems like Scientific Linux due to absent certificates.  This issue can be sidestepped by using default non-https downloads, e.g., all downloads from janelia-flyem cache.
+Some original source repositories or tarballs require https, which may be a problem for operating systems like Scientific Linux due to absent certificates.  This issue can be sidestepped by using default non-https downloads, e.g., all downloads from janelia-flyem cache.
 
-* Common build problems for individual components in the FlyEM Build System are documented in each component's CMake file (e.g. atlas.cmake).  If you see an error, check that file's comments.
+Common build problems for individual components in the FlyEM Build System are documented in each component's CMake file (e.g. atlas.cmake).  If you see an error, check that file's comments.
 
 ## Roadmap
 
