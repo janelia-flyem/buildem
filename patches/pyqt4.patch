@@ -1,0 +1,24 @@
+--- configure.py	2012-09-29 13:49:12.000000000 +0200
++++ configure.py.patched	2012-11-11 15:41:06.000000000 +0100
+@@ -396,8 +396,8 @@
+         if qt_version < 0x050000:
+             check_module("QtXmlPatterns", "qxmlname.h", "new QXmlName()")
+ 
+-        if qt_version < 0x050000: check_module("phonon", "phonon/videowidget.h",
+-                "new Phonon::VideoWidget()")
++        #if qt_version < 0x050000: check_module("phonon", "phonon/videowidget.h",
++        #        "new Phonon::VideoWidget()")
+         check_module("QtAssistant", "qassistantclient.h",
+                 "new QAssistantClient(\"foo\")", extra_lib_dirs=ass_lib_dirs,
+                 extra_libs=ass_libs)
+@@ -553,8 +553,8 @@
+         if "QtXmlPatterns" in pyqt_modules:
+             generate_code("QtXmlPatterns")
+ 
+-        if "phonon" in pyqt_modules:
+-            generate_code("phonon")
++        #if "phonon" in pyqt_modules:
++        #    generate_code("phonon")
+ 
+         if "QtAssistant" in pyqt_modules:
+             generate_code("QtAssistant")
