@@ -12,9 +12,9 @@ include (BuildSupport)
 #include (PatchSupport)
 
 external_source (qt4
-    4.8.1
-    qt-everywhere-opensource-src-4.8.1.tar.gz
-    7960ba8e18ca31f0c6e4895a312f92ff
+    4.8.3
+    qt-everywhere-opensource-src-4.8.3.tar.gz
+    a663b6c875f8d7caa8ac9c30e4a4ec3b
     http://download.qt.nokia.com/qt/source)
 
 message ("Installing ${qt4_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
