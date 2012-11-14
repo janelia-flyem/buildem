@@ -24,17 +24,17 @@ else ()
     message (FATAL_ERROR "Can't determine current system to build GLFW")
 endif ()
 
-message ("Installing ${glfw_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${glfw_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${glfw_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${glfw_URL}
     URL_MD5             ${glfw_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make ${MAKE_PLATFORM}
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make ${MAKE_PLATFORM}
     BUILD_IN_SOURCE     1
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} PREFIX=${FLYEM_BUILD_DIR} make ${MAKE_PLATFORM}-dist-install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} PREFIX=${BUILDEM_DIR} make ${MAKE_PLATFORM}-dist-install
 )
 
 # If we also want to include static libraries, use "make x11-install" without the "dist"

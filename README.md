@@ -1,7 +1,7 @@
-FlyEM Build System
+The BuildEM System
 ==================
 
-The [flyem-build](https://github.com/janelia-flyem/flyem-build) repo is a modular CMake-based system that leverages [CMake's ExternalProject](http://www.kitware.com/media/html/BuildingExternalProjectsWithCMake2.8.html) to simplify and automate a complex build process.  Its goal is to allow *simple*, *modular* specification of software dependencies and automate the download/patch/configure/build/install process.
+The [buildem](https://github.com/janelia-flyem/buildem) repo is a modular CMake-based system that leverages [CMake's ExternalProject](http://www.kitware.com/media/html/BuildingExternalProjectsWithCMake2.8.html) to simplify and automate a complex build process.  Its goal is to allow *simple*, *modular* specification of software dependencies and automate the download/patch/configure/build/install process.
 
 Previously, each software dependency was installed by manually downloading packages, either via yum/apt-get in sudo mode or by compiling source tarballs.  Target executables and libraries were symbolically linked or copied to standard locations.  While this process allowed great latitude in reusing software already available on computers, it has a number of issues:
 
@@ -10,7 +10,7 @@ Previously, each software dependency was installed by manually downloading packa
 * The instructions are very OS-specific and require some knowledge of builds.
 * The process might break and at least has to be modified if the developer lacks root privileges or the ability to install to conventional directories like /usr/local.  This occurs when installing on the Janelia cluster.
 
-The FlyEM build system is predicated on some basic assertions:
+Buildem is predicated on some basic assertions:
 
 * Developer attention should be minimized since developer time is very expensive compared to freely available computer time.
 * Disk space is cheap and plentiful.
@@ -20,26 +20,26 @@ The FlyEM build system is predicated on some basic assertions:
 * Builds of all components should be specific to OS, compiler, and compiler version to minimize conflicts in [ABI](http://en.wikipedia.org/wiki/Application_binary_interface), and we are not sure that pre-compiled components (e.g., RPMs) are available for all target machines/compilers.
 * Third-party pre-built packages, like Enthought Python Distribution, are not viable due to licensing costs for cluster operation as well as inability to easily adapt to new dependencies.
 
-The FlyEM build system requires only a few installed components:
+Buildem requires only a few installed components:
 
 * C/C++ and fortran compilers
 * libcurl and https support (note that these components are usually present in standard OS builds but may need to be installed explicitly)
 * git
 * CMake 2.8+
 
-Note that python is built from source as well as all dependencies except for the above.  The FlyEM build system does *not* try to minimize overall build time by reusing pre-compiled packages.  The presence of multiple compiler versions across the different Fedora/RHEL versions and our very heterogeneous workstation environment requires developer attention and tracking of installs across multiple machines.  
+Note that python is built from source as well as all dependencies except for the above.  Buildem does *not* try to minimize overall build time by reusing pre-compiled packages.  The presence of multiple compiler versions across the different Fedora/RHEL versions and our very heterogeneous workstation environment requires developer attention and tracking of installs across multiple machines.  
 
 ## The build process
 
-An empty directory is chosen as the *FlyEM build directory (FBD)* that is specific to OS, compiler versions, and component versions.  The FBD can be thought of as a version-specific /usr/local and will contain bin, lib, include, and other standard directories.  All automatically downloaded and compiled code will reside in the FBD's src directory.  Note that the FBD should not be confused with any component's *build directory*, which can be either in the component's source directory or some user-chosen directory as in standard CMake use.
+An empty directory is chosen as a *Buildem prefix directory (BPD)* that is specific to OS, compiler versions, and component versions.  The BPD can be thought of as a version-specific /usr/local and will contain bin, lib, include, and other standard directories.  All automatically downloaded and compiled code will reside in the BPD's src directory.  Note that the BPD should not be confused with any component's *build directory*, which can be either in the component's source directory or some user-chosen directory as in standard CMake use.
 
 The build process for a FlyEM application at /path/to/foo/code:
 
     % mkdir foo-build; cd foo-build
-    % cmake -DFLYEM_BUILD_DIR=/path/to/FBD  /path/to/foo/code
+    % cmake -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
     % make
 
-_Note: If this is the first time a FlyEM application was compiled for this FBD, the build script will download the flyem-build repo into the FBD and the user will be prompted to re-run the cmake and make steps as above._
+_Note: If this is the first time a FlyEM application was compiled for this BPD, the build script will download the buildem repo into the BPD and the user will be prompted to re-run the cmake and make steps as above._
 
 That's it.  The build scripts will do the following steps (mostly following the ExternalProject_Add flow):
 
@@ -47,22 +47,22 @@ That's it.  The build scripts will do the following steps (mostly following the 
 * optionally patch the code
 * build from source
 * optionally test the build 
-* install built components into appropriate locations under the FBD (e.g., lib, include, bin)
-* possibly create customized scripts that handle environment variable setting and call executables in the FBD
+* install built components into appropriate locations under the BPD (e.g., lib, include, bin)
+* possibly create customized scripts that handle environment variable setting and call executables in the BPD
 
 Source tarballs can be downloaded from either a FlyEM-controlled cache on Github (the default) or the original project download site.  You can specify exactly which packages should use original project URLs via the following command-line option:
 
-    % cmake -DUSE_PROJECT_DOWNLOAD="libtiff;vigra" -DFLYEM_BUILD_DIR=/path/to/FBD  /path/to/foo/code
+    % cmake -DUSE_PROJECT_DOWNLOAD="libtiff;vigra" -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
 
 The above `USE_PROJECT_DOWNLOAD` setting asks that the libtiff and vigra packages be downloaded from the original project websites.  All other required packages will be downloaded from the default Janelia cache at Github.
 
 Alternative compilers can be specified by modifying CMake variables:
 
-    % cmake -DCMAKE_C_COMPILER=gcc-4.2 -DCMAKE_CXX_COMPILER=g++-4.2 -DFLYEM_BUILD_DIR=/path/to/FBD  /path/to/foo/code
+    % cmake -DCMAKE_C_COMPILER=gcc-4.2 -DCMAKE_CXX_COMPILER=g++-4.2 -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
     
 ## Specifying the build for your application
 
-Application builds are specified through one or more CMake files.  You must create a CMakeLists.txt at the root of your application source that sets the required FBD path and auto-downloads the flyem-build repo.  This CMake script can include any number of required components.  Most of these components should be in the flyem-repo, e.g., a libpng dependency is fulfilled by simply using `include (libpng)`.  
+Application builds are specified through one or more CMake files.  You must create a CMakeLists.txt at the root of your application source that sets the required BPD path and auto-downloads the buildem repo.  This CMake script can include any number of required components.  Most of these components should be in the buildem repo, e.g., a libpng dependency is fulfilled by simply using `include (libpng)`.  
 
 ### Your application CMakeLists.txt
 
@@ -75,25 +75,25 @@ project (Foo)
 include (ExternalProject)
 
 ############################################################################
-# Check if FLYEM_BUILD_DIR has already been assigned.  If not, create a default.
-set (FLYEM_BUILD_DIR "None" CACHE TYPE STRING)
+# Check if BUILDEM_DIR has already been assigned.  If not, create a default.
+set (BUILDEM_DIR "None" CACHE TYPE STRING)
 
-if (${FLYEM_BUILD_DIR} STREQUAL "None")
-    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DFLYEM_BUILD_DIR=<path> on cmake command line.")
+if (${BUILDEM_DIR} STREQUAL "None")
+    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DBUILDEM_DIR=<path> on cmake command line.")
 endif ()
 
-message ("FlyEM downloads and builds will be placed here: ${FLYEM_BUILD_DIR}")
+message ("FlyEM downloads and builds will be placed here: ${BUILDEM_DIR}")
 
 ############################################################################
 
 ############################################################################
-# Download and install flyem-build, if it isn't already in FLYEM_BUILD_DIR.
-set (FLYEM_BUILD_REPO_DIR ${FLYEM_BUILD_DIR}/src/flyem-build)
-if (NOT EXISTS ${FLYEM_BUILD_REPO_DIR}/python.cmake)
-    message ("Installing flyem-build repo...")
-    ExternalProject_Add(flyem-build
-        PREFIX              ${FLYEM_BUILD_DIR}
-        GIT_REPOSITORY      https://github.com/janelia-flyem/flyem-build.git
+# Download and install buildem, if it isn't already in BUILDEM_DIR.
+set (BUILDEM_REPO_DIR ${BUILDEM_DIR}/src/buildem)
+if (NOT EXISTS ${BUILDEM_REPO_DIR}/python.cmake)
+    message ("Installing buildem repo...")
+    ExternalProject_Add(buildem
+        PREFIX              ${BUILDEM_DIR}
+        GIT_REPOSITORY      https://github.com/janelia-flyem/buildem.git
         #GIT_TAG            python3  # Example of tagged branch (see doc)
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
@@ -104,14 +104,14 @@ if (NOT EXISTS ${FLYEM_BUILD_REPO_DIR}/python.cmake)
     )
     message ("\n**********************************************************\n")
     message ("\nAfter running make, you must re-run the cmake command once")
-    message ("flyem-build has been downloaded!\n")
+    message ("buildem has been downloaded!\n")
     message ("\n***********************************************************\n")
 else ()
     ############################################################################
     
-    # Use modules from the downloaded flyem-build
-    set (CMAKE_MODULE_PATH ${FLYEM_BUILD_REPO_DIR})
-    message("Using cmake modules from ${FLYEM_BUILD_REPO_DIR}")
+    # Use modules from the downloaded buildem
+    set (CMAKE_MODULE_PATH ${BUILDEM_REPO_DIR})
+    message("Using cmake modules from ${BUILDEM_REPO_DIR}")
 
     # Download and compile dependencies
     include (python)
@@ -128,11 +128,11 @@ else ()
 endif()
 ```
 
-The two-step process is clear from the CMake code above.  If a flyem-build repo has not been cloned yet, the first part downloads the build repo into the specified `FLYEM_BUILD_DIR`.  Note the commented-out `GIT_TAG` when retrieving the build repo.  You can use tagged branches of the build repo to create different software environments as long as each tagged branch uses a *different* `FLYEM_BUILD_DIR`.  For example, one application might require python 3 instead of the default python 2.7, which may cause cascading version changes for other requirements.  All of these changes can be made to a branch of the build repo's .cmake files and snapshotted using a tag.
+The two-step process is clear from the CMake code above.  If a buildem repo has not been cloned yet, the first part downloads the build repo into the specified `BUILDEM_DIR`.  Note the commented-out `GIT_TAG` when retrieving the build repo.  You can use tagged branches of the build repo to create different software environments as long as each tagged branch uses a *different* `BUILDEM_DIR`.  For example, one application might require python 3 instead of the default python 2.7, which may cause cascading version changes for other requirements.  All of these changes can be made to a branch of the build repo's .cmake files and snapshotted using a tag.
 
 ### Adding packages to build process
 
-If a required package is not available, it is very easy to add your own to the collection of .cmake files in the flyem-build repository. Let's look at libtiff as an example of a standard configure/make/make install build:
+If a required package is not available, it is very easy to add your own to the collection of .cmake files in the buildem repository. Let's look at libtiff as an example of a standard configure/make/make install build:
 
 ```cmake
 # Install libtiff from source
@@ -153,29 +153,29 @@ external_source (libtiff
     051c1068e6a0627f461948c365290410
     ftp://ftp.remotesensing.org/pub/libtiff)
 
-message ("Installing ${libtiff_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${libtiff_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${libtiff_NAME}
     DEPENDS             ${libjpeg_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${libtiff_URL}
     URL_MD5             ${libtiff_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
-        --prefix=${FLYEM_BUILD_DIR}
-        LDFLAGS=${FLYEM_LDFLAGS}
-        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ./configure 
+        --prefix=${BUILDEM_DIR}
+        LDFLAGS=${BUILDEM_LDFLAGS}
+        CPPFLAGS=-I${BUILDEM_DIR}/include
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     BUILD_IN_SOURCE     1
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
 endif (NOT libtiff_NAME)
 ```
 
-We `include` a number of required cmake files -- `ExternalProject` gets us CMake's standard ExternalProject_Add, and `ExternalSource` is our support script that sets appropriate variables for the given project abbreviation.  The `include (BuildSupport)` sets a number of variables that let us explicitly prioritize command and library path order, moving *FBD*/bin and *FBD*/lib to the front of PATH and LD_LIBRARY_PATH.
+We `include` a number of required cmake files -- `ExternalProject` gets us CMake's standard ExternalProject_Add, and `ExternalSource` is our support script that sets appropriate variables for the given project abbreviation.  The `include (BuildSupport)` sets a number of variables that let us explicitly prioritize command and library path order, moving *BPD*/bin and *BPD*/lib to the front of PATH and LD_LIBRARY_PATH.
 
-Each external package dependency is specified via a simple statement like `include (foo)`.  Package builds should be separated -- one package per .cmake in the flyem-build repo.  For every `include (foo)`, you should add `${foo_NAME}` on the `DEPENDS` line of the `ExternalProject_Add` function.
+Each external package dependency is specified via a simple statement like `include (foo)`.  Package builds should be separated -- one package per .cmake in the buildem repo.  For every `include (foo)`, you should add `${foo_NAME}` on the `DEPENDS` line of the `ExternalProject_Add` function.
 
 The `external_source()` macro allows you to specify an external URL, typically the project's public download URL.  The macro can be used in three ways.  The standard way is to specify an external URL but by default, download from the FlyEM cache:
 
@@ -227,7 +227,7 @@ Add `include (TemplateSupport)` to set two variables `TEMPLATE_DIR`, where actua
 
 ### Easy Install (discouraged)
 
-Python packages that can be installed via easy_install are easy to build but are discouraged because they may install dependencies outside this modular CMake build system.  If you just want to test a component using easy_install, you can add `include (EasyInstall)` and then use `easy_install (foo)` to install python package *foo*.  Since we have built python from source and installed it into the *FBD*, we can install python packages into that distribution instead of the build computer's standard python install.
+Python packages that can be installed via easy_install are easy to build but are discouraged because they may install dependencies outside this modular CMake build system.  If you just want to test a component using easy_install, you can add `include (EasyInstall)` and then use `easy_install (foo)` to install python package *foo*.  Since we have built python from source and installed it into the *BPD*, we can install python packages into that distribution instead of the build computer's standard python install.
 
 If the easy_install works, it is recommended to create a separate .cmake file similar to networkx.cmake and progressbar.cmake in this repo.
  
@@ -242,7 +242,8 @@ Common build problems for individual components in the FlyEM Build System are do
 This build system could be improved in a number of ways, not all of which adhere to the goal of a simple, easily-specified build process.
 
 * Improve triggers so download, patch, configure, and compilation times are decreased.
-* Allow developers to easily specify components that can be used from outside the FlyEM build.  These specified components will be found via the traditional CMake FIND_PACKAGE approach and only built from source if the component is absent.  The burden of specifying compatible shared libraries will rest with the developer in exchange for time savings.
+* Add cross-platform support where needed, particularly for Mac and Windows.  This includes standardizing set variables for each cmake module that specifies platform-specific library names, e.g. FOO_LIBRARIES.
+* Allow developers to easily specify components that can be used from outside the Buildem environment.  These specified components will be found via the traditional CMake FIND_PACKAGE approach and only built from source if the component is absent.  The burden of specifying compatible shared libraries will rest with the developer in exchange for time savings.
 * Allow run-time specification of different component versions.  This would require reorganization of the target build directory so each component version would have its own build directory.  Scripts could then modify environment variables like `LD_LIBRARY_PATH` to select chosen versions.  While helpful during debugging builds and considering new component versions, we don't want to lose the simplicity of having a tagged build repo represent a known working version of all software dependencies.
 
 ## Build notes for Janelia Farm cluster

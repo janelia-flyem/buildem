@@ -17,7 +17,7 @@ external_source (qt4
     a663b6c875f8d7caa8ac9c30e4a4ec3b
     http://download.qt.nokia.com/qt/source)
 
-message ("Installing ${qt4_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${qt4_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set (EXTRA_QT4_CONFIG_FLAGS 
@@ -35,13 +35,13 @@ endif()
 
 ExternalProject_Add(${qt4_NAME}
     #DEPENDS             
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${qt4_URL}
     URL_MD5             ${qt4_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} echo "yes" | ${qt4_SRC_DIR}/configure # pipe "yes" to stdin to accept the license.
-        --prefix=${FLYEM_BUILD_DIR}
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} echo "yes" | ${qt4_SRC_DIR}/configure # pipe "yes" to stdin to accept the license.
+        --prefix=${BUILDEM_DIR}
         -opensource
         -arch x86_64
         -optimized-qmake 
@@ -73,9 +73,9 @@ ExternalProject_Add(${qt4_NAME}
         -shared
         -no-accessibility 
         ${EXTRA_QT4_CONFIG_FLAGS}
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-    TEST_COMMAND        ${FLYEM_ENV_STRING} make check
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
 endif (NOT qt4_NAME)

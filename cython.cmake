@@ -18,15 +18,15 @@ external_source (cython
     f0bd2494dbe080a1185b61fa358135f2
     http://cython.org/release)
 
-message ("Installing ${cython_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${cython_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${cython_NAME}
     DEPENDS             ${python_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${cython_URL}
     URL_MD5             ${cython_MD5}
     UPDATE_COMMAND      ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ""
 )

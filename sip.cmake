@@ -19,7 +19,7 @@ external_source (sip
     10f35f018ac105be78853952078bdf63    
     http://hivelocity.dl.sourceforge.net/project/pyqt/sip/sip-4.14.1)
 
-message ("Installing ${sip_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${sip_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set (EXTRA_SIP_CONFIG_FLAGS
@@ -28,7 +28,7 @@ endif()
 
 ExternalProject_Add(${sip_NAME}
     DEPENDS             ${python_NAME}             
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${sip_URL}
     URL_MD5             ${sip_MD5}
     UPDATE_COMMAND      ""
@@ -41,8 +41,8 @@ ExternalProject_Add(${sip_NAME}
         #-e ${PYTHON_PREFIX}/include/python2.7
         #-v ${PYTHON_PREFIX}/share/sip
         
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
     BUILD_IN_SOURCE     1
 )
 

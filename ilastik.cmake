@@ -30,27 +30,27 @@ external_git_repo (ilastik
     HEAD
     http://github.com/janelia-flyem/flyem-ilastik)
 
-message ("Installing ${ilastik_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${ilastik_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     # On Mac OS X, building drtile requires explicitly setting several cmake cache variables
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
                             ${blist_NAME} ${greenlet_NAME} 
-        PREFIX              ${FLYEM_BUILD_DIR}
+        PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
-        CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND}
+        CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND}
             -DLIBRARY_OUTPUT_PATH=${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
-            -DCMAKE_PREFIX_PATH=${FLYEM_BUILD_DIR}
+            -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
             -DPYTHON_EXECUTABLE=${PYTHON_EXE}
             -DPYTHON_INCLUDE_DIR=${PYTHON_PREFIX}/include/python2.7
-            "-DPYTHON_LIBRARY=${PYTHON_PREFIX}/lib/libpython2.7.${FLYEM_PLATFORM_DYLIB_EXTENSION}"
+            "-DPYTHON_LIBRARY=${PYTHON_PREFIX}/lib/libpython2.7.${BUILDEM_PLATFORM_DYLIB_EXTENSION}"
             -DPYTHON_NUMPY_INCLUDE_DIR=${PYTHON_PREFIX}/lib/python2.7/site-packages/numpy/core/include
             -DVIGRA_NUMPY_CORE_LIBRARY=${PYTHON_PREFIX}/lib/python2.7/site-packages/vigra/vigranumpycore.so
             ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
-        BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-        TEST_COMMAND        ${FLYEM_BUILD_DIR}/bin/ilastik_headless_test
+        BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+        TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
         INSTALL_COMMAND     ""
     )
 else()
@@ -59,17 +59,17 @@ else()
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
                             ${blist_NAME} ${greenlet_NAME} 
-        PREFIX              ${FLYEM_BUILD_DIR}
+        PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
-        CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND}
+        CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND}
             -DLIBRARY_OUTPUT_PATH=${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
-            -DCMAKE_PREFIX_PATH=${FLYEM_BUILD_DIR}
-            -DVIGRA_ROOT=${FLYEM_BUILD_DIR}
+            -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
+            -DVIGRA_ROOT=${BUILDEM_DIR}
             ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
-        BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-        TEST_COMMAND        ${FLYEM_BUILD_DIR}/bin/ilastik_headless_test
+        BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+        TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
         INSTALL_COMMAND     ""
     )
 endif()
@@ -80,9 +80,9 @@ ExternalProject_add_step(${ilastik_NAME}  install_env_script
     COMMAND     ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/setenv_ilastik_headless.template
-        ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_headless.sh
-        ${FLYEM_LD_LIBRARY_VAR}
-        ${FLYEM_BUILD_DIR}
+        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
+        ${BUILDEM_LD_LIBRARY_VAR}
+        ${BUILDEM_DIR}
         ${ilastik_SRC_DIR}
         ${PYTHON_PREFIX}
     COMMENT     "Adding ilastik headless environment script to bin directory"
@@ -94,19 +94,19 @@ ExternalProject_add_step(${ilastik_NAME}  install_launch
     COMMAND     ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/ilastik_script.template
-        ${FLYEM_BUILD_DIR}/bin/ilastik_headless
-        ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_headless.sh
+        ${BUILDEM_DIR}/bin/ilastik_headless
+        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
         ${ilastik_SRC_DIR}/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py
     COMMENT     "Adding ilastik headless command to bin directory"
 )
 
 ExternalProject_add_step(${ilastik_NAME}  install_test
     DEPENDEES   install_launch
-    COMMAND     ${FLYEM_ENV_STRING} ${TEMPLATE_EXE}
+    COMMAND     ${BUILDEM_ENV_STRING} ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/ilastik_script.template
-        ${FLYEM_BUILD_DIR}/bin/ilastik_headless_test
-        ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_headless.sh
+        ${BUILDEM_DIR}/bin/ilastik_headless_test
+        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
         ${ilastik_SRC_DIR}/ilastik/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py
     COMMENT     "Adding ilastik headless test command to bin directory"
 )

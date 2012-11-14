@@ -19,26 +19,26 @@ external_source (hdf5
     d1266bb7416ef089400a15cc7c963218
     http://www.hdfgroup.org/ftp/HDF5/current/src)
 
-message ("Installing ${hdf5_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${hdf5_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${hdf5_NAME}
     DEPENDS                 ${zlib_NAME}
-    PREFIX                  ${FLYEM_BUILD_DIR}
+    PREFIX                  ${BUILDEM_DIR}
     URL                     ${hdf5_URL}
     URL_MD5                 ${hdf5_MD5}
     UPDATE_COMMAND          ""
-    PATCH_COMMAND           ${FLYEM_ENV_STRING} ${PATCH_EXE}
+    PATCH_COMMAND           ${BUILDEM_ENV_STRING} ${PATCH_EXE}
         ${hdf5_SRC_DIR}/CMakeLists.txt ${PATCH_DIR}/hdf5-1.patch
-    CONFIGURE_COMMAND       ${FLYEM_ENV_STRING} ${CMAKE_COMMAND} ${hdf5_SRC_DIR} 
-        -DCMAKE_INSTALL_PREFIX=${FLYEM_BUILD_DIR}
-        -DCMAKE_PREFIX_PATH=${FLYEM_BUILD_DIR}
+    CONFIGURE_COMMAND       ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${hdf5_SRC_DIR} 
+        -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
+        -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
         -DHDF5_BUILD_HL_LIB=ON
         -DHDF_BUILD_CPP_LIB=ON
         -DBUILD_SHARED_LIBS=ON
         -DHDF5_ENABLE_Z_LIB_SUPPORT=ON
 #        -DBUILD_TESTING=ON
-    BUILD_COMMAND           ${FLYEM_ENV_STRING} make
+    BUILD_COMMAND           ${BUILDEM_ENV_STRING} make
 #    TEST_COMMAND        make check
-    INSTALL_COMMAND         ${FLYEM_ENV_STRING} make install
+    INSTALL_COMMAND         ${BUILDEM_ENV_STRING} make install
 )
 
 endif (NOT hdf5_NAME)

@@ -16,19 +16,19 @@ external_source (cppunit
     bd30e9cf5523cdfc019b94f5e1d7fd19
     http://downloads.sourceforge.net/project/cppunit/cppunit/1.12.1)
 
-message ("Installing ${cppunit_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${cppunit_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${cppunit_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${cppunit_URL}
     URL_MD5             ${cppunit_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
-        --prefix ${FLYEM_BUILD_DIR}
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ./configure 
+        --prefix ${BUILDEM_DIR}
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     BUILD_IN_SOURCE     1
     TEST_COMMAND        make check
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
 endif (NOT cppunit_NAME)

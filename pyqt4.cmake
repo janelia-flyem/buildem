@@ -15,7 +15,7 @@ include (python)
 include (qt4)
 include (sip)
 
-message ("Installing ${pyqt4_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${pyqt4_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     external_source (pyqt4
@@ -44,18 +44,18 @@ endif()
 
 ExternalProject_Add(${pyqt4_NAME}
     DEPENDS             ${python_NAME} ${sip_NAME} ${qt4_NAME}             
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${pyqt4_URL}
     URL_MD5             ${pyqt4_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ${FLYEM_ENV_STRING} ${PATCH_EXE}
+    PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
         ${pyqt4_SRC_DIR}/configure.py ${PATCH_DIR}/pyqt4.patch # For some reason, the configure script wants to build pyqt phonon support even if qt was built without it.  This patch simply comments out phonon support.
     CONFIGURE_COMMAND   ${PYTHON_EXE} ${pyqt4_SRC_DIR}/configure.py 
         --confirm-license
-        -q "${FLYEM_BUILD_DIR}/bin/qmake"
+        -q "${BUILDEM_DIR}/bin/qmake"
         ${EXTRA_PYQT4_CONFIG_FLAGS}
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
     BUILD_IN_SOURCE 1
 )
 

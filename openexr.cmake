@@ -22,33 +22,33 @@ external_source (openexr
     http://download.savannah.nongnu.org/releases/openexr)
 
 if (${CMAKE_CXX_COMPILER_ID} MATCHES ".*Clang.*")
-    set(openexr_PATCH_COMMAND ${FLYEM_ENV_STRING} ${PATCH_EXE}
+    set(openexr_PATCH_COMMAND ${BUILDEM_ENV_STRING} ${PATCH_EXE}
         ${openexr_SRC_DIR}/exrmaketiled/main.cpp ${PATCH_DIR}/openexr-exrmaketiled.patch
         ${openexr_SRC_DIR}/exrenvmap/main.cpp ${PATCH_DIR}/openexr-exrenvmap.patch
         # Add extra patch for clang compatibility
         ${openexr_SRC_DIR}/configure ${PATCH_DIR}/openexr-clang.patch )
 else()
-    set(openexr_PATCH_COMMAND ${FLYEM_ENV_STRING} ${PATCH_EXE}
+    set(openexr_PATCH_COMMAND ${BUILDEM_ENV_STRING} ${PATCH_EXE}
         ${openexr_SRC_DIR}/exrmaketiled/main.cpp ${PATCH_DIR}/openexr-exrmaketiled.patch
         ${openexr_SRC_DIR}/exrenvmap/main.cpp ${PATCH_DIR}/openexr-exrenvmap.patch )
 endif()
 
-message ("Installing ${openexr_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${openexr_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${openexr_NAME}
     DEPENDS             ${ilmbase_NAME} ${zlib_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${openexr_URL}
     URL_MD5             ${openexr_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${openexr_PATCH_COMMAND}
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${openexr_SRC_DIR}/configure
-        --prefix=${FLYEM_BUILD_DIR}
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${openexr_SRC_DIR}/configure
+        --prefix=${BUILDEM_DIR}
         --disable-ilmbasetest
-        PKG_CONFIG_PATH=${FLYEM_PKGCONFIG_DIR}
-        LDFLAGS=${FLYEM_LDFLAGS}
-        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
+        PKG_CONFIG_PATH=${BUILDEM_PKGCONFIG_DIR}
+        LDFLAGS=${BUILDEM_LDFLAGS}
+        CPPFLAGS=-I${BUILDEM_DIR}/include
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
 endif (NOT openexr_NAME)

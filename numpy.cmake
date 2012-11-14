@@ -31,21 +31,21 @@ else ()
     message (FATAL_ERROR "Unable to set FORTRAN ABI for numpy.  Does not support ${Fortran_COMPILER_NAME}!")
 endif ()
 
-set (ENV{ATLAS} ${FLYEM_BUILD_DIR}/lib/libtatlas.so:${FLYEM_BUILD_DIR}/lib/libsatlas.so)
+set (ENV{ATLAS} ${BUILDEM_DIR}/lib/libtatlas.so:${BUILDEM_DIR}/lib/libsatlas.so)
 
 # Download and install numpy
-message ("Installing ${numpy_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${numpy_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${numpy_NAME}
     DEPENDS             ${python_NAME} ${nose_NAME} ${atlas_NAME} 
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${numpy_URL}
     URL_MD5             ${numpy_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py build --fcompiler=${fortran_abi}
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py build --fcompiler=${fortran_abi}
     BUILD_IN_SOURCE     1
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
 )
 
 endif (NOT numpy_NAME)

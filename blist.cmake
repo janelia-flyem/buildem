@@ -18,18 +18,18 @@ external_source (blist
     02e8bf33cffec9cc802f4567f39ffa6f
     http://pypi.python.org/packages/source/b/blist)
 
-message ("Installing ${blist_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${blist_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${blist_NAME}
     DEPENDS             ${python_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${blist_URL}
     URL_MD5             ${blist_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
     BUILD_IN_SOURCE     1
-    TEST_COMMAND        ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py test
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py test
     INSTALL_COMMAND     ""
 )
 

@@ -36,9 +36,9 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_env_script
     COMMAND     ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/setenv_ilastik_gui.template
-        ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_gui.sh
-        ${FLYEM_LD_LIBRARY_VAR}
-        ${FLYEM_BUILD_DIR}
+        ${BUILDEM_DIR}/bin/setenv_ilastik_gui.sh
+        ${BUILDEM_LD_LIBRARY_VAR}
+        ${BUILDEM_DIR}
         ${ilastik_SRC_DIR}
         ${PYTHON_PREFIX}
     COMMENT     "Added ilastik gui environment script to bin directory"
@@ -50,8 +50,8 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_launch
     COMMAND     ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/ilastik_script.template
-        ${FLYEM_BUILD_DIR}/bin/ilastik_gui
-        ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_gui.sh
+        ${BUILDEM_DIR}/bin/ilastik_gui
+        ${BUILDEM_DIR}/bin/setenv_ilastik_gui.sh
         ${ilastik_SRC_DIR}/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainGui.py
     COMMENT     "Added ilastik gui command to bin directory"
 )
@@ -61,8 +61,8 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_test
     COMMAND     ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/ilastik_script.template
-        ${FLYEM_BUILD_DIR}/bin/ilastik_gui_test
-        ${FLYEM_BUILD_DIR}/bin/setenv_ilastik_gui.sh
+        ${BUILDEM_DIR}/bin/ilastik_gui_test
+        ${BUILDEM_DIR}/bin/setenv_ilastik_gui.sh
         ${ilastik_SRC_DIR}/ilastik/tests/test_applets/pixelClassification/testPixelClassificationGui.py
     COMMENT     "Added ilastik gui test command to bin directory"
 )
@@ -70,7 +70,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_test
 # Run the gui test script
 ExternalProject_add_step(${ilastik_NAME} test_ilastik_gui
     DEPENDEES   install_gui_test
-    COMMAND     ${FLYEM_ENV_STRING} ${FLYEM_BUILD_DIR}/bin/ilastik_gui_test
+    COMMAND     ${BUILDEM_ENV_STRING} ${BUILDEM_DIR}/bin/ilastik_gui_test
     COMMENT     "Ran ilastik gui test"
 )
 

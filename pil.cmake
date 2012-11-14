@@ -24,17 +24,17 @@ external_source (pil
 
 
 # Download and install pil
-message ("Installing ${pil_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${pil_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
 ExternalProject_Add(${pil_NAME}
     DEPENDS             ${python_NAME} ${zlib_NAME} ${libjpeg_NAME} ${libpng_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${pil_URL}
     URL_MD5             ${pil_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ""
 )

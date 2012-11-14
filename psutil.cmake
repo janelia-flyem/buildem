@@ -18,16 +18,16 @@ external_source (psutil
     3cfcbfb8525f6e4c70110e44a85e907e
     http://psutil.googlecode.com/files)
 
-message ("Installing ${psutil_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${psutil_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${psutil_NAME}
     DEPENDS             ${python_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${psutil_URL}
     URL_MD5             ${psutil_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
     BUILD_IN_SOURCE     1
     TEST_COMMAND        ""
     INSTALL_COMMAND     ""

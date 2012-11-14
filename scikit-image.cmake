@@ -21,16 +21,16 @@ external_source (scikit-image
     80eb9862fa09c7e06eda6e2a9fc4042f
     http://pypi.python.org/packages/source/s/scikit-image)
 
-message ("Installing ${scikit-image_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${scikit-image_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${scikit-image_NAME}
     DEPENDS             ${python_NAME} ${cython_NAME} ${numpy_NAME} ${scipy_NAME} 
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${scikit-image_URL}
     URL_MD5             ${scikit-image_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
     BUILD_IN_SOURCE     1
     TEST_COMMAND        ""
     INSTALL_COMMAND     ""

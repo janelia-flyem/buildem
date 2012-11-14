@@ -20,16 +20,16 @@ external_source (networkx
     1a73da9d571a206aa40f6ef69254f7b4
     http://pypi.python.org/packages/source/n/networkx)
 
-message ("Installing ${networkx_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${networkx_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${networkx_NAME}
     DEPENDS             ${python_NAME} ${numpy_NAME} ${scipy_NAME} 
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${networkx_URL}
     URL_MD5             ${networkx_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
     BUILD_IN_SOURCE     1
     TEST_COMMAND        ""
     INSTALL_COMMAND     ""

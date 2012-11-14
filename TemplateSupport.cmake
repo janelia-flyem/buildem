@@ -6,12 +6,12 @@
 
 if (NOT TEMPLATE_DIR)
 
-if (NOT FLYEM_BUILD_DIR)
-    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DFLYEM_BUILD_DIR=<path> on cmake command line.")
+if (NOT BUILDEM_DIR)
+    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DBUILDEM_DIR=<path> on cmake command line.")
 endif ()
 
-set (TEMPLATE_DIR ${FLYEM_BUILD_REPO_DIR}/templates)
-set (TEMPLATE_EXE ${FLYEM_BUILD_REPO_DIR}/templates/do_template.py)
+set (TEMPLATE_DIR ${BUILDEM_REPO_DIR}/templates)
+set (TEMPLATE_EXE ${BUILDEM_REPO_DIR}/templates/do_template.py)
 
 endif (NOT TEMPLATE_DIR)
 

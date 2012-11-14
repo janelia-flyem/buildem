@@ -32,8 +32,8 @@
 
 if (NOT external_source)
 
-if (NOT FLYEM_BUILD_DIR)
-    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DFLYEM_BUILD_DIR=<path> on cmake command line.")
+if (NOT BUILDEM_DIR)
+    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DBUILDEM_DIR=<path> on cmake command line.")
 endif ()
 
 # URL of cache for required software tarballs
@@ -53,10 +53,10 @@ macro (external_source ABBREV SRC_VERSION FILENAME MD5)
     endif ()
 
     set (${ABBREV}_NAME     ${external_source_name})
-    set (${ABBREV}_FILE     ${FLYEM_BUILD_DIR}/src/${FILENAME})
+    set (${ABBREV}_FILE     ${BUILDEM_DIR}/src/${FILENAME})
     set (${ABBREV}_MD5      ${MD5})
     set (${ABBREV}_RELEASE  ${SRC_VERSION})
-    set (${ABBREV}_SRC_DIR  ${FLYEM_BUILD_DIR}/src/${external_source_name})
+    set (${ABBREV}_SRC_DIR  ${BUILDEM_DIR}/src/${external_source_name})
 
     set (use_default TRUE)
     if (${ARGC} GREATER 4)
@@ -104,7 +104,7 @@ macro (external_git_repo ABBREV SRC_VERSION URL)
     endif ()
 
     set (${ABBREV}_NAME     ${external_source_name})
-    set (${ABBREV}_SRC_DIR  ${FLYEM_BUILD_DIR}/src/${external_source_name})
+    set (${ABBREV}_SRC_DIR  ${BUILDEM_DIR}/src/${external_source_name})
     set (${ABBREV}_URL      ${URL})
 
 endmacro (external_git_repo)

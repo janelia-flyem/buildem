@@ -29,20 +29,20 @@ else()
         ${ilmbase_SRC_DIR}/Imath/ImathMatrix.h ${PATCH_DIR}/ilmbase-1.patch )
 endif()
 
-message ("Installing ${ilmbase_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${ilmbase_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${ilmbase_NAME}
     DEPENDS             ${zlib_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${ilmbase_URL}
     URL_MD5             ${ilmbase_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${ilmbase_PATCH_COMMAND}
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${ilmbase_SRC_DIR}/configure 
-        --prefix=${FLYEM_BUILD_DIR}
-        LDFLAGS=${FLYEM_LDFLAGS}
-        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${ilmbase_SRC_DIR}/configure 
+        --prefix=${BUILDEM_DIR}
+        LDFLAGS=${BUILDEM_LDFLAGS}
+        CPPFLAGS=-I${BUILDEM_DIR}/include
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
 endif (NOT ilmbase_NAME)

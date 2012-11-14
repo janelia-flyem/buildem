@@ -6,12 +6,12 @@
 
 if (NOT PATCH_DIR)
 
-if (NOT FLYEM_BUILD_DIR)
-    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DFLYEM_BUILD_DIR=<path> on cmake command line.")
+if (NOT BUILDEM_DIR)
+    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DBUILDEM_DIR=<path> on cmake command line.")
 endif ()
 
-set (PATCH_DIR ${FLYEM_BUILD_REPO_DIR}/patches)
-set (PATCH_EXE ${FLYEM_BUILD_REPO_DIR}/patches/do_patch.py)
+set (PATCH_DIR ${BUILDEM_REPO_DIR}/patches)
+set (PATCH_EXE ${BUILDEM_REPO_DIR}/patches/do_patch.py)
 
 endif (NOT PATCH_DIR)
 

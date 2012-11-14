@@ -16,15 +16,15 @@ external_git_repo (syngeo
     HEAD
     http://github.com/janelia-flyem/synapse-geometry.git)
 
-message ("Installing ${syngeo_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${syngeo_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${syngeo_NAME}
     DEPENDS             ${python_NAME} ${setuptools_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${syngeo_URL}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
     BUILD_IN_SOURCE     1
     TEST_COMMAND        ""
     INSTALL_COMMAND     ""

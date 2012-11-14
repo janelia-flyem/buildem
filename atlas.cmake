@@ -33,10 +33,10 @@ external_source (lapack
     61bf1a8a4469d4bdb7604f5897179478
     http://www.netlib.org/lapack)
 
-message ("Downloading ${lapack_NAME} tarball into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Downloading ${lapack_NAME} tarball into FlyEM build area: ${BUILDEM_DIR} ...")
 
 ExternalProject_Add(${lapack_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${lapack_URL}
     URL_MD5             ${lapack_MD5}
     UPDATE_COMMAND      ""
@@ -52,24 +52,24 @@ external_source (atlas
     2030aa079b8d040b93de7018eae90e2b
     http://downloads.sourceforge.net/project/math-atlas/Stable/3.10.0)
 
-message ("Installing ${atlas_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${atlas_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${atlas_NAME}
     DEPENDS             ${lapack_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${atlas_URL}
     URL_MD5             ${atlas_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${atlas_SRC_DIR}/configure
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${atlas_SRC_DIR}/configure
         -C if ${CMAKE_Fortran_COMPILER}
         -F if ${CMAKE_Fortran_FLAGS_RELEASE}
         -b 64 
         --shared 
-        --prefix=${FLYEM_BUILD_DIR} 
+        --prefix=${BUILDEM_DIR} 
         --with-netlib-lapack-tarfile=${lapack_FILE}
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-    TEST_COMMAND        ${FLYEM_ENV_STRING} make check
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
 endif (NOT atlas_NAME)

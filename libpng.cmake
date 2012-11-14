@@ -26,18 +26,18 @@ external_source (libpng
 
 
 
-message ("Installing ${libpng_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${libpng_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${libpng_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${libpng_URL}
     URL_MD5             ${libpng_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ${CMAKE_COMMAND} ${libpng_SRC_DIR} 
-        -DCMAKE_INSTALL_PREFIX=${FLYEM_BUILD_DIR}
-        -DCMAKE_PREFIX_PATH=${FLYEM_BUILD_DIR}
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${libpng_SRC_DIR} 
+        -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
+        -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
 endif (NOT libpng_NAME)

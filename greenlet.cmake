@@ -18,16 +18,16 @@ external_source (greenlet
     87887570082caadc08fb1f8671dbed71
     http://pypi.python.org/packages/source/g/greenlet)
 
-message ("Installing ${greenlet_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${greenlet_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${greenlet_NAME}
     DEPENDS             ${python_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${greenlet_URL}
     URL_MD5             ${greenlet_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} ${PYTHON_EXE} setup.py install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
     BUILD_IN_SOURCE     1
     TEST_COMMAND        ""
     INSTALL_COMMAND     ""

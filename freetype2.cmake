@@ -18,21 +18,21 @@ external_source (freetype2
     13286702e9390a91661f980608adaff1
     http://downloads.sourceforge.net/project/freetype/freetype2/2.4.10)
 
-message ("Installing ${freetype2_NAME} into FlyEM build area: ${FLYEM_BUILD_DIR} ...")
+message ("Installing ${freetype2_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${freetype2_NAME}
-    PREFIX              ${FLYEM_BUILD_DIR}
+    PREFIX              ${BUILDEM_DIR}
     URL                 ${freetype2_URL}
     URL_MD5             ${freetype2_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${FLYEM_ENV_STRING} ./configure 
-        --prefix=${FLYEM_BUILD_DIR} 
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ./configure 
+        --prefix=${BUILDEM_DIR} 
         --enable-shared
-        LDFLAGS=${FLYEM_LDFLAGS}
-        CPPFLAGS=-I${FLYEM_BUILD_DIR}/include
-    BUILD_COMMAND       ${FLYEM_ENV_STRING} make
+        LDFLAGS=${BUILDEM_LDFLAGS}
+        CPPFLAGS=-I${BUILDEM_DIR}/include
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     BUILD_IN_SOURCE     1
-    INSTALL_COMMAND     ${FLYEM_ENV_STRING} make install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
 endif (NOT freetype2_NAME)
