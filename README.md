@@ -26,7 +26,9 @@ Buildem is predicated on some basic assertions:
 * Builds of all components should be specific to OS, compiler, and compiler version to minimize conflicts in [ABI](http://en.wikipedia.org/wiki/Application_binary_interface), and we are not sure that pre-compiled components (e.g., RPMs) are available for all target machines/compilers.
 * Third-party pre-built packages, like Enthought Python Distribution, are not viable due to licensing costs for cluster operation as well as inability to easily adapt to new dependencies.
 
-Buildem requires only a few installed components:
+## The build process
+
+Buildem requires a few installed components:
 
 * C/C++ and fortran compilers
 * libcurl and https support (note that these components are usually present in standard OS builds but may need to be installed explicitly)
@@ -35,8 +37,6 @@ Buildem requires only a few installed components:
 * python 2.6+ *if* patches or templates are used in build process.  In future, we could require a python build from source and use that instead *or* switch to a platform-independent patch/template system built into CMake.
 
 Note that a different version of python can be built from source.  Buildem does *not* try to minimize overall build time by reusing pre-compiled packages.  The presence of multiple compiler versions across the different Fedora/RHEL versions and our very heterogeneous workstation environment requires developer attention and tracking of installs across multiple machines.  
-
-## The build process
 
 The build process for a FlyEM application at /path/to/foo/code:
 
@@ -277,9 +277,10 @@ Common build problems for individual components in the FlyEM Build System are do
 
 This build system could be improved in a number of ways, not all of which adhere to the goal of a simple, easily-specified build process.
 
+* Add cross-platform support where needed, particularly for Mac and Windows.  This is left to individual developers to make changes for their projects. Hopefully, we will accumulate these across modules and temper them with our conventions for naming.
+* Require a python build from source and use that for templating/patching *or* switch to a platform-independent patch/template system built into CMake.  The latter seems to have ugly regexes instead using simple patches from diff?
 * Improve triggers so download, patch, configure, and compilation times are decreased.
-* Add cross-platform support where needed, particularly for Mac and Windows.  This includes standardizing set variables for each cmake module that specifies platform-specific library names, e.g. FOO_LIBRARIES.
-* Allow developers to easily specify components that can be used from outside the Buildem environment.  These specified components will be found via the traditional CMake FIND_PACKAGE approach and only built from source if the component is absent.  The burden of specifying compatible shared libraries will rest with the developer in exchange for time savings.
+* Allow developers to specify components that can be used from outside the Buildem environment.  These specified components will be found via the traditional CMake FIND_PACKAGE approach and only built from source if the component is absent.  The burden of specifying compatible shared libraries will rest with the developer in exchange for time savings.  This approach also flies against our philosophy of limiting the impact of library paths and putting everything we can into the BPD.
 * Allow run-time specification of different component versions.  This would require reorganization of the target build directory so each component version would have its own build directory.  Scripts could then modify environment variables like `LD_LIBRARY_PATH` to select chosen versions.  While helpful during debugging builds and considering new component versions, we don't want to lose the simplicity of having a tagged build repo represent a known working version of all software dependencies.
 
 ## Build notes for Janelia Farm cluster
