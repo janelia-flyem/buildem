@@ -155,9 +155,9 @@ For a package `foo.cmake`, the following variables can be set within that builde
 
 Library names that distinguish shared from static and release from debug builds.  We assume shared and release builds, so the shortest names assume that configuration.  For all variables, package-specific names come first, then shared vs static, then debug vs release.
 
-|foo_LIBRARIES             | Names of shared, release libraries for package foo.|
-|foo_STATIC_LIBRARIES      | Paths to static, release libraries for package foo.|
-|foo_SHARED_DEBUG_LIBRARIES| Fully specified.|
+    foo_LIBRARIES                Names of shared, release libraries for package foo.
+    foo_STATIC_LIBRARIES         Paths to static, release libraries for package foo.
+    foo_SHARED_DEBUG_LIBRARIES   Fully specified.
 
 Some packages will have different components.  For example, the HDF5 libraries allow compiling a "HL" (High-level) version.  Since this is project-specific, by convention the `hdf5.cmake` file will place "HL" in the prefix and set `hdf5_HL_STATIC_LIBRARIES` to the static release HL version library.
     
