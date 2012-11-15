@@ -3,9 +3,9 @@ The BuildEM System
 
 The [buildem](https://github.com/janelia-flyem/buildem) repo is a modular CMake-based system that leverages [CMake's ExternalProject](http://www.kitware.com/media/html/BuildingExternalProjectsWithCMake2.8.html) to simplify and automate a complex build process.  Its goal is to allow *simple*, *modular* specification of software dependencies and automate the download, patch, configure, build, and install process.
 
-For each version of the buildem repo, we create a *Buildem prefix directory (BPD)* that is specific to OS, compiler, and component versions.  The BPD can be thought of as a complete build environment (like a user-controlled /usr/local) and will contain bin, lib, include, and other standard directories.  All automatically downloaded and compiled code will reside in the BPD's src directory.
+For each version of the buildem repo, we create a *Buildem Prefix Directory (BPD)* that is specific to OS, compiler, and component versions.  The BPD can be thought of as a complete build environment (like a user-controlled /usr/local) and will contain bin, lib, include, and other standard directories.  All automatically downloaded and compiled code will reside in the BPD's src directory.
 
-Each supported software package or *buildem module* has a separate `.cmake` file in the buildem repo and uses conventions for how to name variables based on the package name.
+Each supported software package has a separate `.cmake` file in the buildem repo and uses conventions for how to name variables based on the package name.
 
 ## Philosophy of buildem
 
@@ -70,26 +70,6 @@ The above `USE_PROJECT_DOWNLOAD` setting asks that the libtiff and vigra package
 Alternative compilers can be specified by modifying CMake variables:
 
     % cmake -DCMAKE_C_COMPILER=gcc-4.2 -DCMAKE_CXX_COMPILER=g++-4.2 -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
-    
-### Release versus debug builds
-
-By convention, the build code in `foo.cmake` should look for a `foo_BUILD` variable.  `foo_BUILD` is by default set to `RELEASE`.  To force a debug version of a dependency, simply set `foo_BUILD` to `DEBUG` before calling `include (foo)`.
-    
-### Library and include directory paths
-
-Package-specific libraries and include directory paths are set within each buildem module (i.e., the `.cmake` file for a software package).  The generated CMake variables follow a convention.
-
-For a package `foo.cmake`, the following variables can be set within that buildem module:
-
-`foo_INCLUDE_DIRS` -- The include directories for the foo package.  This defaults to *BPD*/include.
-
-Library names that distinguish shared from static and release from debug builds.  We assume shared and release builds, so the shortest names assume that configuration.  For all variables, package-specific names come first, then shared vs static, then debug vs release.
-
-`foo_LIBRARIES` -- Names of shared, release libraries for package foo.
-`foo_STATIC_LIBRARIES` -- Paths to static, release libraries for package foo.
-`foo_SHARED_DEBUG_LIBRARIES` -- Fully specified.
-
-Some packages will have different components.  For example, the HDF5 libraries allow compiling a "HL" (High-level) version.  Since this is project-specific, by convention the `hdf5.cmake` file will place "HL" in the prefix and set `hdf5_HL_STATIC_LIBRARIES` to the static release HL version library.
     
 ## Specifying the build for your application
 
@@ -161,6 +141,26 @@ endif()
 
 The two-step process is clear from the CMake code above.  If a buildem repo has not been cloned yet, the first part downloads the build repo into the specified `BUILDEM_DIR`.  Note the commented-out `GIT_TAG` when retrieving the build repo.  You can use tagged branches of the build repo to create different software environments as long as each tagged branch uses a *different* `BUILDEM_DIR`.  For example, one application might require python 3 instead of the default python 2.7, which may cause cascading version changes for other requirements.  All of these changes can be made to a branch of the build repo's .cmake files and snapshotted using a tag.
 
+### Release versus debug builds
+
+By convention, the build code in `foo.cmake` should look for a `foo_BUILD` variable.  `foo_BUILD` is by default set to `RELEASE`.  To force a debug version of a dependency, simply set `foo_BUILD` to `DEBUG` before calling `include (foo)`.
+    
+### Library and include directory paths
+
+Package-specific libraries and include directory paths are set within each buildem module (i.e., the `.cmake` file for a software package).  The generated CMake variables follow a convention.
+
+For a package `foo.cmake`, the following variables can be set within that buildem module:
+
+`foo_INCLUDE_DIRS` -- The include directories for the foo package.  This defaults to *BPD*/include.
+
+Library names that distinguish shared from static and release from debug builds.  We assume shared and release builds, so the shortest names assume that configuration.  For all variables, package-specific names come first, then shared vs static, then debug vs release.
+
+|foo_LIBRARIES             | Names of shared, release libraries for package foo.|
+|foo_STATIC_LIBRARIES      | Paths to static, release libraries for package foo.|
+|foo_SHARED_DEBUG_LIBRARIES| Fully specified.|
+
+Some packages will have different components.  For example, the HDF5 libraries allow compiling a "HL" (High-level) version.  Since this is project-specific, by convention the `hdf5.cmake` file will place "HL" in the prefix and set `hdf5_HL_STATIC_LIBRARIES` to the static release HL version library.
+    
 ### Adding packages to build process
 
 If a required package is not available, it is very easy to add your own to the collection of .cmake files in the buildem repository. Let's look at libtiff as an example of a standard configure/make/make install build:
