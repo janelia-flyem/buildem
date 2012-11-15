@@ -1,7 +1,13 @@
 The BuildEM System
 ==================
 
-The [buildem](https://github.com/janelia-flyem/buildem) repo is a modular CMake-based system that leverages [CMake's ExternalProject](http://www.kitware.com/media/html/BuildingExternalProjectsWithCMake2.8.html) to simplify and automate a complex build process.  Its goal is to allow *simple*, *modular* specification of software dependencies and automate the download/patch/configure/build/install process.
+The [buildem](https://github.com/janelia-flyem/buildem) repo is a modular CMake-based system that leverages [CMake's ExternalProject](http://www.kitware.com/media/html/BuildingExternalProjectsWithCMake2.8.html) to simplify and automate a complex build process.  Its goal is to allow *simple*, *modular* specification of software dependencies and automate the download, patch, configure, build, and install process.
+
+For each version of the buildem repo, we create a *Buildem prefix directory (BPD)* that is specific to OS, compiler, and component versions.  The BPD can be thought of as a complete build environment (like a user-controlled /usr/local) and will contain bin, lib, include, and other standard directories.  All automatically downloaded and compiled code will reside in the BPD's src directory.
+
+Each supported software package or *buildem module* has a separate `.cmake` file in the buildem repo and uses conventions for how to name variables based on the package name.
+
+## Philosophy of buildem
 
 Previously, each software dependency was installed by manually downloading packages, either via yum/apt-get in sudo mode or by compiling source tarballs.  Target executables and libraries were symbolically linked or copied to standard locations.  While this process allowed great latitude in reusing software already available on computers, it has a number of issues:
 
@@ -26,12 +32,11 @@ Buildem requires only a few installed components:
 * libcurl and https support (note that these components are usually present in standard OS builds but may need to be installed explicitly)
 * git
 * CMake 2.8+
+* python 2.6+ *if* patches or templates are used in build process.  In future, we could require a python build from source and use that instead *or* switch to a platform-independent patch/template system built into CMake.
 
-Note that python is built from source as well as all dependencies except for the above.  Buildem does *not* try to minimize overall build time by reusing pre-compiled packages.  The presence of multiple compiler versions across the different Fedora/RHEL versions and our very heterogeneous workstation environment requires developer attention and tracking of installs across multiple machines.  
+Note that a different version of python can be built from source.  Buildem does *not* try to minimize overall build time by reusing pre-compiled packages.  The presence of multiple compiler versions across the different Fedora/RHEL versions and our very heterogeneous workstation environment requires developer attention and tracking of installs across multiple machines.  
 
 ## The build process
-
-An empty directory is chosen as a *Buildem prefix directory (BPD)* that is specific to OS, compiler versions, and component versions.  The BPD can be thought of as a version-specific /usr/local and will contain bin, lib, include, and other standard directories.  All automatically downloaded and compiled code will reside in the BPD's src directory.  Note that the BPD should not be confused with any component's *build directory*, which can be either in the component's source directory or some user-chosen directory as in standard CMake use.
 
 The build process for a FlyEM application at /path/to/foo/code:
 
@@ -39,7 +44,13 @@ The build process for a FlyEM application at /path/to/foo/code:
     % cmake -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
     % make
 
-_Note: If this is the first time a FlyEM application was compiled for this BPD, the build script will download the buildem repo into the BPD and the user will be prompted to re-run the cmake and make steps as above._
+If this is the first time an application was compiled for this BPD, the build script will download the buildem repo into the BPD and the user will be prompted to re-run the cmake and make steps as above. In this initial case, the build process would be:
+
+    % mkdir foo-build; cd foo-build
+    % cmake -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
+    % make
+    % cmake -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
+    % make
 
 That's it.  The build scripts will do the following steps (mostly following the ExternalProject_Add flow):
 
@@ -59,6 +70,26 @@ The above `USE_PROJECT_DOWNLOAD` setting asks that the libtiff and vigra package
 Alternative compilers can be specified by modifying CMake variables:
 
     % cmake -DCMAKE_C_COMPILER=gcc-4.2 -DCMAKE_CXX_COMPILER=g++-4.2 -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
+    
+### Release versus debug builds
+
+By convention, the build code in `foo.cmake` should look for a `foo_BUILD` variable.  `foo_BUILD` is by default set to `RELEASE`.  To force a debug version of a dependency, simply set `foo_BUILD` to `DEBUG` before calling `include (foo)`.
+    
+### Library and include directory paths
+
+Package-specific libraries and include directory paths are set within each buildem module (i.e., the `.cmake` file for a software package).  The generated CMake variables follow a convention.
+
+For a package `foo.cmake`, the following variables can be set within that buildem module:
+
+`foo_INCLUDE_DIRS` -- The include directories for the foo package.  This defaults to *BPD*/include.
+
+Library names that distinguish shared from static and release from debug builds.  We assume shared and release builds, so the shortest names assume that configuration.  For all variables, package-specific names come first, then shared vs static, then debug vs release.
+
+`foo_LIBRARIES` -- Names of shared, release libraries for package foo.
+`foo_STATIC_LIBRARIES` -- Paths to static, release libraries for package foo.
+`foo_SHARED_DEBUG_LIBRARIES` -- Fully specified.
+
+Some packages will have different components.  For example, the HDF5 libraries allow compiling a "HL" (High-level) version.  Since this is project-specific, by convention the `hdf5.cmake` file will place "HL" in the prefix and set `hdf5_HL_STATIC_LIBRARIES` to the static release HL version library.
     
 ## Specifying the build for your application
 
@@ -224,6 +255,11 @@ See the `do_template.py` utility under the `templates` directory.  This script w
 
 Add `include (TemplateSupport)` to set two variables `TEMPLATE_DIR`, where actual template files are kept as well as the do_template.py script, and `TEMPLATE_EXE`, which contains the path to the do_template.py script.
 
+### FindPackage and FindLibrary (discouraged)
+
+CMake's build-in `FindPackage()` and `FindLibrary()` routines are discouraged because buildem strongly prefers all dependencies to be built and installed in the *BPD*.  It is better to know when a dependency is not available than have the build process silently fall back to libraries in paths outside the buildem system.
+
+Example: Earlier boost package builds created multi-threaded libraries with the `-mt` suffix, but later boost builds on Linux removed that suffix.  The boost FindPackage module loops through all directories in the search path in the inner loop and loops through all possible boost library names (starting with `-mt`) in the outer loop.   This causes `FindPackage(boost)` to preferentially return older boost libraries even if the path to a newer boost install is first in the find package search path.
 
 ### Easy Install (discouraged)
 

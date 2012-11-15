@@ -22,12 +22,16 @@
 #    ${ABBREV}_RELEASE      The release identifier
 #    ${ABBREV}_NAME         A simple identifier with just the name + version
 #    ${ABBREV}_SRC_DIR      The directory containing the downloaded source code
+#    ${ABBREV}_BUILD        "RELEASE" is set if this variable isn't set
+#    ${ABBREV}_INCLUDE_DIRS 
 
 # The macro external_git_repo(ABBREV) modifies/sets the following variables:
 #    APP_DEPENDENCIES       A list of all targets included (i.e., necessary)
 #    ${ABBREV}_URL          URL used for external project repo.
 #    ${ABBREV}_NAME         A simple identifier with just the name + version
 #    ${ABBREV}_SRC_DIR      The directory containing the working directory
+#    ${ABBREV}_BUILD        "RELEASE" is set if this variable isn't set
+#    ${ABBREV}_INCLUDE_DIRS 
 
 
 if (NOT external_source)
@@ -42,6 +46,11 @@ set (DEFAULT_CACHE_URL "http://janelia-flyem.github.com/downloads" CACHE TYPE ST
 # Define macro to set a number of variables per external project source
 macro (external_source ABBREV SRC_VERSION FILENAME MD5)
 
+    # RELEASE builds are by default
+    if (NOT ${ABBREV}_BUILD)
+        set (${ABBREV}_BUILD "RELEASE")
+    endif ()
+
     set (external_source_name  ${ABBREV}-${SRC_VERSION})
     # Append this external source name to our list of dependencies
     if (NOT ${ABBREV}_NAME)
@@ -52,11 +61,12 @@ macro (external_source ABBREV SRC_VERSION FILENAME MD5)
         endif ()
     endif ()
 
-    set (${ABBREV}_NAME     ${external_source_name})
-    set (${ABBREV}_FILE     ${BUILDEM_DIR}/src/${FILENAME})
-    set (${ABBREV}_MD5      ${MD5})
-    set (${ABBREV}_RELEASE  ${SRC_VERSION})
-    set (${ABBREV}_SRC_DIR  ${BUILDEM_DIR}/src/${external_source_name})
+    set (${ABBREV}_NAME         ${external_source_name})
+    set (${ABBREV}_FILE         ${BUILDEM_DIR}/src/${FILENAME})
+    set (${ABBREV}_MD5          ${MD5})
+    set (${ABBREV}_RELEASE      ${SRC_VERSION})
+    set (${ABBREV}_SRC_DIR      ${BUILDEM_DIR}/src/${external_source_name})
+    set (${ABBREV}_INCLUDE_DIRS ${BUILDEM_DIR}/include)
 
     set (use_default TRUE)
     if (${ARGC} GREATER 4)
@@ -91,6 +101,11 @@ endmacro (external_source)
 # Define macro to set a number of variables per external git repo
 macro (external_git_repo ABBREV SRC_VERSION URL)
 
+    # RELEASE builds are by default
+    if (NOT ${ABBREV}_BUILD)
+        set (${ABBREV}_BUILD "RELEASE")
+    endif ()
+
     set (external_source_name  ${ABBREV}-${SRC_VERSION})
     message ("Setting external_git_repo: ${external_source_name}")
 
@@ -103,9 +118,10 @@ macro (external_git_repo ABBREV SRC_VERSION URL)
         endif ()
     endif ()
 
-    set (${ABBREV}_NAME     ${external_source_name})
-    set (${ABBREV}_SRC_DIR  ${BUILDEM_DIR}/src/${external_source_name})
-    set (${ABBREV}_URL      ${URL})
+    set (${ABBREV}_NAME         ${external_source_name})
+    set (${ABBREV}_SRC_DIR      ${BUILDEM_DIR}/src/${external_source_name})
+    set (${ABBREV}_URL          ${URL})
+    set (${ABBREV}_INCLUDE_DIRS ${BUILDEM_DIR}/include)
 
 endmacro (external_git_repo)
 
