@@ -14,6 +14,7 @@ include (ExternalSource)
 include (BuildSupport)
 
 include (zlib)
+include (openssl)   # without openssl, hashlib might have missing encryption methods
 
 external_source (python
     2.7.3
@@ -36,7 +37,7 @@ else()
 endif()
 
 ExternalProject_Add(${python_NAME}
-    DEPENDS             ${zlib_NAME}
+    DEPENDS             ${zlib_NAME} ${openssl_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${python_URL}
     URL_MD5             ${python_MD5}
