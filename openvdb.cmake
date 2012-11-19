@@ -20,9 +20,9 @@ include (doxygen)
 include (glfw)
 
 external_source (openvdb
-    0.97.0
-    openvdb_0_97_0_library.tgz
-    2b15d03a9654ea40d138dc6e17729eb6
+    0.98.0
+    openvdb_0_98_0_library.tgz
+    7ea84d14165b57857d14014038d717b3
     http://www.openvdb.org/download)
 
 set (OPENVDB_VALUES
