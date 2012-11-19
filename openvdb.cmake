@@ -10,6 +10,7 @@ include (ExternalProject)
 include (ExternalSource)
 include (PkgConfig)
 include (BuildSupport)
+include (PatchSupport)
 
 include (boost)
 include (cppunit)
@@ -47,7 +48,9 @@ ExternalProject_Add(${openvdb_NAME}
     URL                 ${openvdb_URL}
     URL_MD5             ${openvdb_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ""
+    PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
+        ${BUILDEM_DIR}/src/openvdb/cmd/openvdb_view/RenderModules.cc
+        ${PATCH_DIR}/openvdb-0.9.8.patch
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make ${OPENVDB_VALUES}
     BUILD_IN_SOURCE     1

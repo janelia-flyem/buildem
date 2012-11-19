@@ -1,0 +1,48 @@
+--- RenderModules.cc	2012-11-16 14:55:38.000000000 -0500
++++ RenderModules.patched.cc	2012-11-19 14:17:13.349187187 -0500
+@@ -102,10 +102,10 @@
+ 
+     // gen new buffer
+     glGenBuffers(1, &mIndexBuffer);
++    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
+     if (glIsBuffer(mIndexBuffer) == GL_FALSE) throw "Error: Unable to create index buffer";
+ 
+     // upload data
+-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
+     glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+         sizeof(GLuint) * v.size(), &v[0], GL_STATIC_DRAW); // upload data
+     if(GL_NO_ERROR != glGetError()) throw "Error: Unable to upload index buffer data";
+@@ -123,9 +123,9 @@
+     if (glIsBuffer(mVertexBuffer) == GL_TRUE) glDeleteBuffers(1, &mVertexBuffer);
+ 
+     glGenBuffers(1, &mVertexBuffer);
++    glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
+     if (glIsBuffer(mVertexBuffer) == GL_FALSE) throw "Error: Unable to create vertex buffer";
+ 
+-    glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
+     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * v.size(), &v[0], GL_STATIC_DRAW);
+     if(GL_NO_ERROR != glGetError()) throw "Error: Unable to upload vertex buffer data";
+ 
+@@ -138,10 +138,9 @@
+     if (glIsBuffer(mNormalBuffer) == GL_TRUE) glDeleteBuffers(1, &mNormalBuffer);
+ 
+     glGenBuffers(1, &mNormalBuffer);
++    glBindBuffer(GL_ARRAY_BUFFER, mNormalBuffer);
+     if (glIsBuffer(mNormalBuffer) == GL_FALSE) throw "Error: Unable to create normal buffer";
+ 
+-
+-    glBindBuffer(GL_ARRAY_BUFFER, mNormalBuffer);
+     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * v.size(), &v[0], GL_STATIC_DRAW);
+     if(GL_NO_ERROR != glGetError()) throw "Error: Unable to upload normal buffer data";
+ 
+@@ -154,9 +153,9 @@
+     if (glIsBuffer(mColorBuffer) == GL_TRUE) glDeleteBuffers(1, &mColorBuffer);
+ 
+     glGenBuffers(1, &mColorBuffer);
++    glBindBuffer(GL_ARRAY_BUFFER, mColorBuffer);
+     if (glIsBuffer(mColorBuffer) == GL_FALSE) throw "Error: Unable to create color buffer";
+ 
+-    glBindBuffer(GL_ARRAY_BUFFER, mColorBuffer);
+     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * v.size(), &v[0], GL_STATIC_DRAW);
+     if(GL_NO_ERROR != glGetError()) throw "Error: Unable to upload color buffer data";
+ 
