@@ -42,7 +42,7 @@ set (OPENVDB_VALUES
 message ("Installing ${openvdb_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${openvdb_NAME}
     DEPENDS             ${boost_NAME} ${cppunit_NAME} ${zlib_NAME} ${openexr_NAME} 
-                        ${tbb_NAME} ${doxygen_NAME} ${glfw}
+                        ${tbb_NAME} ${doxygen_NAME} ${glfw_NAME}
     PREFIX              ${BUILDEM_DIR}
     SOURCE_DIR          ${BUILDEM_DIR}/src/openvdb  # Needed due to include paths
     URL                 ${openvdb_URL}
