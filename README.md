@@ -1,7 +1,7 @@
 The BuildEM System
 ==================
 
-The [buildem](https://github.com/janelia-flyem/buildem) repo is a modular CMake-based system that leverages [CMake's ExternalProject](http://www.kitware.com/media/html/BuildingExternalProjectsWithCMake2.8.html) to simplify and automate a complex build process.  Its goal is to allow *simple*, *modular* specification of software dependencies and automate the download, patch, configure, build, and install process.
+The [buildem](https://github.com/janelia-flyem/buildem) repo is a modular CMake-based system that leverages [CMake's ExternalProject](http://www.kitware.com/media/html/BuildingExternalProjectsWithCMake2.8.html) to simplify and automate a complex build process.  Its goal is to allow *simple*, *modular* specification of software dependencies and automate the download, patch, configure, build, and install process.  Initially, we are focused on Linux (and occasionally MacOS X) support for the modules, but we hope to integrate patches from Windows users as needed.
 
 For each version of the buildem repo, we create a *Buildem Prefix Directory (BPD)* that is specific to OS, compiler, and component versions.  The BPD can be thought of as a complete build environment (like a user-controlled /usr/local) and will contain bin, lib, include, and other standard directories.  All automatically downloaded and compiled code will reside in the BPD's src directory.
 
