@@ -1,9 +1,15 @@
 # Initialize FlyEM build variables
 # 
 # Sets the following variables:
-#    BUILDEM_BIN_PATH     Command path string suitable for PATH environment variable.
-#    BUILDEM_LIB_PATH     Library path string suitable for LD_LIBRARY_PATH environment variable.
-#    BUILDEM_ENV_STRING   Environment variable setting string for use before commands.
+#
+#   BUILDEM_BIN_DIR         Binary directory (/bin) for BPD
+#   BUILDEM_LIB_DIR         Library directory (/lib) for BPD
+#   BUILDEM_SRC_DIR         Source directory (/src) for BPD
+#   BUILDEM_INCLUDE_DIR     Include directory (/include) for BPD
+#
+#   BUILDEM_BIN_PATH        Command path string suitable for PATH env variable.
+#   BUILDEM_LIB_PATH        Library path string suitable for LD_LIBRARY_PATH env variable.
+#   BUILDEM_ENV_STRING      Environment variable setting string for use before commands.
 
 if (NOT BUILDEM_ENV_STRING)
 
@@ -15,20 +21,24 @@ endif ()
 
 # Make sure the main directories for FlyEM build directory are already 
 # created so paths won't error out.
-if (NOT EXISTS ${BUILDEM_DIR}/bin)
-    file (MAKE_DIRECTORY ${BUILDEM_DIR}/bin)
+set (BUILDEM_BIN_DIR    ${BUILDEM_DIR}/bin)
+if (NOT EXISTS ${BUILDEM_BIN_DIR})
+    file (MAKE_DIRECTORY ${BUILDEM_BIN_DIR})
 endif ()
 
-if (NOT EXISTS ${BUILDEM_DIR}/lib)
-    file (MAKE_DIRECTORY ${BUILDEM_DIR}/lib)
+set (BUILDEM_LIB_DIR    ${BUILDEM_DIR}/lib)
+if (NOT EXISTS ${BUILDEM_LIB_DIR})
+    file (MAKE_DIRECTORY ${BUILDEM_LIB_DIR})
 endif ()
 
-if (NOT EXISTS ${BUILDEM_DIR}/include)
-    file (MAKE_DIRECTORY ${BUILDEM_DIR}/include)
+set (BUILDEM_INCLUDE_DIR    ${BUILDEM_DIR}/include)
+if (NOT EXISTS ${BUILDEM_INCLUDE_DIR})
+    file (MAKE_DIRECTORY ${BUILDEM_INCLUDE_DIR})
 endif ()
 
-if (NOT EXISTS ${BUILDEM_DIR}/src)
-    file (MAKE_DIRECTORY ${BUILDEM_DIR}/src)
+set (BUILDEM_SRC_DIR    ${BUILDEM_DIR}/src)
+if (NOT EXISTS ${BUILDEM_SRC_DIR})
+    file (MAKE_DIRECTORY ${BUILDEM_SRC_DIR})
 endif ()
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -38,19 +48,19 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set (BUILDEM_PLATFORM_SPECIFIC_ENV "MACOSX_DEPLOYMENT_TARGET=10.5")
     set (BUILDEM_PLATFORM_DYLIB_EXTENSION "dylib")
 else()
-    set (BUILDEM_LD_LIBRARY_VAR "LD_LIBRARYPATH")
+    set (BUILDEM_LD_LIBRARY_VAR "LD_LIBRARY_PATH")
     set (BUILDEM_PLATFORM_SPECIFIC_ENV "")
     set (BUILDEM_PLATFORM_DYLIB_EXTENSION "so")
 endif()
 
 # Initialize environment variables string to use for commands.
-set (BUILDEM_BIN_PATH     ${BUILDEM_DIR}/bin:$ENV{PATH})
-set (BUILDEM_LIB_PATH     ${BUILDEM_DIR}/lib:$ENV{${BUILDEM_LD_LIBRARY_VAR}})
+set (BUILDEM_BIN_PATH     ${BUILDEM_BIN_DIR}:$ENV{PATH})
+set (BUILDEM_LIB_PATH     ${BUILDEM_LIB_DIR}:$ENV{${BUILDEM_LD_LIBRARY_VAR}})
 set (BUILDEM_ENV_STRING   env PATH=${BUILDEM_BIN_PATH} ${BUILDEM_LD_LIBRARY_VAR}=${BUILDEM_LIB_PATH} ${BUILDEM_PLATFORM_SPECIFIC_ENV})
-set (BUILDEM_LDFLAGS      "-Wl,-rpath,${BUILDEM_DIR}/lib -L${BUILDEM_DIR}/lib")
+set (BUILDEM_LDFLAGS      "-Wl,-rpath,${BUILDEM_LIB_DIR} -L${BUILDEM_LIB_DIR}")
 
 # Set standard include directories.
-include_directories (BEFORE ${BUILDEM_DIR}/include)
+include_directories (BEFORE ${BUILDEM_INCLUDE_DIR})
 
 
 endif (NOT BUILDEM_ENV_STRING)
