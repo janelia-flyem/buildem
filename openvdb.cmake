@@ -50,7 +50,7 @@ ExternalProject_Add(${openvdb_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
         ${BUILDEM_DIR}/src/openvdb/cmd/openvdb_view/RenderModules.cc
-        ${PATCH_DIR}/openvdb-0.9.8.patch
+        ${PATCH_DIR}/openvdb-0.98.patch
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make ${OPENVDB_VALUES}
     BUILD_IN_SOURCE     1
