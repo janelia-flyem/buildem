@@ -19,6 +19,9 @@ external_source (hdf5
     d1266bb7416ef089400a15cc7c963218
     http://www.hdfgroup.org/ftp/HDF5/current/src)
 
+set (hdf5_HL_LIBRARIES  ${BUILDEM_LIB_DIR}/libhdf5_hl.so)
+set (hdf5_LIBRARIES     ${BUILDEM_LIB_DIR}/libhdf5.so ${hdf5_HL_LIBRARIES})
+
 message ("Installing ${hdf5_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${hdf5_NAME}
     DEPENDS                 ${zlib_NAME}
