@@ -21,9 +21,9 @@ include (doxygen)
 include (glfw)
 
 external_source (openvdb
-    0.98.0
-    openvdb_0_98_0_library.tgz
-    7ea84d14165b57857d14014038d717b3
+    0.99.0
+    openvdb_0_99_0_library.tgz
+    5aac825a3e42c26969f8c190ec5fd1a0
     http://www.openvdb.org/download)
 
 set (OPENVDB_VALUES
@@ -48,9 +48,7 @@ ExternalProject_Add(${openvdb_NAME}
     URL                 ${openvdb_URL}
     URL_MD5             ${openvdb_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
-        ${BUILDEM_DIR}/src/openvdb/cmd/openvdb_view/RenderModules.cc
-        ${PATCH_DIR}/openvdb-0.98.patch
+    PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make ${OPENVDB_VALUES}
     BUILD_IN_SOURCE     1
