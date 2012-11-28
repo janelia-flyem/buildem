@@ -139,7 +139,14 @@ else ()
 endif()
 ```
 
-The two-step process is clear from the CMake code above.  If a buildem repo has not been cloned yet, the first part downloads the build repo into the specified `BUILDEM_DIR`.  Note the commented-out `GIT_TAG` when retrieving the build repo.  You can use tagged branches of the build repo to create different software environments as long as each tagged branch uses a *different* `BUILDEM_DIR`.  For example, one application might require python 3 instead of the default python 2.7, which may cause cascading version changes for other requirements.  All of these changes can be made to a branch of the build repo's .cmake files and snapshotted using a tag.
+The two-step process is clear from the CMake code above.  If a buildem repo has not been cloned yet, the first part downloads the build repo into the specified `BUILDEM_DIR`.  
+
+### Snapshotting a dependency tree complete with library versions
+
+We can use git version control to snapshot a build environment, including the versions used for each dependency.
+
+Note the commented-out `GIT_TAG` when retrieving the build repo.  You can use tagged branches of the build repo to create different software environments as long as each tagged branch uses a *different* `BUILDEM_DIR`.  For example, one application might require python 3 instead of the default python 2.7, which may cause cascading version changes for other requirements.  All of these changes can be made to a branch of the build repo's .cmake files and snapshotted using a tag.
+
 
 ### Release versus debug builds
 
@@ -159,7 +166,7 @@ Library names that distinguish shared from static and release from debug builds.
     foo_STATIC_LIBRARIES         Paths to static, release libraries for package foo.
     foo_SHARED_DEBUG_LIBRARIES   Fully specified.
 
-Some packages will have different components.  For example, the HDF5 libraries allow compiling a "HL" (High-level) version.  Since this is project-specific, by convention the `hdf5.cmake` file will place "HL" in the prefix and set `hdf5_HL_STATIC_LIBRARIES` to the static release HL version library.
+Some packages will have different components.  For example, the HDF5 libraries allow compiling a "HL" (High-level) version.  Since this is project-specific, by convention the `hdf5.cmake` file will place "HL" in the prefix and set `hdf5_HL_LIBRARIES` to the shared release HL version library.
     
 ### Adding packages to build process
 
@@ -257,7 +264,7 @@ Add `include (TemplateSupport)` to set two variables `TEMPLATE_DIR`, where actua
 
 ### FindPackage and FindLibrary (discouraged)
 
-CMake's build-in `FindPackage()` and `FindLibrary()` routines are discouraged because buildem strongly prefers all dependencies to be built and installed in the *BPD*.  It is better to know when a dependency is not available than have the build process silently fall back to libraries in paths outside the buildem system.
+CMake's build-in `FindPackage()` and `FindLibrary()` routines are discouraged because buildem strongly prefers all dependencies to be built and installed in the *BPD*.  It is better to know when a dependency is not available than have the build process silently fall back to libraries in paths outside the buildem system.  Using `FindPackage()` flies against our philosophy of limiting the impact of library paths and putting everything we can into the BPD.
 
 Example: Earlier boost package builds created multi-threaded libraries with the `-mt` suffix, but later boost builds on Linux removed that suffix.  The boost FindPackage module loops through all directories in the search path in the inner loop and loops through all possible boost library names (starting with `-mt`) in the outer loop.   This causes `FindPackage(boost)` to preferentially return older boost libraries even if the path to a newer boost install is first in the find package search path.
 
@@ -280,8 +287,8 @@ This build system could be improved in a number of ways, not all of which adhere
 * Add cross-platform support where needed, particularly for Mac and Windows.  This is left to individual developers to make changes for their projects. Hopefully, we will accumulate these across modules and temper them with our conventions for naming.
 * Require a python build from source and use that for templating/patching *or* switch to a platform-independent patch/template system built into CMake.  The latter seems to have ugly regexes instead using simple patches from diff?
 * Improve triggers so download, patch, configure, and compilation times are decreased.
-* Allow developers to specify components that can be used from outside the Buildem environment.  These specified components will be found via the traditional CMake FIND_PACKAGE approach and only built from source if the component is absent.  The burden of specifying compatible shared libraries will rest with the developer in exchange for time savings.  This approach also flies against our philosophy of limiting the impact of library paths and putting everything we can into the BPD.
-* Allow run-time specification of different component versions.  This would require reorganization of the target build directory so each component version would have its own build directory.  Scripts could then modify environment variables like `LD_LIBRARY_PATH` to select chosen versions.  While helpful during debugging builds and considering new component versions, we don't want to lose the simplicity of having a tagged build repo represent a known working version of all software dependencies.
+* Allow run-time specification of different component versions.  This would require reorganization of the target build directory so each component version would have its own build directory.  Scripts could then modify environment variables like `LD_LIBRARY_PATH` to select chosen versions.  While helpful during debugging builds and considering new component versions, we don't want to lose the simplicity of having a tagged build repo represent a known working version of all software dependencies.  If we do add this feature, we could look to the conventions and directory structure of Mac OS X Frameworks, which bundle multiple versions of a library in one directory tree then use symlinks to specify the current version.
+
 
 ## Build notes for Janelia Farm cluster
 
