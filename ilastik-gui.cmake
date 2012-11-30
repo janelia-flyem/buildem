@@ -32,7 +32,7 @@ add_custom_target (${ilastik-gui_NAME} ALL
 
 # Add environment setting script
 ExternalProject_add_step(${ilastik_NAME}  install_gui_env_script
-    DEPENDEES   download
+    DEPENDEES   test
     COMMAND     ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/setenv_ilastik_gui.template
