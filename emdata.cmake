@@ -16,6 +16,6 @@ ExternalProject_Add(${emdata_NAME}
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} -DBUILDEM_DIR=${BUILDEM_DIR} ${emdata_SRC_DIR}
     BUILD_COMMAND       make
-    TEST_COMMAND        ${BUILDEM_ENV_STRING} ${BUILDEM_BIN_DIR}/test/test_encoder
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} ${BUILDEM_TEST_DIR}/test_encoder
     INSTALL_COMMAND     ""
 )
