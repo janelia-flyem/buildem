@@ -32,15 +32,18 @@ ExternalProject_Add(${leveldb_NAME}
 ExternalProject_add_step(${leveldb_NAME} install_includes
     DEPENDEES   build
     COMMAND     ${CMAKE_COMMAND} -E copy_directory 
-        ${leveldb_SRC_DIR}/include/leveldb ${BUILDEM_DIR}/include/leveldb
-    COMMENT     "Placed leveldb include files in ${BUILDEM_DIR}include"
+        ${leveldb_SRC_DIR}/include/leveldb ${BUILDEM_INCLUDE_DIR}/leveldb
+    COMMENT     "Placed leveldb include files in ${BUILDEM_INCLUDE_DIR}/leveldb"
 )
+include_directories (${BUILDEM_INCLUDE_DIR}/leveldb)
 
 ExternalProject_add_step(${leveldb_NAME} install_library
     DEPENDEES   install_includes
     COMMAND     ${CMAKE_COMMAND} -E copy 
-        ${leveldb_SRC_DIR}/libleveldb.a ${BUILDEM_DIR}/lib
-    COMMENT     "Placed libleveldb.a in ${BUILDEM_DIR}/lib"
+        ${leveldb_SRC_DIR}/libleveldb.a ${BUILDEM_LIB_DIR}
+    COMMENT     "Placed libleveldb.a in ${BUILDEM_LIB_DIR}"
 )
+
+set (leveldb_STATIC_LIBRARIES ${BUILDEM_LIB_DIR}/libleveldb.a)
 
 endif (NOT leveldb_NAME)

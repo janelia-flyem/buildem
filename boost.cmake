@@ -13,7 +13,8 @@ include (ExternalSource)
 include (python)
 include (zlib)
 
-include_directories (${BUILDEM_DIR}/include)
+set (boost_INCLUDE_DIR  ${BUILDEM_INCLUDE_DIR}/boost)
+include_directories (${boost_INCLUDE_DIR})
 
 external_source (boost
     1_51_0

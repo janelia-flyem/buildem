@@ -10,6 +10,12 @@ include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 
+set (thrift_EXE             ${BUILDEM_BIN_DIR}/thrift)
+set (thrift_INCLUDE_DIR     ${BUILDEM_INCLUDE_DIR}/thrift)
+set (thrift_CXX_FLAGS       "-DHAVE_NETINET_IN_H -DHAVE_INTTYPES_H")
+
+include_directories (${thrift_INCLUDE_DIR})
+
 external_source (thrift
     0.8.0
     thrift-0.8.0.tar.gz
@@ -33,5 +39,8 @@ ExternalProject_Add(${thrift_NAME}
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
+
+set (thrift_STATIC_LIBRARIES ${BUILDEM_LIB_DIR}/libthrift.a)
+set (thrift_LIBRARIES ${BUILDEM_LIB_DIR}/libthrift.so)
 
 endif (NOT thrift_NAME)
