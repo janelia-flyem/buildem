@@ -14,6 +14,9 @@ external_git_repo (emdata
     HEAD
     http://github.com/janelia-flyem/emdata.git)
 
+set (emdata_INCLUDE_DIR ${BUILDEM_INCLUDE_DIR}/emdata)
+include_directories (${emdata_INCLUDE_DIR})
+
 message ("Installing ${emdata_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${emdata_NAME}
     DEPENDS             ${gtest_NAME} ${leveldb_NAME} ${thrift_NAME} ${python_NAME} ${setuptools_NAME}
