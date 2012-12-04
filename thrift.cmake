@@ -42,7 +42,7 @@ ExternalProject_Add(${thrift_NAME}
         CPPFLAGS=-I${BUILDEM_DIR}/include
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     BUILD_IN_SOURCE     1
-    INSTALL_COMMAND     ""
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
 set (thrift_STATIC_LIBRARIES ${BUILDEM_LIB_DIR}/libthrift.a)
