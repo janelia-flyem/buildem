@@ -49,8 +49,6 @@ from glob import iglob
 
 from optparse import OptionParser
 
-sys.path.append(os.path.join('emdata', 'gen-py'))
-
 def make_dir(dirname):
     """
     Make a directory if it doesn't already exist.

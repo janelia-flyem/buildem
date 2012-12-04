@@ -2,6 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
 include (BuildSupport)
+include (ExternalSource)
 
 external_git_repo (emdata
     HEAD
