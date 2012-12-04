@@ -10,6 +10,10 @@ include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 
+# We assume we want boost, C++, and python support
+include (boost)
+include (python)
+
 set (thrift_EXE             ${BUILDEM_BIN_DIR}/thrift)
 set (thrift_INCLUDE_DIR     ${BUILDEM_INCLUDE_DIR}/thrift)
 set (thrift_CXX_FLAGS       "-DHAVE_NETINET_IN_H -DHAVE_INTTYPES_H")
@@ -24,6 +28,7 @@ external_source (thrift
 
 message ("Installing ${thrift_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${thrift_NAME}
+    DEPENDS             ${boost_NAME} ${python_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${thrift_URL}
     URL_MD5             ${thrift_MD5}
@@ -37,7 +42,7 @@ ExternalProject_Add(${thrift_NAME}
         CPPFLAGS=-I${BUILDEM_DIR}/include
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     BUILD_IN_SOURCE     1
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    INSTALL_COMMAND     ""
 )
 
 set (thrift_STATIC_LIBRARIES ${BUILDEM_LIB_DIR}/libthrift.a)
