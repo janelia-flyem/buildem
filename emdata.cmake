@@ -10,6 +10,9 @@ include (thrift)
 include (python)
 include (setuptools)
 
+set (emdata_DEPENDENCIES
+     ${python_NAME} ${setuptools_NAME} ${gtest_NAME} ${leveldb_NAME} ${thrift_NAME})
+
 external_git_repo (emdata
     HEAD
     http://github.com/janelia-flyem/emdata.git)
@@ -19,7 +22,7 @@ include_directories (${emdata_INCLUDE_DIR})
 
 message ("Installing ${emdata_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${emdata_NAME}
-    DEPENDS             ${gtest_NAME} ${leveldb_NAME} ${thrift_NAME} ${python_NAME} ${setuptools_NAME}
+    DEPENDS             ${emdata_DEPENDENCIES}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${emdata_URL}
     UPDATE_COMMAND      ""

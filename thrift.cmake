@@ -21,10 +21,10 @@ set (thrift_CXX_FLAGS       "-DHAVE_NETINET_IN_H -DHAVE_INTTYPES_H")
 include_directories (${thrift_INCLUDE_DIR})
 
 external_source (thrift
-    0.8.0
-    thrift-0.8.0.tar.gz
-    d29dfcd38d476cbc420b6f4d80ab966c
-    https://dist.apache.org/repos/dist/release/thrift/0.8.0)
+    0.9.0
+    thrift-0.9.0.tar.gz
+    beb2c8290e97c93e3b2844f558cc5c7d
+    https://dist.apache.org/repos/dist/release/thrift/0.9.0)
 
 message ("Installing ${thrift_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${thrift_NAME}
