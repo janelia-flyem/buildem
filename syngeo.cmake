@@ -30,4 +30,6 @@ ExternalProject_Add(${syngeo_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${syngeo_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT syngeo_NAME)

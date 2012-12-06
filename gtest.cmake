@@ -52,4 +52,6 @@ ExternalProject_add_step(${gtest_NAME} install_library2
 
 set (gtest_STATIC_LIBRARIES ${BUILDEM_LIB_DIR}/libgtest.a ${BUILDEM_LIB_DIR}/libgtest_main.a)
 
+set_target_properties(${gtest_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT gtest_NAME)

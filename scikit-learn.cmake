@@ -36,4 +36,6 @@ ExternalProject_Add(${scikit-learn_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${scikit-learn_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT scikit-learn_NAME)

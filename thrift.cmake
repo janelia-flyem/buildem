@@ -48,4 +48,6 @@ ExternalProject_Add(${thrift_NAME}
 set (thrift_STATIC_LIBRARIES ${BUILDEM_LIB_DIR}/libthrift.a)
 set (thrift_LIBRARIES ${BUILDEM_LIB_DIR}/libthrift.so)
 
+set_target_properties(${thrift_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT thrift_NAME)

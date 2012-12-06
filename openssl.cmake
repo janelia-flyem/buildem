@@ -36,4 +36,6 @@ ExternalProject_Add(${openssl_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
+set_target_properties(${openssl_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT openssl_NAME)

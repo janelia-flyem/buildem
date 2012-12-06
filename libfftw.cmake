@@ -33,4 +33,6 @@ ExternalProject_Add(${libfftw_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
+set_target_properties(${libfftw_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT libfftw_NAME)

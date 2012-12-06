@@ -36,4 +36,6 @@ ExternalProject_Add(${qimage2ndarray_NAME}
     BUILD_IN_SOURCE     1
 )
 
+set_target_properties(${qimage2ndarray_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT qimage2ndarray_NAME)

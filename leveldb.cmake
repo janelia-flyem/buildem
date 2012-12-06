@@ -44,6 +44,8 @@ ExternalProject_add_step(${leveldb_NAME} install_library
     COMMENT     "Placed libleveldb.a in ${BUILDEM_LIB_DIR}"
 )
 
+set_target_properties(${leveldb_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 set (leveldb_STATIC_LIBRARIES ${BUILDEM_LIB_DIR}/libleveldb.a)
 
 endif (NOT leveldb_NAME)

@@ -1,3 +1,5 @@
+if (NOT emdata_NAME)
+
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
@@ -32,3 +34,7 @@ ExternalProject_Add(${emdata_NAME}
     TEST_COMMAND        ${BUILDEM_ENV_STRING} ${BUILDEM_TEST_DIR}/test_encoder
     INSTALL_COMMAND     ""
 )
+
+set_target_properties(${emdata_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
+endif (NOT emdata_NAME)

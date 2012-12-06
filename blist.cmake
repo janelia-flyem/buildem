@@ -33,4 +33,6 @@ ExternalProject_Add(${blist_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${blist_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT blist_NAME)

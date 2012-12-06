@@ -48,4 +48,6 @@ ExternalProject_Add(${numpy_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
 )
 
+set_target_properties(${numpy_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT numpy_NAME)

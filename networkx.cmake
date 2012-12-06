@@ -35,4 +35,6 @@ ExternalProject_Add(${networkx_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${networkx_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT networkx_NAME)

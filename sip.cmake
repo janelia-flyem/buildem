@@ -46,4 +46,6 @@ ExternalProject_Add(${sip_NAME}
     BUILD_IN_SOURCE     1
 )
 
+set_target_properties(${sip_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT sip_NAME)

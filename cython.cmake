@@ -31,4 +31,6 @@ ExternalProject_Add(${cython_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${cython_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT cython_NAME)

@@ -37,6 +37,8 @@ ExternalProject_Add(${glfw_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} PREFIX=${BUILDEM_DIR} make ${MAKE_PLATFORM}-dist-install
 )
 
+set_target_properties(${glfw_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 # If we also want to include static libraries, use "make x11-install" without the "dist"
 
 endif (NOT glfw_NAME)

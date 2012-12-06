@@ -35,4 +35,6 @@ ExternalProject_Add(${setuptools_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${setuptools_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT setuptools_NAME)

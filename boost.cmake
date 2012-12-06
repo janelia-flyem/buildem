@@ -51,4 +51,6 @@ ExternalProject_Add(${boost_NAME}
         -sZLIB_SOURCE=${zlib_SRC_DIR} install
 )
 
+set_target_properties(${boost_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT boost_NAME)

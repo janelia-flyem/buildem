@@ -35,4 +35,6 @@ ExternalProject_Add(${nose_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${nose_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT nose_NAME)

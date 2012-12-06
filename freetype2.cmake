@@ -35,4 +35,6 @@ ExternalProject_Add(${freetype2_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
+set_target_properties(${freetype_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT freetype2_NAME)

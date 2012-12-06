@@ -56,4 +56,6 @@ ExternalProject_Add(${python_NAME}
 set (PYTHON_INCLUDE_PATH ${PYTHON_PREFIX}/include/python2.7)
 set (PYTHON_EXE ${PYTHON_PREFIX}/bin/python)
 
+set_target_properties(${python_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT python_NAME)

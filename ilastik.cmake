@@ -111,5 +111,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_test
     COMMENT     "Adding ilastik headless test command to bin directory"
 )
 
+set_target_properties(${ilastik_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT ilastik_NAME)
 

@@ -40,4 +40,6 @@ ExternalProject_Add(${matplotlib_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
 )
 
+set_target_properties(${matplotlib_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT matplotlib_NAME)

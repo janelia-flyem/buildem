@@ -34,4 +34,6 @@ ExternalProject_Add(${progressbar_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${progressbar_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT progressbar_NAME)

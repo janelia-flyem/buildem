@@ -56,4 +56,6 @@ ExternalProject_Add(${openexr_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
+set_target_properties(${openexr_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT openexr_NAME)
