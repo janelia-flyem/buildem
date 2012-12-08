@@ -44,7 +44,15 @@ ExternalProject_Add(${qt4_NAME}
         --prefix=${BUILDEM_DIR}
         -opensource
         -arch x86_64
-        -optimized-qmake 
+        -optimized-qmake
+        #-no-framework # Intentionally omitted.
+                       # On Mac, Qt is built as a "framework" by default.  It would be nice if we could build it as a non-framework,
+                       # since other cross-platform packages (e.g. qimage2ndarray) usually assume a non-framework directory tree. 
+                       # Unfortunately, we must build as a framework.
+                       # Normally when OSX finds two versions of the same .dylib on the system, it loads only one of them and ignores the other.
+                       # However, OSX doesn't seem to recognize that two dylibs with the SAME NAME shouldn't be loaded simultaneously if one of them is part of a framework and the other isn't.
+                       # This means that if the user already has a QT framework installation on his system somewhere, then installing a non-framework build on his system will lead to weirdness.
+                       # If we just build QT as a framework, then OSX knows not to load both sets of dylibs. 
         -nomake examples 
         -nomake demos 
         -nomake docs
