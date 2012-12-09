@@ -18,6 +18,15 @@ external_source (openssl
     ae412727c8c15b67880aef7bd2999b2e
     http://www.openssl.org/source)
 
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    # On Mac, 64-bit builds must be manually requested.
+    set (SSL_CONFIGURE_COMMAND ./Configure darwin64-x86_64-cc )
+else()
+    # The config script seems to auto-select the platform correctly on linux
+    # It calls ./Configure for us.
+    set (SSL_CONFIGURE_COMMAND ./config)
+endif()
+
 message ("Installing ${openssl_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${openssl_NAME}
     DEPENDS             ${zlib_NAME}
@@ -26,7 +35,7 @@ ExternalProject_Add(${openssl_NAME}
     URL_MD5             ${openssl_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ./config
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${SSL_CONFIGURE_COMMAND}
         --prefix=${BUILDEM_DIR}
         zlib
         shared

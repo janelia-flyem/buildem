@@ -34,7 +34,7 @@ ExternalProject_Add(${sip_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     LIST_SEPARATOR      ^^
-    CONFIGURE_COMMAND   ${PYTHON_EXE} ${sip_SRC_DIR}/configure.py 
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${PYTHON_EXE} ${sip_SRC_DIR}/configure.py 
         ${EXTRA_SIP_CONFIG_FLAGS}
         #-b ${PYTHON_PREFIX}/bin
         #-d ${PYTHON_PREFIX}/lib/python2.7/site-packages
