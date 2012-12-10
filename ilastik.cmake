@@ -102,6 +102,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_launch
 
 ExternalProject_add_step(${ilastik_NAME}  install_test
     DEPENDEES   install_launch
+    DEPENDERS   test
     COMMAND     ${BUILDEM_ENV_STRING} ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/ilastik_script.template
