@@ -10,6 +10,8 @@ include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 
+include (zlib)
+
 external_source (openssl
     1.0.1c
     openssl-1.0.1c.tar.gz
@@ -35,7 +37,9 @@ ExternalProject_Add(${openssl_NAME}
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${SSL_CONFIGURE_COMMAND}
         --prefix=${BUILDEM_DIR}
+        -I${BUILDEM_INCLUDE_DIR}
         shared
+        zlib
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     BUILD_IN_SOURCE     1
     TEST_COMMAND        ${BUILDEM_ENV_STRING} make test
