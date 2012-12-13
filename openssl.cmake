@@ -38,6 +38,7 @@ ExternalProject_Add(${openssl_NAME}
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${SSL_CONFIGURE_COMMAND}
         --prefix=${BUILDEM_DIR}
         -I${BUILDEM_INCLUDE_DIR}
+        -L${BUILDEM_LIB_DIR}
         shared
         zlib
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
