@@ -41,15 +41,15 @@ Note that a different version of python can be built from source.  Buildem does 
 The build process for a FlyEM application at /path/to/foo/code:
 
     % mkdir foo-build; cd foo-build
-    % cmake -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
+    % cmake -D BUILDEM_DIR=/path/to/BPD  /path/to/foo/code
     % make
 
 If this is the first time an application was compiled for this BPD, the build script will download the buildem repo into the BPD and the user will be prompted to re-run the cmake and make steps as above. In this initial case, the build process would be:
 
     % mkdir foo-build; cd foo-build
-    % cmake -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
+    % cmake -D BUILDEM_DIR=/path/to/BPD  /path/to/foo/code
     % make
-    % cmake -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
+    % cmake -D BUILDEM_DIR=/path/to/BPD  /path/to/foo/code
     % make
 
 That's it.  The build scripts will do the following steps (mostly following the ExternalProject_Add flow):
@@ -63,13 +63,13 @@ That's it.  The build scripts will do the following steps (mostly following the 
 
 Source tarballs can be downloaded from either a FlyEM-controlled cache on Github (the default) or the original project download site.  You can specify exactly which packages should use original project URLs via the following command-line option:
 
-    % cmake -DUSE_PROJECT_DOWNLOAD="libtiff;vigra" -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
+    % cmake -D USE_PROJECT_DOWNLOAD="libtiff;vigra" -D BUILDEM_DIR=/path/to/BPD  /path/to/foo/code
 
 The above `USE_PROJECT_DOWNLOAD` setting asks that the libtiff and vigra packages be downloaded from the original project websites.  All other required packages will be downloaded from the default Janelia cache at Github.
 
 Alternative compilers can be specified by modifying CMake variables:
 
-    % cmake -DCMAKE_C_COMPILER=gcc-4.2 -DCMAKE_CXX_COMPILER=g++-4.2 -DBUILDEM_DIR=/path/to/BPD  /path/to/foo/code
+    % cmake -D CMAKE_C_COMPILER=gcc-4.2 -D CMAKE_CXX_COMPILER=g++-4.2 -D BUILDEM_DIR=/path/to/BPD  /path/to/foo/code
     
 ## Specifying the build for your application
 
@@ -90,7 +90,7 @@ include (ExternalProject)
 set (BUILDEM_DIR "None" CACHE TYPE STRING)
 
 if (${BUILDEM_DIR} STREQUAL "None")
-    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DBUILDEM_DIR=<path> on cmake command line.")
+    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -D BUILDEM_DIR=<path> on cmake command line.")
 endif ()
 
 message ("FlyEM downloads and builds will be placed here: ${BUILDEM_DIR}")
@@ -124,16 +124,17 @@ else ()
     set (CMAKE_MODULE_PATH ${BUILDEM_REPO_DIR})
     message("Using cmake modules from ${BUILDEM_REPO_DIR}")
 
-    # Download and compile dependencies
+    # Download, compile, test, and install dependencies
+    # Note the auto-generated APP_DEPENDENCIES variable holds all included targets.
     include (python)
-    include (libpng)
+    include (pil)
 
-    # Install Foo -- actual build commands would replace the placeholder
-    # below.  Note the auto-generated APP_DEPENDENCIES variable that
-    # holds all required targets.
-    add_custom_target (Foo ALL
+    add_custom_target (AppDependencies ALL
         DEPENDS ${APP_DEPENDENCIES}
-        COMMENT "Foo built")
+        COMMENT "Installed all required software using buildem.")
+
+    # Install Foo -- actual build commands should go below
+    # add_executable(...)
 
 ############################################################################
 endif()
@@ -285,6 +286,8 @@ Common build problems for individual components in the FlyEM Build System are do
 This build system could be improved in a number of ways, not all of which adhere to the goal of a simple, easily-specified build process.
 
 * Add cross-platform support where needed, particularly for Mac.  This is left to individual developers to make changes for their projects. Hopefully, we will accumulate these across modules and temper them with our conventions for naming.
+* Add CPack-based installation package support.
+* Add some utility commands to force re-download and re-installation of chosen buildem modules.
 * Require a python build from source and use that for templating/patching *or* switch to a platform-independent patch/template system built into CMake.  The latter seems to have ugly regexes instead using simple patches from diff?
 * Improve triggers so download, patch, configure, and compilation times are decreased.  There are some dependency issues that cause recompilation when it's not needed.  Need to track these down to prevent unnecessary compile time.
 * Less likely -- Allow run-time specification of different component versions.  This would require reorganization of the target build directory so each component version would have its own build directory.  Scripts could then modify environment variables like `LD_LIBRARY_PATH` to select chosen versions.  While helpful during debugging builds and considering new component versions, we don't want to lose the simplicity of having a tagged build repo represent a known working version of all software dependencies.  If we do add this feature, we could look to the conventions and directory structure of Mac OS X Frameworks, which bundle multiple versions of a library in one directory tree then use symlinks to specify the current version.
