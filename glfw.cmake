@@ -17,7 +17,7 @@ external_source (glfw
     http://downloads.sourceforge.net/project/glfw/glfw/2.7.7)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    set (MAKE_PLATFORM "Cocoa")
+    set (MAKE_PLATFORM "cocoa")
 elseif (${UNIX})
     set (MAKE_PLATFORM "x11")
 else ()
