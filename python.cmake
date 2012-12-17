@@ -49,7 +49,8 @@ ExternalProject_Add(${python_NAME}
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make 
+	PYTHONAPPSDIR=${BUILDEM_BIN_DIR}/${python_NAME} install
     BUILD_IN_SOURCE 1 # Required for Mac
 )
 
