@@ -39,4 +39,6 @@ ExternalProject_Add(${pil_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${pil_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT pil_NAME)

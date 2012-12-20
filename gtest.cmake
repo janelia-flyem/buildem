@@ -44,4 +44,14 @@ ExternalProject_add_step(${gtest_NAME} install_library
     COMMENT     "Placed libgtest.a in ${BUILDEM_DIR}/lib"
 )
 
+ExternalProject_add_step(${gtest_NAME} install_library2
+    DEPENDEES   install_includes
+    COMMAND     ${CMAKE_COMMAND} -E copy ${gtest_SRC_DIR}/libgtest_main.a ${BUILDEM_DIR}/lib
+    COMMENT     "Placed libgtest_main.a in ${BUILDEM_DIR}/lib"
+)
+
+set (gtest_STATIC_LIBRARIES ${BUILDEM_LIB_DIR}/libgtest.a ${BUILDEM_LIB_DIR}/libgtest_main.a)
+
+set_target_properties(${gtest_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT gtest_NAME)

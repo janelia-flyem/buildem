@@ -29,4 +29,6 @@ ExternalProject_Add(${dos2unix_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make prefix=${BUILDEM_DIR} install
 )
 
+set_target_properties(${dos2unix_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT dos2unix_NAME)

@@ -44,4 +44,6 @@ ExternalProject_Add(${hdf5_NAME}
     INSTALL_COMMAND         ${BUILDEM_ENV_STRING} make install
 )
 
+set_target_properties(${hdf5_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT hdf5_NAME)

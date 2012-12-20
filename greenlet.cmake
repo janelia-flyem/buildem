@@ -33,4 +33,6 @@ ExternalProject_Add(${greenlet_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${greenlet_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT greenlet_NAME)

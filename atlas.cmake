@@ -46,6 +46,8 @@ ExternalProject_Add(${lapack_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${lapack_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 external_source (atlas
     3.10.0
     atlas3.10.0.tar.bz2
@@ -71,5 +73,7 @@ ExternalProject_Add(${atlas_NAME}
     TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
+
+set_target_properties(${atlas_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 endif (NOT atlas_NAME)

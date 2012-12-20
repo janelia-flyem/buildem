@@ -31,4 +31,6 @@ ExternalProject_Add(${pyopengl_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${pyopengl_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT pyopengl_NAME)

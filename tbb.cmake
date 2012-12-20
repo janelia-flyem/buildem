@@ -29,6 +29,8 @@ ExternalProject_Add(${tbb_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${tbb_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 set (COPY_SCRIPT ${BUILDEM_REPO_DIR}/scripts/copy.py)
 add_custom_command (TARGET ${tbb_NAME}
     POST_BUILD

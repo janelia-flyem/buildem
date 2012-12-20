@@ -43,6 +43,8 @@ ExternalProject_Add(${scons_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${scons_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set (jsoncpp_PATCH ${BUILDEM_ENV_STRING} ${PATCH_EXE} 
         ${jsoncpp_SRC_DIR}/SConstruct ${PATCH_DIR}/jsoncpp-SConstruct-mac.patch )
@@ -66,6 +68,8 @@ ExternalProject_Add(${jsoncpp_NAME}
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ""
 )
+
+set_target_properties(${jsoncpp_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 add_custom_command (TARGET ${jsoncpp_NAME}
                     POST_BUILD

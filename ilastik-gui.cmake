@@ -19,12 +19,12 @@ include (ilastik)
 include (qt4)
 include (pyqt4)
 include (qimage2ndarray)
-#include (vtk)
+include (vtk)
 
 set (ilastik-gui_NAME ilastik-gui-HEAD)
 
 # Add a few dependencies to GUI ilastik build
-add_dependencies( ${ilastik_NAME} ${qt4_NAME} ${pyqt4_NAME} ${qimage2ndarray_NAME} ) #${vtk_NAME}) 
+add_dependencies( ${ilastik_NAME} ${qt4_NAME} ${pyqt4_NAME} ${qimage2ndarray_NAME} ${vtk_NAME}) 
 
 add_custom_target (${ilastik-gui_NAME} ALL 
     DEPENDS     ${ilastik_NAME}
@@ -32,7 +32,7 @@ add_custom_target (${ilastik-gui_NAME} ALL
 
 # Add environment setting script
 ExternalProject_add_step(${ilastik_NAME}  install_gui_env_script
-    DEPENDEES   download
+    DEPENDEES   test
     COMMAND     ${TEMPLATE_EXE}
         --exe
         ${TEMPLATE_DIR}/setenv_ilastik_gui.template

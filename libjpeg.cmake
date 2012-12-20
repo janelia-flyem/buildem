@@ -33,4 +33,6 @@ ExternalProject_Add(${libjpeg_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make LIBTOOL=./libtool install
 )
 
+set_target_properties(${libjpeg_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT libjpeg_NAME)

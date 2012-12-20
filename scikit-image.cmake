@@ -36,4 +36,6 @@ ExternalProject_Add(${scikit-image_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${scikit-image_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT scikit-image_NAME)

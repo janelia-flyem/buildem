@@ -94,5 +94,7 @@ ExternalProject_Add(${vigra_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
+set_target_properties(${vigra_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT vigra_NAME)
 

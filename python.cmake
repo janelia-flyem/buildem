@@ -49,11 +49,15 @@ ExternalProject_Add(${python_NAME}
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make 
+	PYTHONAPPSDIR=${BUILDEM_BIN_DIR}/${python_NAME} install
     BUILD_IN_SOURCE 1 # Required for Mac
 )
 
 set (PYTHON_INCLUDE_PATH ${PYTHON_PREFIX}/include/python2.7)
+set (PYTHON_LIBRARY_FILE ${PYTHON_PREFIX}/lib/libpython2.7.${BUILDEM_PLATFORM_DYLIB_EXTENSION})
 set (PYTHON_EXE ${PYTHON_PREFIX}/bin/python)
+
+set_target_properties(${python_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 endif (NOT python_NAME)

@@ -33,4 +33,6 @@ ExternalProject_Add(${psutil_NAME}
     INSTALL_COMMAND     ""
 )
 
+set_target_properties(${psutil_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT psutil_NAME)

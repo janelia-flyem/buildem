@@ -37,4 +37,6 @@ ExternalProject_Add(${mpfr_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
+set_target_properties(${mpfr_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT mpfr_NAME)

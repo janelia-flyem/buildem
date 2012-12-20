@@ -17,7 +17,7 @@ external_source (glfw
     http://downloads.sourceforge.net/project/glfw/glfw/2.7.7)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    set (MAKE_PLATFORM "Cocoa")
+    set (MAKE_PLATFORM "cocoa")
 elseif (${UNIX})
     set (MAKE_PLATFORM "x11")
 else ()
@@ -36,6 +36,8 @@ ExternalProject_Add(${glfw_NAME}
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} PREFIX=${BUILDEM_DIR} make ${MAKE_PLATFORM}-dist-install
 )
+
+set_target_properties(${glfw_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 # If we also want to include static libraries, use "make x11-install" without the "dist"
 

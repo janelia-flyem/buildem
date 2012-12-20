@@ -21,6 +21,11 @@ external_source (openexr
     11951f164f9c872b183df75e66de145a
     http://download.savannah.nongnu.org/releases/openexr)
 
+set (openexr_LIBRARIES_FLAGS "-lHalf -lIex -lIlmImf -lIlmThread -lImath")
+set (openexr_INCLUDE_DIR ${BUILDEM_INCLUDE_DIR}/OpenEXR)
+
+include_directories (${openexr_INCLUDE_DIR})
+
 if (${CMAKE_CXX_COMPILER_ID} MATCHES ".*Clang.*")
     set(openexr_PATCH_COMMAND ${BUILDEM_ENV_STRING} ${PATCH_EXE}
         ${openexr_SRC_DIR}/exrmaketiled/main.cpp ${PATCH_DIR}/openexr-exrmaketiled.patch
@@ -50,5 +55,7 @@ ExternalProject_Add(${openexr_NAME}
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
+
+set_target_properties(${openexr_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 endif (NOT openexr_NAME)

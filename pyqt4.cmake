@@ -50,7 +50,7 @@ ExternalProject_Add(${pyqt4_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
         ${pyqt4_SRC_DIR}/configure.py ${PATCH_DIR}/pyqt4.patch # For some reason, the configure script wants to build pyqt phonon support even if qt was built without it.  This patch simply comments out phonon support.
-    CONFIGURE_COMMAND   ${PYTHON_EXE} ${pyqt4_SRC_DIR}/configure.py 
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${PYTHON_EXE} ${pyqt4_SRC_DIR}/configure.py 
         --confirm-license
         -q "${BUILDEM_DIR}/bin/qmake"
         ${EXTRA_PYQT4_CONFIG_FLAGS}
@@ -58,6 +58,8 @@ ExternalProject_Add(${pyqt4_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
     BUILD_IN_SOURCE 1
 )
+
+set_target_properties(${pyqt4_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 endif (NOT pyqt4_NAME)
 

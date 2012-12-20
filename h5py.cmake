@@ -36,4 +36,6 @@ ExternalProject_Add(${h5py_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
 )
 
+set_target_properties(${h5py_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+
 endif (NOT h5py_NAME)

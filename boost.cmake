@@ -13,7 +13,8 @@ include (ExternalSource)
 include (python)
 include (zlib)
 
-include_directories (${BUILDEM_DIR}/include)
+set (boost_INCLUDE_DIR  ${BUILDEM_INCLUDE_DIR}/boost)
+include_directories (${boost_INCLUDE_DIR})
 
 external_source (boost
     1_51_0
@@ -49,5 +50,7 @@ ExternalProject_Add(${boost_NAME}
         -sZLIB_INCLUDE=${BUILDEM_DIR}/include 
         -sZLIB_SOURCE=${zlib_SRC_DIR} install
 )
+
+set_target_properties(${boost_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 endif (NOT boost_NAME)
