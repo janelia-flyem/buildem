@@ -12,7 +12,7 @@ include (BuildSupport)
 
 external_git_repo (libjansson
   HEAD
-  git://github.com/akheron/jansson.git
+  https://github.com/akheron/jansson.git
   )
 
 message ("Installing ${libjansson_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
