@@ -10,7 +10,7 @@ include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 
-external_git_pro (libjansson
+external_git_repo (libjansson
   HEAD
   git://github.com/akheron/jansson.git
   )
