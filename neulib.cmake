@@ -8,6 +8,6 @@ if (NOT libneurolabi_NAME)
 
   SET(config_args --enable-shared) 
   SET(depends_args libjansson libfftw libxml2 libjansson libpng zlib) 
-  INSTALL_NEULIB(libneurolabi "${config_args}")
+  INSTALL_NEULIB(libneurolabi "${config_args}" "${depends_args}")
 
 endif (NOT libneurolabi_NAME)
