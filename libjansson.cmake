@@ -12,7 +12,7 @@ include (BuildSupport)
 
 external_git_repo (libjansson
   HEAD
-  https://github.com/akheron/jansson.git
+  http://github.com/akheron/jansson.git
   )
 
 message ("Installing ${libjansson_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
@@ -20,11 +20,9 @@ ExternalProject_Add(${libjansson_NAME}
     PREFIX              ${BUILDEM_DIR}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND ${BUILDEM_ENV_STRING} ./configure 
-        --prefix=${BUILDEM_DIR}
-
+    CONFIGURE_COMMAND ${BUILDEM_ENV_STRING} ${libjansson_SRC_DIR}/configure --prefix=${BUILDEM_DIR} --enable-shared
+    GIT_REPOSITORY      ${libjansson_URL}
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    BUILD_IN_SOURCE     1 # Configure script reqiures BUILD_IN_SOURCE
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
