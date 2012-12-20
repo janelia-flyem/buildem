@@ -10,9 +10,10 @@ include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 
-external_git_repo (libjansson
-  HEAD
-  http://github.com/akheron/jansson.git
+external_source(libjansson
+  2.4
+  jansson-2.4.tar.gz
+  http://www.digip.org/jansson/releases
   )
 
 message ("Installing ${libjansson_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
