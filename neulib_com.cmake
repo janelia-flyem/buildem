@@ -18,7 +18,7 @@ macro(INSTALL_NEULIB libname config_args depends_args)
   message ("Configure args: ${config_args}")
   ExternalProject_Add(${libneurolabi_NAME}
     PREFIX              ${BUILDEM_DIR}
-    DEPENDS             depends_args
+    DEPENDS             ${depends_args}
     GIT_REPOSITORY      ${libneurolabi_URL}
     CONFIGURE_COMMAND   git checkout master
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${libneurolabi_SRC_DIR}/neurolabi/update_library ${config_args}
