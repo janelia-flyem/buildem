@@ -2,7 +2,7 @@
 # Install libneurolabi from source
 #
 
-macro(INSTALL_NEULIB libname config_args)
+macro(INSTALL_NEULIB libname config_args depends_args)
   CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
   include (ExternalProject)
@@ -18,6 +18,7 @@ macro(INSTALL_NEULIB libname config_args)
   message ("Configure args: ${config_args}")
   ExternalProject_Add(${libneurolabi_NAME}
     PREFIX              ${BUILDEM_DIR}
+    DEPENDS             depend_args
     GIT_REPOSITORY      ${libneurolabi_URL}
     CONFIGURE_COMMAND   git checkout master
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${libneurolabi_SRC_DIR}/neurolabi/update_library ${config_args}
