@@ -23,7 +23,7 @@ ExternalProject_Add(${libjansson_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND ${BUILDEM_ENV_STRING} ${libjansson_SRC_DIR}/configure --prefix=${BUILDEM_DIR} --enable-shared
-    URL      ${libjansson_URL}
+    URL      http://www.digip.org/jansson/releases/jansson-2.4.tar.gz
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
