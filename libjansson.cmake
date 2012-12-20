@@ -13,6 +13,7 @@ include (BuildSupport)
 external_source(libjansson
   2.4
   jansson-2.4.tar.gz
+  ""
   http://www.digip.org/jansson/releases
   )
 
@@ -22,7 +23,7 @@ ExternalProject_Add(${libjansson_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND ${BUILDEM_ENV_STRING} ${libjansson_SRC_DIR}/configure --prefix=${BUILDEM_DIR} --enable-shared
-    GIT_REPOSITORY      ${libjansson_URL}
+    URL      ${libjansson_URL}
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
