@@ -309,7 +309,7 @@ To build on the cluster, login to a compute node and set the environment variabl
 export FLYEMCLUSTER=/groups/flyem/proj/builds/cluster
 export PATH=/usr/local/cmake-2.8.8/bin:/usr/local/gcc/bin:/usr/local/git/bin:$FLYEMCLUSTER/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/gcc/lib64:/usr/local/gcc/lib:$FLYEMCLUSTER/lib:/usr/local/mpfr/lib:/usr/local/gmp/lib:$LD_LIBRARY_PATH
-export PYTHONPATH=$FLYEMCLUSTER/lib/python2.7:$FLYEMCLUSTER/lib/python2.7/site-packages
+export PYTHONPATH=$FLYEMCLUSTER/lib/python2.7:$FLYEMCLUSTER/lib/python2.7/site-packages:$FLYEMCLUSTER/lib
 ```
 
 Note that the PATH is set to automatically use the more recent CMake, gcc, and git builds.
