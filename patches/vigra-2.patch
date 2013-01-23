@@ -1,0 +1,11 @@
+--- include/vigra/random_forest_hdf5_impex.hxx	2013-01-23 11:29:40.000000000 -0500
++++ include/vigra/random_forest_hdf5_impex.hxx_patched	2013-01-23 11:29:55.000000000 -0500
+@@ -296,7 +296,7 @@
+                     const std::string & filename, 
+                     const std::string & pathname = "")
+ {
+-    HDF5File h5context(filename, HDF5File::Open);
++    HDF5File h5context(filename, HDF5File::OpenReadOnly);
+     return rf_import_HDF5(rf, h5context, pathname);
+ }
+ 
