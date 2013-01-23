@@ -46,17 +46,16 @@ external_source (vigra
 #    vigra-flyem-1.7.1.tar.gz
 #    7325a6fed78383807fd553fc5ee30190)
 
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+set (vigra_PATCH ${BUILDEM_ENV_STRING} ${PATCH_EXE}
     # The vigra 1.9.0 release assumes all mac builds are "Framework" builds.
     # This patch allows us to build vigra against non-Framework builds, too.
+    # (The mac build patch has no effect for non-Mac platforms.)
     # NOTE: This issue will be fixed in vigra-HEAD on github soon, so this patch 
     #       won't be necessary soon.  The patch may fail to apply when you upgrade
     #       vigra beyond 1.9.0.
-    set (vigra_PATCH ${BUILDEM_ENV_STRING} ${PATCH_EXE}
-        ${vigra_SRC_DIR}/config/FindVIGRANUMPY_DEPENDENCIES.cmake ${PATCH_DIR}/vigra.patch )
-else()
-    set (vigra_PATCH "")
-endif()
+    ${vigra_SRC_DIR}/config/FindVIGRANUMPY_DEPENDENCIES.cmake ${PATCH_DIR}/vigra.patch 
+    # Add second patch to fix RandomForest importing from hdf5 (should open in read-only mode)
+    ${vigra_SRC_DIR}/include/vigra/random_forest_hdf5_impex.hxx ${PATCH_DIR}/vigra-2.patch )
 
 message ("Installing ${vigra_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${vigra_NAME}
