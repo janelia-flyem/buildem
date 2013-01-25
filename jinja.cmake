@@ -22,7 +22,7 @@ external_source (jinja
 
 message ("Installing ${jinja_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${jinja_NAME}
-    DEPENDS             ${python_NAME} ${setuptools}
+    DEPENDS             ${python_NAME} ${setuptools_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${jinja_URL}
     URL_MD5             ${jinja_MD5}
