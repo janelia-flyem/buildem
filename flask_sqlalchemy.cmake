@@ -13,6 +13,7 @@ include (TemplateSupport)
 
 include (python)
 include (flask)
+include (sqlalchemy)
 
 external_source (flask_sqlalchemy
     0.16
