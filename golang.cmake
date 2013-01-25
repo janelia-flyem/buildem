@@ -24,10 +24,20 @@ ExternalProject_Add(${golang_NAME}
     UPDATE_COMMAND    ""
     PATCH_COMMAND     ""
     CONFIGURE_COMMAND ""
-    BUILD_COMMAND     ${BUILDEM_ENV_STRING} GOBIN=${BUILDEM_BIN_DIR} ./all.bash
-    BUILD_IN_SOURCE   1
+    BUILD_COMMAND     ""
     INSTALL_COMMAND   ""
 )
+
+# Impressively, we cannot get CMake to cd into a subdirectory of the source directory
+# to issue the all.bash command.  To build, we must be in the src subdirectory.
+# The only way we can get this to work is to add a step and explicitly have a 
+# working directory.
+ExternalProject_Add_Step(${golang_NAME} stupid_step
+    COMMAND     ${BUILDEM_ENV_STRING} GOBIN=${BUILDEM_BIN_DIR} ./all.bash
+    DEPENDEES  download
+    WORKING_DIRECTORY   ${golang_SRC_DIR}/src)
+
+set (GO_BIN_DIR  ${BUILDEM_BIN_DIR})
 
 set_target_properties(${golang_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
