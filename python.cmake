@@ -57,7 +57,7 @@ ExternalProject_Add(${python_NAME}
 set (PYTHON_INCLUDE_PATH ${PYTHON_PREFIX}/include/python2.7)
 set (PYTHON_LIBRARY_FILE ${PYTHON_PREFIX}/lib/libpython2.7.${BUILDEM_PLATFORM_DYLIB_EXTENSION})
 set (PYTHON_EXE ${PYTHON_PREFIX}/bin/python)
-set (BUILDEM_PYTHONPATH  ${PYTHON_PREFIX}/lib/python2.7:${PYTHON_PREFIX}/lib/python2.7/site-packages:${PYTHON_PREFIX}/lib))
+set (BUILDEM_PYTHONPATH  ${PYTHON_PREFIX}/lib/python2.7:${PYTHON_PREFIX}/lib/python2.7/site-packages:${PYTHON_PREFIX}/lib)
 
 set_target_properties(${python_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
