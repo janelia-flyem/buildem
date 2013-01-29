@@ -37,7 +37,7 @@ ExternalProject_Add_Step(${golang_NAME} stupid_step
     DEPENDEES  download
     WORKING_DIRECTORY   ${golang_SRC_DIR}/src)
 
-set (GO_BIN_DIR  ${BUILDEM_BIN_DIR})
+set (GO_ENV  GOROOT=${golang_SRC_DIR};GOBIN=${BUILDEM_BIN_DIR})
 
 set_target_properties(${golang_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
