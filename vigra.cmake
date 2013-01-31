@@ -9,7 +9,6 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
-include (PatchSupport)
 
 include (libjpeg)
 include (libtiff)
@@ -25,17 +24,6 @@ external_git_repo (vigra
     flyem-1.9.0.a
     http://github.com/janelia-flyem/vigra)
 
-set (vigra_PATCH ${BUILDEM_ENV_STRING} ${PATCH_EXE}
-    # The vigra 1.9.0 release assumes all mac builds are "Framework" builds.
-    # This patch allows us to build vigra against non-Framework builds, too.
-    # (The mac build patch has no effect for non-Mac platforms.)
-    # NOTE: This issue will be fixed in vigra-HEAD on github soon, so this patch 
-    #       won't be necessary soon.  The patch may fail to apply when you upgrade
-    #       vigra beyond 1.9.0.
-    ${vigra_SRC_DIR}/config/FindVIGRANUMPY_DEPENDENCIES.cmake ${PATCH_DIR}/vigra.patch 
-    # Add second patch to fix RandomForest importing from hdf5 (should open in read-only mode)
-    ${vigra_SRC_DIR}/include/vigra/random_forest_hdf5_impex.hxx ${PATCH_DIR}/vigra-2.patch )
-
 message ("Installing ${vigra_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${vigra_NAME}
     DEPENDS             ${libjpeg_NAME} ${libtiff_NAME} ${libpng_NAME} ${openexr_NAME} ${libfftw_NAME}
@@ -45,7 +33,7 @@ ExternalProject_Add(${vigra_NAME}
     #URL                 ${vigra_URL}
     #URL_MD5             ${vigra_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ${vigra_PATCH}       
+    PATCH_COMMAND       ""       
     LIST_SEPARATOR      ^^
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${vigra_SRC_DIR} 
         -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
