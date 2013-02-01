@@ -10,15 +10,18 @@ include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 
+include (snappy)
+
 external_source (leveldb
-    1.6.0
-    leveldb-1.6.0.tar.gz
-    d0b73edbb86996d58b073bba6b206295
+    1.9.0
+    leveldb-1.9.0.tar.gz
+    12f11385cb58ae0de66d4bc2cc7f8194
     http://leveldb.googlecode.com/files)
 
 message ("Installing ${leveldb_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${leveldb_NAME}
     PREFIX            ${BUILDEM_DIR}
+    DEPENDS           ${snappy_NAME}
     URL               ${leveldb_URL}
     URL_MD5           ${leveldb_MD5}
     UPDATE_COMMAND    ""
@@ -37,11 +40,18 @@ ExternalProject_add_step(${leveldb_NAME} install_includes
 )
 include_directories (${BUILDEM_INCLUDE_DIR}/leveldb)
 
-ExternalProject_add_step(${leveldb_NAME} install_library
+ExternalProject_add_step(${leveldb_NAME} install_static_library
     DEPENDEES   install_includes
     COMMAND     ${CMAKE_COMMAND} -E copy 
         ${leveldb_SRC_DIR}/libleveldb.a ${BUILDEM_LIB_DIR}
     COMMENT     "Placed libleveldb.a in ${BUILDEM_LIB_DIR}"
+)
+
+ExternalProject_add_step(${leveldb_NAME} install_shared_library
+    DEPENDEES   install_static_library
+    COMMAND     ${CMAKE_COMMAND} -E copy 
+        ${leveldb_SRC_DIR}/libleveldb.so.1.9 ${BUILDEM_LIB_DIR}/libleveldb.so
+    COMMENT     "Placed libleveldb.so in ${BUILDEM_LIB_DIR}"
 )
 
 set_target_properties(${leveldb_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
