@@ -5,6 +5,7 @@ export ILASTIK_PATH={2}
 export PYTHON_PREFIX={3}
 
 export $BUILDEM_LD_LIBRARY_VAR=$BUILDEM_DIR/lib:${0}
+export $BUILDEM_LD_LIBRARY_VAR=$BUILDEM_DIR/lib/vtk-5.10:${0}
 export $BUILDEM_LD_LIBRARY_VAR=$PYTHON_PREFIX/lib/python2.7/site-packages:${0}
 export $BUILDEM_LD_LIBRARY_VAR=$PYTHON_PREFIX/lib/python2.7/site-packages/vigra:${0}
 
