@@ -12,6 +12,7 @@ include (BuildSupport)
 include (TemplateSupport)
 
 include (python)
+include (openldap)
 
 external_source (python_ldap
     2.4.10
@@ -21,7 +22,7 @@ external_source (python_ldap
 
 message ("Installing ${python_ldap_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${python_ldap_NAME}
-    DEPENDS             ${python_NAME}
+    DEPENDS             ${python_NAME} ${openldap_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${python_ldap_URL}
     URL_MD5             ${python_ldap_MD5}
