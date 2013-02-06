@@ -27,7 +27,7 @@ include (blist)
 include (greenlet)
 
 external_git_repo (ilastik
-    flyem-20130131
+    flyem-20130206B
     http://github.com/janelia-flyem/flyem-ilastik)
 
 message ("Installing ${ilastik_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
