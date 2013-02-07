@@ -56,6 +56,17 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_launch
     COMMENT     "Added ilastik gui command to bin directory"
 )
 
+ExternalProject_add_step(${ilastik_NAME}  install_gui_ws_launch # Alternate GUI that includes watershed
+    DEPENDEES   install_gui_env_script
+    COMMAND     ${TEMPLATE_EXE}
+        --exe
+        ${TEMPLATE_DIR}/ilastik_script.template
+        ${BUILDEM_DIR}/bin/ilastik_gui_ws
+        ${BUILDEM_DIR}/bin/setenv_ilastik_gui.sh
+        ${ilastik_SRC_DIR}/ilastik/workflows/vigraWatershed/pixelClassificationWithWatershedMain.py
+    COMMENT     "Added ilastik gui-ws command to bin directory"
+)
+
 ExternalProject_add_step(${ilastik_NAME}  install_gui_test
     DEPENDEES   install_gui_launch
     COMMAND     ${TEMPLATE_EXE}
