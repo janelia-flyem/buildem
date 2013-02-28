@@ -43,6 +43,7 @@ ExternalProject_Add(${vtk_NAME}
         -DSIP_PYQT_DIR:PATH=${PYTHON_PREFIX}/share/sip/PyQt4
         -DVTK_WRAP_PYTHON:BOOL=ON
         -DVTK_WRAP_PYTHON_SIP:BOOL=ON
+        -DVTK_WRAP_TCL:BOOL=OFF
         # ilastik uses QT VTK widgets
         -DVTK_USE_QT:BOOL=ON
         -DVTK_USE_QVTK_QTOPENGL:BOOL=ON

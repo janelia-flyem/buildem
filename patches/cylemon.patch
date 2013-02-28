@@ -1,0 +1,12 @@
+--- setup.py	2013-02-20 14:41:10.879030739 -0500
++++ setup.py.fixed	2013-02-20 15:05:47.803048274 -0500
+@@ -40,8 +40,7 @@
+                         sources=["cylemon/segmentation.pyx"],
+                         libraries = ["stdc++", "emon", "gomp"],
+                         language='C++',
+-                        extra_compile_args=['-O3', '-fopenmp'],
+-                        include_dirs = ['/usr/local/include', os.getenv("HOME")+"/inst/include"])
++                        extra_compile_args=['-O3', '-fopenmp'])
+                       ]
+     )
+ except Exception as e:
