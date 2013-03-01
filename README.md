@@ -277,6 +277,8 @@ If the easy_install works, it is recommended to create a separate .cmake file si
  
 ## Troubleshooting
 
+It's a good idea to have a clean environment and "source" in environment variables as needed.  If you get errors during builds, examine your environment variables and make sure there aren't conflicts with already installed components that have higher priority.  Generally, we recommend minimal PATH, LD_LIBRARY_PATH, and PYTHONPATH environment variables.
+
 Some original source repositories or tarballs require https, which may be a problem for operating systems like Scientific Linux due to absent certificates.  This issue can be sidestepped by using default non-https downloads, e.g., all downloads from janelia-flyem cache.
 
 Common build problems for individual components in the FlyEM Build System are documented in each component's CMake file (e.g. atlas.cmake).  If you see an error, check that file's comments.
@@ -309,7 +311,7 @@ To build on the cluster, login to a compute node and set the environment variabl
 export FLYEMCLUSTER=/groups/flyem/proj/builds/cluster
 export PATH=/usr/local/cmake-2.8.8/bin:/usr/local/gcc/bin:/usr/local/git/bin:$FLYEMCLUSTER/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/gcc/lib64:/usr/local/gcc/lib:$FLYEMCLUSTER/lib:/usr/local/mpfr/lib:/usr/local/gmp/lib:$LD_LIBRARY_PATH
-export PYTHONPATH=$FLYEMCLUSTER/lib/python2.7:$FLYEMCLUSTER/lib/python2.7/site-packages
+export PYTHONPATH=$FLYEMCLUSTER/lib/python2.7:$FLYEMCLUSTER/lib/python2.7/site-packages:$FLYEMCLUSTER/lib
 ```
 
 Note that the PATH is set to automatically use the more recent CMake, gcc, and git builds.

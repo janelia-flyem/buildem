@@ -13,7 +13,7 @@ include (PatchSupport)
 
 include (python)
 
-external_source (scons 
+external_source (scons_embedded 
     1.2.0 
     scons-local-1.2.0.tar.gz
     aa92aff8b285ad992c2bf436dae72536
@@ -32,10 +32,10 @@ set (COPY_SCRIPT ${BUILDEM_REPO_DIR}/scripts/copy.py)
 
 # Download required scons local package
 message ("Installing scons-local 1.2.0 needed to build jsoncpp...")
-ExternalProject_Add(${scons_NAME}
+ExternalProject_Add(${scons_embedded_NAME}
     PREFIX              ${BUILDEM_DIR}
-    URL                 ${scons_URL}
-    URL_MD5             ${scons_MD5}
+    URL                 ${scons_embedded_URL}
+    URL_MD5             ${scons_embedded_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
@@ -43,7 +43,7 @@ ExternalProject_Add(${scons_NAME}
     INSTALL_COMMAND     ""
 )
 
-set_target_properties(${scons_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+set_target_properties(${scons_embedded_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set (jsoncpp_PATCH ${BUILDEM_ENV_STRING} ${PATCH_EXE} 
@@ -57,11 +57,11 @@ endif()
 message ("Installing ${jsoncpp_NAME} ...")
 ExternalProject_Add(${jsoncpp_NAME}
     PREFIX              ${BUILDEM_DIR}
-    DEPENDS             ${scons_NAME} ${python_NAME}
+    DEPENDS             ${scons_embedded_NAME} ${python_NAME}
     URL                 ${jsoncpp_URL}
     URL_MD5             ${jsoncpp_MD5}
     UPDATE_COMMAND      ${BUILDEM_ENV_STRING} ${PYTHON_EXE} 
-        ${COPY_SCRIPT} "${scons_SRC_DIR}/*" ${jsoncpp_SRC_DIR}
+        ${COPY_SCRIPT} "${scons_embedded_SRC_DIR}/*" ${jsoncpp_SRC_DIR}
     PATCH_COMMAND       ${jsoncpp_PATCH}
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} scons.py platform=linux-gcc
