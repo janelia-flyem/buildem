@@ -29,7 +29,8 @@ ExternalProject_Add(${cylemon_NAME}
     PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
     	${cylemon_SRC_DIR}/setup.py ${PATCH_DIR}/cylemon.patch
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py build 
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} 
+    	setup.py build build_ext -I${BUILDEM_INCLUDE_DIR} -L${BUILDEM_LIB_DIR}
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
 )
