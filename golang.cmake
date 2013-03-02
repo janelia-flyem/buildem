@@ -22,7 +22,10 @@ ExternalProject_Add(${golang_NAME}
     URL               ${golang_URL}
     URL_MD5           ${golang_MD5}
     UPDATE_COMMAND    ""
-    PATCH_COMMAND     ""
+    # For patch discussion see: 
+    # https://groups.google.com/forum/?fromgroups=#!topic/golang-nuts/bHHI3jmZM7o
+    PATCH_COMMAND     patch -R ${golang_SRC_DIR}/src/pkg/crypto/x509/x509.go 
+         ${BUILDEM_REPO_DIR}/patches/golang-1.0.3.patch
     CONFIGURE_COMMAND ""
     BUILD_COMMAND     ""
     INSTALL_COMMAND   ""
@@ -34,7 +37,7 @@ ExternalProject_Add(${golang_NAME}
 # working directory.
 ExternalProject_Add_Step(${golang_NAME} stupid_step
     COMMAND     ${BUILDEM_ENV_STRING} GOBIN=${BUILDEM_BIN_DIR} ./all.bash
-    DEPENDEES  download
+    DEPENDEES  patch
     WORKING_DIRECTORY   ${golang_SRC_DIR}/src)
 
 set (GO_ENV  GOROOT=${golang_SRC_DIR};GOBIN=${BUILDEM_BIN_DIR})
