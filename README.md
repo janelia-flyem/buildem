@@ -38,7 +38,7 @@ Buildem requires a few installed components:
 
 Note that a different version of python can be built from source.  Buildem does *not* try to minimize overall build time by reusing pre-compiled packages.  The presence of multiple compiler versions across the different Fedora/RHEL versions and our very heterogeneous workstation environment requires developer attention and tracking of installs across multiple machines.  
 
-The build process for a FlyEM application at /path/to/foo/code:
+The build process for a FlyEM application at /path/to/foo/code (use absolute paths):
 
     % mkdir foo-build; cd foo-build
     % cmake -D BUILDEM_DIR=/path/to/BPD  /path/to/foo/code
@@ -301,7 +301,7 @@ The Janelia Farm cluster is an atypical deployment platform that provides one ed
 
 #### The cluster executable and library layout
 
-The base cluster OS is a fairly old Linux distribution.  Newer packages, like gcc 4.40 or CMake 2.8.8, are installed independently under /usr/local with the executables in /usr/local/some-package/bin.
+The base cluster OS is a fairly old Linux distribution.  Newer packages, like CMake 2.8.8, are installed independently under /usr/local with the executables in /usr/local/some-package/bin.
 
 We suggest having as clean an environment as possible, i.e., you should not have PATH or LD_LIBRARY_PATH set to a large number of directories.  It's best to start with empty environment variables, determine which libraries or executables cannot be found, and then add the appropriate paths as needed.  This way, you are less likely to have library conflicts due to default paths taking precedence over the libraries you intend to be used.
 
@@ -309,8 +309,8 @@ To build on the cluster, login to a compute node and set the environment variabl
 
 ```bash
 export FLYEMCLUSTER=/groups/flyem/proj/builds/cluster
-export PATH=/usr/local/cmake-2.8.8/bin:/usr/local/gcc/bin:/usr/local/git/bin:$FLYEMCLUSTER/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/gcc/lib64:/usr/local/gcc/lib:$FLYEMCLUSTER/lib:/usr/local/mpfr/lib:/usr/local/gmp/lib:$LD_LIBRARY_PATH
+export PATH=/usr/local/cmake-2.8.8/bin:/usr/local/git-1.8.1/bin:$FLYEMCLUSTER/bin:$PATH
+export LD_LIBRARY_PATH=$FLYEMCLUSTER/lib:$LD_LIBRARY_PATH
 export PYTHONPATH=$FLYEMCLUSTER/lib/python2.7:$FLYEMCLUSTER/lib/python2.7/site-packages:$FLYEMCLUSTER/lib
 ```
 
