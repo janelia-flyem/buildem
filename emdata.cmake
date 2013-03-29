@@ -17,7 +17,7 @@ set (emdata_DEPENDENCIES
 
 external_git_repo (emdata
     HEAD
-    http://github.com/janelia-flyem/emdata.git)
+    http://github.com/janelia-flyem/emdata-cpp.git)
 
 set (emdata_INCLUDE_DIR ${BUILDEM_INCLUDE_DIR}/emdata)
 include_directories (${emdata_INCLUDE_DIR})
