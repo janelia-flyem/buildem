@@ -21,7 +21,7 @@ external_source (libtiff
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   set(libtiff_PATCH_COMMAND ${PATCH_EXE}
-    ${libtiff_SRC_DIR}/tools/tiffgt.c ${PATCH_DIR}/libtiff.patch
+    ${libtiff_SRC_DIR}/tools/tiffgt.c ${PATCH_DIR}/libtiff.patch )
 else()
   set(libtiff_PATCH_COMMAND "")
 endif()
