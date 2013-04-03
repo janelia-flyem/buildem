@@ -1,0 +1,11 @@
+--- tiffgt.c	2010-07-08 18:10:24.000000000 +0200
++++ tiffgt.c.patch	2013-04-03 15:37:29.244000004 +0200
+@@ -31,7 +31,7 @@
+ #include <string.h>
+ #include <unistd.h>
+ 
+-#if HAVE_APPLE_OPENGL_FRAMEWORK
++#if 1
+ # include <OpenGL/gl.h>
+ # include <GLUT/glut.h>
+ #else
