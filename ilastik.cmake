@@ -28,7 +28,7 @@ include (greenlet)
 
 external_git_repo (ilastik
     flyem-20130221
-    http://github.com/janelia-flyem/flyem-ilastik)
+    http://github.com/ilastik)
 
 message ("Installing ${ilastik_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
