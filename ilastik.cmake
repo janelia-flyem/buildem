@@ -28,7 +28,8 @@ include (greenlet)
 
 external_git_repo (ilastik
     flyem-20130221
-    http://github.com/ilastik)
+    http://github.com/ilastik/ilastik)
+
 
 message ("Installing ${ilastik_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -40,19 +41,9 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
-        CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND}
-            -DLIBRARY_OUTPUT_PATH=${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
-            -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
-            -DPYTHON_EXECUTABLE=${PYTHON_EXE}
-            -DPYTHON_INCLUDE_DIR=${PYTHON_PREFIX}/include/python2.7
-            "-DPYTHON_LIBRARY=${PYTHON_PREFIX}/lib/libpython2.7.${BUILDEM_PLATFORM_DYLIB_EXTENSION}"
-            -DPYTHON_NUMPY_INCLUDE_DIR=${PYTHON_PREFIX}/lib/python2.7/site-packages/numpy/core/include
-            -DVIGRA_NUMPY_CORE_LIBRARY=${PYTHON_PREFIX}/lib/python2.7/site-packages/vigra/vigranumpycore.so
-            ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
-        # For some reason, python refuses to recognize the shared library unless it ends with .so.
-        # Renaming it seems to do the trick
-        BUILD_COMMAND       ${BUILDEM_ENV_STRING} make && mv ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile/drtile.dylib ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile/drtile.so
-        TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
+        CONFIGURE_COMMAND   ""
+        BUILD_COMMAND       ""
+        TEST_COMMAND        "" #${BUILDEM_DIR}/bin/ilastik_headless_test
         INSTALL_COMMAND     ""
     )
 else()
@@ -65,13 +56,9 @@ else()
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
-        CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND}
-            -DLIBRARY_OUTPUT_PATH=${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
-            -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
-            -DVIGRA_ROOT=${BUILDEM_DIR}
-            ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
-        BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-        TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
+        CONFIGURE_COMMAND   ""
+        BUILD_COMMAND       ""
+        TEST_COMMAND        ""#${BUILDEM_DIR}/bin/ilastik_headless_test
         INSTALL_COMMAND     ""
     )
 endif()
@@ -98,7 +85,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_launch
         ${TEMPLATE_DIR}/ilastik_script.template
         ${BUILDEM_DIR}/bin/ilastik_headless
         ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py
+        ${ilastik_SRC_DIR}/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py
     COMMENT     "Adding ilastik headless command to bin directory"
 )
 
@@ -110,7 +97,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_test
         ${TEMPLATE_DIR}/ilastik_script.template
         ${BUILDEM_DIR}/bin/ilastik_headless_test
         ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/ilastik/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py
+        ${ilastik_SRC_DIR}/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py
     COMMENT     "Adding ilastik headless test command to bin directory"
 )
 
