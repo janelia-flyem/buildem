@@ -25,6 +25,8 @@ include (h5py)
 include (psutil)
 include (blist)
 include (greenlet)
+include (volumina)
+include (lazyflow)
 
 external_git_repo (ilastik
     flyem-20130221
