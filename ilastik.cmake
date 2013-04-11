@@ -27,6 +27,7 @@ include (blist)
 include (greenlet)
 include (volumina)
 include (lazyflow)
+include (yapsy)
 
 external_git_repo (ilastik
     flyem-20130221
@@ -39,7 +40,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
                             ${blist_NAME} ${greenlet_NAME} ${volumina_NAME}
-			    ${lazyflow_NAME}
+			    ${lazyflow_NAME} ${yapsy_NAME}
         PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ""
@@ -54,7 +55,9 @@ else()
     # The explicit configuration above would probably work, but let's keep this simple...
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
-                            ${blist_NAME} ${greenlet_NAME} 
+                            ${blist_NAME} ${greenlet_NAME}
+			    ${volumina_NAME}
+			    ${lazyflow_NAME} ${yapsy_NAME}
         PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ""
