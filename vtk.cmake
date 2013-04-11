@@ -47,6 +47,7 @@ ExternalProject_Add(${vtk_NAME}
         # ilastik uses QT VTK widgets
         -DVTK_USE_QT:BOOL=ON
         -DVTK_USE_QVTK_QTOPENGL:BOOL=ON
+	-DVTK_USE_TK=OFF
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     #TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install

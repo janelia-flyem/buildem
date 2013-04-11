@@ -38,14 +38,15 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     # On Mac OS X, building drtile requires explicitly setting several cmake cache variables
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
-                            ${blist_NAME} ${greenlet_NAME} 
+                            ${blist_NAME} ${greenlet_NAME} ${volumina_NAME}
+			    ${lazyflow_NAME}
         PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
         CONFIGURE_COMMAND   ""
         BUILD_COMMAND       ""
-        TEST_COMMAND        "" #${BUILDEM_DIR}/bin/ilastik_headless_test
+        TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
         INSTALL_COMMAND     ""
     )
 else()
@@ -60,7 +61,7 @@ else()
         PATCH_COMMAND       ""
         CONFIGURE_COMMAND   ""
         BUILD_COMMAND       ""
-        TEST_COMMAND        ""#${BUILDEM_DIR}/bin/ilastik_headless_test
+        TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
         INSTALL_COMMAND     ""
     )
 endif()
