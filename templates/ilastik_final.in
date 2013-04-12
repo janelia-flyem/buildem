@@ -13,12 +13,12 @@ export $BUILDEM_LD_LIBRARY_VAR=$PYTHON_PREFIX/lib/python2.7/site-packages:$@BUIL
 export $BUILDEM_LD_LIBRARY_VAR=$PYTHON_PREFIX/lib/python2.7/site-packages/vigra:$@BUILDEM_LD_LIBRARY_VAR@
 
 export PYTHONPATH=$PYTHON_PREFIX/lib/python2.7/site-packages:$PYTHONPATH
-export PYTHONPATH=$ILASTIK_PATH/ilastik-flyem-20130221/:$PYTHONPATH
-export PYTHONPATH=$ILASTIK_PATH/volumina-flyem-20130221/:$PYTHONPATH
-export PYTHONPATH=$ILASTIK_PATH/lazyflow-flyem-20130221/:$PYTHONPATH
-export PYTHONPATH=$ILASTIK_PATH/lazyflow-flyem-20130221/lazyflow/drtile:$PYTHONPATH
+export PYTHONPATH=$ILASTIK_PATH/ilastik-HEAD/:$PYTHONPATH
+export PYTHONPATH=$ILASTIK_PATH/volumina-HEAD/:$PYTHONPATH
+export PYTHONPATH=$ILASTIK_PATH/lazyflow-HEAD/:$PYTHONPATH
+export PYTHONPATH=$ILASTIK_PATH/lazyflow-HEAD/lazyflow/drtile:$PYTHONPATH
 
 export PATH=$PYTHON_PREFIX/bin:$PATH
 export PATH=$BUILDEM_DIR/bin:$PATH
 
-$BUILDEM_DIR/bin/python2.7 $BUILDEM_DIR/src/ilastik-flyem-20130221/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainGui.py "$@"
+$BUILDEM_DIR/bin/python2.7 $BUILDEM_DIR/src/ilastik-HEAD/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainGui.py "$@"

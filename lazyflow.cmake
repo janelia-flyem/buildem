@@ -27,7 +27,7 @@ include (blist)
 include (greenlet)
 
 external_git_repo (lazyflow
-    flyem-20130221
+    HEAD
     http://github.com/ilastik/lazyflow)
 
 

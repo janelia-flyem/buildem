@@ -30,7 +30,7 @@ include (lazyflow)
 include (yapsy)
 
 external_git_repo (ilastik
-    flyem-20130221
+    HEAD
     http://github.com/ilastik/ilastik)
 
 
