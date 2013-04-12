@@ -21,7 +21,7 @@ include (boost)
 include (numpy)
 
 external_git_repo (vigra
-    flyem-1.9.0.b
+    HEAD
     http://github.com/ukoethe/vigra)
 
 message ("Installing ${vigra_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
