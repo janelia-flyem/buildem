@@ -9,6 +9,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
+include (PatchSupport)
 
 # FIXME: v1.2.3 of lemon doesn't compile under clang.
 # From their issue tracker (#449), it looks like the next release (v1.3) will fix this.
