@@ -114,6 +114,19 @@ ExternalProject_add_step(${ilastik_NAME}  install_test
     COMMENT     "Adding ilastik headless test command to bin directory"
 )
 
+# Also add the cluster job launch script
+ExternalProject_add_step(${ilastik_NAME}  install_cluster_launch
+    DEPENDEES   install_env_script
+    COMMAND     ${TEMPLATE_EXE}
+        --exe
+        ${TEMPLATE_DIR}/ilastik_script.template
+        ${BUILDEM_DIR}/bin/ilastik_clusterized
+        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
+        ${ilastik_SRC_DIR}/ilastik/workflows/pixelClassification/pixelClassificationClusterized.py
+    COMMENT     "Adding ilastik clusterized command to bin directory"
+)
+
+
 set_target_properties(${ilastik_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 endif (NOT ilastik_NAME)
