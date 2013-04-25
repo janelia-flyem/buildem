@@ -21,8 +21,9 @@ include (boost)
 include (numpy)
 
 external_git_repo (vigra
-    flyem-1.9.0.b
-    http://github.com/janelia-flyem/vigra)
+	#fd5d9bf7a5197a79dfe83cf6d241dd1233c9a47d
+    fd5d9bf7
+    http://github.com/ukoethe/vigra)
 
 message ("Installing ${vigra_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${vigra_NAME}
@@ -30,6 +31,7 @@ ExternalProject_Add(${vigra_NAME}
                         ${hdf5_NAME} ${python_NAME} ${boost_NAME} ${numpy_NAME} 
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${vigra_URL}
+    GIT_TAG             ${vigra_TAG}
     #URL                 ${vigra_URL}
     #URL_MD5             ${vigra_MD5}
     UPDATE_COMMAND      ""
