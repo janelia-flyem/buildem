@@ -121,6 +121,7 @@ macro (external_git_repo ABBREV SRC_VERSION URL)
     set (${ABBREV}_NAME         ${external_source_name})
     set (${ABBREV}_SRC_DIR      ${BUILDEM_DIR}/src/${external_source_name})
     set (${ABBREV}_URL          ${URL})
+    set (${ABBREV}_TAG          ${SRC_VERSION})
     set (${ABBREV}_INCLUDE_DIRS ${BUILDEM_DIR}/include)
 
 endmacro (external_git_repo)
