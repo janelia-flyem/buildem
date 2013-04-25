@@ -4,7 +4,7 @@
 
 if (NOT hdf5_NAME)
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.6)
 
 include (ExternalProject)
 include (ExternalSource)
