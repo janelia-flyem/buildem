@@ -34,7 +34,7 @@ ExternalProject_Add(${boost_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ./bootstrap.sh 
-        --with-libraries=date_time,filesystem,python,regex,serialization,system,test,thread
+        --with-libraries=date_time,filesystem,python,regex,serialization,system,test,thread,program_options
         --with-python=${PYTHON_EXE} 
         --prefix=${BUILDEM_DIR}
         LDFLAGS=${BUILDEM_LDFLAGS}
