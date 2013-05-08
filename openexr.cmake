@@ -26,7 +26,7 @@ set (openexr_INCLUDE_DIR ${BUILDEM_INCLUDE_DIR}/OpenEXR)
 
 include_directories (${openexr_INCLUDE_DIR})
 
-if (${CMAKE_CXX_COMPILER_ID} MATCHES ".*Clang.*")
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(openexr_PATCH_COMMAND ${BUILDEM_ENV_STRING} ${PATCH_EXE}
         ${openexr_SRC_DIR}/exrmaketiled/main.cpp ${PATCH_DIR}/openexr-exrmaketiled.patch
         ${openexr_SRC_DIR}/exrenvmap/main.cpp ${PATCH_DIR}/openexr-exrenvmap.patch
