@@ -62,6 +62,7 @@ ExternalProject_Add(${vigra_NAME}
 )
 
 set_target_properties(${vigra_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+set (vigra_LIB   ${BUILDEM_LIB_DIR}/libvigraimpex.so)
 
 endif (NOT vigra_NAME)
 

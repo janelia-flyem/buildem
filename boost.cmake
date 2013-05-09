@@ -22,6 +22,8 @@ external_source (boost
     6a1f32d902203ac70fbec78af95b3cf8
     http://downloads.sourceforge.net/project/boost/boost/1.51.0)
 
+set (boost_LIBS     ${BUILDEM_LIB_DIR}/libboost_thread.so  ${BUILDEM_LIB_DIR}/libboost_system.so ${BUILDEM_LIB_DIR}/libboost_program_options.so ${BUILDEM_LIB_DIR}/libboost_python.so)
+
 # Add layout=tagged param to first boost install to explicitly create -mt libraries
 # some libraries require.  TODO: Possibly shore up all library find paths to only
 # allow use of built libs.
@@ -34,7 +36,7 @@ ExternalProject_Add(${boost_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ./bootstrap.sh 
-        --with-libraries=date_time,filesystem,python,regex,serialization,system,test,thread
+        --with-libraries=date_time,filesystem,python,regex,serialization,system,test,thread,program_options
         --with-python=${PYTHON_EXE} 
         --prefix=${BUILDEM_DIR}
         LDFLAGS=${BUILDEM_LDFLAGS}
