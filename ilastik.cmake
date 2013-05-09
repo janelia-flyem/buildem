@@ -49,9 +49,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
             -DPYTHON_NUMPY_INCLUDE_DIR=${PYTHON_PREFIX}/lib/python2.7/site-packages/numpy/core/include
             -DVIGRA_NUMPY_CORE_LIBRARY=${PYTHON_PREFIX}/lib/python2.7/site-packages/vigra/vigranumpycore.so
             ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
-        # For some reason, python refuses to recognize the shared library unless it ends with .so.
-        # Renaming it seems to do the trick
-        BUILD_COMMAND       ${BUILDEM_ENV_STRING} make && mv ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile/drtile.dylib ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile/drtile.so
+        BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
         TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
         INSTALL_COMMAND     ""
     )
