@@ -21,7 +21,7 @@ macro(INSTALL_NEULIB libname config_args depends_args)
     DEPENDS             ${depends_args}
     GIT_REPOSITORY      ${libneurolabi_URL}
     CONFIGURE_COMMAND   git checkout master
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${libneurolabi_SRC_DIR}/neurolabi/update_library ${config_args}
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${libneurolabi_SRC_DIR}/neurolabi/update_library --release ${config_args}
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} ${libneurolabi_SRC_DIR}/neurolabi/install_library ${BUILDEM_DIR} ${libname}
     )
