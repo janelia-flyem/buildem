@@ -38,7 +38,7 @@ ExternalProject_Add(${lemon_NAME}
     #URL                 ${lemon_URL}
     #URL_MD5             ${lemon_MD5}
     HG_REPOSITORY        ${lemon_URL}
-    HG_TAG               ${lemon_VERSION}
+    HG_TAG               ${lemon_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
     	${lemon_SRC_DIR}/lemon/CMakeLists.txt ${PATCH_DIR}/lemon.patch
