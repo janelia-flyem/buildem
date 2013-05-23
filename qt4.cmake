@@ -15,7 +15,7 @@ external_source (qt4
     4.8.3
     qt-everywhere-opensource-src-4.8.3.tar.gz
     a663b6c875f8d7caa8ac9c30e4a4ec3b
-    http://download.qt.nokia.com/qt/source)
+    http://download.qt-project.org/official_releases/qt/4.8/4.8.3)
 
 message ("Installing ${qt4_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
