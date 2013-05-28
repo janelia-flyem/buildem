@@ -16,9 +16,9 @@ include (numpy)
 include (scipy)
 
 external_source (scikit-learn
-    0.12.1
-    scikit-learn-0.12.1.tar.gz
-    7e8b3434f9e8198b82dc3774f8bc9394
+    0.13.1
+    scikit-learn-0.13.1.tar.gz
+    acba398e1d46274b8470f40d0926e6a4
     http://pypi.python.org/packages/source/s/scikit-learn)
 
 message ("Installing ${scikit-learn_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
