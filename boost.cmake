@@ -22,7 +22,7 @@ external_source (boost
     6a1f32d902203ac70fbec78af95b3cf8
     http://downloads.sourceforge.net/project/boost/boost/1.51.0)
 
-set (boost_LIBS     ${BUILDEM_LIB_DIR}/libboost_thread.so  ${BUILDEM_LIB_DIR}/libboost_system.so ${BUILDEM_LIB_DIR}/libboost_program_options.so ${BUILDEM_LIB_DIR}/libboost_python.so)
+set (boost_LIBS     ${BUILDEM_LIB_DIR}/libboost_thread.so  ${BUILDEM_LIB_DIR}/libboost_system.so ${BUILDEM_LIB_DIR}/libboost_program_options.so ${BUILDEM_LIB_DIR}/libboost_python.so ${BUILDEM_LIB_DIR}/libboost_unit_test_framework.so)
 
 # Add layout=tagged param to first boost install to explicitly create -mt libraries
 # some libraries require.  TODO: Possibly shore up all library find paths to only
