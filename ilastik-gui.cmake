@@ -53,7 +53,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_launch
         ${TEMPLATE_DIR}/ilastik_script.template
         ${BUILDEM_DIR}/bin/ilastik_gui
         ${BUILDEM_DIR}/bin/setenv_ilastik_gui.sh
-        ${ilastik_SRC_DIR}/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainGui.py
+        ${ilastik_SRC_DIR}/ilastik.py
     COMMENT     "Added ilastik gui command to bin directory"
 )
 
