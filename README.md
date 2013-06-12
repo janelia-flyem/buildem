@@ -281,7 +281,8 @@ It's a good idea to have a clean environment and "source" in environment variabl
 
 Some original source repositories or tarballs require https, which may be a problem for operating systems like Scientific Linux due to absent certificates.  This issue can be sidestepped by using default non-https downloads, e.g., all downloads from janelia-flyem cache.
 
-Common build problems for individual components in the FlyEM Build System are documented in each component's CMake file (e.g. atlas.cmake).  If you see an error, check that file's comments.
+Common build problems for individual components in the FlyEM Build System are documented in each component's CMake file.  If you see an error, check that file's comments.
+For example, cpu throttling is a common build issue when building Atlas from source, and in the atlas.cmake file, we have documented how to turn off cpu frequency adjustments that defeat Atlas tuning.
 
 ## Roadmap
 
