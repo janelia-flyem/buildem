@@ -101,6 +101,17 @@ ExternalProject_add_step(${ilastik_NAME}  install_launch
     COMMENT     "Adding ilastik headless command to bin directory"
 )
 
+ExternalProject_add_step(${ilastik_NAME}  install_generic_launch
+    DEPENDEES   install_env_script
+    COMMAND     ${TEMPLATE_EXE}
+        --exe
+        ${TEMPLATE_DIR}/ilastik_script.template
+        ${BUILDEM_DIR}/bin/ilastik_generic_headless
+        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
+        ${ilastik_SRC_DIR}/ilastik/ilastik.py
+    COMMENT     "Adding ilastik generic headless command to bin directory"
+)
+
 ExternalProject_add_step(${ilastik_NAME}  install_test
     DEPENDEES   install_launch
     DEPENDERS   test
