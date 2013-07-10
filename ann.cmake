@@ -23,7 +23,7 @@ ExternalProject_Add(${libann_NAME}
     URL                 ${libann_URL}
     URL_MD5             ${libann_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ""
+    PATCH_COMMAND       "cp patches/ann.patch ${libann_SRC_DIR}"
 
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${libann_SRC_DIR} 
         -DBUILD_SHARED_LIBS=ON
