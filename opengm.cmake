@@ -1,5 +1,5 @@
 #
-# Install opebgn libraries from source
+# Install opengm libraries from source
 #
 
 if (NOT opengm_NAME)
@@ -20,10 +20,8 @@ message ("Installing ${opengm_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${opengm_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${opengm_URL}
-    # URL_MD5             ${opengm_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       "" #${BUILDEM_ENV_STRING} ${PATCH_EXE}
-    # ${opengm_SRC_DIR}/CMakeLists.txt ${PATCH_DIR}/opengm.patch
+    PATCH_COMMAND       ""
 
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${opengm_SRC_DIR} 
         -DBUILD_SHARED_LIBS=ON
