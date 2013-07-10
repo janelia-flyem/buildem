@@ -24,7 +24,7 @@ external_git_repo (pgmlink
 
 
 message ("Installing ${pgmlink_NAME} into FlyEM build aread: ${BUILDEM_DIR} ...")
-ExternalProect_Add(${pgmlink_NAME}
+ExternalProject_Add(${pgmlink_NAME}
     DEPENDS             ${ann_NAME} ${lemon_NAME} ${vigra_NAME} ${boost_NAME} ${opengm_NAME} ${doxygen_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${pgmlink_URL}
