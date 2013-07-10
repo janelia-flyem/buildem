@@ -19,7 +19,7 @@ external_git_repo (opengm
 message ("Installing ${opengm_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${opengm_NAME}
     PREFIX              ${BUILDEM_DIR}
-    URL                 ${opengm_URL}
+    GIT_REPOSITORY      ${opengm_URL}
     # URL_MD5             ${opengm_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       "" #${BUILDEM_ENV_STRING} ${PATCH_EXE}
@@ -34,7 +34,7 @@ ExternalProject_Add(${opengm_NAME}
 
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
-    TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} make test
 )
 
 set_target_properties(${opengm_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
