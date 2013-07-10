@@ -1,8 +1,8 @@
 #
-# Install ann from source
+# Install libann from source
 #
 
-if (NOT ann_NAME)
+if (NOT libann_NAME)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
@@ -11,22 +11,21 @@ include (ExternalSource)
 include (BuildSupport)
 include (PatchSupport)
 
-external_source (ann
+external_source (libann
     1.1.2
-    ann_1.1.2.tar.gz
+    libann_1.1.2.tar.gz
     7ffaacc7ea79ca39d4958a6378071365
-    http://www.cs.umd.edu/~mount/ANN/Files/1.1.2)
+    http://www.cs.umd.edu/~mount/LIBANN/Files/1.1.2)
 
-message ("Installing ${ann_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
-ExternalProject_Add(${ann_NAME}
+message ("Installing ${libann_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
+ExternalProject_Add(${libann_NAME}
     PREFIX              ${BUILDEM_DIR}
-    URL                 ${ann_URL}
-    URL_MD5             ${ann_MD5}
+    URL                 ${libann_URL}
+    URL_MD5             ${libann_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
 
-    CONFIGURE_COMMAND   cp ann_CMakeLists.txt ${ann_SRC_DIR} &&
-        ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${ann_SRC_DIR} 
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${libann_SRC_DIR} 
         -DBUILD_SHARED_LIBS=ON
         -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
         -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
@@ -37,6 +36,6 @@ ExternalProject_Add(${ann_NAME}
     TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
 )
 
-set_target_properties(${ann_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+set_target_properties(${libann_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
-endif (NOT ann_NAME)
+endif (NOT libann_NAME)
