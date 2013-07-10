@@ -1,6 +1,6 @@
 --- empty_file	2013-07-10 17:15:10.454050461 +0200
 +++ ann_CMakeLists.txt	2013-07-10 17:14:47.447049174 +0200
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,12 @@
 +cmake_minimum_required(VERSION 2.8)
 +project(ann)
 +file(GLOB LIB_SOURCES src/*cpp)
@@ -12,4 +12,5 @@
 +
 +install(TARGETS ann
 +  DESTINATION lib)
++add_custom_target(check)
 \ No newline at end of file
