@@ -13,7 +13,7 @@ include (PatchSupport)
 
 external_source (libann
     1.1.2
-    libann_1.1.2.tar.gz
+    ann_1.1.2.tar.gz
     7ffaacc7ea79ca39d4958a6378071365
     http://www.cs.umd.edu/~mount/ANN/Files/1.1.2)
 
