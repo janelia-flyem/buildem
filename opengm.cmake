@@ -17,7 +17,7 @@ external_git_repo (opengm
 
 
 message ("Installing ${opengm_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
-ExternalProject_Add(${ann_NAME}
+ExternalProject_Add(${opengm_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${opengm_URL}
     # URL_MD5             ${opengm_MD5}
