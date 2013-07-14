@@ -4,7 +4,7 @@
 +cmake_minimum_required(VERSION 2.8)
 +project(dlib)
 +
-+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/dlib
++install(DIRECTORY ${PROJECT_SOURCE_DIR}/dlib
 +  DESTINATION include/dlib)
 +
 +
