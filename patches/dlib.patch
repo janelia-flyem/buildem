@@ -5,6 +5,6 @@
 +project(dlib)
 +
 +install(DIRECTORY ${PROJECT_SOURCE_DIR}/dlib
-+  DESTINATION include/dlib)
++  DESTINATION include/)
 +
 +
