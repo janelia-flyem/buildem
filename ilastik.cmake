@@ -28,6 +28,7 @@ include (greenlet)
 include (volumina)
 include (lazyflow)
 include (yapsy)
+include (pgmlink)
 
 external_git_repo (ilastik
     HEAD
@@ -40,7 +41,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
                             ${blist_NAME} ${greenlet_NAME} ${volumina_NAME}
-			    ${lazyflow_NAME} ${yapsy_NAME}
+			    ${lazyflow_NAME} ${yapsy_NAME} ${pgmlink_NAME}
         PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ""
