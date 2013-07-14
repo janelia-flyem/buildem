@@ -17,6 +17,7 @@ include (vigra)
 include (boost)
 include (opengm)
 include (doxygen)
+inlcude (dlib)
 
 external_git_repo (pgmlink
     HEAD
@@ -26,6 +27,7 @@ external_git_repo (pgmlink
 message ("Installing ${pgmlink_NAME} into FlyEM build aread: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${pgmlink_NAME}
     DEPENDS             ${ann_NAME} ${lemon_NAME} ${vigra_NAME} ${boost_NAME} ${opengm_NAME} ${doxygen_NAME}
+                        ${dlib_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${pgmlink_URL}
     UPDATE_COMMAND      ""
