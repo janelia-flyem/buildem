@@ -1,0 +1,10 @@
+--- empty_file	2013-07-10 17:15:10.454050461 +0200
++++ ann_CMakeLists.txt	2013-07-10 17:14:47.447049174 +0200
+@@ -0,0 +1,6 @@
++cmake_minimum_required(VERSION 2.8)
++project(dlib)
++
++install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
++  DESTINATION include)
++
+\ No newline at end of file
