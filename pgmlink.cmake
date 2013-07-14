@@ -17,7 +17,7 @@ include (vigra)
 include (boost)
 include (opengm)
 include (doxygen)
-inlcude (dlib)
+include (dlib)
 
 external_git_repo (pgmlink
     HEAD
