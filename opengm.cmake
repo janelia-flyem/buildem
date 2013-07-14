@@ -13,7 +13,7 @@ include (PatchSupport)
 
 external_git_repo (opengm
     HEAD
-    https://github.com/ilastik/opengm)
+    https://github.com/opengm/opengm)
 
 
 message ("Installing ${opengm_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
