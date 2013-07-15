@@ -28,6 +28,7 @@ ExternalProject_Add(${opengm_NAME}
         -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
         -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
         -DWITH_CPLEX=ON
+        -DWITH_BOOST=ON
 
 
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
