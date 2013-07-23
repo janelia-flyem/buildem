@@ -48,6 +48,8 @@ ExternalProject_Add(${vtk_NAME}
         -DVTK_USE_QT:BOOL=ON
         -DVTK_USE_QVTK_QTOPENGL:BOOL=ON
 	-DVTK_USE_TK=OFF
+	# NETCDF caused weird errors in vtk's xml
+	-DVTK_USE_SYSTEM_LIBXML2=ON
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     #TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
