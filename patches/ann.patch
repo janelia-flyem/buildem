@@ -1,15 +1,12 @@
---- empty_file	2013-07-10 17:15:10.454050461 +0200
-+++ ann_CMakeLists.txt	2013-07-10 17:14:47.447049174 +0200
-@@ -0,0 +1,11 @@
-+cmake_minimum_required(VERSION 2.8)
-+project(ann)
-+file(GLOB LIB_SOURCES src/*cpp)
-+add_library(ann ${LIB_SOURCES})
-+include_directories(${PROJECT_SOURCE_DIR}/include/)
-+
-+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
-+  DESTINATION include)
-+
-+install(TARGETS ann
-+  DESTINATION lib)
-\ No newline at end of file
+cmake_minimum_required(VERSION 2.8)
+project(ann)
+file(GLOB LIB_SOURCES src/*cpp)
+add_library(ann ${LIB_SOURCES})
+include_directories(${PROJECT_SOURCE_DIR}/include/)
+
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+  DESTINATION include)
+
+install(TARGETS ann
+  DESTINATION lib)
+

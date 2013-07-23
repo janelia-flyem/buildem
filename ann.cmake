@@ -24,8 +24,9 @@ ExternalProject_Add(${ann_NAME}
     URL                 ${ann_URL}
     URL_MD5             ${ann_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
-    	${ann_SRC_DIR}/CMakeLists.txt ${PATCH_DIR}/ann.patch
+    PATCH_COMMAND       "configure_file(${PATCH_DIR}/ann.patch ${ann_SRC_DIR}/CMakeLists.txt)"
+        #${BUILDEM_ENV_STRING} ${PATCH_EXE}
+    	#${ann_SRC_DIR}/CMakeLists.txt ${PATCH_DIR}/ann.patch
 
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${ann_SRC_DIR} 
         -DBUILD_SHARED_LIBS=ON
