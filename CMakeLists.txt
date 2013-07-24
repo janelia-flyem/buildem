@@ -9,7 +9,7 @@ include (ExternalProject)
 set (BUILDEM_DIR "None" CACHE TYPE STRING)
 
 if (${BUILDEM_DIR} STREQUAL "None")
-    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -D BUILDEM_DIR=<path> on cmake command line.")
+    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DBUILDEM_DIR=<path> on cmake command line.")
 endif ()
 
 message ("FlyEM downloads and builds will be placed here: ${BUILDEM_DIR}")
