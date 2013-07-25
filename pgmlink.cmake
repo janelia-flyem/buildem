@@ -18,8 +18,17 @@ include (boost)
 include (opengm)
 include (dlib)
 
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    # need other branch on macos
+    set(GIT_BRANCH "mac_os")
+    set(TEST_STRING "")
+else (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+     set(GIT_BRANCH "master")
+     set(TEST_STRING "${BUILDEM_ENV_STRING} make test")
+endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+
 external_git_repo (pgmlink
-    HEAD
+    ${GIT_BRANCH}
     https://github.com/ilastik/pgmlink)
 
 
@@ -43,7 +52,7 @@ ExternalProject_Add(${pgmlink_NAME}
 
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
-    TEST_COMMAND        ${BUILDEM_ENV_STRING} make test
+    TEST_COMMAND        ${TEST_STRING}
 )
 
 set_target_properties(${pgmlink_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
