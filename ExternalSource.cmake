@@ -41,7 +41,7 @@ if (NOT BUILDEM_DIR)
 endif ()
 
 # URL of cache for required software tarballs
-set (DEFAULT_CACHE_URL "http://janelia-flyem.github.com/downloads" CACHE TYPE STRING)
+set (DEFAULT_CACHE_URL "http://janelia-flyem.github.io/downloads" CACHE TYPE STRING)
 
 # Define macro to set a number of variables per external project source
 macro (external_source ABBREV SRC_VERSION FILENAME MD5)
@@ -121,6 +121,7 @@ macro (external_git_repo ABBREV SRC_VERSION URL)
     set (${ABBREV}_NAME         ${external_source_name})
     set (${ABBREV}_SRC_DIR      ${BUILDEM_DIR}/src/${external_source_name})
     set (${ABBREV}_URL          ${URL})
+    set (${ABBREV}_TAG          ${SRC_VERSION})
     set (${ABBREV}_INCLUDE_DIRS ${BUILDEM_DIR}/include)
 
 endmacro (external_git_repo)

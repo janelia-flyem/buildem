@@ -1,7 +1,7 @@
 #!/bin/bash
 export BUILDEM_LD_LIBRARY_VAR={0}
 export BUILDEM_DIR={1}
-export ILASTIK_PATH={2}/..
+export ILASTIK_PATH={2}
 export PYTHON_PREFIX={3}
 
 export $BUILDEM_LD_LIBRARY_VAR=$BUILDEM_DIR/lib:${0}
@@ -9,10 +9,9 @@ export $BUILDEM_LD_LIBRARY_VAR=$PYTHON_PREFIX/lib/python2.7/site-packages:${0}
 export $BUILDEM_LD_LIBRARY_VAR=$PYTHON_PREFIX/lib/python2.7/site-packages/vigra:${0}
 
 export PYTHONPATH=$PYTHON_PREFIX/lib/python2.7/site-packages:$PYTHONPATH
-#export PYTHONPATH=$ILASTIK_PATH/ilastik:$PYTHONPATH
-#export PYTHONPATH=$ILASTIK_PATH/lazyflow:$PYTHONPATH
-#export PYTHONPATH=$ILASTIK_PATH/lazyflow/drtile:$PYTHONPATH
+export PYTHONPATH=$ILASTIK_PATH/ilastik:$PYTHONPATH
+export PYTHONPATH=$ILASTIK_PATH/lazyflow:$PYTHONPATH
+export PYTHONPATH=$ILASTIK_PATH/lazyflow/drtile:$PYTHONPATH
 
-export PYTHONPATH=$ILASTIK_PATH/ilastik-HEAD:$PYTHONPATH
-export PYTHONPATH=$ILASTIK_PATH/lazyflow-HEAD:$PYTHONPATH
-export PYTHONPATH=$ILASTIK_PATH/lazyflow-HEAD/lazyflow/drtile:$PYTHONPATH
+export PATH=$PYTHON_PREFIX/bin:$PATH
+export PATH=$BUILDEM_DIR/bin:$PATH

@@ -9,7 +9,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
-#include (PatchSupport)
+include (PatchSupport)
 
 include (python)
 include (qt4)

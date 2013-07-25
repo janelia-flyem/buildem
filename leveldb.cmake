@@ -49,6 +49,12 @@ elseif (${UNIX})
         INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
             ${leveldb_SRC_DIR}/libleveldb.so.1.9 ${BUILDEM_LIB_DIR}/libleveldb.so
     )
+    ExternalProject_add_step(${leveldb_NAME} install_lib_link
+        DEPENDEES   install
+        COMMAND     ${CMAKE_COMMAND} -E create_symlink 
+            ${BUILDEM_LIB_DIR}/libleveldb.so ${BUILDEM_LIB_DIR}/libleveldb.so.1
+        COMMENT     "Created symbolic link for libleveldb.so.1 in ${BUILDEM_LIB_DIR}"
+    )
 elseif (${WINDOWS})
     message (FATAL_ERROR "Leveldb cmake system: Detected Windows platform.  Not setup for it yet!")
 endif ()

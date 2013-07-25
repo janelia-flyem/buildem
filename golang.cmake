@@ -11,9 +11,9 @@ include (ExternalSource)
 include (BuildSupport)
 
 external_source (golang
-    1.0.3
-    go1.0.3.src.tar.gz
-    31acddba58b4592242a3c3c16165866b
+    1.1
+    go1.1.src.tar.gz
+    4933f6a2f3ec1ffb01b42fd88de03851
     http://go.googlecode.com/files)
 
 message ("Installing ${golang_NAME} into build area: ${BUILDEM_DIR} ...")
@@ -22,10 +22,7 @@ ExternalProject_Add(${golang_NAME}
     URL               ${golang_URL}
     URL_MD5           ${golang_MD5}
     UPDATE_COMMAND    ""
-    # For patch discussion see: 
-    # https://groups.google.com/forum/?fromgroups=#!topic/golang-nuts/bHHI3jmZM7o
-    PATCH_COMMAND     patch -R ${golang_SRC_DIR}/src/pkg/crypto/x509/x509.go 
-         ${BUILDEM_REPO_DIR}/patches/golang-1.0.3.patch
+    PATCH_COMMAND     ""
     CONFIGURE_COMMAND ""
     BUILD_COMMAND     ""
     INSTALL_COMMAND   ""

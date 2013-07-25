@@ -11,12 +11,17 @@
 #         unreliable and an ATLAS install nonsensical. Aborting.
 #
 #       If you get this error, you must temporarily disable CPU throttling (or "Turbo Boost") while ATLAS is built.
-#       On Fedora 16, this can be done via the cpupower command:
+#       You can do this by changing the BIOS to disable SpeedStep / Turbo Boost, which prevents the OS from
+#       changing CPU frequencies on the fly.
+#
+#       On Fedora, this can be done via the cpupower command:
 #
 #         $ cpupower frequency-info # Check current settings...
 #         $ sudo cpupower frequency-set -g performance
 #
 #         See cpupower help frequency-set for more info.
+#
+#       cpupower is contained in kernel-tools package for Fedora 17+ and in cpufrequtils for Fedora 16.
 
 if (NOT atlas_NAME)
 

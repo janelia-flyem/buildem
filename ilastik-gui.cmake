@@ -20,12 +20,11 @@ include (qt4)
 include (pyqt4)
 include (qimage2ndarray)
 include (vtk)
-include (cylemon)
 
 set (ilastik-gui_NAME ${ilastik_NAME}-gui)
 
 # Add a few dependencies to GUI ilastik build
-add_dependencies( ${ilastik_NAME} ${qt4_NAME} ${pyqt4_NAME} ${qimage2ndarray_NAME} ${vtk_NAME} ${cylemon_NAME} ) 
+add_dependencies( ${ilastik_NAME} ${qt4_NAME} ${pyqt4_NAME} ${qimage2ndarray_NAME} ${vtk_NAME} ) 
 
 add_custom_target (${ilastik-gui_NAME} ALL 
     DEPENDS     ${ilastik_NAME}

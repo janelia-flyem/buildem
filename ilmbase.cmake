@@ -19,7 +19,7 @@ external_source (ilmbase
     26c133ee8ca48e1196fbfb3ffe292ab4
     http://download.savannah.nongnu.org/releases/openexr)
 
-if (${CMAKE_CXX_COMPILER_ID} MATCHES ".*Clang.*")
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(ilmbase_PATCH_COMMAND ${PATCH_EXE}
         ${ilmbase_SRC_DIR}/Imath/ImathMatrix.h ${PATCH_DIR}/ilmbase-1.patch
         # Add extra patch for clang compatibility

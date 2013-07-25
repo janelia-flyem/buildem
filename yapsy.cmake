@@ -1,3 +1,7 @@
+#
+# Install yapsy library from source
+#
+
 if (NOT yapsy_NAME)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
