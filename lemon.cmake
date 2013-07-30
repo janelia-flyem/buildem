@@ -34,10 +34,10 @@ include (PatchSupport)
 
 # Using special cached tarball.  See note above.
 external_source (lemon
-    snapshot-473c71baff72
-	lemon-snapshot-473c71baff72.tar.gz
-	d33dc5d3d3e7f7b56ca9b4ee2cdb525f
-    http://janelia-flyem.github.io/downloads)
+  1.2.3
+  lemon-1.2.3.tar.gz
+  750251a77be450ddddedab14e5163afb
+  http://lemon.cs.elte.hu/pub/sources)
 
 message ("Installing ${lemon_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${lemon_NAME}
