@@ -37,8 +37,20 @@ Buildem requires a few installed components:
 * C/C++ and fortran compilers
 * libcurl and https support (note that these components are usually present in standard OS builds but may need to be installed explicitly)
 * git
-* CMake 2.8+
+* CMake 2.8.6+
 * python 2.6+ *if* patches or templates are used in build process.  In future, we could require a python build from source and use that instead *or* switch to a platform-independent patch/template system built into CMake.
+* libxext-devel
+* libgl1-mesa-devel
+* libxt-devel
+* libxml2-devel (build of vtk's xml failed)
+* CPLEX for pgmlink (tracking)
+
+If you want do distribute your build to other systems (e.g. you built on Ubuntu and want to distribute it to other Ubuntu machines) the target machines will need to fulfill the following requirements:
+* git (to be able to pull more recent versions of ilastik, lazyflow and volumina)
+* libxext
+* libgl1-mesa-glx
+* libxt
+* libxml2
 
 Note that a different version of python can be built from source.  Buildem does *not* try to minimize overall build time by reusing pre-compiled packages.  The presence of multiple compiler versions across the different Fedora/RHEL versions and our very heterogeneous workstation environment requires developer attention and tracking of installs across multiple machines.  
 
