@@ -4,7 +4,7 @@
 # Ilastik is composed of 3 git repos, 2 of which are necessary for headless mode.
 #
 # lazyflow
-# applet-workflows
+# ilastik
 # volumina (for gui builds)
 #
 # Also, you must build lazyflow/lazyflow/drtile with CMake to produce drtile.so shared library.
@@ -97,7 +97,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_launch
         ${TEMPLATE_DIR}/ilastik_script.template
         ${BUILDEM_DIR}/bin/ilastik_headless
         ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py
+        ${ilastik_SRC_DIR}/ilastik/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py
     COMMENT     "Adding ilastik headless command to bin directory"
 )
 
@@ -132,7 +132,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_cluster_launch
         ${TEMPLATE_DIR}/ilastik_script.template
         ${BUILDEM_DIR}/bin/ilastik_clusterized
         ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/ilastik/workflows/pixelClassification/pixelClassificationClusterized.py
+        ${ilastik_SRC_DIR}/ilastik/ilastik/workflows/pixelClassification/pixelClassificationClusterized.py
     COMMENT     "Adding ilastik clusterized command to bin directory"
 )
 
