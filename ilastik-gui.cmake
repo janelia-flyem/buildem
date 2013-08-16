@@ -20,6 +20,7 @@ include (qt4)
 include (pyqt4)
 include (qimage2ndarray)
 include (vtk)
+include (counting)
 
 set (ilastik-gui_NAME ${ilastik_NAME}-gui)
 

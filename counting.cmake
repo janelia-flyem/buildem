@@ -43,12 +43,12 @@ else()
 	SOURCE_DIR          ${ilastik_SRC_DIR}
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
-	CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} 
-        -DCMAKE_INSTALL_PREFIX=${ilastik_SRC_DIR}/ilastik/applets/counting/cwrapper
+	      CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} 
+        -DLIBRARY_OUTPUT_PATH=${BUILDEM_DIR}/lib
         ${ilastik_SRC_DIR}/ilastik/applets/counting/cwrapper
 	BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
         TEST_COMMAND        ""
-        INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+        INSTALL_COMMAND     ""
     )
 endif()
 

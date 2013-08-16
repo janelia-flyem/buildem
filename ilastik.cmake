@@ -67,7 +67,7 @@ else()
         PATCH_COMMAND       ""
         CONFIGURE_COMMAND   ""
         BUILD_COMMAND       ""
-        TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
+        #TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
         INSTALL_COMMAND     ""
     )
 endif()
@@ -98,17 +98,17 @@ ExternalProject_add_step(${ilastik_NAME}  install_launch
     COMMENT     "Adding ilastik headless command to bin directory"
 )
 
-ExternalProject_add_step(${ilastik_NAME}  install_test
-    DEPENDEES   install_launch
-    DEPENDERS   test
-    COMMAND     ${BUILDEM_ENV_STRING} ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_headless_test
-        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py
-    COMMENT     "Adding ilastik headless test command to bin directory"
-)
+#ExternalProject_add_step(${ilastik_NAME}  install_test
+#    DEPENDEES   install_launch
+#    DEPENDERS   test
+#    COMMAND     ${BUILDEM_ENV_STRING} ${TEMPLATE_EXE}
+#        --exe
+#        ${TEMPLATE_DIR}/ilastik_script.template
+#        ${BUILDEM_DIR}/bin/ilastik_headless_test
+#        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
+#        ${ilastik_SRC_DIR}/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py
+#    COMMENT     "Adding ilastik headless test command to bin directory"
+#)
 
 set_target_properties(${ilastik_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
