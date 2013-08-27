@@ -14,9 +14,9 @@ include (python)
 
 external_source (yapsy
     1.10
-    Yapsy-1.10-pythons2n3.tar.gz
-    c2760d5d0043c30b3d9141743abb6764
-    http://downloads.sourceforge.net/project/yapsy/Yapsy-1.10)
+    Yapsy-1.10.2-pythons2n3.tar.gz
+    d905b574d4f55ff62e02603ec3dc89b3
+    https://pypi.python.org/packages/source/Y/Yapsy)
 
 message ("Installing ${yapsy_NAME} into BuildEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${yapsy_NAME}
