@@ -14,7 +14,7 @@ include (EasyInstall)
 
 include (python)
 include (nose)
-include (atlas)
+include (blas)
 
 external_source (numpy
     1.7.0
@@ -31,14 +31,10 @@ else ()
     message (FATAL_ERROR "Unable to set FORTRAN ABI for numpy.  Does not support ${Fortran_COMPILER_NAME}!")
 endif ()
 
-set (ENV{ATLAS} ${BUILDEM_DIR}/lib:${BUILDEM_DIR}/lib/libtatlas.so:${BUILDEM_DIR}/lib/libsatlas.so)
-set (ENV{BLAS}  ${BUILDEM_DIR}/lib)
-set (ENV{LAPACK} ${BUILDEM_DIR}/lib)
-
 # Download and install numpy
 message ("Installing ${numpy_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${numpy_NAME}
-    DEPENDS             ${python_NAME} ${nose_NAME} ${atlas_NAME} 
+    DEPENDS             ${python_NAME} ${nose_NAME} ${blas_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${numpy_URL}
     URL_MD5             ${numpy_MD5}

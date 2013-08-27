@@ -14,11 +14,10 @@ include (python)
 include (setuptools)
 
 external_source (yapsy
-    1.10.2
+    1.10
     Yapsy-1.10.2-pythons2n3.tar.gz
     d905b574d4f55ff62e02603ec3dc89b3
-    http://downloads.sourceforge.net/project/yapsy/Yapsy-1.10.2
-    FORCE)
+    https://pypi.python.org/packages/source/Y/Yapsy)
 
 message ("Installing ${yapsy_NAME} into ilastik build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${yapsy_NAME}

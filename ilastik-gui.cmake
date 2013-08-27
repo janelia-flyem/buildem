@@ -63,7 +63,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_ws_launch # Alternate GUI 
         ${TEMPLATE_DIR}/ilastik_script.template
         ${BUILDEM_DIR}/bin/ilastik_gui_ws
         ${BUILDEM_DIR}/bin/setenv_ilastik_gui.sh
-        ${ilastik_SRC_DIR}/ilastik/workflows/vigraWatershed/pixelClassificationWithWatershedMain.py
+        ${ilastik_SRC_DIR}/ilastik/ilastik/workflows/vigraWatershed/pixelClassificationWithWatershedMain.py
     COMMENT     "Added ilastik gui-ws command to bin directory"
 )
 
@@ -74,7 +74,7 @@ ExternalProject_add_step(${ilastik_NAME}  install_gui_carving_launch # Alternate
         ${TEMPLATE_DIR}/ilastik_script.template
         ${BUILDEM_DIR}/bin/ilastik_gui_carving
         ${BUILDEM_DIR}/bin/setenv_ilastik_gui.sh
-        ${ilastik_SRC_DIR}/ilastik/workflows/carving/carving.py
+        ${ilastik_SRC_DIR}/ilastik/ilastik/workflows/carving/carving.py
     COMMENT     "Added ilastik gui-carving command to bin directory"
 )
 

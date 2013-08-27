@@ -19,6 +19,7 @@ include (hdf5)
 include (python)
 include (boost)
 include (numpy)
+include (nose)
 
 external_git_repo (vigra
     HEAD
@@ -27,7 +28,7 @@ external_git_repo (vigra
 message ("Installing ${vigra_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${vigra_NAME}
     DEPENDS             ${libjpeg_NAME} ${libtiff_NAME} ${libpng_NAME} ${openexr_NAME} ${libfftw_NAME}
-                        ${hdf5_NAME} ${python_NAME} ${boost_NAME} ${numpy_NAME} 
+                        ${hdf5_NAME} ${python_NAME} ${boost_NAME} ${numpy_NAME} ${nose_NAME} 
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${vigra_URL}
     #URL                 ${vigra_URL}

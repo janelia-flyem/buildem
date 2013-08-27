@@ -24,6 +24,10 @@ external_source (vtk
 
 message ("Installing ${vtk_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
+# update paths if a new version of vtk is used!
+set (vtk_LIBPATH ${BUILDEM_DIR}/lib/vtk-5.10)
+include_directories (${BUILDEM_DIR}/include/vtk-5.10)
+
 ExternalProject_Add(${vtk_NAME}
     DEPENDS             ${python_NAME} ${qt4_NAME} ${sip_NAME} ${pyqt4_NAME}
     PREFIX              ${BUILDEM_DIR}
@@ -46,6 +50,7 @@ ExternalProject_Add(${vtk_NAME}
         -DVTK_WRAP_TCL:BOOL=OFF
         # ilastik uses QT VTK widgets
         -DVTK_USE_QT:BOOL=ON
+        -DVTK_USE_TK:BOOL=OFF
         -DVTK_USE_QVTK_QTOPENGL:BOOL=ON
 	-DVTK_USE_TK=OFF
 	# NETCDF caused weird errors in vtk's xml

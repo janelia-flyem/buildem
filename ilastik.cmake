@@ -4,7 +4,7 @@
 # Ilastik is composed of 3 git repos, 2 of which are necessary for headless mode.
 #
 # lazyflow
-# applet-workflows
+# ilastik
 # volumina (for gui builds)
 #
 # Also, you must build lazyflow/lazyflow/drtile with CMake to produce drtile.so shared library.
@@ -30,6 +30,8 @@ include (lazyflow)
 include (yapsy)
 include (pgmlink)
 include (cylemon)
+include (scikit-learn)
+include (yapsy)
 
 external_git_repo (ilastik
     HEAD
@@ -42,8 +44,8 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
                             ${blist_NAME} ${greenlet_NAME} ${volumina_NAME}
-			    ${lazyflow_NAME} ${yapsy_NAME} ${pgmlink_NAME}
-                            ${cylemon_NAME}
+                            ${lazyflow_NAME} ${yapsy_NAME} ${pgmlink_NAME}
+                            ${cylemon_NAME} ${scikit-learn_NAME}
         PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ""
@@ -58,9 +60,8 @@ else()
     # The explicit configuration above would probably work, but let's keep this simple...
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
-                            ${blist_NAME} ${greenlet_NAME}
-			    ${volumina_NAME}
-			    ${lazyflow_NAME} ${yapsy_NAME}
+                            ${blist_NAME} ${greenlet_NAME} ${volumina_NAME}
+                            ${lazyflow_NAME} ${yapsy_NAME} ${cylemon_NAME} ${scikit-learn_NAME}
         PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ""
@@ -108,6 +109,18 @@ ExternalProject_add_step(${ilastik_NAME}  install_test
         ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
         ${ilastik_SRC_DIR}/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py
     COMMENT     "Adding ilastik headless test command to bin directory"
+)
+
+# Also add the cluster job launch script
+ExternalProject_add_step(${ilastik_NAME}  install_cluster_launch
+    DEPENDEES   install_env_script
+    COMMAND     ${TEMPLATE_EXE}
+        --exe
+        ${TEMPLATE_DIR}/ilastik_script.template
+        ${BUILDEM_DIR}/bin/ilastik_clusterized
+        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
+        ${ilastik_SRC_DIR}/workflows/pixelClassification/pixelClassificationClusterized.py
+    COMMENT     "Adding ilastik clusterized command to bin directory"
 )
 
 set_target_properties(${ilastik_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
