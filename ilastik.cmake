@@ -26,6 +26,8 @@ include (psutil)
 include (blist)
 include (greenlet)
 include (cylemon)
+include (scikit-learn)
+include (yapsy)
 
 external_git_repo (ilastik
     flyem-20130702
@@ -36,7 +38,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     # On Mac OS X, building drtile requires explicitly setting several cmake cache variables
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
-                            ${blist_NAME} ${greenlet_NAME} ${cylemon_NAME} 
+                            ${blist_NAME} ${greenlet_NAME} ${cylemon_NAME} ${scikit-learn_NAME} ${yapsy_NAME}
         PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ""
@@ -59,7 +61,7 @@ else()
     # The explicit configuration above would probably work, but let's keep this simple...
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
-                            ${blist_NAME} ${greenlet_NAME} 
+                            ${blist_NAME} ${greenlet_NAME}  ${cylemon_NAME} ${scikit-learn_NAME} ${yapsy_NAME}
         PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ""
