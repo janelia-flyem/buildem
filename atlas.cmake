@@ -79,6 +79,8 @@ ExternalProject_Add(${atlas_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 
+set (ENV{ATLAS} ${BUILDEM_DIR}/lib:${BUILDEM_DIR}/lib/libtatlas.so:${BUILDEM_DIR}/lib/libsatlas.so)
+
 set_target_properties(${atlas_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 endif (NOT atlas_NAME)
