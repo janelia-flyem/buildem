@@ -31,68 +31,21 @@ add_custom_target (${ilastik-gui_NAME} ALL
     COMMENT     "Building ilastik gui and all dependencies...")
 
 # Add environment setting script
-ExternalProject_add_step(${ilastik_NAME}  install_gui_env_script
-    DEPENDEES   test
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/setenv_ilastik_gui.template
-        ${BUILDEM_DIR}/bin/setenv_ilastik_gui.sh
-        ${BUILDEM_LD_LIBRARY_VAR}
-        ${BUILDEM_DIR}
-        ${ilastik_SRC_DIR}
-        ${PYTHON_PREFIX}
-    COMMENT     "Added ilastik gui environment script to bin directory"
-)
+set(SETENV_ILASTIK setenv_ilastik_gui)
+configure_file(${TEMPLATE_DIR}/${SETENV_ILASTIK}.in ${BUILDEM_DIR}/bin/${SETENV_ILASTIK}.sh @ONLY)
 
-# Add gui launch and test scripts
-ExternalProject_add_step(${ilastik_NAME}  install_gui_launch
-    DEPENDEES   install_gui_env_script
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_gui
-        ${BUILDEM_DIR}/bin/setenv_ilastik_gui.sh
-        ${ilastik_SRC_DIR}/ilastik.py
-    COMMENT     "Added ilastik gui command to bin directory"
-)
+# Add gui launch script
+set(LAUNCH_ILASTIK ilastik/ilastik.py)
+configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilastik_gui @ONLY)
 
-ExternalProject_add_step(${ilastik_NAME}  install_gui_ws_launch # Alternate GUI that includes watershed
-    DEPENDEES   install_gui_env_script
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_gui_ws
-        ${BUILDEM_DIR}/bin/setenv_ilastik_gui.sh
-        ${ilastik_SRC_DIR}/ilastik/ilastik/workflows/vigraWatershed/pixelClassificationWithWatershedMain.py
-    COMMENT     "Added ilastik gui-ws command to bin directory"
-)
-
-ExternalProject_add_step(${ilastik_NAME}  install_gui_carving_launch # Alternate GUI: Carving workflow
-    DEPENDEES   install_gui_env_script
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_gui_carving
-        ${BUILDEM_DIR}/bin/setenv_ilastik_gui.sh
-        ${ilastik_SRC_DIR}/ilastik/ilastik/workflows/carving/carving.py
-    COMMENT     "Added ilastik gui-carving command to bin directory"
-)
-
-ExternalProject_add_step(${ilastik_NAME}  install_gui_test
-    DEPENDEES   install_gui_launch
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_gui_test
-        ${BUILDEM_DIR}/bin/setenv_ilastik_gui.sh
-        ${ilastik_SRC_DIR}/tests/test_applets/pixelClassification/testPixelClassificationGui.py
-    COMMENT     "Added ilastik gui test command to bin directory"
-)
+# Add gui test script
+set(LAUNCH_ILASTIK ilastik/tests/test_applets/pixelClassification/testPixelClassificationGui.py)
+configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilastik_gui_test @ONLY)
 
 # Run the gui test script
 ExternalProject_add_step(${ilastik_NAME} test_ilastik_gui
     DEPENDEES   install_gui_test
-    COMMAND     ""#${BUILDEM_ENV_STRING} ${BUILDEM_DIR}/bin/ilastik_gui_test
+    COMMAND     ${BUILDEM_ENV_STRING} ${BUILDEM_DIR}/bin/ilastik_gui_test
     COMMENT     "Ran ilastik gui test"
 )
 

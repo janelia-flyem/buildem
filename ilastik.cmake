@@ -42,8 +42,9 @@ SET(ILASTIK_VERSION ${ILASTIK_VERSION}
 external_git_repo (ilastik
     ${ILASTIK_VERSION}
     http://github.com/janelia-flyem/flyem-ilastik)
-set(ilastik_NAME ilastik-src)
-set(lazyflow_SRC_DIR "${BUILDEM_DIR}/${ilastik_NAME}/lazyflow")
+set(ilastik_NAME ilastik)
+set(ilastik_SRC_DIR "${BUILDEM_DIR}/src/${ilastik_NAME}")
+set(lazyflow_SRC_DIR "${ilastik_SRC_DIR}/lazyflow")
 
 if("${ILASTIK_VERSION}" STREQUAL "master")
 
@@ -63,8 +64,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
                             ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME}
                             ${cylemon_NAME} ${scikit-learn_NAME}
-        DOWNLOAD_DIR        ${BUILDEM_DIR}
-        SOURCE_DIR          ${BUILDEM_DIR}/${ilastik_NAME}
+        SOURCE_DIR          ${ilastik_SRC_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ${ILASTIK_UPDATE_COMMAND}
         PATCH_COMMAND       ""
@@ -88,8 +88,7 @@ else()
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
                             ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME}
                             ${cylemon_NAME} ${scikit-learn_NAME}
-        DOWNLOAD_DIR        ${BUILDEM_DIR}
-        SOURCE_DIR          ${BUILDEM_DIR}/${ilastik_NAME}
+        SOURCE_DIR          ${ilastik_SRC_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ${ILASTIK_UPDATE_COMMAND}
         PATCH_COMMAND       ""
@@ -104,67 +103,24 @@ else()
     )
 endif()
 
+file(RELATIVE_PATH ILASTIK_DIR_RELATIVE ${BUILDEM_DIR} ${ilastik_SRC_DIR})
+file(RELATIVE_PATH PYTHON_PREFIX_RELATIVE ${BUILDEM_DIR} ${PYTHON_PREFIX})
+
 # Add environment setting script
-ExternalProject_add_step(${ilastik_NAME}  install_env_script
-    DEPENDEES   download
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/setenv_ilastik_headless.template
-        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${BUILDEM_LD_LIBRARY_VAR}
-        ${BUILDEM_DIR}
-        ${ilastik_SRC_DIR}
-        ${PYTHON_PREFIX}
-    COMMENT     "Adding ilastik headless environment script to bin directory"
-)
+set(SETENV_ILASTIK setenv_ilastik_gui)
+configure_file(${TEMPLATE_DIR}/${SETENV_ILASTIK}.in ${BUILDEM_DIR}/bin/${SETENV_ILASTIK}.sh @ONLY)
 
-# Add headless launch and test scripts
-ExternalProject_add_step(${ilastik_NAME}  install_launch
-    DEPENDEES   install_env_script
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_headless
-        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/ilastik/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py
-    COMMENT     "Adding ilastik headless command to bin directory"
-)
+# Add headless launch script
+set(LAUNCH_ILASTIK ilastik/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py)
+configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilastik_headless @ONLY)
 
-ExternalProject_add_step(${ilastik_NAME}  install_generic_launch
-    DEPENDEES   install_env_script
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_generic_headless
-        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/ilastik/ilastik.py
-    COMMENT     "Adding ilastik generic headless command to bin directory"
-)
+# Add headless test script
+set(LAUNCH_ILASTIK ilastik/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py)
+configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilastik_headless_test @ONLY)
 
-ExternalProject_add_step(${ilastik_NAME}  install_test
-    DEPENDEES   install_launch
-    DEPENDERS   test
-    COMMAND     ${BUILDEM_ENV_STRING} ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_headless_test
-        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/ilastik/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py
-    COMMENT     "Adding ilastik headless test command to bin directory"
-)
-
-# Also add the cluster job launch script
-ExternalProject_add_step(${ilastik_NAME}  install_cluster_launch
-    DEPENDEES   install_env_script
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_clusterized
-        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/ilastik/ilastik/workflows/pixelClassification/pixelClassificationClusterized.py
-    COMMENT     "Adding ilastik clusterized command to bin directory"
-)
-
+# Add headless launch script for cluster processing
+set(LAUNCH_ILASTIK ilastik/ilastik/workflows/pixelClassification/pixelClassificationClusterized.py)
+configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilastik_clusterized @ONLY)
 
 set_target_properties(${ilastik_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
