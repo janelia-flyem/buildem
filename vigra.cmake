@@ -37,7 +37,7 @@ external_git_repo (vigra
 set(vigra_NAME vigra)
 
 if("${VIGRA_VERSION}" STREQUAL "master")
-    set(VIGRA_UPDATE_COMMAND git pull)
+    set(VIGRA_UPDATE_COMMAND git checkout master && git pull)
 else()
     set(VIGRA_UPDATE_COMMAND git checkout ${VIGRA_VERSION})
 endif()
