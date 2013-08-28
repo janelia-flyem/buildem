@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 2.8)
+project(ann)
+file(GLOB LIB_SOURCES src/*cpp)
+add_library(ann ${LIB_SOURCES})
+include_directories(${PROJECT_SOURCE_DIR}/include/)
+
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+  DESTINATION include)
+
+install(TARGETS ann
+  DESTINATION lib)
+

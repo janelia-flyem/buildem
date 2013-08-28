@@ -1,0 +1,10 @@
+--- empty_file	2013-07-14 14:49:27.602390558 +0200
++++ dlib_CMakeLists.txt	2013-07-14 14:48:34.829387607 +0200
+@@ -0,0 +1,7 @@
++cmake_minimum_required(VERSION 2.8)
++project(dlib)
++
++install(DIRECTORY ${PROJECT_SOURCE_DIR}/dlib
++  DESTINATION include/)
++
++

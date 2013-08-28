@@ -19,22 +19,38 @@ include (hdf5)
 include (python)
 include (boost)
 include (numpy)
+include (nose)
+
+# select the desired VIGRA commit
+set(DEFAULT_VIGRA_VERSION "fd5d9bf7")
+IF(NOT DEFINED VIGRA_VERSION)
+    SET(VIGRA_VERSION "${DEFAULT_VIGRA_VERSION}")
+ENDIF()
+SET(VIGRA_VERSION ${VIGRA_VERSION}
+    CACHE STRING "Specify VIGRA branch/tag/commit to be used (default: ${DEFAULT_VIGRA_VERSION})"
+    FORCE)
 
 external_git_repo (vigra
-	#fd5d9bf7a5197a79dfe83cf6d241dd1233c9a47d
-    fd5d9bf7
+    ${VIGRA_VERSION}
     http://github.com/ukoethe/vigra)
+    
+set(vigra_NAME vigra)
 
-message ("Installing ${vigra_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
+if("${VIGRA_VERSION}" STREQUAL "master")
+    set(VIGRA_UPDATE_COMMAND git checkout master && git pull)
+else()
+    set(VIGRA_UPDATE_COMMAND git checkout ${VIGRA_VERSION})
+endif()
+
+message ("Installing ${vigra_NAME}/${VIGRA_VERSION} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${vigra_NAME}
     DEPENDS             ${libjpeg_NAME} ${libtiff_NAME} ${libpng_NAME} ${openexr_NAME} ${libfftw_NAME}
-                        ${hdf5_NAME} ${python_NAME} ${boost_NAME} ${numpy_NAME} 
+                        ${hdf5_NAME} ${python_NAME} ${boost_NAME} ${numpy_NAME} ${nose_NAME} 
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${vigra_URL}
-    GIT_TAG             ${vigra_TAG}
     #URL                 ${vigra_URL}
     #URL_MD5             ${vigra_MD5}
-    UPDATE_COMMAND      ""
+    UPDATE_COMMAND      ${VIGRA_UPDATE_COMMAND}
     PATCH_COMMAND       ""       
     LIST_SEPARATOR      ^^
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${vigra_SRC_DIR} 

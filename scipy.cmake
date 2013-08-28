@@ -14,7 +14,7 @@ include (FortranSupport)
 include (python)
 include (numpy)
 include (nose)
-include (atlas)
+include (blas)
 
 external_source (scipy
     0.11.0
@@ -31,12 +31,10 @@ else ()
     message (FATAL_ERROR "Unable to set FORTRAN ABI for scipy.  Does not support ${Fortran_COMPILER_NAME}!")
 endif ()
 
-set (ENV{ATLAS} ${BUILDEM_DIR}/lib/libtatlas.so:${BUILDEM_DIR}/lib/libsatlas.so)
-
 # Download and install scipy
 message ("Installing ${scipy_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${scipy_NAME}
-    DEPENDS             ${python_NAME} ${numpy_NAME} ${nose_NAME} ${atlas_NAME} 
+    DEPENDS             ${python_NAME} ${numpy_NAME} ${nose_NAME} ${blas_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${scipy_URL}
     URL_MD5             ${scipy_MD5}

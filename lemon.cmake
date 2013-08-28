@@ -9,6 +9,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
+include (PatchSupport)
 
 external_source (lemon
     1.2.4

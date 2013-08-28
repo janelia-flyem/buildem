@@ -26,30 +26,57 @@ include (psutil)
 include (blist)
 include (greenlet)
 include (cylemon)
+include (yapsy)
+#include (pgmlink)
+include (scikit-learn)
 
+# select the desired ilastik commit
+set(DEFAULT_ILASTIK_VERSION "flyem-20130702")
+IF(NOT DEFINED ILASTIK_VERSION)
+    SET(ILASTIK_VERSION "${DEFAULT_ILASTIK_VERSION}")
+ENDIF()
+SET(ILASTIK_VERSION ${ILASTIK_VERSION}
+    CACHE STRING "Specify ilastik branch/tag/commit to be used (default: ${DEFAULT_ILASTIK_VERSION})"
+    FORCE)
+    
 external_git_repo (ilastik
-    flyem-20130702
+    ${ILASTIK_VERSION}
     http://github.com/janelia-flyem/flyem-ilastik)
+set(ilastik_NAME ilastik)
+set(ilastik_SRC_DIR "${BUILDEM_DIR}/src/${ilastik_NAME}")
+set(lazyflow_SRC_DIR "${ilastik_SRC_DIR}/lazyflow")
 
-message ("Installing ${ilastik_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
+if("${ILASTIK_VERSION}" STREQUAL "master")
+
+    set(ILASTIK_UPDATE_COMMAND cd lazyflow && git checkout master && git pull && cd .. && cd volumina && git checkout master && git pull && cd .. && cd ilastik && git checkout master && git pull && cd ..)
+
+else()
+
+    set(ILASTIK_UPDATE_COMMAND git checkout ${ILASTIK_VERSION} && git submodule update)
+    
+endif()
+    
+message ("Installing ${ilastik_NAME}/${ILASTIK_VERSION} into FlyEM build area: ${BUILDEM_DIR} ...")
+
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     # On Mac OS X, building drtile requires explicitly setting several cmake cache variables
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
-                            ${blist_NAME} ${greenlet_NAME} ${cylemon_NAME} 
-        PREFIX              ${BUILDEM_DIR}
+                            ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME}
+                            ${cylemon_NAME} ${scikit-learn_NAME}
+        SOURCE_DIR          ${ilastik_SRC_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
-        UPDATE_COMMAND      ""
+        UPDATE_COMMAND      ${ILASTIK_UPDATE_COMMAND}
         PATCH_COMMAND       ""
         CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND}
-            -DLIBRARY_OUTPUT_PATH=${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
+            -DLIBRARY_OUTPUT_PATH=${lazyflow_SRC_DIR}/lazyflow/drtile
             -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
             -DPYTHON_EXECUTABLE=${PYTHON_EXE}
             -DPYTHON_INCLUDE_DIR=${PYTHON_PREFIX}/include/python2.7
             "-DPYTHON_LIBRARY=${PYTHON_PREFIX}/lib/libpython2.7.${BUILDEM_PLATFORM_DYLIB_EXTENSION}"
             -DPYTHON_NUMPY_INCLUDE_DIR=${PYTHON_PREFIX}/lib/python2.7/site-packages/numpy/core/include
             -DVIGRA_NUMPY_CORE_LIBRARY=${PYTHON_PREFIX}/lib/python2.7/site-packages/vigra/vigranumpycore.so
-            ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
+            ${lazyflow_SRC_DIR}/lazyflow/drtile
         BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
         TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
         INSTALL_COMMAND     ""
@@ -59,83 +86,41 @@ else()
     # The explicit configuration above would probably work, but let's keep this simple...
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
-                            ${blist_NAME} ${greenlet_NAME} 
-        PREFIX              ${BUILDEM_DIR}
+                            ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME}
+                            ${cylemon_NAME} ${scikit-learn_NAME}
+        SOURCE_DIR          ${ilastik_SRC_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
-        UPDATE_COMMAND      ""
+        UPDATE_COMMAND      ${ILASTIK_UPDATE_COMMAND}
         PATCH_COMMAND       ""
         CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND}
-            -DLIBRARY_OUTPUT_PATH=${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
-            -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
-            -DVIGRA_ROOT=${BUILDEM_DIR}
-            ${ilastik_SRC_DIR}/lazyflow/lazyflow/drtile
+            -DLIBRARY_OUTPUT_PATH=${lazyflow_SRC_DIR}/lazyflow/drtile
+#            -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
+#            -DVIGRA_ROOT=${BUILDEM_DIR}
+            ${lazyflow_SRC_DIR}/lazyflow/drtile
         BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
         TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
         INSTALL_COMMAND     ""
     )
 endif()
 
+file(RELATIVE_PATH ILASTIK_DIR_RELATIVE ${BUILDEM_DIR} ${ilastik_SRC_DIR})
+file(RELATIVE_PATH PYTHON_PREFIX_RELATIVE ${BUILDEM_DIR} ${PYTHON_PREFIX})
+
 # Add environment setting script
-ExternalProject_add_step(${ilastik_NAME}  install_env_script
-    DEPENDEES   download
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/setenv_ilastik_headless.template
-        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${BUILDEM_LD_LIBRARY_VAR}
-        ${BUILDEM_DIR}
-        ${ilastik_SRC_DIR}
-        ${PYTHON_PREFIX}
-    COMMENT     "Adding ilastik headless environment script to bin directory"
-)
+set(SETENV_ILASTIK setenv_ilastik_gui)
+configure_file(${TEMPLATE_DIR}/${SETENV_ILASTIK}.in ${BUILDEM_DIR}/bin/${SETENV_ILASTIK}.sh @ONLY)
 
-# Add headless launch and test scripts
-ExternalProject_add_step(${ilastik_NAME}  install_launch
-    DEPENDEES   install_env_script
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_headless
-        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/ilastik/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py
-    COMMENT     "Adding ilastik headless command to bin directory"
-)
+# Add headless launch script
+set(LAUNCH_ILASTIK ilastik/ilastik/workflows/pixelClassification/pixelClassificationWorkflowMainHeadless.py)
+configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilastik_headless @ONLY)
 
-ExternalProject_add_step(${ilastik_NAME}  install_generic_launch
-    DEPENDEES   install_env_script
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_generic_headless
-        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/ilastik/ilastik.py
-    COMMENT     "Adding ilastik generic headless command to bin directory"
-)
+# Add headless test script
+set(LAUNCH_ILASTIK ilastik/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py)
+configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilastik_headless_test @ONLY)
 
-ExternalProject_add_step(${ilastik_NAME}  install_test
-    DEPENDEES   install_launch
-    DEPENDERS   test
-    COMMAND     ${BUILDEM_ENV_STRING} ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_headless_test
-        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/ilastik/tests/test_applets/pixelClassification/testPixelClassificationHeadless.py
-    COMMENT     "Adding ilastik headless test command to bin directory"
-)
-
-# Also add the cluster job launch script
-ExternalProject_add_step(${ilastik_NAME}  install_cluster_launch
-    DEPENDEES   install_env_script
-    COMMAND     ${TEMPLATE_EXE}
-        --exe
-        ${TEMPLATE_DIR}/ilastik_script.template
-        ${BUILDEM_DIR}/bin/ilastik_clusterized
-        ${BUILDEM_DIR}/bin/setenv_ilastik_headless.sh
-        ${ilastik_SRC_DIR}/ilastik/ilastik/workflows/pixelClassification/pixelClassificationClusterized.py
-    COMMENT     "Adding ilastik clusterized command to bin directory"
-)
-
+# Add headless launch script for cluster processing
+set(LAUNCH_ILASTIK ilastik/ilastik/workflows/pixelClassification/pixelClassificationClusterized.py)
+configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilastik_clusterized @ONLY)
 
 set_target_properties(${ilastik_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
