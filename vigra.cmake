@@ -32,9 +32,8 @@ SET(VIGRA_VERSION ${VIGRA_VERSION}
 
 external_git_repo (vigra
     ${VIGRA_VERSION}
-    http://github.com/ukoethe/vigra)
-    
-set(vigra_NAME vigra)
+    http://github.com/ukoethe/vigra
+    vigra) # Override vigra_NAME and vigra_SRC_DIR variables by providing this extra arg
 
 if("${VIGRA_VERSION}" STREQUAL "master")
     set(VIGRA_UPDATE_COMMAND git checkout master && git pull)
