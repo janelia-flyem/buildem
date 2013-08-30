@@ -99,14 +99,26 @@ macro (external_source ABBREV SRC_VERSION FILENAME MD5)
 endmacro (external_source)
 
 # Define macro to set a number of variables per external git repo
+# Note: Besides these named args, this macro accepts the following optional args:
+#  OVERRIDE_NAME - Used to override the <package>_NAME and <package>_SRC_DIR variables set by this macro
 macro (external_git_repo ABBREV SRC_VERSION URL)
+	# Check for extra (optional) macro args.
+	set (extra_macro_args ${ARGN})
+	list(LENGTH extra_macro_args num_extra_args)
 
     # RELEASE builds are by default
     if (NOT ${ABBREV}_BUILD)
         set (${ABBREV}_BUILD "RELEASE")
     endif ()
 
+	# By default, package NAME and SRC_DIR are <package>-<version>
     set (external_source_name  ${ABBREV}-${SRC_VERSION})
+    
+    # First optional macro arg overrides package NAME and SRC_DIR
+    if (${num_extra_args} GREATER 0)
+    	list(GET extra_macro_args 0 external_source_name)
+    endif ()
+
     message ("Setting external_git_repo: ${external_source_name}")
 
     # Append this external source name to our list of dependencies
