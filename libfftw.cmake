@@ -26,7 +26,7 @@ ExternalProject_Add(${libfftw_NAME}
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${libfftw_SRC_DIR}/configure 
         --prefix=${BUILDEM_DIR}
         --enable-shared
-#        --enable-float  # This creates libfftw3f single-precision libraries
+        --enable-float  # This creates libfftw3f single-precision libraries
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make

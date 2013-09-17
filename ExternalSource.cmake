@@ -111,8 +111,8 @@ macro (external_git_repo ABBREV SRC_VERSION URL)
         set (${ABBREV}_BUILD "RELEASE")
     endif ()
 
-	# By default, package NAME and SRC_DIR are <package>-<version>
-    set (external_source_name  ${ABBREV}-${SRC_VERSION})
+	# By default, package NAME and SRC_DIR are <package>-git
+    set (external_source_name  ${ABBREV}-git)
     
     # First optional macro arg overrides package NAME and SRC_DIR
     if (${num_extra_args} GREATER 0)
