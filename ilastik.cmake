@@ -27,7 +27,7 @@ include (blist)
 include (greenlet)
 include (cylemon)
 include (yapsy)
-#include (pgmlink)
+include (pgmlink)
 include (scikit-learn)
 
 # select the desired ilastik commit
@@ -63,7 +63,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
                             ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME}
-                            ${cylemon_NAME} ${scikit-learn_NAME}
+                            ${cylemon_NAME} ${scikit-learn_NAME} ${pgmlink_NAME}
         SOURCE_DIR          ${ilastik_SRC_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ${ILASTIK_UPDATE_COMMAND}
@@ -87,7 +87,7 @@ else()
     ExternalProject_Add(${ilastik_NAME}
         DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
                             ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME}
-                            ${cylemon_NAME} ${scikit-learn_NAME}
+                            ${cylemon_NAME} ${scikit-learn_NAME} ${pgmlink_NAME}
         SOURCE_DIR          ${ilastik_SRC_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ${ILASTIK_UPDATE_COMMAND}
