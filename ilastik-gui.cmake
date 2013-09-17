@@ -42,11 +42,12 @@ configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilasti
 set(LAUNCH_ILASTIK ilastik/tests/test_applets/pixelClassification/testPixelClassificationGui.py)
 configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilastik_gui_test @ONLY)
 
-# Run the gui test script
-ExternalProject_add_step(${ilastik_NAME} test_ilastik_gui
-    DEPENDEES   install_gui_test
+# Run the gui test script after the ilastik-gui target is built
+add_custom_command (
+    TARGET     ${ilastik-gui_NAME}
+    POST_BUILD
     COMMAND     ${BUILDEM_ENV_STRING} ${BUILDEM_DIR}/bin/ilastik_gui_test
-    COMMENT     "Ran ilastik gui test"
+    COMMENT     "Running ilastik gui test"
 )
 
 endif (NOT ilastik-gui_NAME)

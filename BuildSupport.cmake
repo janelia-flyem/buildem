@@ -15,9 +15,12 @@ if (NOT BUILDEM_ENV_STRING)
 
 
 if (NOT BUILDEM_DIR)
-    message (FATAL_ERROR "ERROR: FlyEM build directory (for all downloads & builds) should be specified via -DBUILDEM_DIR=<path> on cmake command line.")
+    message (FATAL_ERROR "ERROR: BuildEM build directory (for all downloads & builds) should be specified via -DBUILDEM_DIR=<path> on cmake command line.")
 endif ()
 
+if (NOT BUILDEM_REPO_DIR)
+    message (FATAL_ERROR "ERROR: BUILDEM_REPO_DIR must be specified via your application's CMakeLists.txt file, and must be set to ${BUILDEM_DIR}/src/buildem.")
+endif ()
 
 # Make sure the main directories for FlyEM build directory are already 
 # created so paths won't error out.

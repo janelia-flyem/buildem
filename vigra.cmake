@@ -34,8 +34,6 @@ external_git_repo (vigra
     ${VIGRA_VERSION}
     http://github.com/ukoethe/vigra)
     
-#set(vigra_NAME vigra)
-
 if("${VIGRA_VERSION}" STREQUAL "master")
     set(VIGRA_UPDATE_COMMAND git checkout master && git pull)
 else()

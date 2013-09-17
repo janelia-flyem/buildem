@@ -41,9 +41,8 @@ SET(ILASTIK_VERSION ${ILASTIK_VERSION}
     
 external_git_repo (ilastik
     ${ILASTIK_VERSION}
-    http://github.com/janelia-flyem/flyem-ilastik)
-set(ilastik_NAME ilastik)
-set(ilastik_SRC_DIR "${BUILDEM_DIR}/src/${ilastik_NAME}")
+    http://github.com/janelia-flyem/flyem-ilastik
+    ilastik)
 set(lazyflow_SRC_DIR "${ilastik_SRC_DIR}/lazyflow")
 
 if("${ILASTIK_VERSION}" STREQUAL "master")

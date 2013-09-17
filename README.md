@@ -25,7 +25,6 @@ Buildem is predicated on some basic assertions:
 * Developer attention should be minimized since developer time is very expensive compared to freely available computer time.
 * Disk space is cheap and plentiful.
 * Each application build process should be easily specified and automated.
-* Required components should be easily shared on network drives among networked computers that can share software, i.e., the computers have compatible operating systems, because intranets have excellent bandwidth.
 * Required components can be automatically built from source, and CMake is a sufficiently flexible and cross-platform tool on which to base our system.
 * Builds of all components should be specific to OS, compiler, and compiler version to minimize conflicts in [ABI](http://en.wikipedia.org/wiki/Application_binary_interface), and we are not sure that pre-compiled components (e.g., RPMs) are available for all target machines/compilers.
 * Third-party pre-built packages, like Enthought Python Distribution, are not viable due to licensing costs for cluster operation as well as inability to easily adapt to new dependencies.
