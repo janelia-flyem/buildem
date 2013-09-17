@@ -106,7 +106,7 @@ macro (external_git_repo ABBREV SRC_VERSION URL)
         set (${ABBREV}_BUILD "RELEASE")
     endif ()
 
-    set (external_source_name  ${ABBREV}-${SRC_VERSION})
+    set (external_source_name  ${ABBREV}-git)
     message ("Setting external_git_repo: ${external_source_name}")
 
     # Append this external source name to our list of dependencies
