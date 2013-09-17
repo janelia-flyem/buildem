@@ -31,6 +31,9 @@ external_git_repo (pgmlink
     ${GIT_BRANCH}
     https://github.com/ilastik/pgmlink)
 
+if(CPLEX_ROOT_DIR)
+    set(CMAKE_CPLEX_ROOT_DIR "-DCPLEX_ROOT_DIR=${CPLEX_ROOT_DIR}")
+endif()
 
 message ("Installing ${pgmlink_NAME} into FlyEM build aread: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${pgmlink_NAME}
@@ -42,13 +45,12 @@ ExternalProject_Add(${pgmlink_NAME}
     PATCH_COMMAND       ""
 
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${pgmlink_SRC_DIR} 
-        -DBUILD_SHARED_LIBS=ON
         -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
         -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
         -DWITH_PYTHON=ON
         -DWITH_TESTS=ON
         -DWITH_CHECKED_STL=OFF
-
+        ${CMAKE_CPLEX_ROOT_DIR}
 
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
