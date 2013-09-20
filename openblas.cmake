@@ -26,7 +26,7 @@ ExternalProject_Add(${openblas_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       make -j8 NO_AUX=1
+    BUILD_COMMAND       make -j8 NO_AVX=1
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     make PREFIX=${BUILDEM_DIR} install
 )
