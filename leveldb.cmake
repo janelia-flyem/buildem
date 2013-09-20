@@ -13,9 +13,9 @@ include (BuildSupport)
 include (snappy)
 
 external_source (leveldb
-    1.9.0
-    leveldb-1.9.0.tar.gz
-    12f11385cb58ae0de66d4bc2cc7f8194
+    1.14
+    leveldb-1.14.0.tar.gz
+    38ce005460d71040f959d71fd8d7fc78
     http://leveldb.googlecode.com/files)
 
 message ("Installing ${leveldb_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
@@ -32,7 +32,7 @@ if (${APPLE})
         BUILD_COMMAND     ${BUILDEM_ENV_STRING} make
         BUILD_IN_SOURCE   1
         INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
-            ${leveldb_SRC_DIR}/libleveldb.dylib.1.9 ${BUILDEM_LIB_DIR}/libleveldb.dylib
+            ${leveldb_SRC_DIR}/libleveldb.dylib.${leveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.dylib
     )
 elseif (${UNIX})
     message ("Leveldb cmake system: Detected UNIX-like platform.")
@@ -47,7 +47,7 @@ elseif (${UNIX})
         BUILD_COMMAND     ${BUILDEM_ENV_STRING} make
         BUILD_IN_SOURCE   1
         INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
-            ${leveldb_SRC_DIR}/libleveldb.so.1.9 ${BUILDEM_LIB_DIR}/libleveldb.so
+            ${leveldb_SRC_DIR}/libleveldb.so.${leveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.so
     )
     ExternalProject_add_step(${leveldb_NAME} install_lib_link
         DEPENDEES   install
