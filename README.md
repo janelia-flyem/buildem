@@ -38,18 +38,8 @@ Buildem requires a few installed components:
 * git
 * CMake 2.8.6+
 * python 2.6+ *if* patches or templates are used in build process.  In future, we could require a python build from source and use that instead *or* switch to a platform-independent patch/template system built into CMake.
-* libxext-devel
-* libgl1-mesa-devel
-* libxt-devel
-* libxml2-devel (build of vtk's xml failed)
-* CPLEX for pgmlink (tracking)
 
-If you want do distribute your build to other systems (e.g. you built on Ubuntu and want to distribute it to other Ubuntu machines) the target machines will need to fulfill the following requirements:
-* git (to be able to pull more recent versions of ilastik, lazyflow and volumina)
-* libxext
-* libgl1-mesa-glx
-* libxt
-* libxml2
+In addition, specific packages may have a few additional system requirements, depending on your platform. (See build notes sections below.) 
 
 Note that a different version of python can be built from source.  Buildem does *not* try to minimize overall build time by reusing pre-compiled packages.  The presence of multiple compiler versions across the different Fedora/RHEL versions and our very heterogeneous workstation environment requires developer attention and tracking of installs across multiple machines.  
 
@@ -334,4 +324,24 @@ Note that the PATH is set to automatically use the more recent CMake, gcc, and g
 
 After setting the appropriate environment variables, simply run the standard installation cmake/make (with possible second cmake/make invokation) to build the system.
 
+
+## Build notes for ilastik binary distribution generation
+
+ilastik requires the following additional packages, not included in BuildEM:
+
+* CPLEX for pgmlink (tracking)
+
+To build ilastik on linux, your system also needs the following packages, not included in BuildEM:
+
+* libxext-devel
+* libgl1-mesa-devel
+* libxt-devel
+* libxml2-devel (build of vtk's xml failed)
+
+If you want do distribute your ilastik build to other systems (e.g. you built on Ubuntu and want to distribute it to other Ubuntu machines) the target machines will need to fulfill the following requirements:
+* git (to be able to pull more recent versions of ilastik, lazyflow and volumina)
+* libxext
+* libgl1-mesa-glx
+* libxt
+* libxml2
 
