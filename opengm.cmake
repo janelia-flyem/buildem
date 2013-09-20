@@ -35,7 +35,7 @@ ExternalProject_Add(${opengm_NAME}
 
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
-    TEST_COMMAND        ${BUILDEM_ENV_STRING} make test
+    #TEST_COMMAND        ${BUILDEM_ENV_STRING} make test
 )
 
 set_target_properties(${opengm_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
