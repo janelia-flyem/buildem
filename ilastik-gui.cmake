@@ -21,10 +21,18 @@ include (pyqt4)
 include (qimage2ndarray)
 include (vtk)
 
+if (APPLE)
+    include (py2app)
+endif()
+
 set (ilastik-gui_NAME ${ilastik_NAME}-gui)
 
 # Add a few dependencies to GUI ilastik build
 add_dependencies( ${ilastik_NAME} ${qt4_NAME} ${pyqt4_NAME} ${qimage2ndarray_NAME} ${vtk_NAME} ) 
+
+if (APPLE)
+    add_dependencies( ${ilastik_NAME} ${py2app_NAME} ) 
+endif()
 
 add_custom_target (${ilastik-gui_NAME} ALL 
     DEPENDS     ${ilastik_NAME}
