@@ -325,7 +325,7 @@ Note that the PATH is set to automatically use the more recent CMake, gcc, and g
 After setting the appropriate environment variables, simply run the standard installation cmake/make (with possible second cmake/make invokation) to build the system.
 
 
-## Build notes for ilastik binary distribution generation
+## Build notes for ilastik
 
 ilastik requires the following additional packages, not included in BuildEM:
 
