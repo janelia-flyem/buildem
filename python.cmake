@@ -59,6 +59,14 @@ set (PYTHON_LIBRARY_FILE ${PYTHON_PREFIX}/lib/libpython2.7.${BUILDEM_PLATFORM_DY
 set (PYTHON_EXE ${PYTHON_PREFIX}/bin/python)
 set (BUILDEM_PYTHONPATH  ${PYTHON_PREFIX}/lib/python2.7:${PYTHON_PREFIX}/lib/python2.7/site-packages:${PYTHON_PREFIX}/lib)
 
+# Update our bin PATH variable to include the python bin path
+# (Important for Mac OS X, which uses a special python prefix.  See above)
+set (BUILDEM_BIN_PATH ${PYTHON_PREFIX}/bin:${BUILDEM_BIN_PATH})
+
+# Append our revised bin PATH variable to ENV string.
+# (This means that PATH will be specified TWICE in the env string, but the second one takes precedence.)
+set (BUILDEM_ENV_STRING   env ${BUILDEM_ENV_STRING} PATH=${BUILDEM_BIN_PATH})
+
 set_target_properties(${python_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 endif (NOT python_NAME)
