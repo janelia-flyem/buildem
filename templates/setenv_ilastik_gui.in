@@ -1,25 +1,31 @@
 #!/bin/bash
 
-# we assume that this script resides in BUILDEM_DIR/bin
-export BUILDEM_DIR=$(cd `dirname $0`/.. && pwd)
-echo Loading ilastik from "$BUILDEM_DIR".
-
-if [ -z "$ILASTIK_PATH" ]; then
-    export ILASTIK_PATH=$(cd $BUILDEM_DIR/@ILASTIK_DIR_RELATIVE@ && pwd)
+# BUILDEM_DIR must be specified in advance...
+# We can't deduce the correct BUILDEM_DIR within this script because we 
+#  can't use $0 if this script is 'source'd instead of called.
+if [[ $BUILDEM_DIR == "" ]]
+then
+    echo "Error: You must define the BUILDEM_DIR env variable before sourcing this script!"
+else
+    echo Loading ilastik from "$BUILDEM_DIR".
+    
+    if [ -z "$ILASTIK_PATH" ]; then
+        export ILASTIK_PATH=$(cd $BUILDEM_DIR/@ILASTIK_DIR_RELATIVE@ && pwd)
+    fi
+    export PYTHON_PREFIX=$(cd $BUILDEM_DIR/@PYTHON_PREFIX_RELATIVE@ && pwd)
+    
+    export @BUILDEM_LD_LIBRARY_VAR@=$BUILDEM_DIR/lib:$@BUILDEM_LD_LIBRARY_VAR@
+    export @BUILDEM_LD_LIBRARY_VAR@=$BUILDEM_DIR/lib/vtk-5.10:$@BUILDEM_LD_LIBRARY_VAR@
+    export @BUILDEM_LD_LIBRARY_VAR@=$PYTHON_PREFIX/lib/python2.7/site-packages:$@BUILDEM_LD_LIBRARY_VAR@
+    export @BUILDEM_LD_LIBRARY_VAR@=$PYTHON_PREFIX/lib/python2.7/site-packages/vigra:$@BUILDEM_LD_LIBRARY_VAR@
+    
+    export PYTHONPATH=$PYTHON_PREFIX/lib/python2.7/site-packages:$PYTHONPATH
+    
+    export PYTHONPATH=$ILASTIK_PATH/ilastik:$PYTHONPATH
+    export PYTHONPATH=$ILASTIK_PATH/lazyflow:$PYTHONPATH
+    export PYTHONPATH=$ILASTIK_PATH/lazyflow/lazyflow/drtile:$PYTHONPATH
+    export PYTHONPATH=$ILASTIK_PATH/volumina:$PYTHONPATH
+    
+    export PATH=$PYTHON_PREFIX/bin:$PATH
+    export PATH=$BUILDEM_DIR/bin:$PATH
 fi
-export PYTHON_PREFIX=$(cd $BUILDEM_DIR/@PYTHON_PREFIX_RELATIVE@ && pwd)
-
-export @BUILDEM_LD_LIBRARY_VAR@=$BUILDEM_DIR/lib:$@BUILDEM_LD_LIBRARY_VAR@
-export @BUILDEM_LD_LIBRARY_VAR@=$BUILDEM_DIR/lib/vtk-5.10:$@BUILDEM_LD_LIBRARY_VAR@
-export @BUILDEM_LD_LIBRARY_VAR@=$PYTHON_PREFIX/lib/python2.7/site-packages:$@BUILDEM_LD_LIBRARY_VAR@
-export @BUILDEM_LD_LIBRARY_VAR@=$PYTHON_PREFIX/lib/python2.7/site-packages/vigra:$@BUILDEM_LD_LIBRARY_VAR@
-
-export PYTHONPATH=$PYTHON_PREFIX/lib/python2.7/site-packages:$PYTHONPATH
-
-export PYTHONPATH=$ILASTIK_PATH/ilastik:$PYTHONPATH
-export PYTHONPATH=$ILASTIK_PATH/lazyflow:$PYTHONPATH
-export PYTHONPATH=$ILASTIK_PATH/lazyflow/lazyflow/drtile:$PYTHONPATH
-export PYTHONPATH=$ILASTIK_PATH/volumina:$PYTHONPATH
-
-export PATH=$PYTHON_PREFIX/bin:$PATH
-export PATH=$BUILDEM_DIR/bin:$PATH
