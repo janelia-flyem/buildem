@@ -11,9 +11,9 @@ include (ExternalSource)
 include (BuildSupport)
 
 external_source (snappy
-    1.0.5
-    snappy-1.0.5.tar.gz
-    4c0af044e654f5983f4acbf00d1ac236
+    1.1.0
+    snappy-1.1.0.tar.gz
+    c8f3ef29b5281e78f4946b2d739cea4f
     http://snappy.googlecode.com/files)
 
 message ("Installing ${snappy_NAME} into build area: ${BUILDEM_DIR} ...")
