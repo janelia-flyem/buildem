@@ -31,6 +31,10 @@ else ()
     message (FATAL_ERROR "Unable to set FORTRAN ABI for numpy.  Does not support ${Fortran_COMPILER_NAME}!")
 endif ()
 
+if(NOT WITH_ATLAS)
+    set(NUMPY_NO_ATLAS "ATLAS=None")
+endif()
+
 # Download and install numpy
 message ("Installing ${numpy_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${numpy_NAME}
@@ -41,7 +45,7 @@ ExternalProject_Add(${numpy_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py build --fcompiler=${fortran_abi}
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${NUMPY_NO_ATLAS} ${PYTHON_EXE} setup.py build --fcompiler=${fortran_abi}
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
 )

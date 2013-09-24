@@ -15,6 +15,10 @@ include (cython)
 include (numpy)
 include (scipy)
 
+if(NOT WITH_ATLAS)
+    set(NUMPY_NO_ATLAS "ATLAS=None")
+endif()
+
 external_source (scikit-learn
     0.14.1
     scikit-learn-0.14.1.tar.gz
@@ -29,7 +33,7 @@ ExternalProject_Add(${scikit-learn_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${NUMPY_NO_ATLAS} ${PYTHON_EXE} setup.py install
     BUILD_IN_SOURCE     1
     TEST_COMMAND        ""
     INSTALL_COMMAND     ""
