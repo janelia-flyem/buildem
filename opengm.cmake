@@ -13,7 +13,7 @@ include (PatchSupport)
 
 external_git_repo (opengm
     HEAD
-    https://github.com/ilastik/opengm)
+    https://github.com/opengm/opengm.git)
 
 if(CPLEX_ROOT_DIR)
     set(CMAKE_CPLEX_ROOT_DIR "-DCPLEX_ROOT_DIR=${CPLEX_ROOT_DIR}")
