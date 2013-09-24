@@ -32,7 +32,7 @@ SET(VIGRA_VERSION ${VIGRA_VERSION}
 
 external_git_repo (vigra
     ${VIGRA_VERSION}
-    http://github.com/ukoethe/vigra)
+    https://github.com/ukoethe/vigra)
     
 if("${VIGRA_VERSION}" STREQUAL "master")
     set(VIGRA_UPDATE_COMMAND git checkout master && git pull)
