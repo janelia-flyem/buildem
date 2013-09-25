@@ -22,7 +22,7 @@ include (numpy)
 include (nose)
 
 # select the desired VIGRA commit
-set(DEFAULT_VIGRA_VERSION "fd5d9bf7")
+set(DEFAULT_VIGRA_VERSION "494bd66423782280f31239b12dd2e7a6184d916b")
 IF(NOT DEFINED VIGRA_VERSION)
     SET(VIGRA_VERSION "${DEFAULT_VIGRA_VERSION}")
 ENDIF()
@@ -32,7 +32,7 @@ SET(VIGRA_VERSION ${VIGRA_VERSION}
 
 external_git_repo (vigra
     ${VIGRA_VERSION}
-    http://github.com/ukoethe/vigra)
+    https://github.com/ukoethe/vigra)
     
 if("${VIGRA_VERSION}" STREQUAL "master")
     set(VIGRA_UPDATE_COMMAND git checkout master && git pull)

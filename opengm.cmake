@@ -12,8 +12,8 @@ include (BuildSupport)
 include (PatchSupport)
 
 external_git_repo (opengm
-    HEAD
-    https://github.com/ilastik/opengm)
+    576dc472324a5dce40b7e9bb4c270afbd9b3da37
+    https://github.com/opengm/opengm)
 
 if(CPLEX_ROOT_DIR)
     set(CMAKE_CPLEX_ROOT_DIR "-DCPLEX_ROOT_DIR=${CPLEX_ROOT_DIR}")
@@ -33,9 +33,9 @@ ExternalProject_Add(${opengm_NAME}
         -DWITH_BOOST=ON
         ${CMAKE_CPLEX_ROOT_DIR}
 
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
-    #TEST_COMMAND        ${BUILDEM_ENV_STRING} make test
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) test
 )
 
 set_target_properties(${opengm_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

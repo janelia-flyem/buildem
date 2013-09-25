@@ -18,7 +18,7 @@ include (cython)
 
 external_git_repo (cylemon
     HEAD
-    http://github.com/ilastik/cylemon)
+    https://github.com/ilastik/cylemon)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set (cylemon_SPECIAL_SETUP "--no-openmp")
