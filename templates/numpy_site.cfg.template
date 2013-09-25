@@ -1,0 +1,4 @@
+[DEFAULT]
+library_dirs = {0}/lib
+include_dirs = {0}/include
+
