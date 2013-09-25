@@ -41,7 +41,7 @@ SET(ILASTIK_VERSION ${ILASTIK_VERSION}
     
 external_git_repo (ilastik
     ${ILASTIK_VERSION}
-    http://github.com/janelia-flyem/flyem-ilastik
+    https://github.com/janelia-flyem/flyem-ilastik
     ilastik)
 set(lazyflow_SRC_DIR "${ilastik_SRC_DIR}/lazyflow")
 

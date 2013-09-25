@@ -11,7 +11,7 @@ include (ExternalSource)
 
 external_git_repo (openblas
     0.2.8
-    http://github.com/xianyi/OpenBLAS)
+    https://github.com/xianyi/OpenBLAS)
 
 message ("Installing ${openblas_NAME} into ilastik build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${openblas_NAME}
