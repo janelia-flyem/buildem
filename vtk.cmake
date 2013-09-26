@@ -56,6 +56,8 @@ ExternalProject_Add(${vtk_NAME}
 	-DVTK_USE_TK=OFF
 	# NETCDF caused weird errors in vtk's xml
 	-DVTK_USE_SYSTEM_LIBXML2=ON
+    -DLIBXML2_INCLUDE_DIR:PATH=${BUILDEM_DIR}/include/libxml2
+    -DLIBXML2_LIBRARIES:FILEPATH=${BUILDEM_DIR}/lib/libxml2.so
 	# We want vtk to be built in parallel if possible.
 	# Therefore we use $(MAKE) instead of 'make', which somehow enables sub-make files to use the jobserver correctly.
 	# See: http://stackoverflow.com/questions/2942465/cmake-and-parallel-building-with-make-jn
