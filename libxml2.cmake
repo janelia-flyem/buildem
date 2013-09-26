@@ -8,7 +8,7 @@ if (NOT libxml2_NAME)
 
   include (ExternalProject)
   include (ExternalSource)
-  include (BuildeSupport)
+  include (BuildSupport)
 
   external_source(
     libxml2
@@ -16,7 +16,9 @@ if (NOT libxml2_NAME)
     libxml2-2.9.1.tar.gz
     9c0cfef285d5c4a5c80d00904ddab380
     ftp://xmlsoft.org/libxml2
+    FORCE
     )
+
 
   message("Installing ${libxml2_NAME} into FlyEM build area ${BUILDEM_DIR} ...")
   ExternalProject_Add(
@@ -34,6 +36,7 @@ if (NOT libxml2_NAME)
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
     TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
+    )
 
 
   endif(NOT libxml2_NAME)
