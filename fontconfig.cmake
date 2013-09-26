@@ -11,6 +11,7 @@ if (NOT fontconfig_NAME)
   include (BuildSupport)
 
   include (libxml2)
+  include (freetype2)
   
   external_source(
     fontconfig
@@ -24,7 +25,7 @@ if (NOT fontconfig_NAME)
   message("Installing ${fontconfig_NAME} into FlyEM build area ${BUILDEM_DIR} ...")
   ExternalProject_Add(
     ${fontconfig_NAME}
-    DEPENDS             ${libxml2_NAME}
+    DEPENDS             ${libxml2_NAME} ${freetype2_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${fontconfig_URL}
     URL_MD5             ${fontconfig_MD5}
