@@ -21,6 +21,7 @@ endif()
 
 message ("Installing ${opengm_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${opengm_NAME}
+    DEPENDS             ${boost_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${opengm_URL}
     UPDATE_COMMAND      ""
