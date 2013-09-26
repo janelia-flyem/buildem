@@ -16,6 +16,7 @@ include(libpng)
 include(libjpeg)
 include(libtiff)
 include(freetype2)
+include(fontconfig)
 
 external_source (qt4
     4.8.3

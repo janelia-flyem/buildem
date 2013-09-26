@@ -15,6 +15,7 @@ include (python)
 include (qt4)
 include (sip)
 include (pyqt4)
+include (libxml2)
 
 external_source (vtk
     5.10.1

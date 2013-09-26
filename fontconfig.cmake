@@ -10,6 +10,8 @@ if (NOT fontconfig_NAME)
   include (ExternalSource)
   include (BuildeSupport)
 
+  include (libxml2)
+  
   external_source(
     fontconfig
     2.10.95
