@@ -32,7 +32,10 @@ else ()
 endif ()
 
 if(NOT WITH_ATLAS)
-    set(NUMPY_NO_ATLAS "ATLAS=None")
+    configure_file(${BUILDEM_REPO_DIR}/templates/numpy-site-cfg.template ${BUILDEM_DIR}/tmp/numpy-site.cfg @ONLY)
+    set(NUMPY_CONFIG_COMMAND cp ${BUILDEM_DIR}/tmp/numpy-site.cfg ${numpy_SRC_DIR}/site.cfg)
+else()
+    set(NUMPY_CONFIG_COMMAND "")
 endif()
 
 # Download and install numpy
@@ -44,8 +47,8 @@ ExternalProject_Add(${numpy_NAME}
     URL_MD5             ${numpy_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${NUMPY_NO_ATLAS} ${PYTHON_EXE} setup.py build --fcompiler=${fortran_abi}
+    CONFIGURE_COMMAND   ${NUMPY_CONFIG_COMMAND}
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py build --fcompiler=${fortran_abi}
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
 )
