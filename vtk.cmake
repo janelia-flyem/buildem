@@ -29,7 +29,7 @@ set (vtk_LIBPATH ${BUILDEM_DIR}/lib/vtk-5.10)
 include_directories (${BUILDEM_DIR}/include/vtk-5.10)
 
 ExternalProject_Add(${vtk_NAME}
-    DEPENDS             ${python_NAME} ${qt4_NAME} ${sip_NAME} ${pyqt4_NAME}
+    DEPENDS             ${python_NAME} ${qt4_NAME} ${sip_NAME} ${pyqt4_NAME} ${libxml2_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${vtk_URL}
     URL_MD5             ${vtk_MD5}
