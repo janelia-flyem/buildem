@@ -16,6 +16,7 @@ include(libpng)
 include(libjpeg)
 include(libtiff)
 include(freetype2)
+include(fontconfig)
 
 external_source (qt4
     4.8.3
@@ -40,7 +41,7 @@ endif()
 # (This builds everything that ilastik needs.)
 
 ExternalProject_Add(${qt4_NAME}
-    DEPENDS             ${freetype2_NAME}
+    DEPENDS             ${freetype2_NAME} ${fontconfig_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${qt4_URL}
     URL_MD5             ${qt4_MD5}
