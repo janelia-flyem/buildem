@@ -39,8 +39,12 @@ ExternalProject_Add(${blockedarray_NAME}
         -DBoost_LIBRARY_DIRS=${BUILDEM_DIR}/lib
     	${blockedarray_SRC_DIR}
     	
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+    
+    # blockedarray doesn't support a seperate install location.
+    # Its output .so is copied directly into the source tree and used from there.
+    ###INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    INSTALL_COMMAND     ""
 )
 
 endif (NOT blockedarray_NAME)
