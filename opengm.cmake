@@ -13,7 +13,7 @@ include (PatchSupport)
 
 external_git_repo (opengm
     576dc472324a5dce40b7e9bb4c270afbd9b3da37
-    http://github.com/opengm/opengm)
+    https://github.com/opengm/opengm)
 
 if(CPLEX_ROOT_DIR)
     set(CMAKE_CPLEX_ROOT_DIR "-DCPLEX_ROOT_DIR=${CPLEX_ROOT_DIR}")
@@ -21,6 +21,7 @@ endif()
 
 message ("Installing ${opengm_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${opengm_NAME}
+    DEPENDS             ${boost_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${opengm_URL}
     UPDATE_COMMAND      ""

@@ -11,6 +11,12 @@ include (ExternalSource)
 include (BuildSupport)
 #include (PatchSupport)
 
+include(zlib)
+include(libpng)
+include(libjpeg)
+include(libtiff)
+include(freetype2)
+
 external_source (qt4
     4.8.3
     qt-everywhere-opensource-src-4.8.3.tar.gz
@@ -34,7 +40,7 @@ endif()
 # (This builds everything that ilastik needs.)
 
 ExternalProject_Add(${qt4_NAME}
-    #DEPENDS             
+    DEPENDS             ${freetype2_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${qt4_URL}
     URL_MD5             ${qt4_MD5}
@@ -76,10 +82,16 @@ ExternalProject_Add(${qt4_NAME}
         -no-dbus
         -no-cups
         -no-nis
-        -qt-libpng 
         -release 
         -shared
         -no-accessibility 
+        -fontconfig
+        -system-zlib
+        -system-libpng
+        -system-libjpeg
+        -system-libtiff
+        -I${BUILDEM_DIR}/include
+        -L${BUILDEM_DIR}/lib
         ${EXTRA_QT4_CONFIG_FLAGS}
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
