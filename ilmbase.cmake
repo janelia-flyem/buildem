@@ -41,7 +41,7 @@ ExternalProject_Add(${ilmbase_NAME}
         --prefix=${BUILDEM_DIR}
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 

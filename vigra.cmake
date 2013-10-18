@@ -72,7 +72,7 @@ ExternalProject_Add(${vigra_NAME}
         -DFFTW3_LIBRARY=${BUILDEM_DIR}/lib/libfftw3.${BUILDEM_PLATFORM_DYLIB_EXTENSION}
         -DCMAKE_CXX_FLAGS=-pthread
         -DCMAKE_CXX_LINK_FLAGS=-pthread
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
