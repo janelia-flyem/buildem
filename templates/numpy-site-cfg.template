@@ -60,8 +60,8 @@
 # /usr/local/{lib,include}
 #
 [DEFAULT]
-library_dirs = {0}/lib
-include_dirs = {0}/include
+library_dirs = @BUILDEM_DIR@/lib
+include_dirs = @BUILDEM_DIR@/include
 
 # Optimized BLAS and LAPACK
 # -------------------------
@@ -78,15 +78,15 @@ include_dirs = {0}/include
 
 # [atlas]
 # atlas_libs = openblas
-# library_dirs = {0}/lib
+# library_dirs = @BUILDEM_DIR@/lib
 
 # [lapack]
 # lapack_libs = openblas
-# library_dirs = {0}/lib
+# library_dirs = @BUILDEM_DIR@/lib
 
 # [blas]
 # blas_libs = openblas
-# library_dirs = {0}/lib
+# library_dirs = @BUILDEM_DIR@/lib
 
 # UMFPACK
 # -------
