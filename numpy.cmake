@@ -49,8 +49,12 @@ else()
 endif()
 
 # Patch 2: system info (see above)
-set(NUMPY_PATCH_SYSTEM_INFO_PY ${PATCH_EXE} ${numpy_SRC_DIR}/numpy/distutils/system_info.py ${PATCH_DIR}/numpy.patch)
-set(NUMPY_PATCH_COMMAND ${NUMPY_REPLACE_SITE_CFG} && ${NUMPY_PATCH_SYSTEM_INFO_PY})
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+	set(NUMPY_PATCH_SYSTEM_INFO_PY ${PATCH_EXE} ${numpy_SRC_DIR}/numpy/distutils/system_info.py ${PATCH_DIR}/numpy.patch)
+	set(NUMPY_PATCH_COMMAND ${NUMPY_REPLACE_SITE_CFG} && ${NUMPY_PATCH_SYSTEM_INFO_PY})
+else()
+	set(NUMPY_PATCH_COMMAND ${NUMPY_REPLACE_SITE_CFG})
+endif()
 
 # Download and install numpy
 message ("Installing ${numpy_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
