@@ -9,6 +9,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
+include (python)
 
 external_source (protobuf
     2.5.0
@@ -33,6 +34,32 @@ ExternalProject_Add(${protobuf_NAME}
     BUILD_IN_SOURCE   1
     TEST_COMMAND      ${BUILDEM_ENV_STRING} make check
     INSTALL_COMMAND   ${BUILDEM_ENV_STRING} make install
+)
+
+##
+## Add custom steps for the protobuf python bindings (build, test, install)
+##
+
+ExternalProject_Add_Step(${protobuf_NAME} python-build
+    COMMENT "Building protobuf python bindings."
+    COMMAND ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py build
+    WORKING_DIRECTORY ${protobuf_SRC_DIR}/python
+    DEPENDEES build
+)
+
+ExternalProject_Add_Step(${protobuf_NAME} python-test
+    COMMENT "Testing protobuf python bindings."
+    COMMAND ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py test
+    WORKING_DIRECTORY ${protobuf_SRC_DIR}/python
+    DEPENDEES python-build
+)
+
+ExternalProject_Add_Step(${protobuf_NAME} python-install
+    COMMENT "Installing protobuf python bindings."
+    COMMAND ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
+    WORKING_DIRECTORY ${protobuf_SRC_DIR}/python
+    DEPENDEES python-test
+    DEPENDERS install
 )
 
 set_target_properties(${protobuf_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
