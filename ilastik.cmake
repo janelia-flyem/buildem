@@ -61,10 +61,10 @@ set (ilastik_dependencies ${vigra_NAME} ${h5py_NAME} ${psutil_NAME}
                             ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME}
                             ${cylemon_NAME} ${scikit-learn_NAME})
 
-if (NOT "${CMAKE_CPLEX_ROOT_DIR}" STREQUAL "")
+if (${build_pgmlink})
     # Tracking depends on pgmlink, which depends on CPLEX.
     # Most people don't have CPLEX installed on their system.
-    message ("Building ilastik with CPLEX located in ${CMAKE_CPLEX_ROOT_DIR}")
+    message ("Building ilastik with CPLEX located in ${CPLEX_ROOT_DIR}")
     set (ilastik_dependencies ${ilastik_dependencies}  ${pgmlink_NAME})
 endif()
 
