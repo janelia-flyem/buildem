@@ -57,12 +57,21 @@ endif()
     
 message ("Installing ${ilastik_NAME}/${ILASTIK_VERSION} into FlyEM build area: ${BUILDEM_DIR} ...")
 
+set (ilastik_dependencies ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
+                            ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME}
+                            ${cylemon_NAME} ${scikit-learn_NAME})
+
+if (${build_pgmlink})
+    # Tracking depends on pgmlink, which depends on CPLEX.
+    # Most people don't have CPLEX installed on their system.
+    message ("Building ilastik with CPLEX located in ${CPLEX_ROOT_DIR}")
+    set (ilastik_dependencies ${ilastik_dependencies}  ${pgmlink_NAME})
+endif()
+
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     # On Mac OS X, building drtile requires explicitly setting several cmake cache variables
     ExternalProject_Add(${ilastik_NAME}
-        DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
-                            ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME}
-                            ${cylemon_NAME} ${scikit-learn_NAME} ${pgmlink_NAME}
+        DEPENDS             ${ilastik_dependencies}
         SOURCE_DIR          ${ilastik_SRC_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ${ILASTIK_UPDATE_COMMAND}
@@ -84,9 +93,7 @@ else()
     # On Linux, building drtile requires less explicit configuration
     # The explicit configuration above would probably work, but let's keep this simple...
     ExternalProject_Add(${ilastik_NAME}
-        DEPENDS             ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} 
-                            ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME}
-                            ${cylemon_NAME} ${scikit-learn_NAME} ${pgmlink_NAME}
+        DEPENDS             ${ilastik_dependencies}
         SOURCE_DIR          ${ilastik_SRC_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
         UPDATE_COMMAND      ${ILASTIK_UPDATE_COMMAND}
