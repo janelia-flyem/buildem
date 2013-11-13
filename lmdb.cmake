@@ -12,14 +12,6 @@ include (PkgConfig)
 include (BuildSupport)
 include (PatchSupport)
 
-include (boost)
-include (cppunit)
-include (zlib)
-include (openexr)
-include (tbb)
-include (doxygen)
-include (glfw)
-
 external_source (lmdb
     0.9.8
     lmdb-0.9.8.tar.gz
@@ -27,18 +19,18 @@ external_source (lmdb
 
 message ("Installing ${lmdb_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${lmdb_NAME}
-    DEPENDS             
     PREFIX              ${BUILDEM_DIR}
     URL                 ${lmdb_URL}
     URL_MD5             ${lmdb_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
+    BUILD_IN_SOURCE     1
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
     TEST_COMMAND        ${BUILDEM_ENV_STRING} make test
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install BUILDEM_DIR=$BUILDEM_DIR
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install BUILDEM_DIR=${BUILDEM_DIR}
 )
 
 set_target_properties(${lmdb_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
-endif (NOT openvdb_NAME)
+endif (NOT lmdb_NAME)
