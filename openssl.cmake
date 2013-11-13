@@ -41,7 +41,7 @@ ExternalProject_Add(${openssl_NAME}
         -L${BUILDEM_LIB_DIR}
         shared
         zlib
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+        BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE     1
     TEST_COMMAND        ${BUILDEM_ENV_STRING} make test
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install

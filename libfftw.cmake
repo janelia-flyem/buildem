@@ -28,7 +28,7 @@ ExternalProject_Add(${libfftw_NAME}
         --enable-shared
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+        BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )
 

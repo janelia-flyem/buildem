@@ -39,7 +39,7 @@ ExternalProject_Add(${hdf5_NAME}
         -DBUILD_SHARED_LIBS=ON
         -DHDF5_ENABLE_Z_LIB_SUPPORT=ON
 #        -DBUILD_TESTING=ON
-    BUILD_COMMAND           ${BUILDEM_ENV_STRING} make
+BUILD_COMMAND           ${BUILDEM_ENV_STRING} $(MAKE)
 #    TEST_COMMAND        make check
     INSTALL_COMMAND         ${BUILDEM_ENV_STRING} make install
 )

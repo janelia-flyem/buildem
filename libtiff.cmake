@@ -39,7 +39,7 @@ ExternalProject_Add(${libtiff_NAME}
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
         --disable-jbig
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+        BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE     1
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
 )

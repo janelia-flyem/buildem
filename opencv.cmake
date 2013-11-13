@@ -37,7 +37,7 @@ ExternalProject_Add(${opencv_NAME}
     CONFIGURE_COMMAND       ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${opencv_SRC_DIR} 
         -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
         -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
-    BUILD_COMMAND           ${BUILDEM_ENV_STRING} make
+        BUILD_COMMAND           ${BUILDEM_ENV_STRING} $(MAKE)
 #    TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
     INSTALL_COMMAND         ${BUILDEM_ENV_STRING} make install
 )
