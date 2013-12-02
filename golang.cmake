@@ -12,8 +12,8 @@ include (BuildSupport)
 
 external_source (golang
     1.2
-    go1.2rc4.src.tar.gz
-    21df7d7d0e585299045203fd443ee2c5
+    go1.2.src.tar.gz
+    c2ace56f6b6413a5c6318b9527a8b763
     http://go.googlecode.com/files)
 
 message ("Installing ${golang_NAME} into build area: ${BUILDEM_DIR} ...")
