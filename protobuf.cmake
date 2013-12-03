@@ -36,6 +36,8 @@ ExternalProject_Add(${protobuf_NAME}
     INSTALL_COMMAND   ${BUILDEM_ENV_STRING} make install
 )
 
+set (protobuf_LIBRARIES ${BUILDEM_LIB_DIR}/libprotobuf.${BUILDEM_PLATFORM_DYLIB_EXTENSION})
+
 ##
 ## Add custom steps for the protobuf python bindings (build, test, install)
 ##
