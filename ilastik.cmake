@@ -31,7 +31,7 @@ include (pgmlink)
 include (scikit-learn)
 
 # select the desired ilastik commit
-set(DEFAULT_ILASTIK_VERSION "flyem-20130702")
+set(DEFAULT_ILASTIK_VERSION "20131203")
 IF(NOT DEFINED ILASTIK_VERSION)
     SET(ILASTIK_VERSION "${DEFAULT_ILASTIK_VERSION}")
 ENDIF()
