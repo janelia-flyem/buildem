@@ -333,10 +333,11 @@ ilastik requires the following additional packages, not included in BuildEM:
 
 To build ilastik on linux, your system also needs the following packages, not included in BuildEM:
 
-* libxext-devel
-* libgl1-mesa-devel
-* libxt-devel
-* libxml2-devel (build of vtk's xml failed)
+* libxext-dev
+* libgl1-mesa-dev
+* libxt-dev
+* libxml2-dev (build of vtk's xml failed)
+* libfontconfig1-dev
 
 If you want do distribute your ilastik build to other systems (e.g. you built on Ubuntu and want to distribute it to other Ubuntu machines) the target machines will need to fulfill the following requirements:
 * git (to be able to pull more recent versions of ilastik, lazyflow and volumina)
