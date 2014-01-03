@@ -29,10 +29,10 @@ ExternalProject_Add(${snappy_NAME}
         --enable-static
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
-    BUILD_COMMAND     ${BUILDEM_ENV_STRING} make
+    BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE   1
-    TEST_COMMAND      ${BUILDEM_ENV_STRING} make check
-    INSTALL_COMMAND   ${BUILDEM_ENV_STRING} make install
+    TEST_COMMAND      ${BUILDEM_ENV_STRING} $(MAKE) check
+    INSTALL_COMMAND   ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 #ExternalProject_add_step(${snappy_NAME} install_includes

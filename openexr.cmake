@@ -53,7 +53,7 @@ ExternalProject_Add(${openexr_NAME}
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set_target_properties(${openexr_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

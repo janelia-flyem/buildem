@@ -85,7 +85,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
             -DPYTHON_NUMPY_INCLUDE_DIR=${PYTHON_PREFIX}/lib/python2.7/site-packages/numpy/core/include
             -DVIGRA_NUMPY_CORE_LIBRARY=${PYTHON_PREFIX}/lib/python2.7/site-packages/vigra/vigranumpycore.so
             ${lazyflow_SRC_DIR}/lazyflow/drtile
-        BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+        BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
         TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
         INSTALL_COMMAND     ""
     )
@@ -103,7 +103,7 @@ else()
 #            -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
 #            -DVIGRA_ROOT=${BUILDEM_DIR}
             ${lazyflow_SRC_DIR}/lazyflow/drtile
-        BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+        BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
         TEST_COMMAND        ${BUILDEM_DIR}/bin/ilastik_headless_test
         INSTALL_COMMAND     ""
     )

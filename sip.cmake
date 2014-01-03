@@ -41,8 +41,8 @@ ExternalProject_Add(${sip_NAME}
         #-e ${PYTHON_PREFIX}/include/python2.7
         #-v ${PYTHON_PREFIX}/share/sip
         
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
     BUILD_IN_SOURCE     1
 )
 

@@ -17,7 +17,7 @@ ExternalProject_Add(${raveler_utils_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} -DBUILDEM_DIR=${BUILDEM_DIR} ${raveler_utils_SRC_DIR}
-    BUILD_COMMAND       make
+    BUILD_COMMAND       $(MAKE)
     TEST_COMMAND        ""
     INSTALL_COMMAND     ""
 )

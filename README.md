@@ -209,9 +209,9 @@ ExternalProject_Add(${libtiff_NAME}
         --prefix=${BUILDEM_DIR}
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE     1
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 endif (NOT libtiff_NAME)

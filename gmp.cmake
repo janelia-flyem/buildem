@@ -27,10 +27,10 @@ ExternalProject_Add(${gmp_NAME}
         --prefix=${BUILDEM_DIR}
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE     1
-    TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) check
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set_target_properties(${gmp_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

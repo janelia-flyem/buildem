@@ -29,7 +29,7 @@ ExternalProject_Add(${libfftw_NAME}
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
         BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 # Add additional steps to build and install the fftw single-precision libraries.
@@ -49,13 +49,13 @@ ExternalProject_Add_Step(${libfftw_NAME} singlefloat-configure
 # build single-precision
 ExternalProject_Add_Step(${libfftw_NAME} singlefloat-build
     DEPENDEES singlefloat-configure
-    COMMAND cd ${libfftw_SRC_DIR}-build && ${BUILDEM_ENV_STRING} make
+    COMMAND cd ${libfftw_SRC_DIR}-build && ${BUILDEM_ENV_STRING} $(MAKE)
 )
 
 # install single-precision
 ExternalProject_Add_Step(${libfftw_NAME} singlefloat-install
     DEPENDEES singlefloat-build
-    COMMAND cd ${libfftw_SRC_DIR}-build && ${BUILDEM_ENV_STRING} make install
+    COMMAND cd ${libfftw_SRC_DIR}-build && ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set_target_properties(${libfftw_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

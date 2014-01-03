@@ -25,10 +25,10 @@ ExternalProject_Add(${cppunit_NAME}
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ./configure 
         --prefix ${BUILDEM_DIR}
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE     1
-    TEST_COMMAND        make check
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    TEST_COMMAND        $(MAKE) check
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set_target_properties(${cppunit_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

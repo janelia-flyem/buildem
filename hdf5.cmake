@@ -40,8 +40,8 @@ ExternalProject_Add(${hdf5_NAME}
         -DHDF5_ENABLE_Z_LIB_SUPPORT=ON
 #        -DBUILD_TESTING=ON
 BUILD_COMMAND           ${BUILDEM_ENV_STRING} $(MAKE)
-#    TEST_COMMAND        make check
-    INSTALL_COMMAND         ${BUILDEM_ENV_STRING} make install
+#    TEST_COMMAND        $(MAKE) check
+    INSTALL_COMMAND         ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set_target_properties(${hdf5_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

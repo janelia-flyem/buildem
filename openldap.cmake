@@ -31,10 +31,10 @@ ExternalProject_Add(${openldap_NAME}
         --disable-slapd
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make depend
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE) depend
     BUILD_IN_SOURCE     1
-    TEST_COMMAND        ${BUILDEM_ENV_STRING} make 
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) 
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set_target_properties(${openldap_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

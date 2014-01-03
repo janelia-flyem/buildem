@@ -37,7 +37,7 @@ ExternalProject_Add(${libpng_NAME}
         -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
         -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
         BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set_target_properties(${libpng_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

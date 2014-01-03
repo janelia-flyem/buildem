@@ -74,9 +74,9 @@ ExternalProject_Add(${atlas_NAME}
         --shared 
         --prefix=${BUILDEM_DIR} 
         --with-netlib-lapack-tarfile=${lapack_FILE}
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) check
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set (ENV{ATLAS} ${BUILDEM_DIR}/lib:${BUILDEM_DIR}/lib/libtatlas.so:${BUILDEM_DIR}/lib/libsatlas.so)

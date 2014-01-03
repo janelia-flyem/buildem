@@ -25,9 +25,9 @@ ExternalProject_Add(${lmdb_NAME}
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
     BUILD_IN_SOURCE     1
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    TEST_COMMAND        ${BUILDEM_ENV_STRING} make test
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install prefix=${BUILDEM_DIR} -i
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) test
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install prefix=${BUILDEM_DIR} -i
 )
 
 set_target_properties(${lmdb_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

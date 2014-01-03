@@ -33,8 +33,8 @@ ExternalProject_Add(${dlib_NAME}
         -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
 
 
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
     TEST_COMMAND        ""
 )
 

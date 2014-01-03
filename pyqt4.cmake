@@ -54,8 +54,8 @@ ExternalProject_Add(${pyqt4_NAME}
         --confirm-license
         -q "${BUILDEM_DIR}/bin/qmake"
         ${EXTRA_PYQT4_CONFIG_FLAGS}
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
     BUILD_IN_SOURCE 1
 )
 

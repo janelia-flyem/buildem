@@ -46,9 +46,9 @@ ExternalProject_Add(${thrift_NAME}
         PY_PREFIX=${PYTHON_PREFIX}
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE     1
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set (thrift_STATIC_LIBRARIES ${BUILDEM_LIB_DIR}/libthrift.a)

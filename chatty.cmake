@@ -39,8 +39,8 @@ ExternalProject_Add(${chatty_NAME}
         -DBoost_LIBRARY_DIRS=${BUILDEM_DIR}/lib
     	${chatty_SRC_DIR}
     	
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 endif (NOT chatty_NAME)

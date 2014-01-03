@@ -37,7 +37,7 @@ else()
         set(TEST_STRING "")
     else (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
          set(GIT_BRANCH "master")
-         set(TEST_STRING "${BUILDEM_ENV_STRING} make test")
+         set(TEST_STRING "${BUILDEM_ENV_STRING} $(MAKE) test")
     endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     
     external_git_repo (pgmlink
@@ -63,8 +63,8 @@ else()
             -DPYTHON_LIBRARY=${PYTHON_LIBRARY_FILE}
             ${CMAKE_CPLEX_ROOT_DIR}
     
-        BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-        INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+        BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+        INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
         TEST_COMMAND        ${TEST_STRING}
     )
     

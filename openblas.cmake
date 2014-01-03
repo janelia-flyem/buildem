@@ -22,9 +22,9 @@ ExternalProject_Add(${openblas_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       make NO_AVX=1 NO_AFFINITY=1 -j8
+    BUILD_COMMAND       $(MAKE) NO_AVX=1 NO_AFFINITY=1 -j8
     BUILD_IN_SOURCE     1
-    INSTALL_COMMAND     make PREFIX=${BUILDEM_DIR} install &&
+    INSTALL_COMMAND     $(MAKE) PREFIX=${BUILDEM_DIR} install &&
                         ln -fs libopenblas.so ${BUILDEM_DIR}/lib/libblas.so &&
                         ln -fs libopenblas.so ${BUILDEM_DIR}/lib/liblapack.so
 )

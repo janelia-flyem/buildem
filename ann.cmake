@@ -34,9 +34,9 @@ ExternalProject_Add(${ann_NAME}
         -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
 
 
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
-    TEST_COMMAND        "" # ${BUILDEM_ENV_STRING} make check
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
+    TEST_COMMAND        "" # ${BUILDEM_ENV_STRING} $(MAKE) check
 )
 
 set_target_properties(${ann_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

@@ -63,8 +63,8 @@ ExternalProject_Add(${vtk_NAME}
 	# See: http://stackoverflow.com/questions/2942465/cmake-and-parallel-building-with-make-jn
 	# And: http://www.cmake.org/pipermail/cmake/2011-April/043720.html
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
-    #TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    #TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) check
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set_target_properties(${vtk_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

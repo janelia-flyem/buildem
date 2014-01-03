@@ -36,7 +36,7 @@ ExternalProject_Add(${zlib_NAME}
 
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE     1 # Configure script reqiures BUILD_IN_SOURCE
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set_target_properties(${zlib_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

@@ -43,9 +43,9 @@ ExternalProject_Add(${lemon_NAME}
         -DGLPK_INCLUDE_DIR=
         -DGLPK_ROOT_DIR=
 
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} make
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
-    TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) check
 )
 
 set_target_properties(${lemon_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

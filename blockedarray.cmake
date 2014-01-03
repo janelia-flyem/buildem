@@ -43,7 +43,7 @@ ExternalProject_Add(${blockedarray_NAME}
     
     # blockedarray doesn't support a seperate install location.
     # Its output .so is copied directly into the source tree and used from there.
-    ###INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    ###INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
     INSTALL_COMMAND     ""
 )
 

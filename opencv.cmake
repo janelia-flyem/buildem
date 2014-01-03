@@ -38,8 +38,8 @@ ExternalProject_Add(${opencv_NAME}
         -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
         -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
         BUILD_COMMAND           ${BUILDEM_ENV_STRING} $(MAKE)
-#    TEST_COMMAND        ${BUILDEM_ENV_STRING} make check
-    INSTALL_COMMAND         ${BUILDEM_ENV_STRING} make install
+#    TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) check
+    INSTALL_COMMAND         ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set_target_properties(${opencv_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

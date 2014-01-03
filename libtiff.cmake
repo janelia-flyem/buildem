@@ -41,7 +41,7 @@ ExternalProject_Add(${libtiff_NAME}
         --disable-jbig
         BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE     1
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set_target_properties(${libtiff_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

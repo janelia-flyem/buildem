@@ -29,7 +29,7 @@ if (${APPLE})
         UPDATE_COMMAND    ""
         PATCH_COMMAND     ""
         CONFIGURE_COMMAND ""
-        BUILD_COMMAND     ${BUILDEM_ENV_STRING} make
+        BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE)
         BUILD_IN_SOURCE   1
         INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
             ${leveldb_SRC_DIR}/libleveldb.dylib.${leveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.dylib
@@ -44,7 +44,7 @@ elseif (${UNIX})
         UPDATE_COMMAND    ""
         PATCH_COMMAND     ""
         CONFIGURE_COMMAND ""
-        BUILD_COMMAND     ${BUILDEM_ENV_STRING} make
+        BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE)
         BUILD_IN_SOURCE   1
         INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
             ${leveldb_SRC_DIR}/libleveldb.so.${leveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.so

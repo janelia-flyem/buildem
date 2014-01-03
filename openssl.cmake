@@ -43,8 +43,8 @@ ExternalProject_Add(${openssl_NAME}
         zlib
         BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE     1
-    TEST_COMMAND        ${BUILDEM_ENV_STRING} make test
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} make install
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) test
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
 set_target_properties(${openssl_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
