@@ -41,10 +41,10 @@ ExternalProject_Add(${openssl_NAME}
         -L${BUILDEM_LIB_DIR}
         shared
         zlib
-        BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+        BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE) -j1 # Parallel builds on openssl are thoroughly broken.  Force -j1
     BUILD_IN_SOURCE     1
-    TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) test
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
+    TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) -j1 test
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) -j1 install
 )
 
 set_target_properties(${openssl_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
