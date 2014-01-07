@@ -28,12 +28,23 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     # On Mac, we build a "Framework" build which has all the power of a "normal" build, 
     #  plus it can be used from a native GUI.
     # See http://svn.python.org/projects/python/trunk/Mac/README
-    set (PYTHON_BUILD_TYPE_ARG "--enable-framework=${BUILDEM_DIR}/Frameworks")
+    set (PYTHON_BINARY_TYPE_ARG "--enable-framework=${BUILDEM_DIR}/Frameworks")
     set (PYTHON_PREFIX ${BUILDEM_DIR}/Frameworks/Python.framework/Versions/2.7)
 else()
     # On linux, PYTHON_PREFIX is the same as the general prefix.
-    set (PYTHON_BUILD_TYPE_ARG "--enable-shared")
+    set (PYTHON_BINARY_TYPE_ARG "--enable-shared")
     set (PYTHON_PREFIX ${BUILDEM_DIR})
+endif()
+
+set (PYTHON_BUILD_DEBUG "FALSE" CACHE BOOL "Configure Python --with-pydebug and --without-pymalloc for debugging extensions with gdb.")
+
+if (${PYTHON_BUILD_DEBUG})
+    # If you want to debug python with gdb, you need --with-pydebug.
+    # Also, --without-pymalloc is useful if you want to avoid assertions in PyMalloc
+    #  that can be caused by some python extensions (e.g. the python vtk bindings hit those assertions)
+    # Of course, if those assertions are hit by code that YOU wrote, then you might 
+    #  want to change this build command so you can debug WITH pymalloc.
+    set(PYTHON_DEBUG_CONFIG_ARGS "--with-pydebug --without-pymalloc")
 endif()
 
 ExternalProject_Add(${python_NAME}
@@ -45,7 +56,8 @@ ExternalProject_Add(${python_NAME}
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${python_SRC_DIR}/configure 
         --prefix=${BUILDEM_DIR}
-        ${PYTHON_BUILD_TYPE_ARG}
+        ${PYTHON_BINARY_TYPE_ARG}
+        ${PYTHON_DEBUG_CONFIG_ARGS}
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
         BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
