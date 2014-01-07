@@ -339,6 +339,18 @@ To build ilastik on linux, your system also needs the following packages, not in
 * libxml2-dev (build of vtk's xml failed)
 * libfontconfig1-dev
 
+If you plan to use ilastik (or any Qt app) with the X11 windowing system,
+you must also install the following packages before you build Qt.
+For details, see:
+http://qt-project.org/doc/qt-4.8/install-x11.html
+http://qt-project.org/doc/qt-4.8/requirements-x11.html
+
+* libxfixes-dev
+* libxrender-dev
+* libxcursor-dev
+* libxrandr-dev
+* libxinerama-dev
+
 If you want do distribute your ilastik build to other systems (e.g. you built on Ubuntu and want to distribute it to other Ubuntu machines) the target machines will need to fulfill the following requirements:
 * git (to be able to pull more recent versions of ilastik, lazyflow and volumina)
 * libxext
