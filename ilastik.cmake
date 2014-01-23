@@ -54,7 +54,7 @@ if("${ILASTIK_VERSION}" STREQUAL "master")
 
 else()
 
-    set(ILASTIK_UPDATE_COMMAND git checkout ${ILASTIK_VERSION} && git submodule update --init --recursive)
+    set(ILASTIK_UPDATE_COMMAND git fetch && git checkout ${ILASTIK_VERSION} && git submodule update --init --recursive)
     
 endif()
     
