@@ -16,6 +16,10 @@ include (qt4)
 include (sip)
 include (pyqt4)
 include (libxml2)
+include (libpng)
+include (libjpeg)
+include (libtiff)
+include (zlib)
 
 external_source (vtk
     5.10.1
@@ -30,7 +34,8 @@ set (vtk_LIBPATH ${BUILDEM_DIR}/lib/vtk-5.10)
 include_directories (${BUILDEM_DIR}/include/vtk-5.10)
 
 ExternalProject_Add(${vtk_NAME}
-    DEPENDS             ${python_NAME} ${qt4_NAME} ${sip_NAME} ${pyqt4_NAME} ${libxml2_NAME}
+    DEPENDS             ${python_NAME} ${qt4_NAME} ${sip_NAME} ${pyqt4_NAME} ${libxml2_NAME} 
+                        ${libpng_NAME} ${libjpeg_NAME} ${libtiff_NAME} ${zlib_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${vtk_URL}
     URL_MD5             ${vtk_MD5}
@@ -55,9 +60,28 @@ ExternalProject_Add(${vtk_NAME}
         -DVTK_USE_QVTK_QTOPENGL:BOOL=ON
 	-DVTK_USE_TK=OFF
 	# NETCDF caused weird errors in vtk's xml
+	# libxml2
 	-DVTK_USE_SYSTEM_LIBXML2=ON
     -DLIBXML2_INCLUDE_DIR:PATH=${BUILDEM_DIR}/include/libxml2
-    -DLIBXML2_LIBRARIES:FILEPATH=${BUILDEM_DIR}/lib/libxml2.so
+    -DLIBXML2_LIBRARIES:FILEPATH=${BUILDEM_DIR}/lib/libxml2.${BUILDEM_PLATFORM_DYLIB_EXTENSION}
+    # libpng
+    -DVTK_USE_SYSTEM_PNG=ON
+    -DPNG_PNG_INCLUDE_DIR=${BUILDEM_INCLUDE_DIR} # PNG_PNG looks wrong, but that's what the variable is named.
+    -DPNG_LIBRARY=${BUILDEM_LIB_DIR}/libpng.${BUILDEM_PLATFORM_DYLIB_EXTENSION}
+    # libjpeg
+    -DVTK_USE_SYSTEM_JPEG=ON
+    -DJPEG_INCLUDE_DIR=${BUILDEM_INCLUDE_DIR}
+    -DJPEG_LIBRARY=${BUILDEM_LIB_DIR}/libjpeg.${BUILDEM_PLATFORM_DYLIB_EXTENSION}
+    # libtiff
+    -DVTK_USE_SYSTEM_TIFF=ON
+    -DTIFF_INCLUDE_DIR=${BUILDEM_INCLUDE_DIR}
+    -DTIFF_LIBRARY=${BUILDEM_LIB_DIR}/libtiff.${BUILDEM_PLATFORM_DYLIB_EXTENSION}
+    # zlib
+    -DVTK_USE_SYSTEM_ZLIB=ON
+    -DZLIB_INCLUDE_DIR=${BUILDEM_INCLUDE_DIR}
+    -DZLIB_LIBRARY=${BUILDEM_LIB_DIR}/libz.${BUILDEM_PLATFORM_DYLIB_EXTENSION}
+    
+    
 	# We want vtk to be built in parallel if possible.
 	# Therefore we use $(MAKE) instead of 'make', which somehow enables sub-make files to use the jobserver correctly.
 	# See: http://stackoverflow.com/questions/2942465/cmake-and-parallel-building-with-make-jn
