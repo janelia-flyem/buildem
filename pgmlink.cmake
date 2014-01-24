@@ -31,17 +31,8 @@ else()
     include (dlib)
     include (python)
 
-    if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-        # need other branch on macos
-        set(GIT_BRANCH "mac_os")
-        set(TEST_STRING "")
-    else (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-         set(GIT_BRANCH "master")
-         set(TEST_STRING "${BUILDEM_ENV_STRING} $(MAKE) test")
-    endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    
     external_git_repo (pgmlink
-        ${GIT_BRANCH}
+        364bef9a809fc533fff292c99d1c8eb489a3c591
         https://github.com/ilastik/pgmlink)
 
     message ("Installing ${pgmlink_NAME} into FlyEM build aread: ${BUILDEM_DIR} ...")
