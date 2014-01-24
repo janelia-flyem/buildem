@@ -26,6 +26,7 @@ ExternalProject_Add(${blockedarray_NAME}
     DEPENDS             ${python_NAME} ${boost_NAME} ${numpy_NAME} ${vigra_NAME} ${snappy_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${blockedarray_URL}
+    GIT_TAG             ${blockedarray_TAG}
     UPDATE_COMMAND      ${blockedarray_UPDATE_COMMAND}
     PATCH_COMMAND       ""       
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND}

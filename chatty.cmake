@@ -26,6 +26,7 @@ ExternalProject_Add(${chatty_NAME}
     DEPENDS             ${python_NAME} ${boost_NAME} ${numpy_NAME} ${vigra_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${chatty_URL}
+    GIT_TAG             ${chatty_TAG}
     UPDATE_COMMAND      ${CHATTY_UPDATE_COMMAND}
     PATCH_COMMAND       ""       
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND}

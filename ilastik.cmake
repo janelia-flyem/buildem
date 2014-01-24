@@ -77,6 +77,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         DEPENDS             ${ilastik_dependencies}
         SOURCE_DIR          ${ilastik_SRC_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
+        GIT_TAG             ${ilastik_TAG}
         UPDATE_COMMAND      ${ILASTIK_UPDATE_COMMAND}
         PATCH_COMMAND       ""
         CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND}
@@ -99,6 +100,7 @@ else()
         DEPENDS             ${ilastik_dependencies}
         SOURCE_DIR          ${ilastik_SRC_DIR}
         GIT_REPOSITORY      ${ilastik_URL}
+        GIT_TAG             ${ilastik_TAG}
         UPDATE_COMMAND      ${ILASTIK_UPDATE_COMMAND}
         PATCH_COMMAND       ""
         CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND}

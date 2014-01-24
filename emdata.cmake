@@ -27,6 +27,7 @@ ExternalProject_Add(${emdata_NAME}
     DEPENDS             ${emdata_DEPENDENCIES}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${emdata_URL}
+    GIT_TAG             ${emdata_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} -DBUILDEM_DIR=${BUILDEM_DIR} ${emdata_SRC_DIR}

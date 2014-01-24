@@ -55,6 +55,7 @@ ExternalProject_Add(${vigra_NAME}
     ${hdf5_NAME} ${python_NAME} ${boost_NAME} ${NUMPY_DEP} ${nose_NAME} 
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${vigra_URL}
+    GIT_TAG             ${vigra_TAG}
     #URL                 ${vigra_URL}
     #URL_MD5             ${vigra_MD5}
     UPDATE_COMMAND      ${VIGRA_UPDATE_COMMAND}

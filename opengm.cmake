@@ -24,6 +24,7 @@ ExternalProject_Add(${opengm_NAME}
     DEPENDS             ${boost_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${opengm_URL}
+    GIT_TAG             ${opengm_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
 

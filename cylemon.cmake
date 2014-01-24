@@ -29,6 +29,7 @@ ExternalProject_Add(${cylemon_NAME}
     DEPENDS             ${lemon_NAME} ${python_NAME} ${cython_NAME} ${numpy_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${cylemon_URL}
+    GIT_TAG             ${cylemon_TAG}
     UPDATE_COMMAND      ""
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} 

@@ -21,6 +21,7 @@ ExternalProject_Add(${syngeo_NAME}
     DEPENDS             ${python_NAME} ${setuptools_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${syngeo_URL}
+    GIT_TAG             ${syngeo_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""

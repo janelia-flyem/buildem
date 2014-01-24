@@ -50,6 +50,7 @@ else()
                             ${dlib_NAME}
         PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${pgmlink_URL}
+        GIT_TAG             ${pgmlink_TAG}
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
     

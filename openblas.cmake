@@ -10,7 +10,7 @@ include (ExternalProject)
 include (ExternalSource)
 
 external_git_repo (openblas
-    0.2.8
+    v0.2.8
     https://github.com/xianyi/OpenBLAS)
 
 message ("Installing ${openblas_NAME} into ilastik build area: ${BUILDEM_DIR} ...")
@@ -18,7 +18,7 @@ ExternalProject_Add(${openblas_NAME}
 #    DEPENDS            
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${openblas_URL}
-    GIT_TAG             v0.2.8
+    GIT_TAG             ${openblas_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
