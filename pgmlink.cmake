@@ -31,6 +31,8 @@ else()
     include (dlib)
     include (python)
 
+    include (cplex-shared)
+
     external_git_repo (pgmlink
         364bef9a809fc533fff292c99d1c8eb489a3c591
         https://github.com/ilastik/pgmlink)
@@ -38,6 +40,7 @@ else()
     message ("Installing ${pgmlink_NAME} into FlyEM build aread: ${BUILDEM_DIR} ...")
     ExternalProject_Add(${pgmlink_NAME}
         DEPENDS             ${ann_NAME} ${lemon_NAME} ${vigra_NAME} ${boost_NAME} ${opengm_NAME}
+                            ${cplex-shared} ${ilocplex-shared} ${concert-shared}
                             ${dlib_NAME}
         PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${pgmlink_URL}
