@@ -46,7 +46,7 @@ external_git_repo (vigra
 if("${VIGRA_VERSION}" STREQUAL "master")
     set(VIGRA_UPDATE_COMMAND git checkout master && git pull)
 else()
-    set(VIGRA_UPDATE_COMMAND git checkout ${VIGRA_VERSION})
+    set(VIGRA_UPDATE_COMMAND git fetch origin && git checkout ${VIGRA_VERSION})
 endif()
 
 message ("Installing ${vigra_NAME}/${VIGRA_VERSION} into FlyEM build area: ${BUILDEM_DIR} ...")
