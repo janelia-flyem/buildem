@@ -1,7 +1,3 @@
-CMake build script from [buildem](https://github.com/janelia-flyem/buildem). Use this to build [ilastik](https://github.com/fblumenthal/ilastik/tree/master/install) and/or [vigra](https://github.com/fblumenthal/vigra/tree/master/install).
-
-...
-
 The BuildEM System
 ==================
 
