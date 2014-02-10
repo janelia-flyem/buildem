@@ -30,6 +30,7 @@ include (yapsy)
 include (pgmlink)
 include (scikit-learn)
 include (nose)
+include (faulthandler)
 
 # select the desired ilastik commit
 set(DEFAULT_ILASTIK_VERSION "20131205")
@@ -62,7 +63,7 @@ endif()
 message ("Installing ${ilastik_NAME}/${ILASTIK_VERSION} into FlyEM build area: ${BUILDEM_DIR} ...")
 
 set (ilastik_dependencies ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} ${nose_NAME}
-                            ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME}
+                            ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME} ${faulthandler_NAME}
                             ${cylemon_NAME} ${scikit-learn_NAME})
 
 if (${build_pgmlink})
