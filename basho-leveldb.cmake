@@ -1,10 +1,10 @@
 #
-# Install leveldb from source
+# Install basho-leveldb from source
 #
 
-if (NOT leveldb_NAME)
-
-if (basho-leveldb_NAME)
+if (NOT basho-leveldb_NAME)
+	
+if (leveldb_NAME)
 	message (FATAL_ERROR "Cannot have both leveldb and basho-leveldb building in same buildem directory")
 endif ()
 
@@ -14,22 +14,18 @@ include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 
-include (snappy)
-
-external_source (leveldb
-    1.14
-    leveldb-1.14.0.tar.gz
-    38ce005460d71040f959d71fd8d7fc78
-    http://leveldb.googlecode.com/files)
+external_source (basho-leveldb
+    1.9
+    basho-leveldb-1.9.0.tar.gz
+    8b8e450aaf3d5ae07d20e604f1c9d0cb)
 
 message ("Installing ${leveldb_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 if (${APPLE})
     message ("Leveldb cmake system: Detected Apple platform.")
-    ExternalProject_Add(${leveldb_NAME}
-        DEPENDS           ${snappy_NAME}
+    ExternalProject_Add(${basho-leveldb_NAME}
         PREFIX            ${BUILDEM_DIR}
-        URL               ${leveldb_URL}
-        URL_MD5           ${leveldb_MD5}
+        URL               ${basho-leveldb_URL}
+        URL_MD5           ${basho-leveldb_MD5}
         UPDATE_COMMAND    ""
         PATCH_COMMAND     ""
         CONFIGURE_COMMAND ""
@@ -40,11 +36,10 @@ if (${APPLE})
     )
 elseif (${UNIX})
     message ("Leveldb cmake system: Detected UNIX-like platform.")
-    ExternalProject_Add(${leveldb_NAME}
-        DEPENDS           ${snappy_NAME}
+    ExternalProject_Add(${basho-leveldb_NAME}
         PREFIX            ${BUILDEM_DIR}
-        URL               ${leveldb_URL}
-        URL_MD5           ${leveldb_MD5}
+        URL               ${basho-leveldb_URL}
+        URL_MD5           ${basho-leveldb_MD5}
         UPDATE_COMMAND    ""
         PATCH_COMMAND     ""
         CONFIGURE_COMMAND ""
@@ -67,7 +62,7 @@ ExternalProject_add_step(${leveldb_NAME} install_includes
     DEPENDEES   build
     COMMAND     ${CMAKE_COMMAND} -E copy_directory 
         ${leveldb_SRC_DIR}/include/leveldb ${BUILDEM_INCLUDE_DIR}/leveldb
-    COMMENT     "Placed leveldb include files in ${BUILDEM_INCLUDE_DIR}/leveldb"
+    COMMENT     "Placed basho-leveldb include files in ${BUILDEM_INCLUDE_DIR}/leveldb"
 )
 include_directories (${BUILDEM_INCLUDE_DIR}/leveldb)
 
