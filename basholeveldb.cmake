@@ -1,54 +1,50 @@
 #
-# Install basho-leveldb from source
+# Install basholeveldb from source
 #
 
-if (NOT basho-leveldb_NAME)
+if (NOT basholeveldb_NAME)
 	
-if (leveldb_NAME)
-	message (FATAL_ERROR "Cannot have both leveldb and basho-leveldb building in same buildem directory")
-endif ()
-
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 
-external_source (basho-leveldb
+external_source (basholeveldb
     1.9
-    basho-leveldb-1.9.0.tar.gz
+    basholeveldb-1.9.0.tar.gz
     8b8e450aaf3d5ae07d20e604f1c9d0cb)
 
 message ("Installing ${leveldb_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 if (${APPLE})
-    message ("Leveldb cmake system: Detected Apple platform.")
-    ExternalProject_Add(${basho-leveldb_NAME}
+    message ("Basho-tuned leveldb cmake system: Detected Apple platform.")
+    ExternalProject_Add(${basholeveldb_NAME}
         PREFIX            ${BUILDEM_DIR}
-        URL               ${basho-leveldb_URL}
-        URL_MD5           ${basho-leveldb_MD5}
+        URL               ${basholeveldb_URL}
+        URL_MD5           ${basholeveldb_MD5}
         UPDATE_COMMAND    ""
         PATCH_COMMAND     ""
         CONFIGURE_COMMAND ""
         BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE)
         BUILD_IN_SOURCE   1
         INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
-            ${leveldb_SRC_DIR}/libleveldb.dylib.${leveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.dylib
+            ${basholeveldb_SRC_DIR}/libleveldb.dylib.${basholeveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.dylib
     )
 elseif (${UNIX})
-    message ("Leveldb cmake system: Detected UNIX-like platform.")
-    ExternalProject_Add(${basho-leveldb_NAME}
+    message ("Basho-tuned leveldb cmake system: Detected UNIX-like platform.")
+    ExternalProject_Add(${basholeveldb_NAME}
         PREFIX            ${BUILDEM_DIR}
-        URL               ${basho-leveldb_URL}
-        URL_MD5           ${basho-leveldb_MD5}
+        URL               ${basholeveldb_URL}
+        URL_MD5           ${basholeveldb_MD5}
         UPDATE_COMMAND    ""
         PATCH_COMMAND     ""
         CONFIGURE_COMMAND ""
         BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE)
         BUILD_IN_SOURCE   1
         INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
-            ${leveldb_SRC_DIR}/libleveldb.so.${leveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.so
+            ${basholeveldb_SRC_DIR}/libleveldb.so.${basholeveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.so
     )
-    ExternalProject_add_step(${leveldb_NAME} install_lib_link
+    ExternalProject_add_step(${basholeveldb_NAME} install_lib_link
         DEPENDEES   install
         COMMAND     ${CMAKE_COMMAND} -E create_symlink 
             ${BUILDEM_LIB_DIR}/libleveldb.so ${BUILDEM_LIB_DIR}/libleveldb.so.1
@@ -58,23 +54,23 @@ elseif (${WINDOWS})
     message (FATAL_ERROR "Leveldb cmake system: Detected Windows platform.  Not setup for it yet!")
 endif ()
 
-ExternalProject_add_step(${leveldb_NAME} install_includes
+ExternalProject_add_step(${basholeveldb_NAME} install_includes
     DEPENDEES   build
     COMMAND     ${CMAKE_COMMAND} -E copy_directory 
-        ${leveldb_SRC_DIR}/include/leveldb ${BUILDEM_INCLUDE_DIR}/leveldb
-    COMMENT     "Placed basho-leveldb include files in ${BUILDEM_INCLUDE_DIR}/leveldb"
+        ${basholeveldb_SRC_DIR}/include/leveldb ${BUILDEM_INCLUDE_DIR}/leveldb
+    COMMENT     "Placed basholeveldb include files in ${BUILDEM_INCLUDE_DIR}/leveldb"
 )
 include_directories (${BUILDEM_INCLUDE_DIR}/leveldb)
 
-ExternalProject_add_step(${leveldb_NAME} install_static_library
+ExternalProject_add_step(${basholeveldb_NAME} install_static_library
     DEPENDEES   install_includes
     COMMAND     ${CMAKE_COMMAND} -E copy 
-        ${leveldb_SRC_DIR}/libleveldb.a ${BUILDEM_LIB_DIR}
+        ${basholeveldb_SRC_DIR}/libleveldb.a ${BUILDEM_LIB_DIR}
     COMMENT     "Placed libleveldb.a in ${BUILDEM_LIB_DIR}"
 )
 
-set_target_properties(${leveldb_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+set_target_properties(${basholeveldb_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
-set (leveldb_STATIC_LIBRARIES ${BUILDEM_LIB_DIR}/libleveldb.a)
+set (basholeveldb_STATIC_LIBRARIES ${BUILDEM_LIB_DIR}/libleveldb.a)
 
-endif (NOT leveldb_NAME)
+endif (NOT basholeveldb_NAME)

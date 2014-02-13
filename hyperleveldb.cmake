@@ -22,8 +22,8 @@ if (${APPLE})
     ExternalProject_Add(${hyperleveldb_NAME}
         DEPENDS           ${snappy_NAME}
         PREFIX            ${BUILDEM_DIR}
-        URL               ${hyperleveldb_URL}
-        URL_MD5           ${hyperleveldb_MD5}
+        GIT_REPOSITORY    ${hyperleveldb_URL}
+        GIT_TAG           ${hyperleveldb_TAG}
         UPDATE_COMMAND    ${BUILDEM_ENV_STRING} autoreconf -i
         PATCH_COMMAND     ""
         CONFIGURE_COMMAND ${BUILDEM_ENV_STRING} ${hyperleveldb_SRC_DIR}/configure
@@ -37,8 +37,8 @@ elseif (${UNIX})
     ExternalProject_Add(${hyperleveldb_NAME}
         DEPENDS           ${snappy_NAME}
         PREFIX            ${BUILDEM_DIR}
-        URL               ${hyperleveldb_URL}
-        URL_MD5           ${hyperleveldb_MD5}
+        GIT_REPOSITORY    ${hyperleveldb_URL}
+        GIT_TAG           ${hyperleveldb_TAG}
         UPDATE_COMMAND    ""
         PATCH_COMMAND     ""
         CONFIGURE_COMMAND ""

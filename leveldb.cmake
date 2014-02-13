@@ -4,10 +4,6 @@
 
 if (NOT leveldb_NAME)
 
-if (basho-leveldb_NAME)
-	message (FATAL_ERROR "Cannot have both leveldb and basho-leveldb building in same buildem directory")
-endif ()
-
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 include (ExternalProject)
@@ -17,9 +13,9 @@ include (BuildSupport)
 include (snappy)
 
 external_source (leveldb
-    1.14
-    leveldb-1.14.0.tar.gz
-    38ce005460d71040f959d71fd8d7fc78
+    1.16
+    leveldb-1.16.0.tar.gz
+    cf311b61142ceffccb98b84fd16e8954
     http://leveldb.googlecode.com/files)
 
 message ("Installing ${leveldb_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
