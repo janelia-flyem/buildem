@@ -49,10 +49,10 @@ set(lazyflow_SRC_DIR "${ilastik_SRC_DIR}/lazyflow")
 
 if("${ILASTIK_VERSION}" STREQUAL "master")
 
-    set(ILASTIK_UPDATE_COMMAND git checkout master && git pull && git submodule update --init --recursive &&
-                               cd lazyflow && git checkout master && git pull && git submodule update && cd .. &&
-                               cd volumina && git checkout master && git pull && cd .. &&
-                               cd ilastik && git checkout master && git pull && cd ..)
+    set(ILASTIK_UPDATE_COMMAND git checkout master && git pull origin master && git submodule update --init --recursive &&
+                               cd lazyflow && git checkout master && git pull origin master && git submodule update && cd .. &&
+                               cd volumina && git checkout master && git pull origin master && cd .. &&
+                               cd ilastik && git checkout master && git pull origin master && cd ..)
 
 else()
 
