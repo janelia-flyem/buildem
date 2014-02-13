@@ -20,45 +20,34 @@ external_source (leveldb
 
 message ("Installing ${leveldb_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 if (${APPLE})
-    message ("Leveldb cmake system: Detected Apple platform.")
-    ExternalProject_Add(${leveldb_NAME}
-        DEPENDS           ${snappy_NAME}
-        PREFIX            ${BUILDEM_DIR}
-        URL               ${leveldb_URL}
-        URL_MD5           ${leveldb_MD5}
-        UPDATE_COMMAND    ""
-        PATCH_COMMAND     ""
-        CONFIGURE_COMMAND ""
-        BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE)
-        BUILD_IN_SOURCE   1
-        INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
-            ${leveldb_SRC_DIR}/libleveldb.dylib.${leveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.dylib
-    )
+    message ("Standard Google leveldb cmake system: Detected Apple platform.")
+	set (LIBFILE "dylib")
 elseif (${UNIX})
-    message ("Leveldb cmake system: Detected UNIX-like platform.")
-    ExternalProject_Add(${leveldb_NAME}
-        DEPENDS           ${snappy_NAME}
-        PREFIX            ${BUILDEM_DIR}
-        URL               ${leveldb_URL}
-        URL_MD5           ${leveldb_MD5}
-        UPDATE_COMMAND    ""
-        PATCH_COMMAND     ""
-        CONFIGURE_COMMAND ""
-        BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE)
-        BUILD_IN_SOURCE   1
-        INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
-            ${leveldb_SRC_DIR}/libleveldb.so.${leveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.so
-    )
-    ExternalProject_add_step(${leveldb_NAME} install_lib_link
-        DEPENDEES   install
-        COMMAND     ${CMAKE_COMMAND} -E create_symlink 
-            ${BUILDEM_LIB_DIR}/libleveldb.so ${BUILDEM_LIB_DIR}/libleveldb.so.1
-        COMMENT     "Created symbolic link for libleveldb.so.1 in ${BUILDEM_LIB_DIR}"
-    )
+    message ("Standard Google leveldb cmake system: Detected UNIX-like platform.")
+	set (LIBFILE "so")
+	set (COMPILE_FLAGS "-lrt")
 elseif (${WINDOWS})
-    message (FATAL_ERROR "Leveldb cmake system: Detected Windows platform.  Not setup for it yet!")
+    message (FATAL_ERROR "Standard Google leveldb cmake system: Detected Windows platform.  Not setup for it yet!")
 endif ()
 
+ExternalProject_Add(${leveldb_NAME}
+    PREFIX            ${BUILDEM_DIR}
+    URL               ${leveldb_URL}
+    URL_MD5           ${leveldb_MD5}
+    UPDATE_COMMAND    ""
+    PATCH_COMMAND     ""
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) ${COMPILE_FLAGS}
+    BUILD_IN_SOURCE   1
+    INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
+        ${leveldb_SRC_DIR}/libleveldb.${LIBFILE}.${leveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.${LIBFILE}
+)
+ExternalProject_add_step(${leveldb_NAME} install_lib_link
+    DEPENDEES   install
+    COMMAND     ${CMAKE_COMMAND} -E create_symlink 
+        ${BUILDEM_LIB_DIR}/libleveldb.${LIBFILE} ${BUILDEM_LIB_DIR}/libleveldb.${LIBFILE}.1
+    COMMENT     "Created symbolic link for libleveldb.so.1 in ${BUILDEM_LIB_DIR}"
+)
 ExternalProject_add_step(${leveldb_NAME} install_includes
     DEPENDEES   build
     COMMAND     ${CMAKE_COMMAND} -E copy_directory 

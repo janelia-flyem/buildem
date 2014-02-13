@@ -15,45 +15,36 @@ external_source (basholeveldb
     basholeveldb-1.9.0.tar.gz
     8b8e450aaf3d5ae07d20e604f1c9d0cb)
 
-message ("Installing ${leveldb_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
+message ("Installing ${basholeveldb_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 if (${APPLE})
     message ("Basho-tuned leveldb cmake system: Detected Apple platform.")
-    ExternalProject_Add(${basholeveldb_NAME}
-        PREFIX            ${BUILDEM_DIR}
-        URL               ${basholeveldb_URL}
-        URL_MD5           ${basholeveldb_MD5}
-        UPDATE_COMMAND    ""
-        PATCH_COMMAND     ""
-        CONFIGURE_COMMAND ""
-        BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE)
-        BUILD_IN_SOURCE   1
-        INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
-            ${basholeveldb_SRC_DIR}/libleveldb.dylib.${basholeveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.dylib
-    )
+	set (LIBFILE "dylib")
 elseif (${UNIX})
     message ("Basho-tuned leveldb cmake system: Detected UNIX-like platform.")
-    ExternalProject_Add(${basholeveldb_NAME}
-        PREFIX            ${BUILDEM_DIR}
-        URL               ${basholeveldb_URL}
-        URL_MD5           ${basholeveldb_MD5}
-        UPDATE_COMMAND    ""
-        PATCH_COMMAND     ""
-        CONFIGURE_COMMAND ""
-        BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE)
-        BUILD_IN_SOURCE   1
-        INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
-            ${basholeveldb_SRC_DIR}/libleveldb.so.${basholeveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.so
-    )
-    ExternalProject_add_step(${basholeveldb_NAME} install_lib_link
-        DEPENDEES   install
-        COMMAND     ${CMAKE_COMMAND} -E create_symlink 
-            ${BUILDEM_LIB_DIR}/libleveldb.so ${BUILDEM_LIB_DIR}/libleveldb.so.1
-        COMMENT     "Created symbolic link for libleveldb.so.1 in ${BUILDEM_LIB_DIR}"
-    )
+	set (LIBFILE "so")
+	set (COMPILE_FLAGS "-lrt")
 elseif (${WINDOWS})
     message (FATAL_ERROR "Leveldb cmake system: Detected Windows platform.  Not setup for it yet!")
 endif ()
 
+ExternalProject_Add(${basholeveldb_NAME}
+    PREFIX            ${BUILDEM_DIR}
+    URL               ${basholeveldb_URL}
+    URL_MD5           ${basholeveldb_MD5}
+    UPDATE_COMMAND    ""
+    PATCH_COMMAND     ""
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) ${COMPILE_FLAGS}
+    BUILD_IN_SOURCE   1
+    INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
+        ${basholeveldb_SRC_DIR}/libleveldb.${LIBFILE}.${basholeveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.${LIBFILE}
+)
+ExternalProject_add_step(${basholeveldb_NAME} install_lib_link
+    DEPENDEES   install
+    COMMAND     ${CMAKE_COMMAND} -E create_symlink 
+        ${BUILDEM_LIB_DIR}/libleveldb.${LIBFILE} ${BUILDEM_LIB_DIR}/libleveldb.${LIBFILE}.1
+    COMMENT     "Created symbolic link for libleveldb.so.1 in ${BUILDEM_LIB_DIR}"
+)
 ExternalProject_add_step(${basholeveldb_NAME} install_includes
     DEPENDEES   build
     COMMAND     ${CMAKE_COMMAND} -E copy_directory 
