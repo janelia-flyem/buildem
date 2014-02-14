@@ -28,7 +28,7 @@ elseif (${UNIX})
             # Ubuntu
             if (LINUX_ISSUE MATCHES "Ubuntu")
                 message ("Detected Ubuntu system.  Using -lrt linker flag.")
-	            set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lrt")
+	            set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS};-lrt")
             endif ()
         endif ()
     endif ()
@@ -43,7 +43,7 @@ ExternalProject_Add(${basholeveldb_NAME}
     UPDATE_COMMAND    ""
     PATCH_COMMAND     ""
     CONFIGURE_COMMAND ""
-    BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) ${COMPILE_FLAGS}
+    BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE   1
     INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
         ${basholeveldb_SRC_DIR}/libleveldb.${LIBFILE}.${basholeveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.${LIBFILE}
