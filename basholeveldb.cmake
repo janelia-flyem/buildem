@@ -28,7 +28,7 @@ elseif (${UNIX})
             # Ubuntu
             if (LINUX_ISSUE MATCHES "Ubuntu")
                 message ("Detected Ubuntu system.  Using -lrt linker flag.")
-	            set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS};-lrt")
+	            set (CMAKE_SHARED_LINKER_FLAGS "--no-as-needed;-lrt")
             endif ()
         endif ()
     endif ()
