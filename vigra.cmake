@@ -84,7 +84,7 @@ ExternalProject_Add(${vigra_NAME}
         -DCMAKE_CXX_FLAGS=-pthread
 
         -DCMAKE_CXX_LINK_FLAGS=-pthread
-        -DCMAKE_CXX_FLAGS_RELEASE="${CMAKE_CXX_FLAGS_RELEASE}" # On the Janelia cluster, use -DCMAKE_CXX_FLAGS_RELEASE="-O2 -DNDEBUG" (not -O3)
+        -DCMAKE_CXX_FLAGS_RELEASE=-O2\ -DNDEBUG # Some versions of gcc miscompile vigra at -O3
         -DCMAKE_CXX_FLAGS_DEBUG="${CMAKE_CXX_FLAGS_DEBUG}"
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) check
