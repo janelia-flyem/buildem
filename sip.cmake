@@ -14,10 +14,10 @@ include (BuildSupport)
 include (python)
 
 external_source (sip
-    4.14.1
-    sip-4.14.1.tar.gz
-    10f35f018ac105be78853952078bdf63    
-    http://hivelocity.dl.sourceforge.net/project/pyqt/sip/sip-4.14.1)
+    4.15.4
+    sip-4.15.4.tar.gz
+    1d5c9e92bc7fca5ac11e088a4cf6c83d    
+    http://hivelocity.dl.sourceforge.net/project/pyqt/sip/sip-4.15.4)
 
 message ("Installing ${sip_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
