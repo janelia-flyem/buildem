@@ -17,7 +17,7 @@ include (zlib)
 include (openssl)   # without openssl, hashlib might have missing encryption methods
 
 external_source (python
-    2.7.5
+    2.7.6
     Python-2.7.6.tgz
     1d8728eb0dfcac72a0fd99c17ec7f386
     http://www.python.org/ftp/python/2.7.6)
