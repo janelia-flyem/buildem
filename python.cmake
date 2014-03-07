@@ -17,10 +17,10 @@ include (zlib)
 include (openssl)   # without openssl, hashlib might have missing encryption methods
 
 external_source (python
-    2.7.3
-    Python-2.7.3.tgz
-    2cf641732ac23b18d139be077bd906cd
-    http://www.python.org/ftp/python/2.7.3)
+    2.7.5
+    Python-2.7.6.tgz
+    1d8728eb0dfcac72a0fd99c17ec7f386
+    http://www.python.org/ftp/python/2.7.6)
 
 message ("Installing ${python_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
