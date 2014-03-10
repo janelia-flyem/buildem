@@ -1,4 +1,4 @@
-The BuildEM System
+The BuildEM System [![Picture](https://raw.github.com/janelia-flyem/janelia-flyem.github.com/master/images/jfrc_grey_180x40.png)](http://www.janelia.org)
 ==================
 
 The [buildem](https://github.com/janelia-flyem/buildem) repo is a modular CMake-based system that leverages [CMake's ExternalProject](http://www.kitware.com/media/html/BuildingExternalProjectsWithCMake2.8.html) to simplify and automate a complex build process.  Its goal is to allow *simple*, *modular* specification of software dependencies and automate the download, patch, configure, build, and install process.  Initially, we are focused on Linux (and occasionally MacOS X) support for the modules, but we hope to integrate patches from Windows users as needed.
