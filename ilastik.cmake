@@ -33,7 +33,7 @@ include (nose)
 include (faulthandler)
 
 # select the desired ilastik commit
-set(DEFAULT_ILASTIK_VERSION "20131205")
+set(DEFAULT_ILASTIK_VERSION "v1.0.2")
 IF(NOT DEFINED ILASTIK_VERSION)
     SET(ILASTIK_VERSION "${DEFAULT_ILASTIK_VERSION}")
 ENDIF()
@@ -43,20 +43,27 @@ SET(ILASTIK_VERSION ${ILASTIK_VERSION}
     
 external_git_repo (ilastik
     ${ILASTIK_VERSION}
-    https://github.com/janelia-flyem/flyem-ilastik
+    https://github.com/ilastik/ilastik-meta
     ilastik)
 set(lazyflow_SRC_DIR "${ilastik_SRC_DIR}/lazyflow")
 
 if("${ILASTIK_VERSION}" STREQUAL "master")
 
-    set(ILASTIK_UPDATE_COMMAND git checkout master && git pull origin master && git submodule update --init --recursive &&
+    # If the user's build is old, he might be linked to the janelia-flyem remote
+    # Force the remote to update from ilastik/ilastik-meta by removing origin and adding it again
+    set(ILASTIK_UPDATE_COMMAND git remote rm origin && git remote add origin https://github.com/ilastik/ilastik-meta &&
+                               git fetch origin &&
+                               git checkout master && git pull origin master && git submodule update --init --recursive &&
                                cd lazyflow && git checkout master && git pull origin master && git submodule update && cd .. &&
                                cd volumina && git checkout master && git pull origin master && cd .. &&
                                cd ilastik && git checkout master && git pull origin master && cd ..)
 
 else()
 
-    set(ILASTIK_UPDATE_COMMAND git fetch && git checkout ${ILASTIK_VERSION} && git submodule update --init --recursive)
+    # If the user's build is old, he might be linked to the janelia-flyem remote
+    # Force the remote to update from ilastik/ilastik-meta by removing origin and adding it again
+    set(ILASTIK_UPDATE_COMMAND git remote rm origin && git remote add origin https://github.com/ilastik/ilastik-meta &&
+                               git fetch origin && git checkout ${ILASTIK_VERSION} && git submodule update --init --recursive)
     
 endif()
     
