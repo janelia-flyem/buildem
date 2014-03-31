@@ -11,6 +11,10 @@ include (ExternalSource)
 include (BuildSupport)
 include (PatchSupport)
 
+include (boost)
+include (hdf5)
+include (python)
+
 external_git_repo (opengm
     576dc472324a5dce40b7e9bb4c270afbd9b3da37
     https://github.com/opengm/opengm)
@@ -21,7 +25,7 @@ endif()
 
 message ("Installing ${opengm_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${opengm_NAME}
-    DEPENDS             ${boost_NAME}
+    DEPENDS             ${boost_NAME} ${hdf5_NAME} ${python_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${opengm_URL}
     GIT_TAG             ${opengm_TAG}
@@ -33,6 +37,9 @@ ExternalProject_Add(${opengm_NAME}
         -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
         -DWITH_CPLEX=ON
         -DWITH_BOOST=ON
+        -DWITH_HDF5=ON
+        -DBUILD_PYTHON_WRAPPER=ON
+        -DWITH_OPENMP=OFF # Mac doesn't support OpenMP
         ${CMAKE_CPLEX_ROOT_DIR}
 
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
