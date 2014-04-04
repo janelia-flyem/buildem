@@ -31,6 +31,7 @@ include (pgmlink)
 include (scikit-learn)
 include (nose)
 include (faulthandler)
+include (jsonschema) # Required for the dvid extension.
 
 # select the desired ilastik commit
 set(DEFAULT_ILASTIK_VERSION "v1.0.2")
@@ -71,7 +72,7 @@ message ("Installing ${ilastik_NAME}/${ILASTIK_VERSION} into FlyEM build area: $
 
 set (ilastik_dependencies ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} ${nose_NAME}
                             ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME} ${faulthandler_NAME}
-                            ${cylemon_NAME} ${scikit-learn_NAME})
+                            ${cylemon_NAME} ${scikit-learn_NAME} ${jsonschema_NAME})
 
 if (${build_pgmlink})
     # Tracking depends on pgmlink, which depends on CPLEX.
