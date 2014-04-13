@@ -34,12 +34,18 @@ ExternalProject_Add(${sip_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     LIST_SEPARATOR      ^^
+    # Though it may seem that the -b, -d, -e, and -v flags are unnecessary, this is not the case.
+    # It would seem obvious that the install would happen in those locations. However, python will
+    # become confused if the system python has SIP installed. Thus, keeping the flags below will
+    # ensure that the right SIP packages can be imported by python. This is necessary for the build
+    # of qimage2ndarray in particular. Without the flags below, qimage2ndarray will fail to find the
+    # right SIP to build with.
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${PYTHON_EXE} ${sip_SRC_DIR}/configure.py 
         ${EXTRA_SIP_CONFIG_FLAGS}
-        #-b ${PYTHON_PREFIX}/bin
-        #-d ${PYTHON_PREFIX}/lib/python2.7/site-packages
-        #-e ${PYTHON_PREFIX}/include/python2.7
-        #-v ${PYTHON_PREFIX}/share/sip
+        -b ${PYTHON_PREFIX}/bin
+        -d ${PYTHON_PREFIX}/lib/python2.7/site-packages
+        -e ${PYTHON_PREFIX}/include/python2.7
+        -v ${PYTHON_PREFIX}/share/sip
         
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
