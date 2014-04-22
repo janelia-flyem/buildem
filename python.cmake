@@ -12,6 +12,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
+include (PatchSupport)
 
 include (zlib)
 include (openssl)   # without openssl, hashlib might have missing encryption methods
@@ -53,7 +54,11 @@ ExternalProject_Add(${python_NAME}
     URL                 ${python_URL}
     URL_MD5             ${python_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ""
+    PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
+			# This patch stops including the system Python site-packages on Python.
+                        # Without this patch buildem versions of Python tools will either not be installed
+                        # or not be used. This will give the false sense that something succeeded in buildem.
+			${python_SRC_DIR}/Lib/site.py ${PATCH_DIR}/turn_off_mac_sys_path.patch
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${python_SRC_DIR}/configure 
         --prefix=${BUILDEM_DIR}
         ${PYTHON_BINARY_TYPE_ARG}

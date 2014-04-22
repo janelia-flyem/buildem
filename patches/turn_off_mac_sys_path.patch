@@ -1,0 +1,16 @@
+--- /Users/kirkhamj/Downloads/Python-2.7.6/Lib/site.py	2013-11-10 02:36:40.000000000 -0500
++++ /Users/kirkhamj/Documents/site.py	2014-04-21 23:12:01.000000000 -0400
+@@ -301,9 +301,10 @@
+             from sysconfig import get_config_var
+             framework = get_config_var("PYTHONFRAMEWORK")
+             if framework:
+-                sitepackages.append(
+-                        os.path.join("/Library", framework,
+-                            sys.version[:3], "site-packages"))
++                pass
++                #sitepackages.append(
++                #        os.path.join("/Library", framework,
++                #            sys.version[:3], "site-packages"))
+     return sitepackages
+ 
+ def addsitepackages(known_paths):
