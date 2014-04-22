@@ -16,6 +16,7 @@ include (BuildSupport)
 include (TemplateSupport)
 
 include (python)
+include (pyqt4)
 include (six)
 include (setuptools)
 include (pytz)
@@ -34,7 +35,7 @@ external_source (matplotlib
 
 message ("Installing ${matplotlib_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${matplotlib_NAME}
-    DEPENDS             ${python_NAME} ${six_NAME} ${setuptools_NAME} ${pytz_NAME} ${python-dateutil_NAME} ${pyparsing_NAME} ${numpy_NAME} ${libpng_NAME} ${freetype2_NAME} ${tornado_NAME}
+    DEPENDS             ${python_NAME} ${pyqt4} ${six_NAME} ${setuptools_NAME} ${pytz_NAME} ${python-dateutil_NAME} ${pyparsing_NAME} ${numpy_NAME} ${libpng_NAME} ${freetype2_NAME} ${tornado_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${matplotlib_URL}
     URL_MD5             ${matplotlib_MD5}
