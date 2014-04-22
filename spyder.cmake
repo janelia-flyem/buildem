@@ -33,7 +33,7 @@ external_source (spyder
     2.2.5
     spyder-2.2.5.zip
     1c9aa650dae9f883616e917803f8a3be
-    https://bitbucket.org/spyder-ide/spyderlib/downloads)
+    https://bitbucket.org/spyder-ide/spyderlib/downloads/)
 
 
 # Download and install spyder
