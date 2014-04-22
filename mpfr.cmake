@@ -18,7 +18,7 @@ external_source (mpfr
     3.1.1
     mpfr-3.1.1.tar.gz
     769411e241a3f063ae1319eb5fac2462
-    http://www.mpfr.org/mpfr-current/)
+    ftp://ftp.gnu.org/gnu/mpfr/)
 
 message ("Installing ${mpfr_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${mpfr_NAME}
