@@ -15,7 +15,7 @@ external_source (gmp
     5.0.5
     gmp-5.0.5.tar.bz2
     041487d25e9c230b0c42b106361055fe
-    ftp://ftp.gnu.org/gnu/gmp)
+    ftp://ftp.gnu.org/gnu/gmp/)
 
 message ("Installing ${gmp_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${gmp_NAME}
