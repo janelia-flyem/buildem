@@ -1,5 +1,5 @@
 #
-# Install nose library from source
+# Install nose library from source.
 #
 
 if (NOT nose_NAME)
@@ -17,7 +17,7 @@ external_source (nose
     1.2.1
     nose-1.2.1.tar.gz
     735e3f1ce8b07e70ee1b742a8a53585a
-    http://pypi.python.org/packages/source/n/nose/nose-1.2.1.tar.gz)
+    http://pypi.python.org/packages/source/n/nose)
 
 
 message ("Installing ${nose_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
