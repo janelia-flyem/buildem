@@ -1,5 +1,9 @@
 #
-# Install matplotlib library from source
+# Install matplotlib library from source.
+# Includes dependencies to try to avoid use of easy_install, which matplotlib will try.
+#
+# However, we will let matplotlib install its own copy of PyCXX and LibAgg, which it comes prepackaged with.
+# This will help avoid incompatibilities. Also, some version PyCXX are not compatible with some versions of Python.
 #
 
 if (NOT matplotlib_NAME)
@@ -12,9 +16,15 @@ include (BuildSupport)
 include (TemplateSupport)
 
 include (python)
+include (six)
+include (setuptools)
+include (pytz)
+include (python-dateutil)
+include (pyparsing)
 include (numpy)
 include (libpng)
 include (freetype2)
+include (tornado)
 
 external_source (matplotlib
     1.1.1
@@ -24,7 +34,7 @@ external_source (matplotlib
 
 message ("Installing ${matplotlib_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${matplotlib_NAME}
-    DEPENDS             ${python_NAME} ${numpy_NAME} ${libpng_NAME} ${freetype2_NAME}
+    DEPENDS             ${python_NAME} ${six_NAME} ${setuptools_NAME} ${pytz_NAME} ${python-dateutil_NAME} ${pyparsing_NAME} ${numpy_NAME} ${libpng_NAME} ${freetype2_NAME} ${tornado_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${matplotlib_URL}
     URL_MD5             ${matplotlib_MD5}
