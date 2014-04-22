@@ -1,5 +1,6 @@
 #
-# Install gmp from source
+# Install gmp from source.
+# Provides multiple precision support.
 #
 
 if (NOT gmp_NAME)
