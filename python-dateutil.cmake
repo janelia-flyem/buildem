@@ -17,7 +17,7 @@ external_source (python-dateutil
     1.5
     python-dateutil-1.5.tar.gz
     35f3732db3f2cc4afdc68a8533b60a52
-    https://labix.org/download/python-dateutil)
+    https://labix.org/download/python-dateutil/)
 
 
 # Download and install python-dateutil
