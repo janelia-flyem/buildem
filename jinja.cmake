@@ -1,5 +1,6 @@
 #
-# Install jinja library from source
+# Install jinja library from source.
+# Required by iPython.
 #
 
 if (NOT jinja_NAME)
