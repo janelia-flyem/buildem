@@ -15,7 +15,7 @@ external_source (pylint
     1.1.0
     pylint-1.1.0.tar.gz
     017299b5911838a9347a71de5f946afc
-    https://pypi.python.org/packages/source/p/pylint)
+    https://pypi.python.org/packages/source/p/pylint/)
 
 
 # Download and install pylint
