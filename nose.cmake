@@ -1,5 +1,6 @@
 #
 # Install nose library from source.
+# Dependency for iPython amongst other things.
 #
 
 if (NOT nose_NAME)
