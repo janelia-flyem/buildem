@@ -1,4 +1,4 @@
-# Provides symbolic algebra support for Python. Part of the scipy stack.
+# Provides symbolic algebra support for Python. Part of the SciPy stack.
 
 
 if (NOT sympy_NAME)
