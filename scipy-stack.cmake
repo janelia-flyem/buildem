@@ -4,7 +4,7 @@ if (NOT scipy-stack_NAME)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
-scipy-stack_NAME = "scipy-stack"
+set(scipy-stack_NAME "scipy-stack")
 
 include (ExternalProject)
 include (ExternalSource)
