@@ -82,9 +82,9 @@ ExternalProject_Add(${qt4_NAME}
         -no-dbus
         -no-cups
         -no-nis
+        #-no-accessibility # Must include accessibility because PySide tries to build wrappers for it. 
         -release 
         -shared
-        -no-accessibility 
         -fontconfig
         -system-zlib
         -system-libpng
