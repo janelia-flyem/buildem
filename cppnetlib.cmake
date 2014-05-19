@@ -11,7 +11,7 @@ include (ExternalSource)
 include (BuildSupport)
 include (PatchSupport)
 
-include (boost1550)
+include (boost)
 
 external_source (cppnetlib
     0.11.0
@@ -25,7 +25,7 @@ set (CPPNETLIB_LIBRARIES ${BUILDEM_DIR}/lib64/libcppnetlib-client-connections.a 
 
 message ("Installing ${cppnetlib_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${cppnetlib_NAME}
-    DEPENDS                 ${boost1550_NAME}
+    DEPENDS                 ${boost_NAME}
     PREFIX                  ${BUILDEM_DIR}
     URL                     ${cppnetlib_URL}
     URL_MD5                 ${cppnetlib_MD5}
