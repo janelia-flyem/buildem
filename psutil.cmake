@@ -13,10 +13,12 @@ include (BuildSupport)
 include (python)
 
 external_source (psutil
-    0.6.1
-    psutil-0.6.1.tar.gz
-    3cfcbfb8525f6e4c70110e44a85e907e
-    http://psutil.googlecode.com/files)
+	2.1.1
+	psutil-2.1.1.tar.gz
+	72a6b15d589fab11f6ca245b775bc3c6
+	https://pypi.python.org/packages/source/p/psutil
+	FORCE
+)
 
 message ("Installing ${psutil_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${psutil_NAME}
