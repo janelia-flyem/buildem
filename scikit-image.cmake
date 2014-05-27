@@ -16,10 +16,10 @@ include (numpy)
 include (scipy)
 
 external_source (scikit-image
-    0.7.2
-    scikit-image-0.7.2.tar.gz
-    80eb9862fa09c7e06eda6e2a9fc4042f
-    http://pypi.python.org/packages/source/s/scikit-image)
+    0.9.3
+    scikit-image-0.9.3.tar.gz
+    f010e0cd46ee2996a6875c96b216e768
+    https://pypi.python.org/packages/source/s/scikit-image)
 
 message ("Installing ${scikit-image_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${scikit-image_NAME}
