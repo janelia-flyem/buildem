@@ -44,6 +44,11 @@ ExternalProject_Add(${vtk_NAME}
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${vtk_SRC_DIR}
         -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
         -DBUILD_SHARED_LIBS:BOOL=ON
+        # For some reason, this linker search path must be explicitly passed in (on mac, at least).
+        # (On Mac, CMake automatically uses -F/bla/bla/bla, but for some of the vtk libraries, we need to use -L/bla/bla)
+        -DCMAKE_EXE_LINKER_FLAGS=-L${BUILDEM_LIB_DIR}
+        -DCMAKE_MODULE_LINKER_FLAGS=-L${BUILDEM_LIB_DIR}
+        -DCMAKE_SHARED_LINKER_FLAGS=-L${BUILDEM_LIB_DIR}
         # These python settings must be manually specified for the mac build (maybe not for linux, but it shouldn't hurt)
         -DVTK_PYTHON_SETUP_ARGS=--prefix=${PYTHON_PREFIX}
         -DPYTHON_INCLUDE_DIR:PATH=${PYTHON_INCLUDE_PATH}
