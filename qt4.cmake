@@ -82,7 +82,7 @@ ExternalProject_Add(${qt4_NAME}
         -no-dbus
         -no-cups
         -no-nis
-        #-no-accessibility # Must include accessibility because PySide tries to build wrappers for it. 
+        -no-accessibility # accessibility causes PyQt build issues on Ubuntu and Mavericks, but PySide can't build without it.
         -release 
         -shared
         -fontconfig
