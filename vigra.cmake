@@ -31,7 +31,7 @@ endif()
 include (nose)
 
 # select the desired VIGRA commit
-set(DEFAULT_VIGRA_VERSION "05cf09388e28ab9db49fda3763500f128445897d") # from 2013-12-17
+set(DEFAULT_VIGRA_VERSION "4fe15e890e0252f2fb2b38552d321d43f32c07b5") # from 2014-05-23
 IF(NOT DEFINED VIGRA_VERSION)
     SET(VIGRA_VERSION "${DEFAULT_VIGRA_VERSION}")
 ENDIF()
@@ -47,6 +47,12 @@ if("${VIGRA_VERSION}" STREQUAL "master")
     set(VIGRA_UPDATE_COMMAND git checkout master && git pull)
 else()
     set(VIGRA_UPDATE_COMMAND git fetch origin && git checkout ${VIGRA_VERSION})
+endif()
+
+if (APPLE)
+    set(VIGRA_THREAD_SETTING "-DWITH_BOOST_THREAD=1")
+else()
+    set(VIGRA_THREAD_SETTING "")
 endif()
 
 message ("Installing ${vigra_NAME}/${VIGRA_VERSION} into FlyEM build area: ${BUILDEM_DIR} ...")
@@ -65,6 +71,8 @@ ExternalProject_Add(${vigra_NAME}
         -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
         -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
         -DCMAKE_EXE_LINKER_FLAGS=${BUILDEM_LDFLAGS}
+        
+        ${VIGRA_THREAD_SETTING}
 
         -DWITH_VIGRANUMPY=${WITH_VIGRANUMPY}
         -DDEPENDENCY_SEARCH_PREFIX=${BUILDEM_DIR}
