@@ -65,7 +65,7 @@ ExternalProject_Add(${python_NAME}
         ${PYTHON_DEBUG_CONFIG_ARGS}
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
-        BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
+        BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE) -j1  # Fails on Mavericks when multithreaded.
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) 
 	PYTHONAPPSDIR=${BUILDEM_BIN_DIR}/${python_NAME} install
     BUILD_IN_SOURCE 1 # Required for Mac
