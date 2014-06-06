@@ -38,6 +38,8 @@ ExternalProject_Add(${libtiff_NAME}
         --prefix=${BUILDEM_DIR}
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
+        --disable-lzma # Don't accidentally link against system lzma .so files.
+                       # vigra and scikit-image don't support lzma tiff compression, so there's no need for it.
         --disable-jbig
         BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE     1
