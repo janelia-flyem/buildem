@@ -13,10 +13,13 @@ else
         export ILASTIK_PATH=$(cd $BUILDEM_DIR/@ILASTIK_DIR_RELATIVE@ && pwd)
     fi
     export PYTHON_PREFIX=$(cd $BUILDEM_DIR/@PYTHON_PREFIX_RELATIVE@ && pwd)
-    
-    # Do not use the user's previous LD_LIBRARY_PATH settings because they can cause conflicts.
-    # Start with an empty LD_LIBRARY_PATH
-    export @BUILDEM_LD_LIBRARY_VAR@=""
+
+    ILASTIK_USE_CLEAN_LD_LIBRARY_PATH=${ILASTIK_USE_CLEAN_LD_LIBRARY_PATH-0}
+    if [ $ILASTIK_USE_CLEAN_LD_LIBRARY_PATH -eq 1 ]; then
+        # Do not use the user's previous LD_LIBRARY_PATH settings because they can cause conflicts.
+        # Start with an empty LD_LIBRARY_PATH
+        export @BUILDEM_LD_LIBRARY_VAR@=""
+    fi
     export @BUILDEM_LD_LIBRARY_VAR@=$BUILDEM_DIR/lib:$@BUILDEM_LD_LIBRARY_VAR@
     export @BUILDEM_LD_LIBRARY_VAR@=$BUILDEM_DIR/lib/vtk-5.10:$@BUILDEM_LD_LIBRARY_VAR@
     export @BUILDEM_LD_LIBRARY_VAR@=$PYTHON_PREFIX/lib/python2.7/site-packages:$@BUILDEM_LD_LIBRARY_VAR@
