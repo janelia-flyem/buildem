@@ -1,0 +1,77 @@
+--- ilastik_build_dir_2/src/qt4-git/src/gui/gui.pro	2014-04-11 17:46:26.000000000 -0400
++++ ilastik_build_dir/src/qt4-git/src/gui/gui.pro	2014-04-11 17:31:23.000000000 -0400
+@@ -95,8 +95,9 @@
+             mmx_compiler.commands = $$QMAKE_CXX -c -Winline
+ 
+             mac {
+-                mmx_compiler.commands += -Xarch_i386 -mmmx
+-                mmx_compiler.commands += -Xarch_x86_64 -mmmx
++#                mmx_compiler.commands += -Xarch_i386 -mmmx
++#                mmx_compiler.commands += -Xarch_x86_64 -mmmx
++                 mmx_compiler.commands += -mmmx
+             } else {
+                 mmx_compiler.commands += -mmmx
+             }
+@@ -114,8 +115,9 @@
+             mmx3dnow_compiler.commands = $$QMAKE_CXX -c -Winline
+ 
+             mac {
+-                mmx3dnow_compiler.commands += -Xarch_i386 -m3dnow -Xarch_i386 -mmmx
+-                mmx3dnow_compiler.commands += -Xarch_x86_64 -m3dnow -Xarch_x86_64 -mmmx
++#                mmx3dnow_compiler.commands += -Xarch_i386 -m3dnow -Xarch_i386 -mmmx
++#                mmx3dnow_compiler.commands += -Xarch_x86_64 -m3dnow -Xarch_x86_64 -mmmx
++                 mmx3dnow_compiler.commands += -m3dnow -mmmx
+             } else {
+                 mmx3dnow_compiler.commands += -m3dnow -mmmx
+             }
+@@ -132,8 +134,9 @@
+                 sse3dnow_compiler.commands = $$QMAKE_CXX -c -Winline
+ 
+                 mac {
+-                    sse3dnow_compiler.commands += -Xarch_i386 -m3dnow -Xarch_i386 -msse
+-                    sse3dnow_compiler.commands += -Xarch_x86_64 -m3dnow -Xarch_x86_64 -msse
++#                    sse3dnow_compiler.commands += -Xarch_i386 -m3dnow -Xarch_i386 -msse
++#                    sse3dnow_compiler.commands += -Xarch_x86_64 -m3dnow -Xarch_x86_64 -msse
++                    sse3dnow_compiler.commands += -m3dnow -msse
+                 } else {
+                     sse3dnow_compiler.commands += -m3dnow -msse
+                 }
+@@ -152,8 +155,10 @@
+             sse_compiler.commands = $$QMAKE_CXX -c -Winline
+ 
+             mac {
+-                sse_compiler.commands += -Xarch_i386 -msse
+-                sse_compiler.commands += -Xarch_x86_64 -msse
++#                sse_compiler.commands += -Xarch_i386 -msse
++#                sse_compiler.commands += -Xarch_x86_64 -msse
++                sse_compiler.commands += -msse
++                sse_compiler.commands += -msse
+             } else {
+                 sse_compiler.commands += -msse
+             }
+@@ -171,8 +176,10 @@
+             sse2_compiler.commands = $$QMAKE_CXX -c -Winline
+ 
+             mac {
+-                sse2_compiler.commands += -Xarch_i386 -msse2
+-                sse2_compiler.commands += -Xarch_x86_64 -msse2
++#                sse2_compiler.commands += -Xarch_i386 -msse2
++#                sse2_compiler.commands += -Xarch_x86_64 -msse2
++                sse2_compiler.commands += -msse2
++                sse2_compiler.commands += -msse2
+             } else {
+                 sse2_compiler.commands += -msse2
+             }
+@@ -190,8 +197,10 @@
+             ssse3_compiler.commands = $$QMAKE_CXX -c -Winline
+ 
+             mac {
+-                ssse3_compiler.commands += -Xarch_i386 -mssse3
+-                ssse3_compiler.commands += -Xarch_x86_64 -mssse3
++#                ssse3_compiler.commands += -Xarch_i386 -mssse3
++#                ssse3_compiler.commands += -Xarch_x86_64 -mssse3
++                ssse3_compiler.commands += -mssse3
++                ssse3_compiler.commands += -mssse3
+             } else {
+                 ssse3_compiler.commands += -mssse3
+             }
