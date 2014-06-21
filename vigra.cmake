@@ -49,11 +49,15 @@ else()
     set(VIGRA_UPDATE_COMMAND git fetch origin && git checkout ${VIGRA_VERSION})
 endif()
 
+ 
 if (APPLE)
-    set(VIGRA_THREAD_SETTING "-DWITH_BOOST_THREAD=1")
+	set (DEFAULT_VIGRA_WITH_BOOST_THREAD 1)
 else()
-    set(VIGRA_THREAD_SETTING "")
+	set (DEFAULT_VIGRA_WITH_BOOST_THREAD 0)
 endif()
+set(VIGRA_WITH_BOOST_THREAD ${DEFAULT_VIGRA_WITH_BOOST_THREAD} 
+	CACHE BOOL "Build Vigra with boost-thread instead of std c++11 thread")
+set(VIGRA_THREAD_SETTING "-DWITH_BOOST_THREAD=${VIGRA_WITH_BOOST_THREAD}")
 
 message ("Installing ${vigra_NAME}/${VIGRA_VERSION} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${vigra_NAME}
