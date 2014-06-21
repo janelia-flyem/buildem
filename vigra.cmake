@@ -60,6 +60,9 @@ set(VIGRA_WITH_BOOST_THREAD ${DEFAULT_VIGRA_WITH_BOOST_THREAD}
 set(VIGRA_THREAD_SETTING "-DWITH_BOOST_THREAD=${VIGRA_WITH_BOOST_THREAD}")
 
 message ("Installing ${vigra_NAME}/${VIGRA_VERSION} into FlyEM build area: ${BUILDEM_DIR} ...")
+message ("**********************************************************************************"
+message ("***** WARNING: vigra test step SKIPPED for now.  Edit vigra.cmake to change. *****")
+message ("**********************************************************************************"
 ExternalProject_Add(${vigra_NAME}
     DEPENDS             ${libjpeg_NAME} ${libtiff_NAME} ${libpng_NAME} ${openexr_NAME} ${libfftw_NAME}
     ${hdf5_NAME} ${python_NAME} ${boost_NAME} ${NUMPY_DEP} ${nose_NAME} 
@@ -124,7 +127,7 @@ ExternalProject_Add(${vigra_NAME}
         
         
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
-    TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) check
+    #TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) check
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
