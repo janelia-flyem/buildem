@@ -32,6 +32,7 @@ if (NOT libxml2_NAME)
         --prefix=${BUILDEM_DIR}
         --enable-shared
         --without-python
+        --without-lzma
         --with-sax1
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
