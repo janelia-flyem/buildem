@@ -1,7 +1,7 @@
 
 # select the desired blas implementation
 IF(NOT DEFINED WITH_ATLAS)
-    SET(WITH_ATLAS "OFF")
+    SET(WITH_ATLAS 1)
 ENDIF()
 SET(WITH_ATLAS ${WITH_ATLAS}
     CACHE BOOL "Use ATLAS (WITH_ATLAS=1) or openBLAS (WITH_ATLAS=0) ?"

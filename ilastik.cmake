@@ -36,7 +36,7 @@ include (opengm)
 include (futures)
 
 # select the desired ilastik commit
-set(DEFAULT_ILASTIK_VERSION 233886caf405623d8e17b260716b743cb4b96527) # 2014-06-10
+set(DEFAULT_ILASTIK_VERSION 18026ae2efb9e9e04046598cd5fccca3a42bcdaa) # 2014-06-11
 IF(NOT DEFINED ILASTIK_VERSION)
     SET(ILASTIK_VERSION "${DEFAULT_ILASTIK_VERSION}")
 ENDIF()
@@ -144,6 +144,7 @@ configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilasti
 # Add headless launch script for cluster processing
 set(LAUNCH_ILASTIK ilastik/ilastik/workflows/pixelClassification/pixelClassificationClusterized.py)
 configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilastik_clusterized @ONLY)
+
 
 set_target_properties(${ilastik_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
