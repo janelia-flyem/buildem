@@ -12,6 +12,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
+include (PatchSupport)
 
 include (zlib)
 include (openssl)   # without openssl, hashlib might have missing encryption methods
@@ -53,7 +54,10 @@ ExternalProject_Add(${python_NAME}
     URL                 ${python_URL}
     URL_MD5             ${python_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ""
+    PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
+            # When building python 2.7.6 on OSX 10.9 with GCC, building the launcher fails due to some 10.9 SDK specific headers not present in GCC.
+            # As we do not need the launcher anyway, refrain from building it.
+            ${python_SRC_DIR}/Mac/Makefile.in ${PATCH_DIR}/python-no-osx-launcher.patch
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${python_SRC_DIR}/configure 
         --prefix=${BUILDEM_DIR}
         ${PYTHON_BINARY_TYPE_ARG}
