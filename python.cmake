@@ -81,7 +81,7 @@ set (BUILDEM_BIN_PATH ${PYTHON_PREFIX}/bin:${BUILDEM_BIN_PATH})
 
 # Append our revised bin PATH variable to ENV string.
 # (This means that PATH will be specified TWICE in the env string, but the second one takes precedence.)
-set (BUILDEM_ENV_STRING   env ${BUILDEM_ENV_STRING} PATH=${BUILDEM_BIN_PATH})
+set (BUILDEM_ENV_STRING   env ${BUILDEM_ENV_STRING} PATH=${BUILDEM_BIN_PATH} PYTHONPATH=${BUILDEM_PYTHONPATH})
 
 set_target_properties(${python_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
