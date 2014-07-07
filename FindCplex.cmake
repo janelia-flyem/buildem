@@ -88,6 +88,7 @@ FIND_LIBRARY(CPLEX_LIBRARY
   HINTS ${CPLEX_ROOT_DIR}/cplex/lib/${CPLEX_WIN_PLATFORM} #windows
         ${CPLEX_ROOT_DIR}/cplex/lib/x86-64_debian4.0_4.1/static_pic #unix
         ${CPLEX_ROOT_DIR}/cplex/lib/x86-64_sles10_4.1/static_pic #unix 
+        ${CPLEX_ROOT_DIR}/cplex/lib/x86-64_linux/static_pic #unix
         ${CPLEX_ROOT_DIR}/cplex/lib/x86-64_osx/static_pic #osx 
         ${CPLEX_ROOT_DIR}/cplex/lib/x86-64_darwin/static_pic #osx 
   PATHS ENV LIBRARY_PATH #unix
@@ -100,6 +101,7 @@ FIND_LIBRARY(CPLEX_ILOCPLEX_LIBRARY
   HINTS ${CPLEX_ROOT_DIR}/cplex/lib/${CPLEX_WIN_PLATFORM} #windows 
         ${CPLEX_ROOT_DIR}/cplex/lib/x86-64_debian4.0_4.1/static_pic #unix 
         ${CPLEX_ROOT_DIR}/cplex/lib/x86-64_sles10_4.1/static_pic #unix 
+        ${CPLEX_ROOT_DIR}/cplex/lib/x86-64_linux/static_pic #unix 
         ${CPLEX_ROOT_DIR}/cplex/lib/x86-64_osx/static_pic #osx 
         ${CPLEX_ROOT_DIR}/cplex/lib/x86-64_darwin/static_pic #osx 
   PATHS ENV LIBRARY_PATH
@@ -112,6 +114,7 @@ FIND_LIBRARY(CPLEX_CONCERT_LIBRARY
   HINTS ${CPLEX_ROOT_DIR}/concert/lib/${CPLEX_WIN_PLATFORM} #windows 
         ${CPLEX_ROOT_DIR}/concert/lib/x86-64_debian4.0_4.1/static_pic #unix 
         ${CPLEX_ROOT_DIR}/concert/lib/x86-64_sles10_4.1/static_pic #unix 
+        ${CPLEX_ROOT_DIR}/concert/lib/x86-64_linux/static_pic #unix
         ${CPLEX_ROOT_DIR}/concert/lib/x86-64_osx/static_pic #osx 
         ${CPLEX_ROOT_DIR}/concert/lib/x86-64_darwin/static_pic #osx 
   PATHS ENV LIBRARY_PATH
@@ -129,6 +132,7 @@ else()
 	  cplex 
           HINTS ${CPLEX_ROOT_DIR}/cplex/bin/x86-64_sles10_4.1 #unix 
                 ${CPLEX_ROOT_DIR}/cplex/bin/x86-64_debian4.0_4.1 #unix 
+                ${CPLEX_ROOT_DIR}/cplex/bin/x86-64_linux #unix 
                 ${CPLEX_ROOT_DIR}/cplex/bin/x86-64_osx #osx 
         	${CPLEX_ROOT_DIR}/cplex/bin/x86-64_darwin #osx 
 	  ENV LIBRARY_PATH
