@@ -25,6 +25,7 @@ include (ipython)
 include (nose)
 
 
+message ("Installing ${scipy-stack_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${scipy-stack_NAME}
     DEPENDS             ${python_NAME} ${sphinxcontrib-napoleon_NAME} ${pyqt4_NAME} ${numpy_NAME} ${scipy_NAME} ${matplotlib_NAME} ${statsmodels_NAME} ${scikit-image_NAME} ${scikit-learn_NAME} ${sympy_NAME} ${ipython_NAME} ${nose_NAME}
     DOWNLOAD_COMMAND    ""
@@ -33,5 +34,7 @@ ExternalProject_Add(${scipy-stack_NAME}
     TEST_COMMAND        ""
     INSTALL_COMMAND     ""
 )
+
+set_target_properties(${scipy-stack_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 endif (NOT scipy-stack_NAME)
