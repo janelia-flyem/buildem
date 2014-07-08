@@ -25,8 +25,8 @@ include (ipython)
 include (nose)
 
 
-add_custom_target(scipy-stack
-    DEPENDS             ${python_NAME} ${sphinxcontrib-napoleon} ${pyqt4_NAME} ${numpy_NAME} ${scipy_NAME} ${matplotlib_NAME} ${statsmodels_NAME} ${scikit-image_NAME} ${scikit-learn_NAME} ${sympy_NAME} ${ipython_NAME} ${nose_NAME}
+add_custom_target(${scipy-stack_NAME}
+    DEPENDS             ${python_NAME} ${sphinxcontrib-napoleon_NAME} ${pyqt4_NAME} ${numpy_NAME} ${scipy_NAME} ${matplotlib_NAME} ${statsmodels_NAME} ${scikit-image_NAME} ${scikit-learn_NAME} ${sympy_NAME} ${ipython_NAME} ${nose_NAME}
 )
 
 endif (NOT scipy-stack_NAME)
