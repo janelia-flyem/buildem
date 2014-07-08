@@ -25,8 +25,13 @@ include (ipython)
 include (nose)
 
 
-add_custom_target(${scipy-stack_NAME}
+ExternalProject_Add(${scipy-stack_NAME}
     DEPENDS             ${python_NAME} ${sphinxcontrib-napoleon_NAME} ${pyqt4_NAME} ${numpy_NAME} ${scipy_NAME} ${matplotlib_NAME} ${statsmodels_NAME} ${scikit-image_NAME} ${scikit-learn_NAME} ${sympy_NAME} ${ipython_NAME} ${nose_NAME}
+    DOWNLOAD_COMMAND    ""
+    CONFIGURE_COMMAND   ""
+    BUILD_COMMAND       ""
+    TEST_COMMAND        ""
+    INSTALL_COMMAND     ""
 )
 
 endif (NOT scipy-stack_NAME)
