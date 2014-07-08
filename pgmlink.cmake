@@ -9,7 +9,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
-include (PatchSupport)
+#include (PatchSupport)
 
 if(CPLEX_ROOT_DIR)
     set(CMAKE_CPLEX_ROOT_DIR "-DCPLEX_ROOT_DIR=${CPLEX_ROOT_DIR}")
@@ -49,10 +49,7 @@ else()
         GIT_REPOSITORY      ${pgmlink_URL}
         GIT_TAG             ${pgmlink_TAG}
         UPDATE_COMMAND      ""
-        PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
-            # Patch CMakeLists as it just overwrote the CXX_FLAGS
-            ${pgmlink_SRC_DIR}/CMakeLists.txt ${PATCH_DIR}/pgmlink-cmake.patch
-    
+        PATCH_COMMAND       ""
         CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${pgmlink_SRC_DIR} 
             -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
             -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
