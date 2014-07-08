@@ -23,40 +23,51 @@ if (NOT CMAKE_CPLEX_ROOT_DIR)
 else()
     set(build_pgmlink 1)
 
+    include (python)
     include (ann)
     include (lemon)
     include (vigra)
     include (boost)
     include (opengm)
     include (dlib)
-    include (python)
+    include (mlpack)
+    include (numpy)
+
 
     include (cplex-shared)
 
     external_git_repo (pgmlink
-        364bef9a809fc533fff292c99d1c8eb489a3c591
-        https://github.com/ilastik/pgmlink)
+        38b90f8be2f16becbf3ed90a06b472b771c48c46
+        https://github.com/martinsch/pgmlink)
 
     message ("Installing ${pgmlink_NAME} into FlyEM build aread: ${BUILDEM_DIR} ...")
     ExternalProject_Add(${pgmlink_NAME}
-        DEPENDS             ${ann_NAME} ${lemon_NAME} ${vigra_NAME} ${boost_NAME} ${opengm_NAME}
+        DEPENDS             ${ann_NAME} ${lemon_NAME} ${vigra_NAME} ${boost_NAME} ${opengm_NAME} ${numpy_NAME}
                             ${cplex-shared} ${ilocplex-shared} ${concert-shared}
-                            ${dlib_NAME}
+                            ${dlib_NAME} ${mlpack_NAME}
         PREFIX              ${BUILDEM_DIR}
         GIT_REPOSITORY      ${pgmlink_URL}
         GIT_TAG             ${pgmlink_TAG}
         UPDATE_COMMAND      ""
-        PATCH_COMMAND       ""
+        PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
+            # Patch CMakeLists as it just overwrote the CXX_FLAGS
+            ${pgmlink_SRC_DIR}/CMakeLists.txt ${PATCH_DIR}/pgmlink-cmake.patch
     
         CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${pgmlink_SRC_DIR} 
             -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
             -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
+            -DBUILD_SHARED_LIBS=ON
+            -DCMAKE_CXX_FLAGS="-ftemplate-depth=512"
+            -DCMAKE_EXE_LINKER_FLAGS=${BUILDEM_ADDITIONAL_CXX_FLAGS}
+            -DCMAKE_SHARED_LINKER_FLAGS=${BUILDEM_ADDITIONAL_CXX_FLAGS}
             -DWITH_PYTHON=ON
             -DWITH_TESTS=ON
             -DWITH_CHECKED_STL=OFF
             -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_PATH}
             -DPYTHON_LIBRARY=${PYTHON_LIBRARY_FILE}
+            -DVigranumpy_DIR="${BUILDEM_DIR}/lib/vigranumpy"
             ${CMAKE_CPLEX_ROOT_DIR}
+            -DVIGRA_ROOT=${BUILDEM_DIR}
     
         BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
         INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
