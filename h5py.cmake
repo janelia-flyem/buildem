@@ -31,6 +31,8 @@ ExternalProject_Add(${h5py_NAME}
     PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
             # This patch adds a linker flag on linux to allow for packaging executables
             ${h5py_SRC_DIR}/setup.py ${PATCH_DIR}/h5py.patch
+            # do not specify a runtime path for the library, -R flag is unknown to newer GCCs
+            ${h5py_SRC_DIR}/setup.py ${PATCH_DIR}/h5py-no-runtime.patch
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py build 
         --hdf5=${BUILDEM_DIR}
