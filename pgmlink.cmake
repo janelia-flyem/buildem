@@ -37,7 +37,7 @@ else()
     include (cplex-shared)
 
     external_git_repo (pgmlink
-        38b90f8be2f16becbf3ed90a06b472b771c48c46
+        270f09dad4d9c8182963c1fe685fa762bbeed2b3
         https://github.com/martinsch/pgmlink)
 
     message ("Installing ${pgmlink_NAME} into FlyEM build aread: ${BUILDEM_DIR} ...")
@@ -57,7 +57,6 @@ else()
             -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
             -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
             -DBUILD_SHARED_LIBS=ON
-            -DCMAKE_CXX_FLAGS="-ftemplate-depth=512"
             -DCMAKE_EXE_LINKER_FLAGS=${BUILDEM_ADDITIONAL_CXX_FLAGS}
             -DCMAKE_SHARED_LINKER_FLAGS=${BUILDEM_ADDITIONAL_CXX_FLAGS}
             -DWITH_PYTHON=ON
@@ -67,7 +66,6 @@ else()
             -DPYTHON_LIBRARY=${PYTHON_LIBRARY_FILE}
             -DVigranumpy_DIR="${BUILDEM_DIR}/lib/vigranumpy"
             ${CMAKE_CPLEX_ROOT_DIR}
-            -DVIGRA_ROOT=${BUILDEM_DIR}
     
         BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
         INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
