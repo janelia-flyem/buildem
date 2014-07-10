@@ -37,7 +37,7 @@ else()
     include (cplex-shared)
 
     external_git_repo (pgmlink
-        9c5e87503bcbf453e14acf3cafdafa9a76c69921
+        7a0c8d4f54e9a4066991829fb52b411a02914666
         https://github.com/martinsch/pgmlink)
 
     message ("Installing ${pgmlink_NAME} into FlyEM build aread: ${BUILDEM_DIR} ...")
