@@ -79,6 +79,17 @@ ExternalProject_Add(${atlas_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
+MESSAGE( STATUS " ${atlas_SRC_DIR}-build/lib:         " ${atlas_SRC_DIR}-build/lib ${CMAKE_BINARY_DIR} )
+
+# Want to also provide shared libraries for everything. So, we make them before we install.
+# They will automatically be installed as all of lib's contents will get copied over.
+ExternalProject_Add_Step(${atlas_NAME} shared
+    COMMAND             ${BUILDEM_ENV_STRING} $(MAKE) shared_all #cshared ptshared #cptshared
+    DEPENDERS           install
+    WORKING_DIRECTORY   ${atlas_SRC_DIR}-build/lib
+)
+
+
 set (ENV{ATLAS} ${BUILDEM_DIR}/lib:${BUILDEM_DIR}/lib/libtatlas.so:${BUILDEM_DIR}/lib/libsatlas.so)
 
 set_target_properties(${atlas_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
