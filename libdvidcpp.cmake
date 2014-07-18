@@ -11,8 +11,11 @@ include (BuildSupport)
 
 include (cppnetlib)
 
+
+set(LIBDVID_VERSION 704a826aaea3ade22835be3aeb5711d96fb616b4) # 2014-07-18
+
 external_git_repo (libdvidcpp
-    HEAD 
+    ${LIBDVID_VERSION}
     http://github.com/janelia-flyem/libdvidcpp)
 
 # set libs and include
