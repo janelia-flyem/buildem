@@ -44,7 +44,7 @@ if (${PYTHON_BUILD_DEBUG})
     #  that can be caused by some python extensions (e.g. the python vtk bindings hit those assertions)
     # Of course, if those assertions are hit by code that YOU wrote, then you might 
     #  want to change this build command so you can debug WITH pymalloc.
-    set(PYTHON_DEBUG_CONFIG_ARGS "--with-pydebug --without-pymalloc")
+    set(PYTHON_DEBUG_CONFIG_ARGS "--with-pydebug=yes --with-pymalloc=no")
 endif()
 
 ExternalProject_Add(${python_NAME}
