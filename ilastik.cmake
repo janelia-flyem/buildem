@@ -36,13 +36,12 @@ include (opengm)
 include (futures)
 
 # select the desired ilastik commit
-set(DEFAULT_ILASTIK_VERSION 18026ae2efb9e9e04046598cd5fccca3a42bcdaa) # 2014-06-11
+set(DEFAULT_ILASTIK_VERSION eb3940aea782c301ce470f6342c457c94a8bfece) # 2014-07-29
 IF(NOT DEFINED ILASTIK_VERSION)
     SET(ILASTIK_VERSION "${DEFAULT_ILASTIK_VERSION}")
 ENDIF()
 SET(ILASTIK_VERSION ${ILASTIK_VERSION}
-    CACHE STRING "Specify ilastik branch/tag/commit to be used (default: ${DEFAULT_ILASTIK_VERSION})"
-    FORCE)
+    CACHE STRING "Specify ilastik branch/tag/commit to be used (default: ${DEFAULT_ILASTIK_VERSION})")
     
 external_git_repo (ilastik
     ${ILASTIK_VERSION}
