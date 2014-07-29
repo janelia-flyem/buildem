@@ -13,6 +13,7 @@ include (BuildSupport)
 include (python)
 include (hdf5)
 include (numpy)
+include (cython)
 
 external_source (h5py
     2.1.3
@@ -22,7 +23,7 @@ external_source (h5py
 
 message ("Installing ${h5py_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${h5py_NAME}
-    DEPENDS             ${python_NAME} ${hdf5_NAME} ${numpy_NAME}
+    DEPENDS             ${python_NAME} ${hdf5_NAME} ${numpy_NAME} ${cython_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${h5py_URL}
     URL_MD5             ${h5py_MD5}
