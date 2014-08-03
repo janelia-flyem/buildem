@@ -1,5 +1,4 @@
-# A standard asynchronous message passing library.
-# Required by pyzmq, which is used by iPython.
+# Builds julia.
 
 if (NOT julia_NAME)
 
