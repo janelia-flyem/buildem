@@ -36,7 +36,7 @@ include (opengm)
 include (futures)
 
 # select the desired ilastik commit
-set(DEFAULT_ILASTIK_VERSION eb3940aea782c301ce470f6342c457c94a8bfece) # 2014-07-29
+set(DEFAULT_ILASTIK_VERSION v1.1.1) # 2014-08-06
 IF(NOT DEFINED ILASTIK_VERSION)
     SET(ILASTIK_VERSION "${DEFAULT_ILASTIK_VERSION}")
 ENDIF()
