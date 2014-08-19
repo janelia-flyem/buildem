@@ -13,9 +13,9 @@ include (BuildSupport)
 include (zlib)
 
 external_source (openssl
-    1.0.1c
-    openssl-1.0.1c.tar.gz
-    ae412727c8c15b67880aef7bd2999b2e
+    1.0.1i
+    openssl-1.0.1i.tar.gz
+    c8dc151a671b9b92ff3e4c118b174972
     http://www.openssl.org/source)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
