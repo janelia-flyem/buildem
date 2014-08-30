@@ -13,7 +13,7 @@ include (BuildSupport)
 include (python)
 include (pyqt4)
 include (sphinxcontrib-napoleon)  # For sphinx extension. Doesn't necessarily need napolean, but it is nice to have and is quick to install.
-include (readline)
+include (python-readline)
 include (pyzmq)
 include (nose)
 include (pygments)
@@ -27,7 +27,7 @@ external_git_repo(ipython
 
 message ("Installing ${ipython_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${ipython_NAME}
-    DEPENDS             ${python_NAME} ${sphinxcontrib-napoleon_NAME} ${readline_NAME} ${pyzmq_NAME} ${nose_NAME} ${pygments_NAME} ${tornado_NAME} ${jinja_NAME}
+    DEPENDS             ${python_NAME} ${sphinxcontrib-napoleon_NAME} ${python-readline_NAME} ${pyzmq_NAME} ${nose_NAME} ${pygments_NAME} ${tornado_NAME} ${jinja_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY	${ipython_URL}
     GIT_TAG             ${ipython_TAG}

@@ -29,7 +29,7 @@ ExternalProject_Add(${readline_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
 	# Allows readline to be installed for Linux where it may not always be present (i.e. CentOS).
-        ${readline_SRC_DIR}/setup.py ${PATCH_DIR}/readline-setup.patch
+        ${readline_SRC_DIR}/setup.py ${PATCH_DIR}/python-readline-setup.patch
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py build
     BUILD_IN_SOURCE     1
