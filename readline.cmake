@@ -22,7 +22,14 @@ ExternalProject_Add(${readline_NAME}
     URL                 ${readline_URL}
     URL_MD5             ${readline_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ""
+    PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
+                        # These patches are the result of smashing all of the patches from ( ftp://ftp.gnu.org/pub/gnu/readline/readline-6.2-patches/ ) into one massive patch.
+                        # Then, they have been split out to have one patch per file changed.
+                        ${readline_SRC_DIR}/callback.c ${PATCH_DIR}/readline-6.2-callback.patch
+                        ${readline_SRC_DIR}/input.c ${PATCH_DIR}/readline-6.2-input.patch
+                        ${readline_SRC_DIR}/patchlevel ${PATCH_DIR}/readline-6.2-patchlevel.patch
+                        ${readline_SRC_DIR}/support/shobj-conf ${PATCH_DIR}/readline-6.2-shobj-conf.patch
+                        ${readline_SRC_DIR}/vi_mode.c ${PATCH_DIR}/readline-6.2-vi_mode.patch
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${readline_SRC_DIR}/configure
         --prefix=${BUILDEM_DIR}
         --enable-shared

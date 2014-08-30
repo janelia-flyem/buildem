@@ -1,0 +1,10 @@
+diff --git a/readline-6.2/patchlevel b/readline-6.2/patchlevel
+index fdf4740..e0ba09d 100644
+--- a/readline-6.2/patchlevel
++++ b/readline-6.2/patchlevel
+@@ -1,3 +1,3 @@
+ # Do not edit -- exists only for use by patch
+ 
+-1
++5
+
