@@ -1,0 +1,22 @@
+diff --git a/setup.py b/setup.py
+index 1b79682..df5fc3a 100644
+--- a/setup.py
++++ b/setup.py
+@@ -24,6 +24,8 @@ if 'darwin' in sysplat:
+     install_requires += ['readline'] 
+ if 'win32' in sysplat:
+     install_requires += ['pyreadline'] 
++if 'linux' in sysplat:
++    # Check to see if readline is already installed.
++    # If it is, installing this will break the existing readline.
++    has_readline = True
++    try:
++        import readline
++    except ImportError:
++        has_readline = False
++
++    if not has_readline:
++        install_requires += ['readline']
+ 
+ setup(
+     name = name,
