@@ -16,6 +16,7 @@ include (PatchSupport)
 
 include (zlib)
 include (openssl)   # without openssl, hashlib might have missing encryption methods
+include (readline)  # To support the readline module.
 include (sqlite)    # required to implement the standard module sqlite3
                     # (https://docs.python.org/2/library/sqlite3.html)
 
@@ -51,7 +52,7 @@ if (${PYTHON_BUILD_DEBUG})
 endif()
 
 ExternalProject_Add(${python_NAME}
-    DEPENDS             ${zlib_NAME} ${openssl_NAME} ${sqlite_NAME}
+    DEPENDS             ${zlib_NAME} ${openssl_NAME} ${readline_NAME} ${sqlite_NAME}
     PREFIX              ${BUILDEM_DIR}
     URL                 ${python_URL}
     URL_MD5             ${python_MD5}
