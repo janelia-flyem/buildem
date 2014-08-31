@@ -28,6 +28,7 @@ include (greenlet)
 include (cylemon)
 include (yapsy)
 include (pgmlink)
+include (scikit-image)
 include (scikit-learn)
 include (nose)
 include (faulthandler)
@@ -74,7 +75,7 @@ message ("Installing ${ilastik_NAME}/${ILASTIK_VERSION} into FlyEM build area: $
 
 set (ilastik_dependencies ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} ${nose_NAME} ${futures_NAME}
                           ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME} ${faulthandler_NAME}
-                          ${cylemon_NAME} ${scikit-learn_NAME} ${jsonschema_NAME} ${opengm_NAME} )
+                          ${cylemon_NAME} ${scikit-image_NAME} ${scikit-learn_NAME} ${jsonschema_NAME} ${opengm_NAME} )
 
 if (${build_pgmlink})
     # Tracking depends on pgmlink, which depends on CPLEX.
