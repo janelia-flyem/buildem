@@ -33,10 +33,10 @@ ExternalProject_Add(${spams-python_NAME}
     	#${spams-python_SRC_DIR}/setup.py ${PATCH_DIR}/spams-python-setup-atlas.patch
 
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py build
+    BUILD_COMMAND       BUILDEM_DIR=${BUILDEM_DIR} ${BUILDEM_ENV_STRING} CC=${GCC} CXX=${GXX} ${PYTHON_EXE} setup.py build
     BUILD_IN_SOURCE     1
     TEST_COMMAND        ""
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
+    INSTALL_COMMAND     BUILDEM_DIR=${BUILDEM_DIR} ${BUILDEM_ENV_STRING} CC=${GCC} CXX=${GXX} ${PYTHON_EXE} setup.py install
 )
 
 set_target_properties(${spams-python_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

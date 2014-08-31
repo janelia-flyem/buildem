@@ -1,6 +1,8 @@
---- setup.py_old	2014-07-09 19:03:41.996900059 +0000
-+++ setup.py	2014-07-10 20:18:55.653738878 +0000
-@@ -7,31 +7,35 @@
+diff --git a/setup.py b/setup.py
+index 2307122..64570f2 100644
+--- a/setup.py
++++ b/setup.py
+@@ -7,31 +7,29 @@ import numpy
  # includes numpy : package numpy.distutils , numpy.get_include()
  # python setup.py build --inplace
  # python setup.py install --prefix=dist, 
@@ -11,32 +13,16 @@
 -cc_flags = ['-fPIC', '-fopenmp']
 -link_flags = ['-fopenmp', '-s' ]
 -libs = ['stdc++', 'blas', 'lapack' ]
-+
-+buildem_dir = os.environ["BUILDEM_DIR"]
-+cc_flags = ['-fPIC', '-fopenmp', '-Wunused-variable']
-+link_flags = ['-fopenmp']
-+
-+dynamic_libs = ['stdc++', 'blas', 'lapack']
-+static_libs = []
-+
- libdirs = []
+-libdirs = []
  
-+# What's the point of a standarized build system if we are just going to route around it.
- if osname.startswith("macosx"):
+-if osname.startswith("macosx"):
 -    cc_flags = ['-fPIC', '-fopenmp','-m32']
 -    link_flags = ['-m32', '-framework', 'Python']
-+    cc_flags += ["-F" + os.path.join(buildem_dir, "Frameworks")]
-+    link_flags = ['-framework', 'Python']
-+elif osname.startswith("win"):
-+    # Assuming MinGW system.
-+    # Don't mess with path as we have ideally set it the right way already.
-+    # Don't use R for BLAS as we have built BLAS already.
-+    cc_flags += ['-DWIN32']
-+    link_flags += ['-mwindows']
++buildem_dir = os.environ["BUILDEM_DIR"]
++cc_flags = ['-fPIC', '-fopenmp', '-Wunused-variable', '-m64']
++link_flags = ['-fopenmp']
 +
-+# These assume GCC style syntax is allowed. Should work for clang (when they have openmp). Will not work with other compilers.
-+dynamic_libs = ["-l" + _ for _ in dynamic_libs]
-+static_libs = ["-Wl,-Bstatic"] + ["-l" + _ for _ in static_libs] + ["-Wl,-Bdynamic"]
++libs = ['stdc++', 'blas', 'lapack', 'gomp']
  
 -if osname.startswith("win32"):
 -    cc_flags = ['-fPIC', '-fopenmp','-DWIN32']
@@ -45,23 +31,24 @@
 -    os.environ['PATH'] = 'C:/MinGW/bin;' + path
 -    libs = ['stdc++', 'Rblas', 'Rlapack' ]
 -    libdirs = ['C:/Program Files/R/R-2.15.1/bin/i386']
--
++libdirs = [os.path.join(buildem_dir, 'lib')]
++
++# What's the point of a standarized build system if we are just going to route around it.
++if osname.startswith("macosx"):
++    cc_flags += ["-F" + os.path.join(buildem_dir, "Frameworks")]
++    link_flags = ["-F" + os.path.join(buildem_dir, "Frameworks"), '-framework', 'Python']
++elif osname.startswith("win"):
++    # Assuming MinGW system.
++    # Don't mess with path as we have ideally set it the right way already.
++    # Don't use R for BLAS as we have built BLAS already.
++    cc_flags += ['-DWIN32']
++    link_flags += ['-mwindows']
+ 
 -if osname.startswith("win-amd64"):
 -    cc_flags = ['-openmp', '-EHsc', '-DWIN32', '-DCYGWIN', '-DWINDOWS', '-I','C:/Program Files (x86)/Microsoft Visual Studio 9.0/VC/include']
 -    link_flags = []
 -    libs = [ 'Rblas', 'Rlapack' ]
 -    libdirs = ['C:/Program Files (x86)/Microsoft Visual Studio 9.0/VC/lib/amd64','C:/Program Files/R/R-2.15.1/bin/x64']
-+libs =  dynamic_libs + static_libs
  
  
  ##path = os.environ['PATH']; print "XX OS %s, path %s" %(osname,path)
-@@ -42,7 +46,8 @@
-     include_dirs = incs,
-     extra_compile_args = ['-DNDEBUG', '-DUSE_BLAS_LIB'] + cc_flags,
-     library_dirs = libdirs,
--    libraries = libs,
-+    # Want to control the formatting.
-+    extra_objects = libs,
-     # strip the .so
-     extra_link_args = link_flags,
-     language = 'c++',
