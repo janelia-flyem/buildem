@@ -10,6 +10,7 @@ include (ExternalSource)
 include (BuildSupport)
 
 
+include (cython)
 include (python)
 include(zeromq)
 
@@ -21,7 +22,7 @@ external_git_repo(pyzmq
 
 message ("Installing ${pyzmq_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${pyzmq_NAME}
-    DEPENDS             ${python_NAME} ${zeromq_NAME}
+    DEPENDS             ${cython_NAME} ${python_NAME} ${zeromq_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY	${pyzmq_URL}
     GIT_TAG             ${pyzmq_TAG}
