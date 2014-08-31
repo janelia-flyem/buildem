@@ -26,10 +26,23 @@ ExternalProject_Add(${openblas_NAME}
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE) NO_AVX=1 NO_AFFINITY=1 -j8
     BUILD_IN_SOURCE     1
     # Add TARGET=xxx (where xxx is an architecture) to the BUILD_COMMAND to optimize and/or avoid particular build errors. See README_openblas.txt for details.
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) PREFIX=${BUILDEM_DIR} install &&
-                        ln -fs libopenblas.so ${BUILDEM_DIR}/lib/libblas.so &&
-                        ln -fs libopenblas.so ${BUILDEM_DIR}/lib/liblapack.so
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) PREFIX=${BUILDEM_DIR} install
 )
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+   ExternalProject_Add_Step(${openblas_NAME} "install_links" # Names of project and custom step
+       COMMAND     ln -fs libopenblas.dylib ${BUILDEM_DIR}/lib/libblas.dylib &&
+                   ln -fs libopenblas.dylib ${BUILDEM_DIR}/lib/liblapack.dylib
+       DEPENDEES   install
+   )
+else()
+   ExternalProject_Add_Step(${openblas_NAME} "install_links" # Names of project and custom step
+       COMMAND     ln -fs libopenblas.so ${BUILDEM_DIR}/lib/libblas.so &&
+                   ln -fs libopenblas.so ${BUILDEM_DIR}/lib/liblapack.so
+       DEPENDEES   install
+   )
+endif()
+
 
 set_target_properties(${openblas_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
