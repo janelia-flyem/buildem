@@ -135,6 +135,10 @@ file(RELATIVE_PATH PYTHON_PREFIX_RELATIVE ${BUILDEM_DIR} ${PYTHON_PREFIX})
 set(SETENV_ILASTIK setenv_ilastik_gui)
 configure_file(${TEMPLATE_DIR}/${SETENV_ILASTIK}.in ${BUILDEM_DIR}/bin/${SETENV_ILASTIK}.sh @ONLY)
 
+# Create exec script for easy execution.
+set(SETENV_ILASTIK setenv_ilastik_gui)
+configure_file(${TEMPLATE_DIR}/exec.template ${BUILDEM_DIR}/bin/exec.sh @ONLY)
+
 # Add headless launch script
 set(LAUNCH_ILASTIK "ilastik/ilastik.py --headless")
 configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilastik_headless @ONLY)

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+export ILASTIK_PATH=
+
+# we assume that this script resides in BUILDEM_DIR
+export BUILDEM_DIR=$(cd `dirname $0`/.. && pwd)
+echo "BUILDEM_DIR: $BUILDEM_DIR"
+source $BUILDEM_DIR/bin/@SETENV_ILASTIK@.sh
+
+# no longer need this shell as
+# we just wanted to set environment
+# before executing the command.
+exec "$@"

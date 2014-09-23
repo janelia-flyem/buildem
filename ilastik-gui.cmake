@@ -42,6 +42,10 @@ add_custom_target (${ilastik-gui_NAME} ALL
 set(SETENV_ILASTIK setenv_ilastik_gui)
 configure_file(${TEMPLATE_DIR}/${SETENV_ILASTIK}.in ${BUILDEM_DIR}/bin/${SETENV_ILASTIK}.sh @ONLY)
 
+# Create exec script for easy execution.
+set(SETENV_ILASTIK setenv_ilastik_gui)
+configure_file(${TEMPLATE_DIR}/exec.template ${BUILDEM_DIR}/bin/exec.sh @ONLY)
+
 # Add gui launch script
 set(LAUNCH_ILASTIK ilastik/ilastik.py)
 configure_file(${TEMPLATE_DIR}/ilastik_script.template ${BUILDEM_DIR}/bin/ilastik_gui @ONLY)
