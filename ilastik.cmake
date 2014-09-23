@@ -35,6 +35,7 @@ include (faulthandler)
 include (jsonschema) # Required for the dvid extension.
 include (opengm)
 include (futures)
+include (qimage2ndarray)
 
 # select the desired ilastik commit
 set(DEFAULT_ILASTIK_VERSION 18026ae2efb9e9e04046598cd5fccca3a42bcdaa) # 2014-06-11
@@ -75,7 +76,7 @@ message ("Installing ${ilastik_NAME}/${ILASTIK_VERSION} into FlyEM build area: $
 
 set (ilastik_dependencies ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} ${nose_NAME} ${futures_NAME}
                           ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME} ${faulthandler_NAME}
-                          ${cylemon_NAME} ${scikit-image_NAME} ${scikit-learn_NAME} ${jsonschema_NAME} ${opengm_NAME} )
+                          ${cylemon_NAME} ${scikit-image_NAME} ${scikit-learn_NAME} ${jsonschema_NAME} ${opengm_NAME} ${qimage2ndarray_NAME})
 
 if (${build_pgmlink})
     # Tracking depends on pgmlink, which depends on CPLEX.
