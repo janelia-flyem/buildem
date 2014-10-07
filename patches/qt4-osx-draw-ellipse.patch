@@ -1,0 +1,19 @@
+diff --git a/src/gui/painting/qpaintengine_mac.cpp b/src/gui/painting/qpaintengine_mac.cpp
+index 47e51b4..92822a9 100644
+--- a/src/gui/painting/qpaintengine_mac.cpp
++++ b/src/gui/painting/qpaintengine_mac.cpp
+@@ -914,8 +914,14 @@ QCoreGraphicsPaintEngine::drawEllipse(const QRectF &r)
+     if (state->compositionMode() == QPainter::CompositionMode_Destination)
+         return;
+ 
++	// only call CGPathAddArc if the positions x and y are valid
++	CGRect rect = CGRectMake(r.x(), r.y(), r.width(), r.height());
++    if (CGRectIsEmpty(rect) || CGRectIsInfinite(rect))
++    	return;
++
+     CGMutablePathRef path = CGPathCreateMutable();
+     CGAffineTransform transform = CGAffineTransformMakeScale(r.width() / r.height(), 1);
++    
+     CGPathAddArc(path, &transform,(r.x() + (r.width() / 2)) / (r.width() / r.height()),
+             r.y() + (r.height() / 2), r.height() / 2, 0, (2 * M_PI), false);
+     d->drawPath(QCoreGraphicsPaintEnginePrivate::CGFill | QCoreGraphicsPaintEnginePrivate::CGStroke,

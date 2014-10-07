@@ -29,6 +29,7 @@ set (boost_LIBS ${BUILDEM_LIB_DIR}/libboost_thread.${BUILDEM_PLATFORM_DYLIB_EXTE
                 ${BUILDEM_LIB_DIR}/libboost_unit_test_framework.${BUILDEM_PLATFORM_DYLIB_EXTENSION}
                 ${BUILDEM_LIB_DIR}/libboost_filesystem.${BUILDEM_PLATFORM_DYLIB_EXTENSION}
                 ${BUILDEM_LIB_DIR}/libboost_chrono.${BUILDEM_PLATFORM_DYLIB_EXTENSION}
+                ${BUILDEM_LIB_DIR}/libboost_random.${BUILDEM_PLATFORM_DYLIB_EXTENSION}
                 ${BUILDEM_LIB_DIR}/libboost_atomic.${BUILDEM_PLATFORM_DYLIB_EXTENSION} )
 
 # Add layout=tagged param to first boost install to explicitly create -mt libraries
@@ -43,7 +44,7 @@ ExternalProject_Add(${boost_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ./bootstrap.sh 
-        --with-libraries=date_time,filesystem,python,regex,serialization,system,test,thread,program_options,chrono,atomic
+        --with-libraries=date_time,filesystem,python,regex,serialization,system,test,thread,program_options,chrono,atomic,random
         --with-python=${PYTHON_EXE} 
         --prefix=${BUILDEM_DIR}
         LDFLAGS=${BUILDEM_LDFLAGS}
@@ -59,6 +60,14 @@ ExternalProject_Add(${boost_NAME}
         -sZLIB_INCLUDE=${BUILDEM_DIR}/include 
         -sZLIB_SOURCE=${zlib_SRC_DIR} install
 )
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin" AND "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    ExternalProject_Add_Step(${boost_NAME} osx-gcc-fix-config
+       COMMAND bash ${PATCH_DIR}/boost-osx-gcc-fix-config.sh ${boost_SRC_DIR} ${CMAKE_CXX_COMPILER}
+       DEPENDERS configure
+       DEPENDEES patch
+    )
+endif()
 
 set_target_properties(${boost_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 

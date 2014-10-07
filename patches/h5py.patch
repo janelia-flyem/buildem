@@ -1,0 +1,15 @@
+--- setup.py	2013-04-22 21:51:24.000000000 +0200
++++ setup_fixed.py	2014-07-03 08:47:44.000000000 +0200
+@@ -68,8 +68,12 @@
+     elif sys.platform == 'darwin':
+         COMPILER_SETTINGS['include_dirs'] += ['/opt/local/include']
+         COMPILER_SETTINGS['library_dirs'] += ['/opt/local/lib']
++    if sys.platform == 'darwin':
++        COMPILER_SETTINGS['extra_link_args'] = ['-Xlinker','-headerpad_max_install_names']
++
+     COMPILER_SETTINGS['runtime_library_dirs'] = [op.abspath(x) for x in COMPILER_SETTINGS['library_dirs']]
+ 
++
+ MODULES =  ['defs','_errors','_objects','_proxy', 'h5fd', 'h5z',
+             'h5','h5i','h5r','utils',
+             '_conv', 'h5t','h5s',

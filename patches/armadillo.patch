@@ -1,0 +1,28 @@
+--- config.hpp  2014-01-03 03:08:18.000000000 +0100
++++ config_new.hpp      2014-01-22 16:05:36.367604953 +0100
+@@ -9,14 +9,14 @@
+ 
+ 
+ #if !defined(ARMA_USE_LAPACK)
+-// #define ARMA_USE_LAPACK
++#define ARMA_USE_LAPACK
+ //// Uncomment the above line if you have LAPACK or a high-speed replacement for LAPACK,
+ //// such as Intel MKL, AMD ACML, or the Accelerate framework.
+ //// LAPACK is required for matrix decompositions (eg. SVD) and matrix inverse.
+ #endif
+ 
+ #if !defined(ARMA_USE_BLAS)
+-// #define ARMA_USE_BLAS
++#define ARMA_USE_BLAS
+ //// Uncomment the above line if you have BLAS or a high-speed replacement for BLAS,
+ //// such as OpenBLAS, GotoBLAS, Intel MKL, AMD ACML, or the Accelerate framework.
+ //// BLAS is used for matrix multiplication.
+@@ -29,7 +29,7 @@
+ //// ARPACK is required for eigendecompositions of sparse matrices, eg. eigs_sym() 
+ #endif
+ 
+-// #define ARMA_USE_WRAPPER
++#define ARMA_USE_WRAPPER
+ //// Comment out the above line if you're getting linking errors when compiling your programs,
+ //// or if you prefer to directly link with LAPACK, BLAS or ARPACK.
+ //// You will then need to link your programs directly with -llapack -lblas instead of -larmadillo

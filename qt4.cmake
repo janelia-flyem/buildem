@@ -9,7 +9,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
-#include (PatchSupport)
+include (PatchSupport)  # Using PATCH_EXE so this include should be here.
 
 include(zlib)
 include(libpng)
@@ -17,11 +17,9 @@ include(libjpeg)
 include(libtiff)
 include(freetype2)
 
-external_source (qt4
-    4.8.3
-    qt-everywhere-opensource-src-4.8.3.tar.gz
-    a663b6c875f8d7caa8ac9c30e4a4ec3b
-    http://download.qt-project.org/official_releases/qt/4.8/4.8.3)
+external_git_repo(qt4
+    4.8 #682ed9df439481e1f8e8651c4aa06f1b455a2080
+    https://github.com/qtproject/qt)
 
 message ("Installing ${qt4_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
@@ -42,11 +40,17 @@ endif()
 ExternalProject_Add(${qt4_NAME}
     DEPENDS             ${freetype2_NAME} ${zlib_NAME} ${libpng_NAME} ${libjpeg_NAME} ${libtiff_NAME}
     PREFIX              ${BUILDEM_DIR}
-    URL                 ${qt4_URL}
-    URL_MD5             ${qt4_MD5}
+    GIT_REPOSITORY  ${qt4_URL}
+    GIT_TAG         4.8
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} echo "yes" | ${qt4_SRC_DIR}/configure # pipe "yes" to stdin to accept the license.
+    PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
+            # This patch fixes ilastik crashes on OSX due to an ill-shaped ellipse
+            ${qt4_SRC_DIR}/src/gui/painting/qpaintengine_mac.cpp ${PATCH_DIR}/qt4-osx-draw-ellipse.patch
+            # This patch fixes removes Xarch_x86_64 flags from the Qt4 configure file. These flags are not appropriate for Mavericks and cause Qt4 to fail building.
+            ${qt4_SRC_DIR}/configure ${PATCH_DIR}/qt4-osx-mavericks-configure.patch
+            # This patch fixes removes Xarch_x86_64 flags from the Qt4 gui.pro file. These flags are not appropriate for Mavericks and cause Qt4 to fail building.
+            ${qt4_SRC_DIR}/src/gui/gui.pro ${PATCH_DIR}/qt4-osx-mavericks-gui-pro.patch
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} env CXXFLAGS=${BUILDEM_ADDITIONAL_CXX_FLAGS} echo "yes" | ${qt4_SRC_DIR}/configure # pipe "yes" to stdin to accept the license.
         --prefix=${BUILDEM_DIR}
         -opensource
         -arch x86_64
@@ -82,7 +86,7 @@ ExternalProject_Add(${qt4_NAME}
         -no-dbus
         -no-cups
         -no-nis
-        -no-accessibility # accessibility causes PyQt build issues on Ubuntu and Mavericks, but PySide can't build without it.
+        #-no-accessibility # Must include accessibility because PySide tries to build wrappers for it. 
         -release 
         -shared
         -fontconfig
@@ -90,7 +94,7 @@ ExternalProject_Add(${qt4_NAME}
         -system-libpng
         -system-libjpeg
         -system-libtiff
-        -I${BUILDEM_DIR}/include
+        -I${BUILDEM_DIR}/include -I${BUILDEM_DIR}/include/freetype2
         -L${BUILDEM_DIR}/lib
         ${EXTRA_QT4_CONFIG_FLAGS}
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
@@ -98,7 +102,13 @@ ExternalProject_Add(${qt4_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    ExternalProject_Add_Step(${qt4_NAME} ${qt4_NAME}-create-symlinks
+       COMMAND bash ${PATCH_DIR}/qt4-create-symlinks.sh ${BUILDEM_DIR}
+       DEPENDEES install
+    )
+endif()
+
 set_target_properties(${qt4_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 endif (NOT qt4_NAME)
-

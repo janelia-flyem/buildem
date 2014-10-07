@@ -1,0 +1,21 @@
+--- ilastik_build_dir_2/src/qt4-git/configure	2014-04-11 17:46:22.000000000 -0400
++++ ilastik_build_dir/src/qt4-git/configure	2014-04-11 17:31:32.000000000 -0400
+@@ -7993,10 +7993,14 @@
+             QMakeVar add QMAKE_OBJECTIVE_CFLAGS_PPC "-arch ppc -Xarch_ppc -mmacosx-version-min=10.4"
+         fi
+         if echo "$CFG_MAC_ARCHS" | grep '\<x86_64\>' > /dev/null 2>&1; then
+-            QMakeVar add QMAKE_CFLAGS "-Xarch_x86_64 -mmacosx-version-min=10.5"
+-            QMakeVar add QMAKE_CXXFLAGS "-Xarch_x86_64 -mmacosx-version-min=10.5"
+-            QMakeVar add QMAKE_LFLAGS "-Xarch_x86_64 -mmacosx-version-min=10.5"
+-            QMakeVar add QMAKE_OBJECTIVE_CFLAGS_X86_64 "-arch x86_64 -Xarch_x86_64 -mmacosx-version-min=10.5"
++#            QMakeVar add QMAKE_CFLAGS "-Xarch_x86_64 -mmacosx-version-min=10.5"
++#            QMakeVar add QMAKE_CXXFLAGS "-Xarch_x86_64 -mmacosx-version-min=10.5"
++#            QMakeVar add QMAKE_LFLAGS "-Xarch_x86_64 -mmacosx-version-min=10.5"
++#            QMakeVar add QMAKE_OBJECTIVE_CFLAGS_X86_64 "-arch x86_64 -Xarch_x86_64 -mmacosx-version-min=10.5"
++            QMakeVar add QMAKE_CFLAGS "-mmacosx-version-min=10.5"
++            QMakeVar add QMAKE_CXXFLAGS "-mmacosx-version-min=10.5"
++            QMakeVar add QMAKE_LFLAGS "-mmacosx-version-min=10.5"
++            QMakeVar add QMAKE_OBJECTIVE_CFLAGS_X86_64 "-arch x86_64 -mmacosx-version-min=10.5"
+         fi
+         if echo "$CFG_MAC_ARCHS" | grep '\<ppc64\>' > /dev/null 2>&1; then
+             QMakeVar add QMAKE_CFLAGS "-Xarch_ppc64 -mmacosx-version-min=10.5"

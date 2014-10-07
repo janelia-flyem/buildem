@@ -1,0 +1,20 @@
+--- Makefile.in_orig	2014-07-07 13:03:29.000000000 +0200
++++ Makefile.in	2014-07-07 13:04:10.000000000 +0200
+@@ -144,7 +144,7 @@
+ 	$(CC) $(LDFLAGS) -DPYTHONFRAMEWORK='"$(PYTHONFRAMEWORK)"' -o $@ $(srcdir)/Tools/pythonw.c -I.. -I$(srcdir)/../Include ../$(PYTHONFRAMEWORK).framework/Versions/$(VERSION)/$(PYTHONFRAMEWORK)
+ 
+ install_PythonLauncher:
+-	cd PythonLauncher && make install DESTDIR=$(DESTDIR)
++	#cd PythonLauncher && make install DESTDIR=$(DESTDIR)
+ 
+ install_Python:
+ 	@for i in "$(PYTHONAPPSDIR)" "$(APPINSTALLDIR)" "$(APPINSTALLDIR)/Contents"; do \
+@@ -299,7 +299,7 @@
+ 
+ clean:
+ 	rm pythonw
+-	cd PythonLauncher && make clean
++	#cd PythonLauncher && make clean
+ 	cd IDLE && make clean
+ 
+ Makefile: $(srcdir)/Makefile.in ../config.status

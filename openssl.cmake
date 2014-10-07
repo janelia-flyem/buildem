@@ -44,7 +44,7 @@ ExternalProject_Add(${openssl_NAME}
         BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE) -j1 # Parallel builds on openssl are thoroughly broken.  Force -j1
     BUILD_IN_SOURCE     1
     TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) -j1 test
-    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) -j1 install
+    INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) -j1 install_sw
 )
 
 set_target_properties(${openssl_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)

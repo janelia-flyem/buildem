@@ -49,7 +49,7 @@ ExternalProject_Add(${pyqt4_NAME}
     URL_MD5             ${pyqt4_MD5}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
-    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${PYTHON_EXE} ${pyqt4_SRC_DIR}/configure.py 
+    CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} PYTHONPATH=${BUILDEM_PYTHONPATH} ${PYTHON_EXE} ${pyqt4_SRC_DIR}/configure.py 
         --confirm-license
         --verbose
         -q "${BUILDEM_DIR}/bin/qmake"

@@ -9,7 +9,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
-#include (PatchSupport)
+include (PatchSupport)
 
 include (python)
 include (qt4)
@@ -33,6 +33,11 @@ message ("Installing ${vtk_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 set (vtk_LIBPATH ${BUILDEM_DIR}/lib/vtk-5.10)
 include_directories (${BUILDEM_DIR}/include/vtk-5.10)
 
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin" AND "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    # if we compile on OSX with a non-apple compiler, then we need to remove the apple specific flags "-fpascal-strings"
+    SET(VTK_PATCHES ${BUILDEM_ENV_STRING} ${PATCH_EXE} ${vtk_SRC_DIR}/Utilities/ftgl/CMakeLists.txt ${PATCH_DIR}/vtk-gcc-osx-pascal-strings.patch)
+endif()
+
 ExternalProject_Add(${vtk_NAME}
     DEPENDS             ${python_NAME} ${qt4_NAME} ${sip_NAME} ${pyqt4_NAME} ${libxml2_NAME} 
                         ${libpng_NAME} ${libjpeg_NAME} ${libtiff_NAME} ${zlib_NAME}
@@ -40,7 +45,7 @@ ExternalProject_Add(${vtk_NAME}
     URL                 ${vtk_URL}
     URL_MD5             ${vtk_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ""
+    PATCH_COMMAND       ${VTK_PATCHES}
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${CMAKE_COMMAND} ${vtk_SRC_DIR}
         -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
         -DBUILD_SHARED_LIBS:BOOL=ON
