@@ -16,7 +16,8 @@ external_source (openssl
     1.0.1c
     openssl-1.0.1c.tar.gz
     ae412727c8c15b67880aef7bd2999b2e
-    http://www.openssl.org/source)
+    http://www.openssl.org/source
+    FORCE)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     # On Mac, 64-bit builds must be manually requested.
