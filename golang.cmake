@@ -11,9 +11,9 @@ include (ExternalSource)
 include (BuildSupport)
 
 external_source (golang
-    1.3.1
-    go1.3.1.src.tar.gz
-    13e32d14e974e3d903fa2de03581c681
+    1.3.3
+    go1.3.3.src.tar.gz
+    2cdbad6baefcf1007f3cf54a5bc878b7
     http://golang.org/dl)
 
 message ("Installing ${golang_NAME} into build area: ${BUILDEM_DIR} ...")
