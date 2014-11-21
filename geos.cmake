@@ -33,7 +33,9 @@ ExternalProject_Add(${geos_NAME}
     URL                 ${geos_URL}
     URL_MD5             ${geos_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ""
+    PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
+                        # Turns off test that is known failure on Mac and that does not appear to be fixed ( http://trac.osgeo.org/geos/ticket/299 ).
+                        ${geos_SRC_DIR}/tests/unit/geom/CoordinateArraySequenceFactoryTest.cpp ${PATCH_DIR}/geos-CoordinateArraySequenceFactoryTest.cpp.patch
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${geos_SRC_DIR}/configure
         --prefix=${BUILDEM_DIR}
         "LDFLAGS=${BUILDEM_LDFLAGS} ${BUILDEM_ADDITIONAL_CXX_FLAGS}"
