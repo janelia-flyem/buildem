@@ -36,7 +36,12 @@ ExternalProject_Add(${sima_NAME}
     URL                 ${sima_URL}
     URL_MD5             ${sima_MD5}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       ""
+    PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
+                        # Turns off test that is known failure on Mac.
+                        ${sima_SRC_DIR}/sima/extract.py ${PATCH_DIR}/sima-extract.py.patch
+                        ${sima_SRC_DIR}/sima/misc/__init__.py ${PATCH_DIR}/sima-misc-__init__.py.patch
+                        ${sima_SRC_DIR}/sima/normcut.py ${PATCH_DIR}/sima-normcut.py.patch
+                        ${sima_SRC_DIR}/sima/segment.py ${PATCH_DIR}/sima-segment.py.patch
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py build
     BUILD_IN_SOURCE     1
