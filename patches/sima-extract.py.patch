@@ -1,0 +1,13 @@
+diff --git a/extract.py b/extract.py
+index 34d14f4..9d19c34 100644
+--- a/extract.py
++++ b/extract.py
+@@ -8,7 +8,7 @@ from multiprocessing import Pool, cpu_count
+ 
+ import numpy as np
+ from scipy.sparse import vstack, diags, csc_matrix
+-from scipy.sparse.linalg import inv
++from scipy.linalg import inv
+ 
+ 
+ def _demixing_matrix(dataset):

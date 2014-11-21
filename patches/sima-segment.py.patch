@@ -1,0 +1,24 @@
+diff --git a/segment.py b/segment.py
+index d927b0c..153ef8f 100644
+--- a/segment.py
++++ b/segment.py
+@@ -1,6 +1,6 @@
+ import os
+ import itertools as it
+-from distutils.version import StrictVersion
++from distutils.version import LooseVersion
+ 
+ import numpy as np
+ from scipy import sparse, ndimage
+@@ -11,9 +11,9 @@ try:
+ except ImportError:
+     cv2_available = False
+ else:
+-    cv2_available = StrictVersion(cv2.__version__) >= StrictVersion('2.4.8')
++    cv2_available = LooseVersion(cv2.__version__) >= LooseVersion('2.4.8')
+ 
+-from scipy import nanmean
++from scipy.stats import nanmean
+ try:
+     from sklearn.decomposition import FastICA
+ except ImportError:
