@@ -16,6 +16,10 @@ include (libtiff)
 include (libjpeg)
 include (libpng)
 include (openexr)
+include (qt4)
+include (python)
+include (numpy)
+include (sphinx)
 
 external_source (opencv
     2.4.5
@@ -28,7 +32,7 @@ set (opencv_LIBS     ${BUILDEM_LIB_DIR}/libopencv_ml.so ${BUILDEM_LIB_DIR}/libop
 
 message ("Installing ${opencv_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${opencv_NAME}
-    DEPENDS                 ${zlib_NAME} ${libjpeg_NAME} ${libpng_NAME} ${libtiff_NAME} ${openexr_NAME}
+    DEPENDS                 ${zlib_NAME} ${libjpeg_NAME} ${libpng_NAME} ${libtiff_NAME} ${openexr_NAME} ${qt4_NAME} ${python_NAME} ${numpy_NAME} ${sphinx_NAME}
     PREFIX                  ${BUILDEM_DIR}
     URL                     ${opencv_URL}
     URL_MD5                 ${opencv_MD5}
