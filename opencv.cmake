@@ -23,10 +23,10 @@ include (numpy)
 include (sphinx)
 
 external_source (opencv
-    2.4.5
-    opencv-2.4.5.tar.gz
-    8eac87462c7bec8b89021b723207c623 
-    http://downloads.sourceforge.net/project/opencvlibrary/opencv-unix/2.4.5/
+    2.4.8.3
+    2.4.8.3.tar.gz
+    a64feba01bd74c36ddf04d560d9cafd3
+    https://github.com/Itseez/opencv/archive/
     )
 
 set (opencv_LIBS     ${BUILDEM_LIB_DIR}/libopencv_ml.so ${BUILDEM_LIB_DIR}/libopencv_core.so)
