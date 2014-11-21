@@ -12,10 +12,10 @@ include (BuildSupport)
 include (PatchSupport)
 
 include (zlib)
-include (openexr)
 include (libtiff)
 include (libjpeg)
 include (libpng)
+include (openexr)
 
 external_source (opencv
     2.4.5
