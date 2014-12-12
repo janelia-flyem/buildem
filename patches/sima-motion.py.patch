@@ -1,0 +1,49 @@
+diff --git a/motion.py b/motion.py
+index e747353..31bc941 100644
+--- a/motion.py
++++ b/motion.py
+@@ -21,7 +21,7 @@ from numpy.linalg import det, svd, pinv
+ from scipy.special import gammaln
+ from scipy.signal import fftconvolve
+ from scipy.cluster.vq import kmeans2
+-from scipy.stats import nanstd
++from scipy.stats import nanmean, nanstd
+ from scipy.stats.mstats import mquantiles
+ from scipy.ndimage.filters import gaussian_filter
+ 
+@@ -99,7 +99,7 @@ def _estimate_movement_model(shifts, num_rows):
+         shifts.shape[1] * num_rows))
+     assert det(cov_matrix) > 0
+ 
+-    mean_shift = np.nanmean(shifts, axis=1)
++    mean_shift = nanmean(shifts, axis=1)
+     centered_shifts = np.nan_to_num(
+         shifts -
+         np.dot(mean_shift.reshape([2, 1]), np.ones([1, shifts.shape[1]]))
+@@ -349,7 +349,7 @@ class _MCImagingDataset(ImagingDataset):
+         pixel_means, pixel_variances = self._pixel_distribution()
+         cov_matrix_est, decay_matrix, log_transition_matrix = \
+             _estimate_movement_model(shifts, self.num_rows)
+-        mean_shift = np.nanmean(shifts, axis=1)
++        mean_shift = nanmean(shifts, axis=1)
+ 
+         # add a bit of extra room to move around
+         extra_buffer = ((max_displacement - np.nanmax(shifts, 1) +
+@@ -706,7 +706,7 @@ class _MCImagingDataset(ImagingDataset):
+             The displacement to add to each shift to align the minimal shift
+             with the edge of the corrected image.
+         """
+-        good_corr = correlations >= np.nanmean(correlations) - \
++        good_corr = correlations >= nanmean(correlations) - \
+             2 * nanstd(correlations)
+         # only include image frames with sufficiently high correlation
+         min_shifts = np.nanmin(shifts[:, good_corr], axis=1).astype(int)
+@@ -760,7 +760,7 @@ class _MCImagingDataset(ImagingDataset):
+         array
+             The photon-to-intensity gains for each channel.
+         """
+-        corr_mean = np.nanmean(correlations)
++        corr_mean = nanmean(correlations)
+         corr_stdev = nanstd(correlations)
+         # Calculate displacements between consecutive images
+         diffs = np.diff(shifts, axis=1)
