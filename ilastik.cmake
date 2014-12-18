@@ -38,7 +38,7 @@ include (futures)
 include (qimage2ndarray)
 
 # select the desired ilastik commit
-set(DEFAULT_ILASTIK_VERSION 18026ae2efb9e9e04046598cd5fccca3a42bcdaa) # 2014-06-11
+set(DEFAULT_ILASTIK_VERSION 779685cc1e6b78b633fcd1737c5eae78e8b72ddb) # 2014-09-18
 IF(NOT DEFINED ILASTIK_VERSION)
     SET(ILASTIK_VERSION "${DEFAULT_ILASTIK_VERSION}")
 ENDIF()
