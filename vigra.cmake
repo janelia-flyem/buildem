@@ -92,7 +92,7 @@ ExternalProject_Add(${vigra_NAME}
 
         -DPYTHON_EXECUTABLE=${PYTHON_EXE}
         -DPYTHON_INCLUDE_PATH=${PYTHON_PREFIX}/include
-        -DPYTHON_LIBRARIES=${PYTHON_PREFIX}/lib/libpython.2.7.${BUILDEM_PLATFORM_DYLIB_EXTENSION}
+        -DPYTHON_LIBRARIES=${PYTHON_PREFIX}/lib/libpython2.7.${BUILDEM_PLATFORM_DYLIB_EXTENSION}
         -DPYTHON_NUMPY_INCLUDE_DIR=${PYTHON_PREFIX}/lib/python2.7/site-packages/numpy/core/include
         -DPYTHON_SPHINX=${PYTHON_PREFIX}/bin/sphinx-build
 
