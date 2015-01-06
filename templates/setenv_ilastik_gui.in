@@ -36,6 +36,8 @@ else
     export PYTHONPATH=$ILASTIK_PATH/lazyflow:$PYTHONPATH
     export PYTHONPATH=$ILASTIK_PATH/lazyflow/lazyflow/drtile:$PYTHONPATH
     export PYTHONPATH=$ILASTIK_PATH/volumina:$PYTHONPATH
+
+    export PYTHONPATH=$BUILDEM_DIR/src/nanshe-git:$PYTHONPATH
     
     export PATH=$PYTHON_PREFIX/bin:$PATH
     export PATH=$BUILDEM_DIR/bin:$PATH
