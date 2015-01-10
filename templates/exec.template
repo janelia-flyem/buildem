@@ -8,4 +8,4 @@ echo "BUILDEM_DIR: $BUILDEM_DIR"
 source $BUILDEM_DIR/bin/@SETENV_ILASTIK@.sh
 
 # No longer need this shell as we just wanted to set environment before executing the command.
-exec "$@"
+exec $@
