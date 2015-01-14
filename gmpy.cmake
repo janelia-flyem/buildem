@@ -19,9 +19,9 @@ include (mpc)
 
 
 external_source (gmpy
-    2.0.3
-    gmpy2-2.0.3.zip
-    63f367b4dceb20dcd72c143e7c9a8632
+    2.0.5
+    gmpy2-2.0.5.zip
+    95f008bcab6372164358123f43e3f490
     http://pypi.python.org/packages/source/g/gmpy2/)
 
 
