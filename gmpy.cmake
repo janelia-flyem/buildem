@@ -22,8 +22,7 @@ external_source (gmpy
     2.0.3
     gmpy2-2.0.3.zip
     63f367b4dceb20dcd72c143e7c9a8632
-    http://pypi.python.org/packages/source/g/gmpy2/
-    FORCE)
+    http://pypi.python.org/packages/source/g/gmpy2/)
 
 
 message ("Installing ${gmpy_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
