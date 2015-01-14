@@ -15,8 +15,7 @@ external_source (ann
     1.1.2
     ann_1.1.2.tar.gz
     7ffaacc7ea79ca39d4958a6378071365
-    http://www.cs.umd.edu/~mount/ANN/Files/1.1.2/
-    FORCE)
+    http://www.cs.umd.edu/~mount/ANN/Files/1.1.2/)
 
 message ("Installing ${ann_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${ann_NAME}
