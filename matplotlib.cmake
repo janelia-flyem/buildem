@@ -27,18 +27,16 @@ include (libpng)
 include (freetype2)
 include (tornado)
 
-external_source (matplotlib
-    1.4.2
-    matplotlib-1.4.2.tar.gz
-    7d22efb6cce475025733c50487bd8898
-    http://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.4.2)
+external_git_repo(matplotlib
+        1.4.2 # 3a828ddb7df3bc597254f875cbbac6aadf48aee0
+        https://github.com/matplotlib/matplotlib)
 
 message ("Installing ${matplotlib_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${matplotlib_NAME}
     DEPENDS             ${python_NAME} ${pyqt4} ${six_NAME} ${setuptools_NAME} ${pytz_NAME} ${python-dateutil_NAME} ${pyparsing_NAME} ${numpy_NAME} ${libpng_NAME} ${freetype2_NAME} ${tornado_NAME}
     PREFIX              ${BUILDEM_DIR}
-    URL                 ${matplotlib_URL}
-    URL_MD5             ${matplotlib_MD5}
+    GIT_REPOSITORY      ${matplotlib_URL}
+    GIT_TAG             ${matplotlib_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${TEMPLATE_EXE}
         ${TEMPLATE_DIR}/matplotlib-setup-cfg.template
