@@ -28,10 +28,10 @@ include (freetype2)
 include (tornado)
 
 external_source (matplotlib
-    1.1.1
-    matplotlib-1.1.1.tar.gz
-    8cbeaae8ba9da703d926e74c3e7c8a57
-    http://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.1.1)
+    1.4.2
+    matplotlib-1.4.2.tar.gz
+    7d22efb6cce475025733c50487bd8898
+    http://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.4.2)
 
 message ("Installing ${matplotlib_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${matplotlib_NAME}
