@@ -16,11 +16,9 @@ include (setuptools)
 include (cython)
 include (numpy)
 
-external_source (shapely
-    1.4.3
-    Shapely-1.4.3.tar.gz
-    0b152ead7004cb359a1d5430e0eb94ca
-    http://pypi.python.org/packages/source/S/Shapely/)
+external_git_repo(shapely
+        1.4.3 # 53424e60ba8b83bbdce84a8e238b201b83c53a7d
+        https://github.com/Toblerity/Shapely)
 
 
 # Download and install shapely
@@ -29,8 +27,8 @@ message ("Installing ${shapely_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${shapely_NAME}
     DEPENDS             ${python_NAME} ${setuptools_NAME} ${cython_NAME} ${numpy_NAME} ${geos_NAME}
     PREFIX              ${BUILDEM_DIR}
-    URL                 ${shapely_URL}
-    URL_MD5             ${shapely_MD5}
+    GIT_REPOSITORY      ${shapely_URL}
+    GIT_TAG             ${shapely_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
