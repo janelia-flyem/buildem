@@ -21,7 +21,7 @@ include (jinja)
 
 
 external_git_repo(ipython
-	rel-1.2.1 #9c4f59ddd54d797072d28d2d5549bc5ea234216d
+	rel-2.1.0 #681fd77d0aa43f0b2648674ce3da9185021c0e3d
 	https://github.com/ipython/ipython/)
 
 message ("Installing ${ipython_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
