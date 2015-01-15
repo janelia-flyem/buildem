@@ -12,19 +12,16 @@ include (BuildSupport)
 
 include (python)
 
-external_source (psutil
-	2.1.1
-	psutil-2.1.1.tar.gz
-	72a6b15d589fab11f6ca245b775bc3c6
-	https://pypi.python.org/packages/source/p/psutil
-)
+external_git_repo(psutil
+        release-2.1.1 # 50bd135bbbd17c970afc4882b0829900e3d9bb4c
+        https://github.com/giampaolo/psutil)
 
 message ("Installing ${psutil_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${psutil_NAME}
     DEPENDS             ${python_NAME}
     PREFIX              ${BUILDEM_DIR}
-    URL                 ${psutil_URL}
-    URL_MD5             ${psutil_MD5}
+    GIT_REPOSITORY      ${psutil_URL}
+    GIT_TAG             ${psutil_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
