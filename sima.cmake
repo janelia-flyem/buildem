@@ -20,11 +20,9 @@ include (h5py)
 include (opencv)
 
 
-external_source (sima
-    0.3.1
-    sima-0.3.1.tar.gz
-    5910ea2c8c1bbcd7deb001ce64a5a9f4
-    http://pypi.python.org/packages/source/s/sima/)
+external_git_repo(sima
+        0.3.1 # 5d700e518dc78aa6d478357d80dcc603b67cf3ff
+        https://github.com/losonczylab/sima)
 
 
 # Download and install sima
@@ -33,8 +31,8 @@ message ("Installing ${sima_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${sima_NAME}
     DEPENDS             ${python_NAME} ${numpy_NAME} ${scipy_NAME} ${matplotlib_NAME} ${scikit-image_NAME} ${shapely_NAME} ${h5py_NAME} ${opencv_NAME}
     PREFIX              ${BUILDEM_DIR}
-    URL                 ${sima_URL}
-    URL_MD5             ${sima_MD5}
+    GIT_REPOSITORY      ${sima_URL}
+    GIT_TAG             ${sima_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
                         # Turns off test that is known failure on Mac.
