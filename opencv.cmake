@@ -43,8 +43,8 @@ ExternalProject_Add(${opencv_NAME}
         -DCMAKE_INSTALL_PREFIX=${BUILDEM_DIR}
         -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
         "-DCMAKE_CXX_FLAGS=${BUILDEM_ADDITIONAL_CXX_FLAGS} -liconv -L${BUILDEM_LIB_DIR} -lswresample"
-        BUILD_COMMAND           ${BUILDEM_ENV_STRING} $(MAKE)
-#    TEST_COMMAND        ${BUILDEM_ENV_STRING} $(MAKE) check
+    BUILD_COMMAND           ${BUILDEM_ENV_STRING} $(MAKE)
+#    TEST_COMMAND            ${BUILDEM_ENV_STRING} $(MAKE) check
     INSTALL_COMMAND         ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
