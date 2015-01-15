@@ -28,7 +28,7 @@ message ("Installing ${ipython_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${ipython_NAME}
     DEPENDS             ${python_NAME} ${sphinxcontrib-napoleon_NAME} ${pyzmq_NAME} ${nose_NAME} ${pygments_NAME} ${tornado_NAME} ${jinja_NAME}
     PREFIX              ${BUILDEM_DIR}
-    GIT_REPOSITORY	${ipython_URL}
+    GIT_REPOSITORY      ${ipython_URL}
     GIT_TAG             ${ipython_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
