@@ -15,8 +15,7 @@ external_source (dlib
     18.3
     dlib-18.3.tar.bz2
     1ad26ec7bddccf8a605e1edfd0620c65
-    http://downloads.sourceforge.net/project/dclib/dlib/v18.3
-    FORCE)
+    http://downloads.sourceforge.net/project/dclib/dlib/v18.3)
 
 message ("Installing ${dlib_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${dlib_NAME}
