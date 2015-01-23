@@ -14,6 +14,7 @@ include (scipy-stack)
 include (ilastik)
 include (spams-python)
 include (rank_filter)
+include (cloud_sptheme)
 
 
 external_git_repo(nanshe
@@ -25,7 +26,7 @@ external_git_repo(nanshe
 message ("Installing ${nanshe_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
 ExternalProject_Add(${nanshe_NAME}
-    DEPENDS             ${pip_NAME} ${scipy-stack_NAME} ${ilastik_NAME} ${spams-python_NAME} ${rank_filter_NAME}
+    DEPENDS             ${pip_NAME} ${scipy-stack_NAME} ${ilastik_NAME} ${spams-python_NAME} ${rank_filter_NAME} ${cloud_sptheme_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${nanshe_URL}
     GIT_TAG             ${nanshe_TAG}
