@@ -17,7 +17,6 @@ external_source (psutil
 	psutil-2.1.1.tar.gz
 	72a6b15d589fab11f6ca245b775bc3c6
 	https://pypi.python.org/packages/source/p/psutil
-	FORCE
 )
 
 message ("Installing ${psutil_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")

@@ -1,0 +1,54 @@
+diff --git a/setup.py b/setup.py
+index 2307122..64570f2 100644
+--- a/setup.py
++++ b/setup.py
+@@ -7,31 +7,29 @@ import numpy
+ # includes numpy : package numpy.distutils , numpy.get_include()
+ # python setup.py build --inplace
+ # python setup.py install --prefix=dist, 
+-incs = ['.'] + map(lambda x: os.path.join('spams',x),[ 'linalg', 'prox', 'decomp', 'dictLearn']) + [numpy.get_include()] + ['/usr/include/python2.7/']
++incs = ['.'] + map(lambda x: os.path.join('spams',x),[ 'linalg', 'prox', 'decomp', 'dictLearn']) + [numpy.get_include()]
+ 
+ osname = distutils.util.get_platform()
+-cc_flags = ['-fPIC', '-fopenmp']
+-link_flags = ['-fopenmp', '-s' ]
+-libs = ['stdc++', 'blas', 'lapack' ]
+-libdirs = []
+ 
+-if osname.startswith("macosx"):
+-    cc_flags = ['-fPIC', '-fopenmp','-m32']
+-    link_flags = ['-m32', '-framework', 'Python']
++buildem_dir = os.environ["BUILDEM_DIR"]
++cc_flags = ['-fPIC', '-fopenmp', '-Wunused-variable', '-m64']
++link_flags = ['-fopenmp']
++
++libs = ['stdc++', 'blas', 'lapack', 'gomp']
+ 
+-if osname.startswith("win32"):
+-    cc_flags = ['-fPIC', '-fopenmp','-DWIN32']
+-    link_flags = ['-fopenmp', '-mwindows']
+-    path = os.environ['PATH']
+-    os.environ['PATH'] = 'C:/MinGW/bin;' + path
+-    libs = ['stdc++', 'Rblas', 'Rlapack' ]
+-    libdirs = ['C:/Program Files/R/R-2.15.1/bin/i386']
++libdirs = [os.path.join(buildem_dir, 'lib')]
++
++# What's the point of a standarized build system if we are just going to route around it.
++if osname.startswith("macosx"):
++    cc_flags += ["-F" + os.path.join(buildem_dir, "Frameworks")]
++    link_flags = ["-F" + os.path.join(buildem_dir, "Frameworks"), '-framework', 'Python']
++elif osname.startswith("win"):
++    # Assuming MinGW system.
++    # Don't mess with path as we have ideally set it the right way already.
++    # Don't use R for BLAS as we have built BLAS already.
++    cc_flags += ['-DWIN32']
++    link_flags += ['-mwindows']
+ 
+-if osname.startswith("win-amd64"):
+-    cc_flags = ['-openmp', '-EHsc', '-DWIN32', '-DCYGWIN', '-DWINDOWS', '-I','C:/Program Files (x86)/Microsoft Visual Studio 9.0/VC/include']
+-    link_flags = []
+-    libs = [ 'Rblas', 'Rlapack' ]
+-    libdirs = ['C:/Program Files (x86)/Microsoft Visual Studio 9.0/VC/lib/amd64','C:/Program Files/R/R-2.15.1/bin/x64']
+ 
+ 
+ ##path = os.environ['PATH']; print "XX OS %s, path %s" %(osname,path)

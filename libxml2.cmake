@@ -16,7 +16,6 @@ if (NOT libxml2_NAME)
     libxml2-2.9.1.tar.gz
     9c0cfef285d5c4a5c80d00904ddab380
     ftp://xmlsoft.org/libxml2
-    FORCE
     )
 
 

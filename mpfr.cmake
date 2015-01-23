@@ -1,5 +1,6 @@
 #
-# Install mpfr from source
+# Install mpfr from source.
+# Provides additional multiple precision support.
 #
 
 if (NOT mpfr_NAME)
@@ -17,7 +18,7 @@ external_source (mpfr
     3.1.1
     mpfr-3.1.1.tar.gz
     769411e241a3f063ae1319eb5fac2462
-    http://www.mpfr.org/mpfr-current/)
+    ftp://ftp.gnu.org/gnu/mpfr/)
 
 message ("Installing ${mpfr_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${mpfr_NAME}
@@ -29,6 +30,7 @@ ExternalProject_Add(${mpfr_NAME}
     PATCH_COMMAND       ${BUILDEM_ENV_STRING} patch -N -Z -p1 < ${PATCH_DIR}/mpfr-3.1.1.patch
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${mpfr_SRC_DIR}/configure
         --prefix=${BUILDEM_DIR}
+        --with-gmp=${BUILDEM_DIR}   # Standard. See http://code.google.com/p/gmpy/wiki/InstallingGmpy2
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)

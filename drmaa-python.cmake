@@ -14,10 +14,10 @@ include (python)
 include (setuptools)
 
 external_source (drmaa-python
-    0.5
-    drmaa-0.5.tar.gz
-    04c7fa199a86ccf20d3b91c8705cb8be 
-    http://drmaa-python.googlecode.com/files/
+    v0.7.6
+    drmaa-0.7.6.tar.gz
+    3cb6dade683d0621fb14871ef1261f9b
+    https://pypi.python.org/packages/source/d/drmaa/drmaa-0.7.6.tar.gz
     )
 
 message ("Installing ${drmaa-python_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")

@@ -28,12 +28,14 @@ include (greenlet)
 include (cylemon)
 include (yapsy)
 include (pgmlink)
+include (scikit-image)
 include (scikit-learn)
 include (nose)
 include (faulthandler)
 include (jsonschema) # Required for the dvid extension.
 include (opengm)
 include (futures)
+include (qimage2ndarray)
 
 # select the desired ilastik commit
 set(DEFAULT_ILASTIK_VERSION 779685cc1e6b78b633fcd1737c5eae78e8b72ddb) # 2014-09-18
@@ -73,7 +75,7 @@ message ("Installing ${ilastik_NAME}/${ILASTIK_VERSION} into FlyEM build area: $
 
 set (ilastik_dependencies ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} ${nose_NAME} ${futures_NAME}
                           ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME} ${faulthandler_NAME}
-                          ${cylemon_NAME} ${scikit-learn_NAME} ${jsonschema_NAME} ${opengm_NAME} )
+                          ${cylemon_NAME} ${scikit-image_NAME} ${scikit-learn_NAME} ${jsonschema_NAME} ${opengm_NAME} ${qimage2ndarray_NAME})
 
 if (${build_pgmlink})
     # Tracking depends on pgmlink, which depends on CPLEX.
@@ -131,6 +133,10 @@ file(RELATIVE_PATH PYTHON_PREFIX_RELATIVE ${BUILDEM_DIR} ${PYTHON_PREFIX})
 # Add environment setting script
 set(SETENV_ILASTIK setenv_ilastik_gui)
 configure_file(${TEMPLATE_DIR}/${SETENV_ILASTIK}.in ${BUILDEM_DIR}/bin/${SETENV_ILASTIK}.sh @ONLY)
+
+# Create exec script for easy execution.
+set(SETENV_ILASTIK setenv_ilastik_gui)
+configure_file(${TEMPLATE_DIR}/exec.template ${BUILDEM_DIR}/bin/exec.sh @ONLY)
 
 # Add headless launch script
 set(LAUNCH_ILASTIK "ilastik/ilastik.py --headless")
