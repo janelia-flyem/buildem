@@ -16,7 +16,7 @@ external_source (psutil
 	2.1.1
 	psutil-2.1.1.tar.gz
 	72a6b15d589fab11f6ca245b775bc3c6
-	https://pypi.python.org/packages/source/p/psutil
+	http://pypi.python.org/packages/source/p/psutil
 	FORCE
 )
 
