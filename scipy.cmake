@@ -17,10 +17,10 @@ include (nose)
 include (blas)
 
 external_source (scipy
-    0.11.0
-    scipy-0.11.0.tar.gz
-    842c81d35fd63579c41a8ca21a2419b9
-    http://downloads.sourceforge.net/project/scipy/scipy/0.11.0/scipy-0.11.0.tar.gz)
+    0.14.0
+    scipy-0.14.0.tar.gz
+    d7c7f4ccf8b07b08d6fe49d5cd51f85d
+    https://pypi.python.org/packages/source/s/scipy)
 
 # Select FORTRAN ABI
 if (Fortran_COMPILER_NAME STREQUAL "gfortran")
