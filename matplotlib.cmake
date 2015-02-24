@@ -28,7 +28,7 @@ include (freetype2)
 include (tornado)
 
 external_git_repo(matplotlib
-        1.4.2 # 3a828ddb7df3bc597254f875cbbac6aadf48aee0
+        v1.4.2 # 3a828ddb7df3bc597254f875cbbac6aadf48aee0
         https://github.com/matplotlib/matplotlib)
 
 message ("Installing ${matplotlib_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
