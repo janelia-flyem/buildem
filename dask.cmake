@@ -9,6 +9,8 @@ include (ExternalSource)
 include (BuildSupport)
 
 include (python)
+include (psutil)
+include (numpy)
 include (dill)
 include (cytoolz)
 include (toolz)
@@ -22,7 +24,7 @@ external_git_repo(dask
 message ("Installing ${dask_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
 ExternalProject_Add(${dask_NAME}
-    DEPENDS             ${python_NAME} ${dill_NAME} ${cytoolz_NAME} ${toolz_NAME}
+    DEPENDS             ${python_NAME} ${psutil_NAME} ${numpy_NAME} ${dill_NAME} ${cytoolz_NAME} ${toolz_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY	${dask_URL}
     GIT_TAG             ${dask_TAG}
