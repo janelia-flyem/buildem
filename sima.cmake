@@ -11,6 +11,7 @@ include (ExternalSource)
 include (BuildSupport)
 
 include (python)
+include (cython)
 include (numpy)
 include (scipy)
 include (matplotlib)
@@ -29,7 +30,7 @@ external_git_repo(sima
 message ("Installing ${sima_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
 ExternalProject_Add(${sima_NAME}
-    DEPENDS             ${python_NAME} ${numpy_NAME} ${scipy_NAME} ${matplotlib_NAME} ${scikit-image_NAME} ${shapely_NAME} ${h5py_NAME} ${opencv_NAME}
+    DEPENDS             ${python_NAME} ${cython_NAME} ${numpy_NAME} ${scipy_NAME} ${matplotlib_NAME} ${scikit-image_NAME} ${shapely_NAME} ${h5py_NAME} ${opencv_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${sima_URL}
     GIT_TAG             ${sima_TAG}
