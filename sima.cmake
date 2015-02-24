@@ -36,7 +36,7 @@ ExternalProject_Add(${sima_NAME}
     GIT_TAG             ${sima_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
-                        # Turns off test that is known failure on Mac.
+                        # Patch to work around new numpy and scipy functions. Also, fix annoying version constraint.
                         ${sima_SRC_DIR}/sima/extract.py ${PATCH_DIR}/sima-extract.py.patch
                         ${sima_SRC_DIR}/sima/misc/__init__.py ${PATCH_DIR}/sima-misc-__init__.py.patch
                         ${sima_SRC_DIR}/sima/motion.py ${PATCH_DIR}/sima-motion.py.patch
