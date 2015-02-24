@@ -24,6 +24,7 @@ include (python-dateutil)
 include (pyparsing)
 include (numpy)
 include (libpng)
+include (ffmpeg)
 include (freetype2)
 include (nose)
 include (mock)
@@ -35,7 +36,7 @@ external_git_repo(matplotlib
 
 message ("Installing ${matplotlib_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${matplotlib_NAME}
-    DEPENDS             ${python_NAME} ${pyqt4} ${six_NAME} ${setuptools_NAME} ${pytz_NAME} ${python-dateutil_NAME} ${pyparsing_NAME} ${numpy_NAME} ${libpng_NAME} ${freetype2_NAME} ${nose_NAME} ${mock_NAME} ${tornado_NAME}
+    DEPENDS             ${python_NAME} ${pyqt4} ${six_NAME} ${setuptools_NAME} ${pytz_NAME} ${python-dateutil_NAME} ${pyparsing_NAME} ${numpy_NAME} ${libpng_NAME} ${ffmpeg_NAME} ${freetype2_NAME} ${nose_NAME} ${mock_NAME} ${tornado_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${matplotlib_URL}
     GIT_TAG             ${matplotlib_TAG}
