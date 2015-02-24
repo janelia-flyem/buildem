@@ -22,7 +22,7 @@ include (opencv)
 
 
 external_git_repo(sima
-        0.3.1 # 5d700e518dc78aa6d478357d80dcc603b67cf3ff
+        1.0.3 # e340a2cae1244a9d6359bb2aa124bbe467750c0d
         https://github.com/losonczylab/sima)
 
 
