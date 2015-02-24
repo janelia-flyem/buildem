@@ -10,11 +10,11 @@ include (ExternalProject)
 include (ExternalSource)
 include (BuildSupport)
 
-include (geos)
 include (python)
 include (setuptools)
 include (cython)
 include (numpy)
+include (geos)
 
 external_git_repo(shapely
         1.4.3 # 53424e60ba8b83bbdce84a8e238b201b83c53a7d
