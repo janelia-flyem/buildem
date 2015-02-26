@@ -1,0 +1,16 @@
+diff --git a/setup.py b/setup.py
+index 48c3bb6..a6904d5 100644
+--- a/setup.py
++++ b/setup.py
+@@ -48,8 +48,9 @@ except ImportError:
+     from distutils.command.build_ext import build_ext
+     sources = [os.path.join('pyfftw', 'pyfftw.c')]
+ 
+-include_dirs = ['include', numpy.get_include()]
+-library_dirs = []
++buildem_dir = os.environ["BUILDEM_DIR"]
++include_dirs = [os.path.join(buildem_dir, 'include'), 'include', numpy.get_include()]
++library_dirs = [os.path.join(buildem_dir, 'lib')]
+ package_data = {}
+ 
+ if get_platform() in ('win32', 'win-amd64'):
