@@ -29,7 +29,9 @@ ExternalProject_Add(${pyfftw_NAME}
     GIT_REPOSITORY      ${pyfftw_URL}
     GIT_TAG             ${pyfftw_TAG}
     UPDATE_COMMAND      ""
-    PATCH_COMMAND       
+    PATCH_COMMAND       ${BUILDEM_ENV_STRING} ${PATCH_EXE}
+                            # Patches PyFFTW to ensure that it uses includes and libraries from the right place.
+                            ${pyfftw_SRC_DIR}/setup.py ${PATCH_DIR}/pyfftw-setup.py.patch
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       BUILDEM_DIR=${BUILDEM_DIR} ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py build
     BUILD_IN_SOURCE     1
