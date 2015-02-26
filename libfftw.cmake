@@ -60,6 +60,30 @@ ExternalProject_Add_Step(${libfftw_NAME} singlefloat-install
     COMMAND cd ${libfftw_SRC_DIR}-build && ${BUILDEM_ENV_STRING} $(MAKE) install
 )
 
+# Configure long-double-precision
+ExternalProject_Add_Step(${libfftw_NAME} long-double-configure
+    DEPENDEES singlefloat-install
+    COMMAND cd ${libfftw_SRC_DIR}-build && ${BUILDEM_ENV_STRING} ${libfftw_SRC_DIR}/configure 
+        --prefix=${BUILDEM_DIR}
+        --enable-shared
+        --enable-threads
+        --enable-long-double  # This creates libfftw3l long-double-precision libraries INSTEAD OF the default double libraries.
+        "LDFLAGS=${BUILDEM_LDFLAGS} ${BUILDEM_ADDITIONAL_CXX_FLAGS}"
+        "CPPFLAGS=-I${BUILDEM_DIR}/include ${BUILDEM_ADDITIONAL_CXX_FLAGS}"
+)
+
+# build long-double-precision
+ExternalProject_Add_Step(${libfftw_NAME} long-double-build
+    DEPENDEES long-double-configure
+    COMMAND cd ${libfftw_SRC_DIR}-build && ${BUILDEM_ENV_STRING} $(MAKE)
+)
+
+# install long-double-precision
+ExternalProject_Add_Step(${libfftw_NAME} long-double-install
+    DEPENDEES long-double-build
+    COMMAND cd ${libfftw_SRC_DIR}-build && ${BUILDEM_ENV_STRING} $(MAKE) install
+)
+
 set_target_properties(${libfftw_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
 endif (NOT libfftw_NAME)
