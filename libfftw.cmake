@@ -26,6 +26,7 @@ ExternalProject_Add(${libfftw_NAME}
     CONFIGURE_COMMAND   ${BUILDEM_ENV_STRING} ${libfftw_SRC_DIR}/configure 
         --prefix=${BUILDEM_DIR}
         --enable-shared
+        --enable-threads
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
         BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
@@ -41,6 +42,7 @@ ExternalProject_Add_Step(${libfftw_NAME} singlefloat-configure
     COMMAND cd ${libfftw_SRC_DIR}-build && ${BUILDEM_ENV_STRING} ${libfftw_SRC_DIR}/configure 
         --prefix=${BUILDEM_DIR}
         --enable-shared
+        --enable-threads
         --enable-float  # This creates libfftw3f single-precision libraries INSTEAD OF the default double libraries.
         LDFLAGS=${BUILDEM_LDFLAGS}
         CPPFLAGS=-I${BUILDEM_DIR}/include
