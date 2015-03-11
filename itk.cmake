@@ -27,6 +27,7 @@ message ("Installing ${itk_NAME} into build area: ${BUILDEM_DIR} ...")
 
 # update paths if a new version of itk is used!
 set (itk_LIBPATH ${BUILDEM_DIR}/lib/itk-4.6)
+set (itk_CONFIG_DIR ${BUILDEM_DIR}/lib/cmake/ITK-4.6)
 include_directories (${BUILDEM_DIR}/include/itk-4.6)
 
 ##
