@@ -48,6 +48,7 @@ ExternalProject_Add(${itk_NAME}
         -DITK_BUILD_DEFAULT_MODULES=0
         -DBUILD_EXAMPLES=0
         -DITKGroup_Core=1
+        -DITKGroup_Segmentation=1
         -DModule_ITKConvolution=1
         -DModule_ITKEigen=1
     
