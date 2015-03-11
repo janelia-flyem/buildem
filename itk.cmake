@@ -21,7 +21,7 @@ external_source (itk
     4.6.1
     InsightToolkit-4.6.1.tar.gz
     2c84eae50ab2452cdad32aaadced3c37
-    http://superb-dca3.dl.sourceforge.net/project/itk/itk/4.6)
+    http://iweb.dl.sourceforge.net/project/itk/itk/4.6)
 
 message ("Installing ${itk_NAME} into build area: ${BUILDEM_DIR} ...")
 
