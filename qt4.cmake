@@ -63,6 +63,7 @@ ExternalProject_Add(${qt4_NAME}
         -nomake demos 
         -nomake docs
         -nomake translations 
+        -no-declarative # caused a build issue on Linux. easier to just disable for now.
         -no-multimedia 
         -no-webkit # Apparently clang segfaults when building webkit...
         -no-audio-backend 
