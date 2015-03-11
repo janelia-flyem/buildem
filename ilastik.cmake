@@ -34,6 +34,7 @@ include (faulthandler)
 include (jsonschema) # Required for the dvid extension.
 include (opengm)
 include (futures)
+include (iiboost)
 
 # select the desired ilastik commit
 set(DEFAULT_ILASTIK_VERSION 779685cc1e6b78b633fcd1737c5eae78e8b72ddb) # 2014-09-18
@@ -74,6 +75,11 @@ message ("Installing ${ilastik_NAME}/${ILASTIK_VERSION} into FlyEM build area: $
 set (ilastik_dependencies ${vigra_NAME} ${h5py_NAME} ${psutil_NAME} ${nose_NAME} ${futures_NAME}
                           ${blist_NAME} ${greenlet_NAME} ${yapsy_NAME} ${faulthandler_NAME}
                           ${cylemon_NAME} ${scikit-learn_NAME} ${jsonschema_NAME} ${opengm_NAME} )
+
+set(ILASTIK_BUILD_IIBOOST TRUE CACHE BOOL "Build support for the IIBoost synapse detection ilastik workflow.")
+if (ILASTIK_BUILD_IIBOOST)
+  set(ilastik_dependencies ${ilastik_dependencies} ${iiboost_NAME})
+endif()
 
 if (${build_pgmlink})
     # Tracking depends on pgmlink, which depends on CPLEX.
