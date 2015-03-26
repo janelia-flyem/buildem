@@ -12,9 +12,9 @@ include (BuildSupport)
 include (python)
 
 external_source (sphinx
-    1.2.2
-    Sphinx-1.2.2.tar.gz
-    3dc73ccaa8d0bfb2d62fb671b1f7e8a4
+    1.3.1
+    Sphinx-1.3.1.tar.gz
+    8786a194acf9673464c5455b11fd4332
     https://pypi.python.org/packages/source/S/Sphinx/)
 
 
