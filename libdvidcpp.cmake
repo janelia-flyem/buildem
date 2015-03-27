@@ -12,7 +12,7 @@ include (BuildSupport)
 include (cppnetlib)
 
 
-set(LIBDVID_VERSION 8d439ea629d5fe5de6ce1e522215018eb9b7eac3) # 2014-10-03
+set(LIBDVID_VERSION "df9ae21dc5ef24c8396e46c66e4d7db893376e93") # 2014-10-05
 
 external_git_repo (libdvidcpp
     ${LIBDVID_VERSION}
