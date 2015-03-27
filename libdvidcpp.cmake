@@ -12,7 +12,8 @@ include (BuildSupport)
 include (cppnetlib)
 
 
-set(LIBDVID_VERSION "df9ae21dc5ef24c8396e46c66e4d7db893376e93") # 2014-10-05
+set(DEFAULT_LIBDVID_VERSION "df9ae21dc5ef24c8396e46c66e4d7db893376e93") # 2014-10-05
+set(LIBDVID_VERSION "${DEFAULT_LIBDVID_VERSION}")
 
 external_git_repo (libdvidcpp
     ${LIBDVID_VERSION}
@@ -27,6 +28,7 @@ ExternalProject_Add(${libdvidcpp_NAME}
     DEPENDS             ${cppnetlib_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${libdvidcpp_URL}
+    GIT_TAG             ${libdvidcpp_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""       
     LIST_SEPARATOR      ^^
