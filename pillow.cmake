@@ -1,7 +1,7 @@
 # Python image library fork.
 
 
-if (NOT Pillow_NAME)
+if (NOT pillow_NAME)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
@@ -17,16 +17,16 @@ include (libtiff)
 include (freetype2)
 include (numpy)
 
-external_git_repo(Pillow
+external_git_repo(pillow
 	2.7.0 # 0f05eb287a223ce106848cd048cfcb45e9faa565
-	https://github.com/python-pillow/Pillow)
+	https://github.com/python-pillow/pillow)
 
-message ("Installing ${Pillow_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
-ExternalProject_Add(${Pillow_NAME}
+message ("Installing ${pillow_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
+ExternalProject_Add(${pillow_NAME}
     DEPENDS             ${python_NAME} ${zlib_NAME} ${libjpeg_NAME} ${libtiff_NAME} ${freetype2_NAME} ${numpy_NAME}
     PREFIX              ${BUILDEM_DIR}
-    GIT_REPOSITORY	${Pillow_URL}
-    GIT_TAG             ${Pillow_TAG}
+    GIT_REPOSITORY	${pillow_URL}
+    GIT_TAG             ${pillow_TAG}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
@@ -37,6 +37,6 @@ ExternalProject_Add(${Pillow_NAME}
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
 )
 
-set_target_properties(${Pillow_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
+set_target_properties(${pillow_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
-endif (NOT Pillow_NAME)
+endif (NOT pillow_NAME)
