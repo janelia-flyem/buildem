@@ -30,7 +30,8 @@ ExternalProject_Add(${Pillow_NAME}
     UPDATE_COMMAND      ""
     PATCH_COMMAND       ""
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py build --disable-tcl --disable-tk --disable-lcms --disable-webp --disable-webpmux --disable-jpeg2000
+    # It would be nice to ensure libraries we don't provide aren't used with these options, but they appear not to work.
+    BUILD_COMMAND       ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py build # --disable-tcl --disable-tk --disable-lcms --disable-webp --disable-webpmux --disable-jpeg2000
     BUILD_IN_SOURCE     1
     TEST_COMMAND        ""
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} ${PYTHON_EXE} setup.py install
