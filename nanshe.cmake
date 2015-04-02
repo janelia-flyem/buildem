@@ -16,6 +16,10 @@ include (spams-python)
 include (rank_filter)
 include (cloud_sptheme)
 include (pyfftw)
+include (sphinxcontrib-actdiag)
+include (sphinxcontrib-blockdiag)
+include (sphinxcontrib-nwdiag)
+include (sphinxcontrib-seqdiag)
 
 
 external_git_repo(nanshe
@@ -27,7 +31,7 @@ external_git_repo(nanshe
 message ("Installing ${nanshe_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 
 ExternalProject_Add(${nanshe_NAME}
-    DEPENDS             ${pip_NAME} ${scipy-stack_NAME} ${ilastik_NAME} ${spams-python_NAME} ${rank_filter_NAME} ${cloud_sptheme_NAME} ${pyfftw_NAME}
+    DEPENDS             ${pip_NAME} ${scipy-stack_NAME} ${ilastik_NAME} ${spams-python_NAME} ${rank_filter_NAME} ${cloud_sptheme_NAME} ${pyfftw_NAME} ${sphinxcontrib-actdiag_NAME} ${sphinxcontrib-blockdiag_NAME} ${sphinxcontrib-nwdiag_NAME} ${sphinxcontrib-seqdiag_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${nanshe_URL}
     GIT_TAG             ${nanshe_TAG}
