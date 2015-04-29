@@ -30,7 +30,7 @@ ExternalProject_Add(${jsoncpp_NAME}
         -DCMAKE_PREFIX_PATH=${BUILDEM_DIR}
         -DCMAKE_EXE_LINKER_FLAGS=${BUILDEM_LDFLAGS}
         -DDEPENDENCY_SEARCH_PREFIX=${BUILDEM_DIR}
-        -DCMAKE_CXX_FLAGS_RELEASE=-O3
+        -DJSONCPP_LIB_BUILD_SHARED=ON 
         -DCMAKE_CXX_FLAGS_DEBUG="${CMAKE_CXX_FLAGS_DEBUG}"
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE) 
     INSTALL_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE) install
@@ -38,7 +38,7 @@ ExternalProject_Add(${jsoncpp_NAME}
 
 set_target_properties(${jsoncpp_NAME} PROPERTIES EXCLUDE_FROM_ALL ON)
 
-set (json_LIB ${BUILDEM_DIR}/lib/libjsoncpp.a)
+set (json_LIB ${BUILDEM_DIR}/lib/libjsoncpp.so)
 set (json_INCLUDES ${BUILDEM_DIR}/include)
 
 message ("Including JSON include files from here: ${json_INCLUDES}")
