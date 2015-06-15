@@ -16,10 +16,10 @@ include (hdf5)
 include (numpy)
 
 external_source (h5py
-    2.1.3
-    h5py-2.1.3.tar.gz
-    afd3c14f763339e186dd9cd24eb2eb74
-    http://h5py.googlecode.com/files)
+    2.5.0
+    h5py-2.5.0.tar.gz
+    6e4301b5ad5da0d51b0a1e5ac19e3b74
+    https://pypi.python.org/packages/source/h/h5py)
 
 message ("Installing ${h5py_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${h5py_NAME}
