@@ -12,10 +12,10 @@ include (BuildSupport)
 include (PatchSupport)
 
 external_source (dlib
-    18.3
-    dlib-18.3.tar.bz2
-    1ad26ec7bddccf8a605e1edfd0620c65
-    http://downloads.sourceforge.net/project/dclib/dlib/v18.3
+    18.10
+    dlib-18.10.tar.bz2
+    ede77c5a1fb8c249b13987728424be74
+    http://downloads.sourceforge.net/project/dclib/dlib/v18.10
     FORCE)
 
 message ("Installing ${dlib_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
