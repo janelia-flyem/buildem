@@ -278,12 +278,25 @@ If the easy_install works, it is recommended to create a separate .cmake file si
  
 ## Troubleshooting
 
-It's a good idea to have a clean environment and "source" in environment variables as needed.  If you get errors during builds, examine your environment variables and make sure there aren't conflicts with already installed components that have higher priority.  Generally, we recommend minimal PATH, LD_LIBRARY_PATH, and PYTHONPATH environment variables.
+It's a good idea to have a clean environment and "source" in environment variables as needed.  If you get errors during builds, examine your environment variables and make sure there aren't conflicts with already installed components that have higher priority.  Generally, we recommend minimal `PATH`, `LD_LIBRARY_PATH`, and `PYTHONPATH` environment variables.
 
 Some original source repositories or tarballs require https, which may be a problem for operating systems like Scientific Linux due to absent certificates.  This issue can be sidestepped by using default non-https downloads, e.g., all downloads from janelia-flyem cache.
 
 Common build problems for individual components in the FlyEM Build System are documented in each component's CMake file.  If you see an error, check that file's comments.
 For example, cpu throttling is a common build issue when building Atlas from source, and in the atlas.cmake file, we have documented how to turn off cpu frequency adjustments that defeat Atlas tuning.
+
+## Using `gdb`
+
+When your BuildEM directory includes the `python` package, activating your BuildEM environment will prevent
+non-BuildEM binaries (such as `gdb`) from correctly loading the system's version of `libpython.so`.
+On Linux, this issue can be resolved via the `LD_PRELOAD` environment variable.
+Here's an example command-line for using `gdb`:
+
+```bash
+LD_PRELOAD=/lib64/libpython2.7.so gdb -ex 'set environ LD_PRELOAD' --args my-program-to-debug
+```
+
+**Hint:** To find the location of the correct `libpython2.7.so` file, open a fresh terminal (no BuildEM environment), and inspect the output of `ldd $(which gdb) | grep libpython`.
 
 ## Roadmap
 
