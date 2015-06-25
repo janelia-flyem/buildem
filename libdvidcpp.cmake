@@ -15,6 +15,7 @@ include (boost)
 include (lz4)
 include (jsoncpp)
 include (libcurl)
+include (numpy)
 
 
 set(DEFAULT_LIBDVID_VERSION "df9ae21dc5ef24c8396e46c66e4d7db893376e93") # 2014-10-05
@@ -32,7 +33,7 @@ set (LIBDVIDCPP_INCLUDE_DIRS ${BUILDEM_DIR}/include/libdvid)
 
 message ("Installing ${libdvidcpp_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 ExternalProject_Add(${libdvidcpp_NAME}
-    DEPENDS             ${libjpeg_NAME} ${libpng_NAME} ${libcurl_NAME} ${lz4_NAME} ${jsoncpp_NAME} ${boost_NAME}
+    DEPENDS             ${libjpeg_NAME} ${libpng_NAME} ${libcurl_NAME} ${lz4_NAME} ${jsoncpp_NAME} ${boost_NAME} ${numpy_NAME}
     PREFIX              ${BUILDEM_DIR}
     GIT_REPOSITORY      ${libdvidcpp_URL}
     GIT_TAG             ${libdvidcpp_TAG}
@@ -45,6 +46,8 @@ ExternalProject_Add(${libdvidcpp_NAME}
         -DCMAKE_EXE_LINKER_FLAGS=${BUILDEM_LDFLAGS}
         -DDEPENDENCY_SEARCH_PREFIX=${BUILDEM_DIR}
         -DBoost_INCLUDE_DIR=${BUILDEM_DIR}/include
+        -DBoost_LIBRARY_DIR=${BUILDEM_DIR}/lib
+        -DLIBDVID_WRAP_PYTHON=1
         -DCMAKE_CXX_FLAGS_RELEASE=-O3
         -DCMAKE_CXX_FLAGS_DEBUG="${CMAKE_CXX_FLAGS_DEBUG}"
     BUILD_COMMAND       ${BUILDEM_ENV_STRING} $(MAKE)
