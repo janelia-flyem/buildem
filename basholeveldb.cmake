@@ -13,7 +13,7 @@ include (BuildSupport)
 external_source (basholeveldb
     2.0.20
     basholeveldb-2.0.20.tar.gz
-    b83fb50eb3240a7a9c4d6fa58974a9c6)
+    c111f08e9fc1f474f93a4ecea56cf892)
 
 message ("Installing ${basholeveldb_NAME} into FlyEM build area: ${BUILDEM_DIR} ...")
 if (${APPLE})
