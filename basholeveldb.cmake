@@ -46,13 +46,13 @@ ExternalProject_Add(${basholeveldb_NAME}
     BUILD_COMMAND     ${BUILDEM_ENV_STRING} $(MAKE)
     BUILD_IN_SOURCE   1
     INSTALL_COMMAND   ${CMAKE_COMMAND} -E copy 
-        ${basholeveldb_SRC_DIR}/libleveldb.${LIBFILE}.${basholeveldb_RELEASE} ${BUILDEM_LIB_DIR}/libleveldb.${LIBFILE}
+        ${basholeveldb_SRC_DIR}/libleveldb.${LIBFILE}.1.9 ${BUILDEM_LIB_DIR}/libleveldb.${LIBFILE}
 )
 ExternalProject_add_step(${basholeveldb_NAME} install_lib_link
     DEPENDEES   install
     COMMAND     ${CMAKE_COMMAND} -E create_symlink 
         ${BUILDEM_LIB_DIR}/libleveldb.${LIBFILE} ${BUILDEM_LIB_DIR}/libleveldb.${LIBFILE}.1
-    COMMENT     "Created symbolic link for libleveldb.so.1 in ${BUILDEM_LIB_DIR}"
+    COMMENT     "Created symbolic link for libleveldb.${LIBFILE}.1 in ${BUILDEM_LIB_DIR}"
 )
 ExternalProject_add_step(${basholeveldb_NAME} install_includes
     DEPENDEES   build
