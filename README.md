@@ -1,3 +1,5 @@
+NOTE: This system has been archived in favor of better supported alternatives backed by commercial ventures, e.g., conda.  Some forks of this CMake-based approach may continue to be active.
+
 The BuildEM System [![Picture](https://raw.github.com/janelia-flyem/janelia-flyem.github.com/master/images/jfrc_grey_180x40.png)](http://www.janelia.org)
 ==================
 
